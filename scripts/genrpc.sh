@@ -39,11 +39,11 @@ rm -rf ${TARGET_DIR}/${SERVICE}/client
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # MacOS
     find ${RPC_CLIENT_DIR} -type f -name "*.go" -exec sed -i '' \
-        "s|live-server-rpc/app/${SERVICE}/pb/v1|github.com/hanyougame/live-proto/proto-gen-go/${SERVICE}/v1|g" \
+        "s|farms-rpc-server/app/${SERVICE}/pb/v1|github.com/QuantumShiftX/farms-proto/proto-gen-go/${SERVICE}/v1|g" \
         {} \;
 else
     # Linux
     find ${RPC_CLIENT_DIR} -type f -name "*.go" -exec sed -i \
-        "s|live-server-rpc/app/${SERVICE}/pb/v1|github.com/hanyougame/live-proto/proto-gen-go/${SERVICE}/v1|g" \
+        "s|farms-rpc-server/app/${SERVICE}/pb/v1|github.com/QuantumShiftX/farms-proto/proto-gen-go/${SERVICE}/v1|g" \
         {} \;
 fi

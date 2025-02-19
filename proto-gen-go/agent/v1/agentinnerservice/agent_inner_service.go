@@ -7,7 +7,7 @@ package agentinnerservice
 import (
 	"context"
 
-	"farms-rpc-server/app/agent/pb/v1"
+	"github.com/QuantumShiftX/farms-proto/proto-gen-go/agent/v1"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

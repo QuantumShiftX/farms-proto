@@ -7,7 +7,7 @@ package userservice
 import (
 	"context"
 
-	"farms-rpc-server/app/user/pb/v1"
+	"github.com/QuantumShiftX/farms-proto/proto-gen-go/user/v1"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
