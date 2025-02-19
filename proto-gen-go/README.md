@@ -4,9 +4,9 @@
 
 使用go get 安装
 ```shell
-go get github.com/QuantumShiftX/live-proto/proto-gen-go
+go get github.com/QuantumShiftX/farms-proto/proto-gen-go
 
-import "github.com/QuantumShiftX/live-proto/proto-gen-go/user/v1"
+import "github.com/QuantumShiftX/farms-proto/proto-gen-go/user/v1"
 ```
 
 
