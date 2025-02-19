@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package mqtt.v1;
+option go_package = "./pb/v1";
+
+
+
+message MqttReq{
+
+}
+message MqttReply{
+
+}

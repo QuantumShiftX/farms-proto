@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package manage.v1;
+option go_package = "./pb/v1";
+
+
+
+message ManageReq{
+
+}
+message ManageReply{
+
+}
+
+service ManageService {
+  rpc Test (ManageReq) returns (ManageReply) {}
+}
+
+
+service ManageInnerService {
+  rpc Test (ManageReq) returns (ManageReply) {}
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package user.v1;
+option go_package = "./pb/v1";
+
+
+
+message UserReq{
+
+}
+message UserReply{
+
+}
+
+
+service UserService {
+  rpc Test (UserReq) returns (UserReply) {}
+}
+
+service UserInnerService {
+  rpc Test (UserReq) returns (UserReply) {}
+}

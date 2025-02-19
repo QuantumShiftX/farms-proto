@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package agent.v1;
+option go_package = "./pb/v1";
+
+
+
+message AgentReq{
+
+}
+message AgentReply{
+
+}
+
+
+service AgentService {
+  rpc Test (AgentReq) returns (AgentReply) {}
+}
+
+service AgentInnerService {
+  rpc Test (AgentReq) returns (AgentReply) {}
+}

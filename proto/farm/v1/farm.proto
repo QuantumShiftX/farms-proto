@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package farm.v1;
+option go_package = "./pb/v1";
+
+
+
+message FarmReq{
+
+}
+message FarmReply{
+
+}
+
+service FarmService {
+  rpc Test (FarmReq) returns (FarmReply) {}
+}
+
+
+service FarmInnerService {
+  rpc Test (FarmReq) returns (FarmReply) {}
+}
