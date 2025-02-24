@@ -14,11 +14,19 @@ import (
 )
 
 type (
-	ManageReply = v1.ManageReply
-	ManageReq   = v1.ManageReq
+	CollectionRewards    = v1.CollectionRewards
+	DefaultVipInfoReply  = v1.DefaultVipInfoReply
+	DepositRewards       = v1.DepositRewards
+	ManageReply          = v1.ManageReply
+	ManageReq            = v1.ManageReq
+	RegistrationRewards  = v1.RegistrationRewards
+	SettingBaseInfoReply = v1.SettingBaseInfoReply
+	SettlementConfig     = v1.SettlementConfig
+	VipLevelDetail       = v1.VipLevelDetail
 
 	ManageInnerService interface {
-		Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
+		GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -32,7 +40,12 @@ func NewManageInnerService(cli zrpc.Client) ManageInnerService {
 	}
 }
 
-func (m *defaultManageInnerService) Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error) {
+func (m *defaultManageInnerService) GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
-	return client.Test(ctx, in, opts...)
+	return client.GetDefaultVipInfo(ctx, in, opts...)
+}
+
+func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetSettingBaseInfo(ctx, in, opts...)
 }

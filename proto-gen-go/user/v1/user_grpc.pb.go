@@ -19,101 +19,215 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_Test_FullMethodName = "/user.v1.UserService/Test"
+	UserAuthService_Register_FullMethodName  = "/user.v1.UserAuthService/Register"
+	UserAuthService_Login_FullMethodName     = "/user.v1.UserAuthService/Login"
+	UserAuthService_ForgotPwd_FullMethodName = "/user.v1.UserAuthService/ForgotPwd"
+	UserAuthService_LoginOut_FullMethodName  = "/user.v1.UserAuthService/LoginOut"
 )
 
-// UserServiceClient is the client API for UserService service.
+// UserAuthServiceClient is the client API for UserAuthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserServiceClient interface {
-	Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+type UserAuthServiceClient interface {
+	Register(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserReply, error)
+	Login(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserAuthResp, error)
+	ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
+	LoginOut(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
 }
 
-type userServiceClient struct {
+type userAuthServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
-	return &userServiceClient{cc}
+func NewUserAuthServiceClient(cc grpc.ClientConnInterface) UserAuthServiceClient {
+	return &userAuthServiceClient{cc}
 }
 
-func (c *userServiceClient) Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (c *userAuthServiceClient) Register(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
-	err := c.cc.Invoke(ctx, UserService_Test_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserAuthService_Register_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserServiceServer is the server API for UserService service.
-// All implementations must embed UnimplementedUserServiceServer
-// for forward compatibility.
-type UserServiceServer interface {
-	Test(context.Context, *UserReq) (*UserReply, error)
-	mustEmbedUnimplementedUserServiceServer()
+func (c *userAuthServiceClient) Login(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserAuthResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserAuthResp)
+	err := c.cc.Invoke(ctx, UserAuthService_Login_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-// UnimplementedUserServiceServer must be embedded to have
+func (c *userAuthServiceClient) ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserReply)
+	err := c.cc.Invoke(ctx, UserAuthService_ForgotPwd_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserReply)
+	err := c.cc.Invoke(ctx, UserAuthService_LoginOut_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserAuthServiceServer is the server API for UserAuthService service.
+// All implementations must embed UnimplementedUserAuthServiceServer
+// for forward compatibility.
+type UserAuthServiceServer interface {
+	Register(context.Context, *UserAuthReq) (*UserReply, error)
+	Login(context.Context, *UserAuthReq) (*UserAuthResp, error)
+	ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error)
+	LoginOut(context.Context, *UserReq) (*UserReply, error)
+	mustEmbedUnimplementedUserAuthServiceServer()
+}
+
+// UnimplementedUserAuthServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedUserServiceServer struct{}
+type UnimplementedUserAuthServiceServer struct{}
 
-func (UnimplementedUserServiceServer) Test(context.Context, *UserReq) (*UserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedUserAuthServiceServer) Register(context.Context, *UserAuthReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
-func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
+func (UnimplementedUserAuthServiceServer) Login(context.Context, *UserAuthReq) (*UserAuthResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUserAuthServiceServer) ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForgotPwd not implemented")
+}
+func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginOut not implemented")
+}
+func (UnimplementedUserAuthServiceServer) mustEmbedUnimplementedUserAuthServiceServer() {}
+func (UnimplementedUserAuthServiceServer) testEmbeddedByValue()                         {}
 
-// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserServiceServer will
+// UnsafeUserAuthServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserAuthServiceServer will
 // result in compilation errors.
-type UnsafeUserServiceServer interface {
-	mustEmbedUnimplementedUserServiceServer()
+type UnsafeUserAuthServiceServer interface {
+	mustEmbedUnimplementedUserAuthServiceServer()
 }
 
-func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
-	// If the following call pancis, it indicates UnimplementedUserServiceServer was
+func RegisterUserAuthServiceServer(s grpc.ServiceRegistrar, srv UserAuthServiceServer) {
+	// If the following call pancis, it indicates UnimplementedUserAuthServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&UserService_ServiceDesc, srv)
+	s.RegisterService(&UserAuthService_ServiceDesc, srv)
 }
 
-func _UserService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserAuthService_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserAuthReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServiceServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuthService_Register_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServiceServer).Register(ctx, req.(*UserAuthReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserAuthReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuthService_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServiceServer).Login(ctx, req.(*UserAuthReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuthService_ForgotPwd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForgotPasswordReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServiceServer).ForgotPwd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuthService_ForgotPwd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServiceServer).ForgotPwd(ctx, req.(*ForgotPasswordReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuthService_LoginOut_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Test(ctx, in)
+		return srv.(UserAuthServiceServer).LoginOut(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_Test_FullMethodName,
+		FullMethod: UserAuthService_LoginOut_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Test(ctx, req.(*UserReq))
+		return srv.(UserAuthServiceServer).LoginOut(ctx, req.(*UserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+// UserAuthService_ServiceDesc is the grpc.ServiceDesc for UserAuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.v1.UserService",
-	HandlerType: (*UserServiceServer)(nil),
+var UserAuthService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.v1.UserAuthService",
+	HandlerType: (*UserAuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _UserService_Test_Handler,
+			MethodName: "Register",
+			Handler:    _UserAuthService_Register_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _UserAuthService_Login_Handler,
+		},
+		{
+			MethodName: "ForgotPwd",
+			Handler:    _UserAuthService_ForgotPwd_Handler,
+		},
+		{
+			MethodName: "LoginOut",
+			Handler:    _UserAuthService_LoginOut_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -216,6 +330,108 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Test",
 			Handler:    _UserInnerService_Test_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "user/v1/user.proto",
+}
+
+const (
+	UserService_Test_FullMethodName = "/user.v1.UserService/Test"
+)
+
+// UserServiceClient is the client API for UserService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type UserServiceClient interface {
+	Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+}
+
+type userServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
+	return &userServiceClient{cc}
+}
+
+func (c *userServiceClient) Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserReply)
+	err := c.cc.Invoke(ctx, UserService_Test_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserServiceServer is the server API for UserService service.
+// All implementations must embed UnimplementedUserServiceServer
+// for forward compatibility.
+type UserServiceServer interface {
+	Test(context.Context, *UserReq) (*UserReply, error)
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+// UnimplementedUserServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedUserServiceServer struct{}
+
+func (UnimplementedUserServiceServer) Test(context.Context, *UserReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+}
+func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
+func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServiceServer will
+// result in compilation errors.
+type UnsafeUserServiceServer interface {
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
+	// If the following call pancis, it indicates UnimplementedUserServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&UserService_ServiceDesc, srv)
+}
+
+func _UserService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).Test(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_Test_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).Test(ctx, req.(*UserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var UserService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.v1.UserService",
+	HandlerType: (*UserServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Test",
+			Handler:    _UserService_Test_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -12,11 +12,76 @@ message ManageReply{
 
 }
 
+// VipLevel 代表 VIP 等级配置
+message VipLevelDetail {
+  int64 id = 1;                                // VIP 等级 ID
+  string level_name = 2;                       // 等级名称
+  int64 level_val = 3;                         // 等级值（通常表示该等级的编号）
+  int64 is_default_level = 4;                  // 是否为默认等级（1：是，2：否）
+  int64 growth_value = 5;                      // 达到该等级所需的成长值
+  int64 upgrade_reward_fertilizer_num = 6;     // 升级奖励的肥料数量
+  int64 upgrade_reward_tree_maturity_period = 7; // 奖励树的成熟周期（小时）
+  int64 upgrade_reward_tree_num = 8;           // 升级奖励的树木数量
+  string remarks = 9;                          // 等级的备注信息
+  int64 is_enabled = 10;                       // 等级是否启用（1：启用，2：禁用）
+}
+
+
 service ManageService {
   rpc Test (ManageReq) returns (ManageReply) {}
 }
 
 
+
+message DefaultVipInfoReply{
+  VipLevelDetail vip_info = 1;
+}
+
+// SettingBaseInfo 代表所有设置的配置，包括基础设置和返利设置
+message SettingBaseInfoReply {
+  // 基础设置
+  int64 initial_land = 1;          // 初始土地配置
+  int64 friend_watering_times = 2; // 好友浇水次数
+  string download_link = 3;        // 下载链接
+  int64 new_user_invitation = 4;   // 是否有新用户邀请
+  string about_platform = 5;       // 关于平台的描述
+
+  // 返利设置
+  RegistrationRewards registration_rewards = 6; // 注册奖励
+  DepositRewards deposit_rewards = 7;           // 存款奖励
+  CollectionRewards collection_rewards = 8;     // 收集奖励
+  SettlementConfig settlement_config = 9;       // 结算配置
+}
+
+// RegistrationRewards 代表注册奖励配置
+message RegistrationRewards {
+  int64 enabled = 1;      // 是否启用注册奖励（1-启用，2-禁用）
+  int64 land_reward = 2;  // 土地奖励数量
+  int64 max_rewards = 3;  // 最大奖励数量
+}
+
+// DepositRewards 代表存款奖励配置
+message DepositRewards {
+  int64 enabled = 1;          // 是否启用存款奖励（1-启用，2-禁用）
+  int64 level1_percentage = 2; // 等级1存款奖励百分比
+  int64 level2_percentage = 3; // 等级2存款奖励百分比
+}
+
+// CollectionRewards 代表收集奖励配置
+message CollectionRewards {
+  int64 enabled = 1;          // 是否启用收集奖励（1-启用，2-禁用）
+  int64 level1_percentage = 2; // 等级1收集奖励百分比
+  int64 level2_percentage = 3; // 等级2收集奖励百分比
+}
+
+// SettlementConfig 代表结算配置
+message SettlementConfig {
+  string settlement_time = 1; // 结算时间，格式为HH:mm:ss
+}
+
+
+
 service ManageInnerService {
-  rpc Test (ManageReq) returns (ManageReply) {}
+  rpc GetDefaultVipInfo (ManageReq) returns (DefaultVipInfoReply);
+  rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
 }

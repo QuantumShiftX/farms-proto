@@ -4,7 +4,6 @@ package user.v1;
 option go_package = "./pb/v1";
 
 
-
 message UserReq{
 
 }
@@ -13,10 +12,52 @@ message UserReply{
 }
 
 
-service UserService {
-  rpc Test (UserReq) returns (UserReply) {}
+
+
+message UserAuthReq {
+  string account = 1;                 // 账号
+  int64 verify_type = 2;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string password = 3;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
+  string confirm_password = 4;
+  string captcha = 5;                 // 验证码：暂定为6位数字
+  string language_code = 6;           // 语言code
+  string invite_code = 7;             // 推广邀请码
 }
+
+// UserAuthResp 用户认证响应
+message UserAuthResp {
+  string token = 1;        // 认证令牌
+  int64 expire_at = 2;     // 过期时间（时间戳）
+}
+
+
+// ForgotPasswordReq 忘记密码请求
+message ForgotPasswordReq {
+  int64 account = 1;       // 账号
+  int64 verify_type = 2;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string captcha = 3;      // 验证码
+  string password = 4;     // 新密码（最大100个字符）
+
+}
+
+
+service UserAuthService {
+  rpc Register (UserAuthReq) returns (UserReply) {}
+  rpc Login (UserAuthReq) returns (UserAuthResp) {}
+  rpc ForgotPwd (ForgotPasswordReq) returns (UserReply) {}
+  rpc LoginOut (UserReq) returns (UserReply) {}
+}
+
+
+
 
 service UserInnerService {
   rpc Test (UserReq) returns (UserReply) {}
+}
+
+
+
+service UserService {
+  rpc Test (UserReq) returns (UserReply) {}
+
 }

@@ -121,14 +121,16 @@ var ManageService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	ManageInnerService_Test_FullMethodName = "/manage.v1.ManageInnerService/Test"
+	ManageInnerService_GetDefaultVipInfo_FullMethodName  = "/manage.v1.ManageInnerService/GetDefaultVipInfo"
+	ManageInnerService_GetSettingBaseInfo_FullMethodName = "/manage.v1.ManageInnerService/GetSettingBaseInfo"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManageInnerServiceClient interface {
-	Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
+	GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -139,10 +141,20 @@ func NewManageInnerServiceClient(cc grpc.ClientConnInterface) ManageInnerService
 	return &manageInnerServiceClient{cc}
 }
 
-func (c *manageInnerServiceClient) Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error) {
+func (c *manageInnerServiceClient) GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ManageReply)
-	err := c.cc.Invoke(ctx, ManageInnerService_Test_FullMethodName, in, out, cOpts...)
+	out := new(DefaultVipInfoReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetDefaultVipInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *manageInnerServiceClient) GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SettingBaseInfoReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetSettingBaseInfo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +165,8 @@ func (c *manageInnerServiceClient) Test(ctx context.Context, in *ManageReq, opts
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility.
 type ManageInnerServiceServer interface {
-	Test(context.Context, *ManageReq) (*ManageReply, error)
+	GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error)
+	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -164,8 +177,11 @@ type ManageInnerServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedManageInnerServiceServer struct{}
 
-func (UnimplementedManageInnerServiceServer) Test(context.Context, *ManageReq) (*ManageReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedManageInnerServiceServer) GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDefaultVipInfo not implemented")
+}
+func (UnimplementedManageInnerServiceServer) GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSettingBaseInfo not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 func (UnimplementedManageInnerServiceServer) testEmbeddedByValue()                            {}
@@ -188,20 +204,38 @@ func RegisterManageInnerServiceServer(s grpc.ServiceRegistrar, srv ManageInnerSe
 	s.RegisterService(&ManageInnerService_ServiceDesc, srv)
 }
 
-func _ManageInnerService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ManageInnerService_GetDefaultVipInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ManageReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManageInnerServiceServer).Test(ctx, in)
+		return srv.(ManageInnerServiceServer).GetDefaultVipInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ManageInnerService_Test_FullMethodName,
+		FullMethod: ManageInnerService_GetDefaultVipInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageInnerServiceServer).Test(ctx, req.(*ManageReq))
+		return srv.(ManageInnerServiceServer).GetDefaultVipInfo(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManageInnerService_GetSettingBaseInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ManageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).GetSettingBaseInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_GetSettingBaseInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).GetSettingBaseInfo(ctx, req.(*ManageReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -214,8 +248,12 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ManageInnerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _ManageInnerService_Test_Handler,
+			MethodName: "GetDefaultVipInfo",
+			Handler:    _ManageInnerService_GetDefaultVipInfo_Handler,
+		},
+		{
+			MethodName: "GetSettingBaseInfo",
+			Handler:    _ManageInnerService_GetSettingBaseInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

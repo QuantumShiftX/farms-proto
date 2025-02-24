@@ -14,8 +14,15 @@ import (
 )
 
 type (
-	ManageReply = v1.ManageReply
-	ManageReq   = v1.ManageReq
+	CollectionRewards    = v1.CollectionRewards
+	DefaultVipInfoReply  = v1.DefaultVipInfoReply
+	DepositRewards       = v1.DepositRewards
+	ManageReply          = v1.ManageReply
+	ManageReq            = v1.ManageReq
+	RegistrationRewards  = v1.RegistrationRewards
+	SettingBaseInfoReply = v1.SettingBaseInfoReply
+	SettlementConfig     = v1.SettlementConfig
+	VipLevelDetail       = v1.VipLevelDetail
 
 	ManageService interface {
 		Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
