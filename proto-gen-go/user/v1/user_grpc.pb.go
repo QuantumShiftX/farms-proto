@@ -34,7 +34,7 @@ type UserAuthServiceClient interface {
 	Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 	ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
 	VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error)
-	LoginOut(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+	LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
 }
 
 type userAuthServiceClient struct {
@@ -85,7 +85,7 @@ func (c *userAuthServiceClient) VerifyAccount(ctx context.Context, in *VerifyAcc
 	return out, nil
 }
 
-func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
 	err := c.cc.Invoke(ctx, UserAuthService_LoginOut_FullMethodName, in, out, cOpts...)
@@ -103,7 +103,7 @@ type UserAuthServiceServer interface {
 	Login(context.Context, *UserLoginReq) (*UserLoginResp, error)
 	ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error)
 	VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error)
-	LoginOut(context.Context, *UserReq) (*UserReply, error)
+	LoginOut(context.Context, *UserIdReq) (*UserReply, error)
 	mustEmbedUnimplementedUserAuthServiceServer()
 }
 
@@ -126,7 +126,7 @@ func (UnimplementedUserAuthServiceServer) ForgotPwd(context.Context, *ForgotPass
 func (UnimplementedUserAuthServiceServer) VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyAccount not implemented")
 }
-func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserReq) (*UserReply, error) {
+func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserIdReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginOut not implemented")
 }
 func (UnimplementedUserAuthServiceServer) mustEmbedUnimplementedUserAuthServiceServer() {}
@@ -223,7 +223,7 @@ func _UserAuthService_VerifyAccount_Handler(srv interface{}, ctx context.Context
 }
 
 func _UserAuthService_LoginOut_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserReq)
+	in := new(UserIdReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func _UserAuthService_LoginOut_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: UserAuthService_LoginOut_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAuthServiceServer).LoginOut(ctx, req.(*UserReq))
+		return srv.(UserAuthServiceServer).LoginOut(ctx, req.(*UserIdReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -273,14 +273,18 @@ var UserAuthService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserInnerService_Test_FullMethodName = "/user.v1.UserInnerService/Test"
+	UserInnerService_UserConnected_FullMethodName      = "/user.v1.UserInnerService/UserConnected"
+	UserInnerService_UserDisconnected_FullMethodName   = "/user.v1.UserInnerService/UserDisconnected"
+	UserInnerService_UserAuthentication_FullMethodName = "/user.v1.UserInnerService/UserAuthentication"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserInnerServiceClient interface {
-	Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+	UserConnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+	UserDisconnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+	UserAuthentication(ctx context.Context, in *UserAuthenticationReq, opts ...grpc.CallOption) (*UserAuthenticationReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -291,10 +295,30 @@ func NewUserInnerServiceClient(cc grpc.ClientConnInterface) UserInnerServiceClie
 	return &userInnerServiceClient{cc}
 }
 
-func (c *userInnerServiceClient) Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (c *userInnerServiceClient) UserConnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
-	err := c.cc.Invoke(ctx, UserInnerService_Test_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserInnerService_UserConnected_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserDisconnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserDisconnected_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *UserAuthenticationReq, opts ...grpc.CallOption) (*UserAuthenticationReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserAuthenticationReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserAuthentication_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +329,9 @@ func (c *userInnerServiceClient) Test(ctx context.Context, in *UserReq, opts ...
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility.
 type UserInnerServiceServer interface {
-	Test(context.Context, *UserReq) (*UserReply, error)
+	UserConnected(context.Context, *UserIdReq) (*UserReply, error)
+	UserDisconnected(context.Context, *UserIdReq) (*UserReply, error)
+	UserAuthentication(context.Context, *UserAuthenticationReq) (*UserAuthenticationReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -316,8 +342,14 @@ type UserInnerServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserInnerServiceServer struct{}
 
-func (UnimplementedUserInnerServiceServer) Test(context.Context, *UserReq) (*UserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedUserInnerServiceServer) UserConnected(context.Context, *UserIdReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserConnected not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserDisconnected(context.Context, *UserIdReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDisconnected not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *UserAuthenticationReq) (*UserAuthenticationReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserAuthentication not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 func (UnimplementedUserInnerServiceServer) testEmbeddedByValue()                          {}
@@ -340,20 +372,56 @@ func RegisterUserInnerServiceServer(s grpc.ServiceRegistrar, srv UserInnerServic
 	s.RegisterService(&UserInnerService_ServiceDesc, srv)
 }
 
-func _UserInnerService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserReq)
+func _UserInnerService_UserConnected_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserIdReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserInnerServiceServer).Test(ctx, in)
+		return srv.(UserInnerServiceServer).UserConnected(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserInnerService_Test_FullMethodName,
+		FullMethod: UserInnerService_UserConnected_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).Test(ctx, req.(*UserReq))
+		return srv.(UserInnerServiceServer).UserConnected(ctx, req.(*UserIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserDisconnected_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserDisconnected(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserDisconnected_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserDisconnected(ctx, req.(*UserIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserAuthentication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserAuthenticationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserAuthentication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserAuthentication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserAuthentication(ctx, req.(*UserAuthenticationReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -366,8 +434,16 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserInnerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _UserInnerService_Test_Handler,
+			MethodName: "UserConnected",
+			Handler:    _UserInnerService_UserConnected_Handler,
+		},
+		{
+			MethodName: "UserDisconnected",
+			Handler:    _UserInnerService_UserDisconnected_Handler,
+		},
+		{
+			MethodName: "UserAuthentication",
+			Handler:    _UserInnerService_UserAuthentication_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

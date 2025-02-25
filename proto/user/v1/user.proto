@@ -46,8 +46,9 @@ message UserRegisterReq {
 message UserLoginReq {
   RequestClientInfo client_info = 1;
   string account = 2;                 // 账号
-  int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
-  string password = 4;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
+  int64 login_type = 3;              // 登录方式：1-用户名，2-手机，3-邮箱，4-其他
+  int64 verify_type = 4;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string password = 5;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
 }
 
 
@@ -76,20 +77,33 @@ message VerifyAccountReq {
   string captcha = 4;      // 验证码
 }
 
+message UserIdReq {
+  RequestClientInfo client_info = 1;
+  int64 user_id = 2;
+}
 
 service UserAuthService {
   rpc Register (UserRegisterReq) returns (UserReply) {}
   rpc Login (UserLoginReq) returns (UserLoginResp) {}
   rpc ForgotPwd (ForgotPasswordReq) returns (UserReply) {}
   rpc VerifyAccount (VerifyAccountReq) returns (UserReply);
-  rpc LoginOut (UserReq) returns (UserReply) {}
+  rpc LoginOut (UserIdReq) returns (UserReply) {}
 }
 
 
+message UserAuthenticationReq {
+  RequestClientInfo client_info = 1;
+  string token = 2;
+}
+message UserAuthenticationReply {
+  int64 user_id = 1;
+}
 
 
 service UserInnerService {
-  rpc Test (UserReq) returns (UserReply) {}
+  rpc UserConnected (UserIdReq) returns (UserReply) {}
+  rpc UserDisconnected (UserIdReq) returns (UserReply) {}
+  rpc UserAuthentication (UserAuthenticationReq) returns (UserAuthenticationReply);
 }
 
 

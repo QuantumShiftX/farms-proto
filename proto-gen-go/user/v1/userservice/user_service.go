@@ -14,14 +14,17 @@ import (
 )
 
 type (
-	ForgotPasswordReq = v1.ForgotPasswordReq
-	RequestClientInfo = v1.RequestClientInfo
-	UserLoginReq      = v1.UserLoginReq
-	UserLoginResp     = v1.UserLoginResp
-	UserRegisterReq   = v1.UserRegisterReq
-	UserReply         = v1.UserReply
-	UserReq           = v1.UserReq
-	VerifyAccountReq  = v1.VerifyAccountReq
+	ForgotPasswordReq       = v1.ForgotPasswordReq
+	RequestClientInfo       = v1.RequestClientInfo
+	UserAuthenticationReply = v1.UserAuthenticationReply
+	UserAuthenticationReq   = v1.UserAuthenticationReq
+	UserIdReq               = v1.UserIdReq
+	UserLoginReq            = v1.UserLoginReq
+	UserLoginResp           = v1.UserLoginResp
+	UserRegisterReq         = v1.UserRegisterReq
+	UserReply               = v1.UserReply
+	UserReq                 = v1.UserReq
+	VerifyAccountReq        = v1.VerifyAccountReq
 
 	UserService interface {
 		Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)

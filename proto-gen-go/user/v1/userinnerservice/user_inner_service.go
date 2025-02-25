@@ -14,17 +14,22 @@ import (
 )
 
 type (
-	ForgotPasswordReq = v1.ForgotPasswordReq
-	RequestClientInfo = v1.RequestClientInfo
-	UserLoginReq      = v1.UserLoginReq
-	UserLoginResp     = v1.UserLoginResp
-	UserRegisterReq   = v1.UserRegisterReq
-	UserReply         = v1.UserReply
-	UserReq           = v1.UserReq
-	VerifyAccountReq  = v1.VerifyAccountReq
+	ForgotPasswordReq       = v1.ForgotPasswordReq
+	RequestClientInfo       = v1.RequestClientInfo
+	UserAuthenticationReply = v1.UserAuthenticationReply
+	UserAuthenticationReq   = v1.UserAuthenticationReq
+	UserIdReq               = v1.UserIdReq
+	UserLoginReq            = v1.UserLoginReq
+	UserLoginResp           = v1.UserLoginResp
+	UserRegisterReq         = v1.UserRegisterReq
+	UserReply               = v1.UserReply
+	UserReq                 = v1.UserReq
+	VerifyAccountReq        = v1.VerifyAccountReq
 
 	UserInnerService interface {
-		Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+		UserConnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+		UserDisconnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+		UserAuthentication(ctx context.Context, in *UserAuthenticationReq, opts ...grpc.CallOption) (*UserAuthenticationReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -38,7 +43,17 @@ func NewUserInnerService(cli zrpc.Client) UserInnerService {
 	}
 }
 
-func (m *defaultUserInnerService) Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (m *defaultUserInnerService) UserConnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.Test(ctx, in, opts...)
+	return client.UserConnected(ctx, in, opts...)
+}
+
+func (m *defaultUserInnerService) UserDisconnected(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserDisconnected(ctx, in, opts...)
+}
+
+func (m *defaultUserInnerService) UserAuthentication(ctx context.Context, in *UserAuthenticationReq, opts ...grpc.CallOption) (*UserAuthenticationReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserAuthentication(ctx, in, opts...)
 }
