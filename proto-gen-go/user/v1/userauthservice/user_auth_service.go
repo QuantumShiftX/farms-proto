@@ -19,19 +19,20 @@ type (
 	UserAuthenticationReply = v1.UserAuthenticationReply
 	UserAuthenticationReq   = v1.UserAuthenticationReq
 	UserIdReq               = v1.UserIdReq
-	UserLoginReq            = v1.UserLoginReq
 	UserLoginResp           = v1.UserLoginResp
 	UserRegisterReq         = v1.UserRegisterReq
 	UserReply               = v1.UserReply
 	UserReq                 = v1.UserReq
+	UserSignInReq           = v1.UserSignInReq
+	UserSignOutReq          = v1.UserSignOutReq
 	VerifyAccountReq        = v1.VerifyAccountReq
 
 	UserAuthService interface {
 		Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error)
-		Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
+		Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 		ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
 		VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error)
-		LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+		LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error)
 	}
 
 	defaultUserAuthService struct {
@@ -50,7 +51,7 @@ func (m *defaultUserAuthService) Register(ctx context.Context, in *UserRegisterR
 	return client.Register(ctx, in, opts...)
 }
 
-func (m *defaultUserAuthService) Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
+func (m *defaultUserAuthService) Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
 	client := v1.NewUserAuthServiceClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
 }
@@ -65,7 +66,7 @@ func (m *defaultUserAuthService) VerifyAccount(ctx context.Context, in *VerifyAc
 	return client.VerifyAccount(ctx, in, opts...)
 }
 
-func (m *defaultUserAuthService) LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (m *defaultUserAuthService) LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserAuthServiceClient(m.cli.Conn())
 	return client.LoginOut(ctx, in, opts...)
 }

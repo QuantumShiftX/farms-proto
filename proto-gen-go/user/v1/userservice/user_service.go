@@ -19,11 +19,12 @@ type (
 	UserAuthenticationReply = v1.UserAuthenticationReply
 	UserAuthenticationReq   = v1.UserAuthenticationReq
 	UserIdReq               = v1.UserIdReq
-	UserLoginReq            = v1.UserLoginReq
 	UserLoginResp           = v1.UserLoginResp
 	UserRegisterReq         = v1.UserRegisterReq
 	UserReply               = v1.UserReply
 	UserReq                 = v1.UserReq
+	UserSignInReq           = v1.UserSignInReq
+	UserSignOutReq          = v1.UserSignOutReq
 	VerifyAccountReq        = v1.VerifyAccountReq
 
 	UserService interface {

@@ -31,10 +31,10 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserAuthServiceClient interface {
 	Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error)
-	Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
+	Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 	ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
 	VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error)
-	LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error)
+	LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error)
 }
 
 type userAuthServiceClient struct {
@@ -55,7 +55,7 @@ func (c *userAuthServiceClient) Register(ctx context.Context, in *UserRegisterRe
 	return out, nil
 }
 
-func (c *userAuthServiceClient) Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
+func (c *userAuthServiceClient) Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserLoginResp)
 	err := c.cc.Invoke(ctx, UserAuthService_Login_FullMethodName, in, out, cOpts...)
@@ -85,7 +85,7 @@ func (c *userAuthServiceClient) VerifyAccount(ctx context.Context, in *VerifyAcc
 	return out, nil
 }
 
-func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserIdReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
 	err := c.cc.Invoke(ctx, UserAuthService_LoginOut_FullMethodName, in, out, cOpts...)
@@ -100,10 +100,10 @@ func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserIdReq, opt
 // for forward compatibility.
 type UserAuthServiceServer interface {
 	Register(context.Context, *UserRegisterReq) (*UserReply, error)
-	Login(context.Context, *UserLoginReq) (*UserLoginResp, error)
+	Login(context.Context, *UserSignInReq) (*UserLoginResp, error)
 	ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error)
 	VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error)
-	LoginOut(context.Context, *UserIdReq) (*UserReply, error)
+	LoginOut(context.Context, *UserSignOutReq) (*UserReply, error)
 	mustEmbedUnimplementedUserAuthServiceServer()
 }
 
@@ -117,7 +117,7 @@ type UnimplementedUserAuthServiceServer struct{}
 func (UnimplementedUserAuthServiceServer) Register(context.Context, *UserRegisterReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUserAuthServiceServer) Login(context.Context, *UserLoginReq) (*UserLoginResp, error) {
+func (UnimplementedUserAuthServiceServer) Login(context.Context, *UserSignInReq) (*UserLoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedUserAuthServiceServer) ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error) {
@@ -126,7 +126,7 @@ func (UnimplementedUserAuthServiceServer) ForgotPwd(context.Context, *ForgotPass
 func (UnimplementedUserAuthServiceServer) VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyAccount not implemented")
 }
-func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserIdReq) (*UserReply, error) {
+func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserSignOutReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginOut not implemented")
 }
 func (UnimplementedUserAuthServiceServer) mustEmbedUnimplementedUserAuthServiceServer() {}
@@ -169,7 +169,7 @@ func _UserAuthService_Register_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _UserAuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserLoginReq)
+	in := new(UserSignInReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -181,7 +181,7 @@ func _UserAuthService_Login_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: UserAuthService_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAuthServiceServer).Login(ctx, req.(*UserLoginReq))
+		return srv.(UserAuthServiceServer).Login(ctx, req.(*UserSignInReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -223,7 +223,7 @@ func _UserAuthService_VerifyAccount_Handler(srv interface{}, ctx context.Context
 }
 
 func _UserAuthService_LoginOut_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserIdReq)
+	in := new(UserSignOutReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func _UserAuthService_LoginOut_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: UserAuthService_LoginOut_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAuthServiceServer).LoginOut(ctx, req.(*UserIdReq))
+		return srv.(UserAuthServiceServer).LoginOut(ctx, req.(*UserSignOutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

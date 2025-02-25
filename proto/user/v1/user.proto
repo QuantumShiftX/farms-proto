@@ -43,7 +43,7 @@ message UserRegisterReq {
   string invite_code = 8;             // 推广邀请码
 }
 
-message UserLoginReq {
+message UserSignInReq {
   RequestClientInfo client_info = 1;
   string account = 2;                 // 账号
   int64 login_type = 3;              // 登录方式：1-用户名，2-手机，3-邮箱，4-其他
@@ -77,19 +77,24 @@ message VerifyAccountReq {
   string captcha = 4;      // 验证码
 }
 
+message UserSignOutReq {
+  int64 user_id = 1;
+}
+
+
+
+service UserAuthService {
+  rpc Register (UserRegisterReq) returns (UserReply) {}
+  rpc Login (UserSignInReq) returns (UserLoginResp) {}
+  rpc ForgotPwd (ForgotPasswordReq) returns (UserReply) {}
+  rpc VerifyAccount (VerifyAccountReq) returns (UserReply);
+  rpc LoginOut (UserSignOutReq) returns (UserReply) {}
+}
+
 message UserIdReq {
   RequestClientInfo client_info = 1;
   int64 user_id = 2;
 }
-
-service UserAuthService {
-  rpc Register (UserRegisterReq) returns (UserReply) {}
-  rpc Login (UserLoginReq) returns (UserLoginResp) {}
-  rpc ForgotPwd (ForgotPasswordReq) returns (UserReply) {}
-  rpc VerifyAccount (VerifyAccountReq) returns (UserReply);
-  rpc LoginOut (UserIdReq) returns (UserReply) {}
-}
-
 
 message UserAuthenticationReq {
   RequestClientInfo client_info = 1;
