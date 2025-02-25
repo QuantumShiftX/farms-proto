@@ -19,101 +19,101 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ManageService_Test_FullMethodName = "/manage.v1.ManageService/Test"
+	ManageApiService_SendCaptcha_FullMethodName = "/manage.v1.ManageApiService/SendCaptcha"
 )
 
-// ManageServiceClient is the client API for ManageService service.
+// ManageApiServiceClient is the client API for ManageApiService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ManageServiceClient interface {
-	Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
+type ManageApiServiceClient interface {
+	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 }
 
-type manageServiceClient struct {
+type manageApiServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewManageServiceClient(cc grpc.ClientConnInterface) ManageServiceClient {
-	return &manageServiceClient{cc}
+func NewManageApiServiceClient(cc grpc.ClientConnInterface) ManageApiServiceClient {
+	return &manageApiServiceClient{cc}
 }
 
-func (c *manageServiceClient) Test(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error) {
+func (c *manageApiServiceClient) SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ManageReply)
-	err := c.cc.Invoke(ctx, ManageService_Test_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ManageApiService_SendCaptcha_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ManageServiceServer is the server API for ManageService service.
-// All implementations must embed UnimplementedManageServiceServer
+// ManageApiServiceServer is the server API for ManageApiService service.
+// All implementations must embed UnimplementedManageApiServiceServer
 // for forward compatibility.
-type ManageServiceServer interface {
-	Test(context.Context, *ManageReq) (*ManageReply, error)
-	mustEmbedUnimplementedManageServiceServer()
+type ManageApiServiceServer interface {
+	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
+	mustEmbedUnimplementedManageApiServiceServer()
 }
 
-// UnimplementedManageServiceServer must be embedded to have
+// UnimplementedManageApiServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedManageServiceServer struct{}
+type UnimplementedManageApiServiceServer struct{}
 
-func (UnimplementedManageServiceServer) Test(context.Context, *ManageReq) (*ManageReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedManageApiServiceServer) SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendCaptcha not implemented")
 }
-func (UnimplementedManageServiceServer) mustEmbedUnimplementedManageServiceServer() {}
-func (UnimplementedManageServiceServer) testEmbeddedByValue()                       {}
+func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
+func (UnimplementedManageApiServiceServer) testEmbeddedByValue()                          {}
 
-// UnsafeManageServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ManageServiceServer will
+// UnsafeManageApiServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ManageApiServiceServer will
 // result in compilation errors.
-type UnsafeManageServiceServer interface {
-	mustEmbedUnimplementedManageServiceServer()
+type UnsafeManageApiServiceServer interface {
+	mustEmbedUnimplementedManageApiServiceServer()
 }
 
-func RegisterManageServiceServer(s grpc.ServiceRegistrar, srv ManageServiceServer) {
-	// If the following call pancis, it indicates UnimplementedManageServiceServer was
+func RegisterManageApiServiceServer(s grpc.ServiceRegistrar, srv ManageApiServiceServer) {
+	// If the following call pancis, it indicates UnimplementedManageApiServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&ManageService_ServiceDesc, srv)
+	s.RegisterService(&ManageApiService_ServiceDesc, srv)
 }
 
-func _ManageService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ManageReq)
+func _ManageApiService_SendCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManageServiceServer).Test(ctx, in)
+		return srv.(ManageApiServiceServer).SendCaptcha(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ManageService_Test_FullMethodName,
+		FullMethod: ManageApiService_SendCaptcha_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageServiceServer).Test(ctx, req.(*ManageReq))
+		return srv.(ManageApiServiceServer).SendCaptcha(ctx, req.(*SendCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ManageService_ServiceDesc is the grpc.ServiceDesc for ManageService service.
+// ManageApiService_ServiceDesc is the grpc.ServiceDesc for ManageApiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ManageService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "manage.v1.ManageService",
-	HandlerType: (*ManageServiceServer)(nil),
+var ManageApiService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "manage.v1.ManageApiService",
+	HandlerType: (*ManageApiServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _ManageService_Test_Handler,
+			MethodName: "SendCaptcha",
+			Handler:    _ManageApiService_SendCaptcha_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

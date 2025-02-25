@@ -20,6 +20,7 @@ type (
 	ManageReply          = v1.ManageReply
 	ManageReq            = v1.ManageReq
 	RegistrationRewards  = v1.RegistrationRewards
+	SendCaptchaReq       = v1.SendCaptchaReq
 	SettingBaseInfoReply = v1.SettingBaseInfoReply
 	SettlementConfig     = v1.SettlementConfig
 	VipLevelDetail       = v1.VipLevelDetail

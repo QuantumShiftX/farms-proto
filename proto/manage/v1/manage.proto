@@ -12,6 +12,17 @@ message ManageReply{
 
 }
 
+message SendCaptchaReq  {
+  int64 verify_type = 1; // 验证类型：2-短信，3-邮件
+  string account = 2; // 手机号或者邮箱
+}
+
+
+
+service ManageApiService {
+  rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
+}
+
 // VipLevel 代表 VIP 等级配置
 message VipLevelDetail {
   int64 id = 1;                                // VIP 等级 ID
@@ -24,11 +35,6 @@ message VipLevelDetail {
   int64 upgrade_reward_tree_num = 8;           // 升级奖励的树木数量
   string remarks = 9;                          // 等级的备注信息
   int64 is_enabled = 10;                       // 等级是否启用（1：启用，2：禁用）
-}
-
-
-service ManageService {
-  rpc Test (ManageReq) returns (ManageReply) {}
 }
 
 
@@ -85,3 +91,6 @@ service ManageInnerService {
   rpc GetDefaultVipInfo (ManageReq) returns (DefaultVipInfoReply);
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
 }
+
+
+

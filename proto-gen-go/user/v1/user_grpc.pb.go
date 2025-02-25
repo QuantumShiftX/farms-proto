@@ -19,19 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserAuthService_Register_FullMethodName  = "/user.v1.UserAuthService/Register"
-	UserAuthService_Login_FullMethodName     = "/user.v1.UserAuthService/Login"
-	UserAuthService_ForgotPwd_FullMethodName = "/user.v1.UserAuthService/ForgotPwd"
-	UserAuthService_LoginOut_FullMethodName  = "/user.v1.UserAuthService/LoginOut"
+	UserAuthService_Register_FullMethodName      = "/user.v1.UserAuthService/Register"
+	UserAuthService_Login_FullMethodName         = "/user.v1.UserAuthService/Login"
+	UserAuthService_ForgotPwd_FullMethodName     = "/user.v1.UserAuthService/ForgotPwd"
+	UserAuthService_VerifyAccount_FullMethodName = "/user.v1.UserAuthService/VerifyAccount"
+	UserAuthService_LoginOut_FullMethodName      = "/user.v1.UserAuthService/LoginOut"
 )
 
 // UserAuthServiceClient is the client API for UserAuthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserAuthServiceClient interface {
-	Register(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserReply, error)
-	Login(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserAuthResp, error)
+	Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error)
+	Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error)
 	ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
+	VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error)
 	LoginOut(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
 }
 
@@ -43,7 +45,7 @@ func NewUserAuthServiceClient(cc grpc.ClientConnInterface) UserAuthServiceClient
 	return &userAuthServiceClient{cc}
 }
 
-func (c *userAuthServiceClient) Register(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserReply, error) {
+func (c *userAuthServiceClient) Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
 	err := c.cc.Invoke(ctx, UserAuthService_Register_FullMethodName, in, out, cOpts...)
@@ -53,9 +55,9 @@ func (c *userAuthServiceClient) Register(ctx context.Context, in *UserAuthReq, o
 	return out, nil
 }
 
-func (c *userAuthServiceClient) Login(ctx context.Context, in *UserAuthReq, opts ...grpc.CallOption) (*UserAuthResp, error) {
+func (c *userAuthServiceClient) Login(ctx context.Context, in *UserLoginReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserAuthResp)
+	out := new(UserLoginResp)
 	err := c.cc.Invoke(ctx, UserAuthService_Login_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -67,6 +69,16 @@ func (c *userAuthServiceClient) ForgotPwd(ctx context.Context, in *ForgotPasswor
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserReply)
 	err := c.cc.Invoke(ctx, UserAuthService_ForgotPwd_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userAuthServiceClient) VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserReply)
+	err := c.cc.Invoke(ctx, UserAuthService_VerifyAccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,9 +99,10 @@ func (c *userAuthServiceClient) LoginOut(ctx context.Context, in *UserReq, opts 
 // All implementations must embed UnimplementedUserAuthServiceServer
 // for forward compatibility.
 type UserAuthServiceServer interface {
-	Register(context.Context, *UserAuthReq) (*UserReply, error)
-	Login(context.Context, *UserAuthReq) (*UserAuthResp, error)
+	Register(context.Context, *UserRegisterReq) (*UserReply, error)
+	Login(context.Context, *UserLoginReq) (*UserLoginResp, error)
 	ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error)
+	VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error)
 	LoginOut(context.Context, *UserReq) (*UserReply, error)
 	mustEmbedUnimplementedUserAuthServiceServer()
 }
@@ -101,14 +114,17 @@ type UserAuthServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserAuthServiceServer struct{}
 
-func (UnimplementedUserAuthServiceServer) Register(context.Context, *UserAuthReq) (*UserReply, error) {
+func (UnimplementedUserAuthServiceServer) Register(context.Context, *UserRegisterReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUserAuthServiceServer) Login(context.Context, *UserAuthReq) (*UserAuthResp, error) {
+func (UnimplementedUserAuthServiceServer) Login(context.Context, *UserLoginReq) (*UserLoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedUserAuthServiceServer) ForgotPwd(context.Context, *ForgotPasswordReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ForgotPwd not implemented")
+}
+func (UnimplementedUserAuthServiceServer) VerifyAccount(context.Context, *VerifyAccountReq) (*UserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyAccount not implemented")
 }
 func (UnimplementedUserAuthServiceServer) LoginOut(context.Context, *UserReq) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginOut not implemented")
@@ -135,7 +151,7 @@ func RegisterUserAuthServiceServer(s grpc.ServiceRegistrar, srv UserAuthServiceS
 }
 
 func _UserAuthService_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserAuthReq)
+	in := new(UserRegisterReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -147,13 +163,13 @@ func _UserAuthService_Register_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: UserAuthService_Register_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAuthServiceServer).Register(ctx, req.(*UserAuthReq))
+		return srv.(UserAuthServiceServer).Register(ctx, req.(*UserRegisterReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserAuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserAuthReq)
+	in := new(UserLoginReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -165,7 +181,7 @@ func _UserAuthService_Login_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: UserAuthService_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAuthServiceServer).Login(ctx, req.(*UserAuthReq))
+		return srv.(UserAuthServiceServer).Login(ctx, req.(*UserLoginReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -184,6 +200,24 @@ func _UserAuthService_ForgotPwd_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserAuthServiceServer).ForgotPwd(ctx, req.(*ForgotPasswordReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserAuthService_VerifyAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyAccountReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAuthServiceServer).VerifyAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserAuthService_VerifyAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAuthServiceServer).VerifyAccount(ctx, req.(*VerifyAccountReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -224,6 +258,10 @@ var UserAuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ForgotPwd",
 			Handler:    _UserAuthService_ForgotPwd_Handler,
+		},
+		{
+			MethodName: "VerifyAccount",
+			Handler:    _UserAuthService_VerifyAccount_Handler,
 		},
 		{
 			MethodName: "LoginOut",

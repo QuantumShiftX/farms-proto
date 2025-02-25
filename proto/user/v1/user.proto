@@ -11,21 +11,48 @@ message UserReply{
 
 }
 
-
-
-
-message UserAuthReq {
-  string account = 1;                 // 账号
-  int64 verify_type = 2;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
-  string password = 3;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
-  string confirm_password = 4;
-  string captcha = 5;                 // 验证码：暂定为6位数字
-  string language_code = 6;           // 语言code
-  string invite_code = 7;             // 推广邀请码
+// RequestClientInfo 客户端信息结构体
+message RequestClientInfo {
+  string ip = 1;            // 客户端IP地址
+  string platform = 2;      // 平台：Windows、Linux等
+  string os = 3;            // 操作系统
+  string browser = 4;       // 浏览器信息
+  string browser_ver = 5;   // 浏览器版本
+  bool   is_mobile = 6;       // 是否是手机端
+  string user_agent = 7;    // 完整的User-Agent
+  string device_id = 8;     // 设备ID
+  string device_type = 9;   // 设备类型
+  string app_version = 10;  // 应用版本 (如果是App)
+  string screen_size = 11;  // 屏幕尺寸
+  string language = 12;     // 语言
+  string timezone = 13;     // 时区
+  string referrer = 14;     // 引荐来源
+  int64 request_time = 15; // 请求时间（时间戳）
 }
 
-// UserAuthResp 用户认证响应
-message UserAuthResp {
+
+
+message UserRegisterReq {
+  RequestClientInfo client_info = 1;
+  string account = 2;                 // 账号
+  int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string password = 4;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
+  string confirm_password = 5;
+  string captcha = 6;                 // 验证码：暂定为6位数字
+  string language_code = 7;           // 语言code
+  string invite_code = 8;             // 推广邀请码
+}
+
+message UserLoginReq {
+  RequestClientInfo client_info = 1;
+  string account = 2;                 // 账号
+  int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string password = 4;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
+}
+
+
+// UserLoginResp 用户认证响应
+message UserLoginResp {
   string token = 1;        // 认证令牌
   int64 expire_at = 2;     // 过期时间（时间戳）
 }
@@ -33,18 +60,28 @@ message UserAuthResp {
 
 // ForgotPasswordReq 忘记密码请求
 message ForgotPasswordReq {
-  int64 account = 1;       // 账号
-  int64 verify_type = 2;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
-  string captcha = 3;      // 验证码
-  string password = 4;     // 新密码（最大100个字符）
+  RequestClientInfo client_info = 1;
+  string account = 2;       // 账号
+  int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string captcha = 4;      // 验证码
+  string password = 5;     // 新密码（最大100个字符）
 
+}
+
+// VerifyAccount 验证账号请求
+message VerifyAccountReq {
+  RequestClientInfo client_info = 1;
+  string account = 2;       // 账号
+  int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string captcha = 4;      // 验证码
 }
 
 
 service UserAuthService {
-  rpc Register (UserAuthReq) returns (UserReply) {}
-  rpc Login (UserAuthReq) returns (UserAuthResp) {}
+  rpc Register (UserRegisterReq) returns (UserReply) {}
+  rpc Login (UserLoginReq) returns (UserLoginResp) {}
   rpc ForgotPwd (ForgotPasswordReq) returns (UserReply) {}
+  rpc VerifyAccount (VerifyAccountReq) returns (UserReply);
   rpc LoginOut (UserReq) returns (UserReply) {}
 }
 

@@ -15,10 +15,13 @@ import (
 
 type (
 	ForgotPasswordReq = v1.ForgotPasswordReq
-	UserAuthReq       = v1.UserAuthReq
-	UserAuthResp      = v1.UserAuthResp
+	RequestClientInfo = v1.RequestClientInfo
+	UserLoginReq      = v1.UserLoginReq
+	UserLoginResp     = v1.UserLoginResp
+	UserRegisterReq   = v1.UserRegisterReq
 	UserReply         = v1.UserReply
 	UserReq           = v1.UserReq
+	VerifyAccountReq  = v1.VerifyAccountReq
 
 	UserService interface {
 		Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
