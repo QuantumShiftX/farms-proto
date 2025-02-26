@@ -38,7 +38,6 @@ message UserRegisterReq {
   string password = 4;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
   string confirm_password = 5;
   string captcha = 6;                 // 验证码：暂定为6位数字
-  string language_code = 7;           // 语言code
   string invite_code = 8;             // 推广邀请码
 }
 
