@@ -17,10 +17,17 @@ message SendCaptchaReq  {
   string account = 2; // 手机号或者邮箱
 }
 
+message GetAgreementReply {
+  string  user_agreement = 1; // 用户协议
+  string  privacy_notice = 2 ; // 隐私声明
+}
+
+
 
 
 service ManageApiService {
   rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
+  rpc GetAgreement (ManageReq) returns (GetAgreementReply) {}
 }
 
 // VipLevel 代表 VIP 等级配置

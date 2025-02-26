@@ -17,6 +17,7 @@ type (
 	CollectionRewards    = v1.CollectionRewards
 	DefaultVipInfoReply  = v1.DefaultVipInfoReply
 	DepositRewards       = v1.DepositRewards
+	GetAgreementReply    = v1.GetAgreementReply
 	ManageReply          = v1.ManageReply
 	ManageReq            = v1.ManageReq
 	RegistrationRewards  = v1.RegistrationRewards
@@ -27,6 +28,7 @@ type (
 
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
+		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 	}
 
 	defaultManageApiService struct {
@@ -43,4 +45,9 @@ func NewManageApiService(cli zrpc.Client) ManageApiService {
 func (m *defaultManageApiService) SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
 	return client.SendCaptcha(ctx, in, opts...)
+}
+
+func (m *defaultManageApiService) GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error) {
+	client := v1.NewManageApiServiceClient(m.cli.Conn())
+	return client.GetAgreement(ctx, in, opts...)
 }

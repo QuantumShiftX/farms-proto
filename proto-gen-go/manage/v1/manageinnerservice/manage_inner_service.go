@@ -17,6 +17,7 @@ type (
 	CollectionRewards    = v1.CollectionRewards
 	DefaultVipInfoReply  = v1.DefaultVipInfoReply
 	DepositRewards       = v1.DepositRewards
+	GetAgreementReply    = v1.GetAgreementReply
 	ManageReply          = v1.ManageReply
 	ManageReq            = v1.ManageReq
 	RegistrationRewards  = v1.RegistrationRewards

@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ManageApiService_SendCaptcha_FullMethodName = "/manage.v1.ManageApiService/SendCaptcha"
+	ManageApiService_SendCaptcha_FullMethodName  = "/manage.v1.ManageApiService/SendCaptcha"
+	ManageApiService_GetAgreement_FullMethodName = "/manage.v1.ManageApiService/GetAgreement"
 )
 
 // ManageApiServiceClient is the client API for ManageApiService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManageApiServiceClient interface {
 	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
+	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 }
 
 type manageApiServiceClient struct {
@@ -47,11 +49,22 @@ func (c *manageApiServiceClient) SendCaptcha(ctx context.Context, in *SendCaptch
 	return out, nil
 }
 
+func (c *manageApiServiceClient) GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAgreementReply)
+	err := c.cc.Invoke(ctx, ManageApiService_GetAgreement_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageApiServiceServer is the server API for ManageApiService service.
 // All implementations must embed UnimplementedManageApiServiceServer
 // for forward compatibility.
 type ManageApiServiceServer interface {
 	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
+	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedManageApiServiceServer struct{}
 
 func (UnimplementedManageApiServiceServer) SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendCaptcha not implemented")
+}
+func (UnimplementedManageApiServiceServer) GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgreement not implemented")
 }
 func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
 func (UnimplementedManageApiServiceServer) testEmbeddedByValue()                          {}
@@ -104,6 +120,24 @@ func _ManageApiService_SendCaptcha_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageApiService_GetAgreement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ManageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageApiServiceServer).GetAgreement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageApiService_GetAgreement_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageApiServiceServer).GetAgreement(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageApiService_ServiceDesc is the grpc.ServiceDesc for ManageApiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendCaptcha",
 			Handler:    _ManageApiService_SendCaptcha_Handler,
+		},
+		{
+			MethodName: "GetAgreement",
+			Handler:    _ManageApiService_GetAgreement_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
