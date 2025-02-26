@@ -33,7 +33,6 @@ message RequestClientInfo {
 
 
 message UserRegisterReq {
-  RequestClientInfo client_info = 1;
   string account = 2;                 // 账号
   int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
   string password = 4;                // 密码：字母/符号/数字 的随机组合，最大长度为100个字符
@@ -44,7 +43,6 @@ message UserRegisterReq {
 }
 
 message UserSignInReq {
-  RequestClientInfo client_info = 1;
   string account = 2;                 // 账号
   int64 login_type = 3;              // 登录方式：1-用户名，2-手机，3-邮箱，4-其他
   int64 verify_type = 4;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
@@ -61,7 +59,6 @@ message UserLoginResp {
 
 // ForgotPasswordReq 忘记密码请求
 message ForgotPasswordReq {
-  RequestClientInfo client_info = 1;
   string account = 2;       // 账号
   int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
   string captcha = 4;      // 验证码
@@ -71,7 +68,6 @@ message ForgotPasswordReq {
 
 // VerifyAccount 验证账号请求
 message VerifyAccountReq {
-  RequestClientInfo client_info = 1;
   string account = 2;       // 账号
   int64 verify_type = 3;              // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
   string captcha = 4;      // 验证码
@@ -92,12 +88,10 @@ service UserAuthService {
 }
 
 message UserIdReq {
-  RequestClientInfo client_info = 1;
   int64 user_id = 2;
 }
 
 message UserAuthenticationReq {
-  RequestClientInfo client_info = 1;
   string token = 2;
 }
 message UserAuthenticationReply {
