@@ -116,6 +116,31 @@ enum ProductType {
   OTHER = 3;                     // 其他道具
 }
 
+
+// 鉴权相关消息
+// ------------------------------------
+
+/**
+ * 获取用户请求是否合法
+ * 用token校验用户身份
+ */
+message UserAuthInfoMsg {
+  string token = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 鉴权响应
+ * 用token校验用户身份
+ */
+message UserAuthInfoReply {
+  int64 user_id = 2;                   // 用户ID
+  int64 pid = 3;                       // 上级ID（邀请用户的ID）
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+}
+
+
+
 // 用户相关消息
 // ------------------------------------
 
@@ -124,7 +149,7 @@ enum ProductType {
  * 用于查询当前用户的基本个人信息
  */
 message UserPersonalInfoMsg {
-  string token = 1;  // 用户身份验证令牌，必填
+  int64 user_id = 1;  // 用户身份验证令牌，必填
 }
 
 /**
@@ -153,7 +178,7 @@ message UserPersonalInfoReply {
  * 用于更新用户的个人信息设置
  */
 message UserEditPersonalInfoMsg {
-  string token = 1;               // 用户身份验证令牌，必填
+  int64 user_id = 1;  // 用户身份验证令牌，必填
   int64 visualization = 2;        // 用户形象ID，可选（后端提供枚举值）
   string farm_name = 3;           // 农场名称，可选，修改时使用
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
@@ -194,7 +219,7 @@ message UserBalance {
  * 用于查询当前用户的商店相关信息
  */
 message FarmsStoreInfoMsg {
-  string token = 1;  // 用户身份验证令牌，必填
+  int64 user_id = 1;  // 用户身份验证令牌，必填
 }
 
 /**
@@ -229,7 +254,7 @@ message StoreInfo {
  * 用于查询当前用户的仓库库存信息
  */
 message UserStorageInfoMsg {
-  string token = 1;  // 用户身份验证令牌，必填
+  int64 user_id = 1;  // 用户身份验证令牌，必填
 }
 
 /**
@@ -281,7 +306,7 @@ message UserStorageDetail {
  * 用于查询当前用户的农场状态信息
  */
 message UserFarmInfoMsg {
-  string token = 1;  // 用户身份验证令牌，必填
+  int64 user_id = 1;  // 用户身份验证令牌，必填
 }
 
 /**
@@ -349,7 +374,7 @@ message UserPlantingDetail {
  * 用于对自己或他人的农场进行各种操作
  */
 message UserFarmOpsMsg {
-  string token = 1;                  // 用户身份验证令牌，必填（操作人）
+  int64 user_id = 1;  // 用户身份验证令牌，必填
   FarmOperationType operate_type = 2; // 操作类型，必填
   int64 op_to_user_id = 3;           // 被操作的用户ID，必填（可以是自己或好友ID）
   int64 op_to_land_id = 4;           // 被操作的土地ID，必填
