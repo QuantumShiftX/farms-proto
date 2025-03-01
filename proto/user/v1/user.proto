@@ -86,6 +86,14 @@ service UserAuthService {
   rpc LoginOut (UserSignOutReq) returns (UserReply) {}
 }
 
+
+
+service UserService {
+  rpc Test (UserReq) returns (UserReply) {}
+
+}
+
+
 message UserIdReq {
   int64 user_id = 2;
 }
@@ -99,14 +107,458 @@ message UserAuthenticationReply {
 
 
 service UserInnerService {
-  rpc UserConnected (UserIdReq) returns (UserReply) {}
-  rpc UserDisconnected (UserIdReq) returns (UserReply) {}
-  rpc UserAuthentication (UserAuthenticationReq) returns (UserAuthenticationReply);
+  rpc UserConnected (UserPersonalInfoMsg) returns (MsgReply) {}
+  rpc UserDisconnected (UserPersonalInfoMsg) returns (MsgReply) {}
+  rpc UserAuthentication (UserAuthInfoMsg) returns (UserAuthInfoReply);
 }
 
 
 
-service UserService {
-  rpc Test (UserReq) returns (UserReply) {}
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// -------------------------------------------------------------------------------------消息定义----------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+/**
+ * MessageID 枚举
+ * 定义系统中所有消息类型的唯一标识符
+ */
+enum MessageID {
+  // 未知消息
+  MESSAGE_ID_UNSPECIFIED = 0;
 
+  // 基础消息 (1-99)
+  DEMO = 1;
+  USER_LOGIN = 2;
+  USER_PERSONAL_INFO_MSG = 3;
+  USER_EDIT_PERSONAL_INFO_MSG = 4;
+
+  // 钱包相关消息 (100-199)
+  USER_WALLET = 100;
+  USER_BALANCE = 101;
+
+  // 商店相关消息 (200-299)
+  FARMS_STORE_INFO_MSG = 200;
+  STORE_INFO = 201;
+
+  // 仓库相关消息 (300-399)
+  USER_STORAGE_INFO_MSG = 300;
+  USER_STORAGE_DETAIL = 301;
+
+  // 农场相关消息 (400-499)
+  USER_FARM_INFO_MSG = 400;
+  USER_LAND_DETAIL = 401;
+  USER_PLANTING_DETAIL = 402;
+  USER_FARM_OPS_MSG = 403;
+
+  // 心跳连接
+  HEART_BEAT = 8888;
+
+  // 错误消息 (500500+)
+  ERR_COMMON = 500500;        // 通用错误
+  ERR_PACKET = 500501;        // 数据包错误
+  ERR_PARAM = 500502;         // 参数错误
+  ERR_USER_NOT_EXIST = 500503; // 用户不存在
+  ERR_USER_AUTH = 500504;      // 认证失败
 }
+
+/**
+ * MessageWrapper 消息包装结构
+ * 所有消息的外层包装，包含消息ID和消息内容
+ */
+message MessageWrapper {
+  MessageID msg_id = 1;       // 消息ID
+  bytes payload = 2;          // 消息内容，经过序列化的二进制数据
+  int64 timestamp = 3;        // 消息时间戳
+  string session_id = 4;      // 会话ID
+  repeated string tags = 5;   // 消息标签
+}
+
+
+// 基础消息定义
+// ------------------------------------
+
+/**
+ * MQTT请求消息基础结构
+ * 所有请求消息的基础结构，可根据需要扩展
+ */
+message MsgReq {
+  // 暂无字段，可根据需要扩展
+}
+
+/**
+ * MQTT响应消息基础结构
+ * 所有响应消息的基础结构，可根据需要扩展
+ */
+message MsgReply {
+  // 暂无字段，可根据需要扩展
+}
+
+// 枚举类型定义
+// ------------------------------------
+
+/**
+ * 土地状态枚举
+ * 定义土地的各种可能状态
+ */
+enum LandStatus {
+  LAND_STATUS_UNSPECIFIED = 0;  // 未指定状态
+  UNCULTIVATED = 1;             // 未开垦
+  CULTIVATED_EMPTY = 2;         // 已开垦未种植
+  PLANTED = 3;                  // 已种植
+}
+
+/**
+ * 作物收获状态枚举
+ * 定义作物是否已被收获
+ */
+enum HarvestStatus {
+  HARVEST_STATUS_UNSPECIFIED = 0;  // 未指定状态
+  NOT_HARVESTED = 1;               // 未收获
+  HARVESTED = 2;                   // 已收获
+}
+
+/**
+ * 作物生长状态枚举
+ * 定义作物的生长阶段
+ */
+enum GrowthStatus {
+  GROWTH_STATUS_UNSPECIFIED = 0;  // 未指定状态
+  SEED_STAGE = 1;                 // 种子阶段
+  SPROUTING_STAGE = 2;            // 发芽阶段
+  GROWTH_STAGE = 3;               // 成长阶段
+  FLOWERING_STAGE = 4;            // 开花阶段
+  FRUITING_STAGE = 5;             // 结果阶段
+  MATURE_STAGE = 6;               // 成熟阶段
+}
+
+/**
+ * 农场操作类型枚举
+ * 定义可在农场上执行的操作类型
+ */
+enum FarmOperationType {
+  OPERATION_UNSPECIFIED = 0;  // 未指定操作
+  PLANTING = 1;               // 播种 - 在指定土地上种植作物
+  WATERING = 2;               // 浇水 - 为指定土地上的作物浇水
+  FERTILIZING = 3;            // 施肥 - 为指定土地上的作物施肥
+  HARVESTING = 4;             // 采摘 - 收获指定土地上成熟的作物
+}
+
+/**
+ * 钱包类型枚举
+ * 定义用户钱包的类型
+ */
+enum WalletType {
+  WALLET_TYPE_UNSPECIFIED = 0;  // 未指定类型
+  USERS_WALLET = 1;              // 用户钱包
+  AGENT_WALLET = 2;             // 代理钱包
+  REWARD_WALLET = 3;            // 奖励钱包
+  USDT_WALLET = 4;              // USDT钱包
+}
+
+/**
+ * 钱包用途类型枚举
+ * 定义钱包的使用用途
+ */
+enum WalletUsageType {
+  USAGE_TYPE_UNSPECIFIED = 0;  // 未指定用途
+  DEPOSIT_ONLY = 1;            // 仅存款
+  WITHDRAWAL_ONLY = 2;         // 仅提款
+  DEPOSIT_AND_WITHDRAWAL = 3;  // 存款和提款
+}
+
+/**
+ * 是否状态枚举
+ * 通用的是否状态枚举（用于多个字段）
+ */
+enum BooleanStatus {
+  BOOLEAN_UNSPECIFIED = 0;  // 未指定
+  NO = 1;                   // 否
+  YES = 2;                  // 是
+}
+
+/**
+ * 商品类型枚举
+ * 定义商店中商品的类型
+ */
+enum ProductType {
+  PRODUCT_TYPE_UNSPECIFIED = 0;  // 未指定类型
+  SEED = 1;                      // 种子
+  FERTILIZER = 2;                // 肥料
+  OTHER = 3;                     // 其他道具
+}
+
+
+// 鉴权相关消息
+// ------------------------------------
+
+/**
+ * 获取用户请求是否合法
+ * 用token校验用户身份
+ */
+message UserAuthInfoMsg {
+  string token = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 鉴权响应
+ * 用token校验用户身份
+ */
+message UserAuthInfoReply {
+  int64 user_id = 2;                   // 用户ID
+  int64 pid = 3;                       // 上级ID（邀请用户的ID）
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+}
+
+
+
+// 用户相关消息
+// ------------------------------------
+
+/**
+ * 获取用户个人信息请求
+ * 用于查询当前用户的基本个人信息
+ */
+message UserPersonalInfoMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 用户个人信息响应
+ * 包含用户的详细个人信息
+ */
+message UserPersonalInfoReply {
+  int64 user_id = 2;                   // 用户ID
+  int64 pid = 3;                       // 上级ID（邀请用户的ID）
+  string username = 4;                 // 账号名称
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+  int32 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
+  string remark = 10;                  // 用户备注
+  int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
+  string invitation_code = 13;         // 用户的邀请码
+  string avatar = 14;                  // 用户头像URL
+  string phone = 15;                   // 用户手机号
+  string email = 16;                   // 用户邮箱
+  repeated UserWallet wallets = 17;    // 用户的钱包地址列表
+  repeated UserBalance balances = 18;  // 用户的各类钱包余额列表
+}
+
+/**
+ * 编辑用户个人信息请求
+ * 用于更新用户的个人信息设置
+ */
+message UserEditPersonalInfoMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 visualization = 2;        // 用户形象ID，可选（后端提供枚举值）
+  string farm_name = 3;           // 农场名称，可选，修改时使用
+  BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
+}
+
+/**
+ * 用户钱包地址信息
+ * 表示用户的各种加密货币钱包地址
+ */
+message UserWallet {
+  int64 id = 1;                              // 主键ID
+  int64 user_id = 2;                         // 用户ID
+  string wallet_address = 3;                 // 钱包地址
+  string wallet_name = 4;                    // 钱包名称/备注
+  string wallet_type = 5;                    // 钱包类型(ETH/BTC等)
+  WalletUsageType usage_type = 6;            // 用途类型
+  BooleanStatus is_default_deposit = 7;      // 是否默认存款地址
+  BooleanStatus is_default_withdrawal = 8;   // 是否默认提款地址
+}
+
+/**
+ * 用户余额信息
+ * 表示用户在各类钱包中的余额状态
+ */
+message UserBalance {
+  int64 id = 1;                  // 主键ID
+  WalletType wallet_type = 2;    // 钱包类型
+  int64 user_id = 3;             // 用户ID
+  int64 balance = 4;             // 可用余额
+  int64 locked_balance = 5;      // 锁定余额（如提现中等）
+}
+
+// 商店相关消息
+// ------------------------------------
+
+/**
+ * 获取用户商店信息请求
+ * 用于查询当前用户的商店相关信息
+ */
+message FarmsStoreInfoMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 商店信息响应
+ * 包含商店内可购买的商品列表
+ */
+message FarmsStoreReply {
+  repeated StoreInfo rows = 1;  // 商品信息列表
+}
+
+/**
+ * 商店商品信息
+ * 表示商店中的单个商品信息
+ */
+message StoreInfo {
+  int64 id = 1;                    // 自增主键
+  ProductType product_type = 2;    // 商品类型
+  string product_name = 3;         // 商品名称
+  string product_image_url = 4;    // 商品图片地址
+  int64 product_id = 5;            // 商品ID
+  int64 stock = 6;                 // 库存数量，-1表示无限
+  int64 sort = 7;                  // 排序字段
+  BooleanStatus is_free = 8;       // 是否可以免费领取
+  BooleanStatus is_enabled = 9;    // 是否启用
+}
+
+// 用户仓库相关消息
+// ------------------------------------
+
+/**
+ * 获取用户仓库信息请求
+ * 用于查询当前用户的仓库库存信息
+ */
+message UserStorageInfoMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 用户仓库信息响应
+ * 包含用户仓库中的所有物品
+ */
+message UserStorageReply {
+  repeated UserStorageDetail rows = 1;  // 用户仓库物品列表
+}
+
+/**
+ * 用户仓库物品信息
+ * 表示用户仓库中的单个物品详细信息
+ */
+message UserStorageDetail {
+  int64 id = 1;                         // 自增主键
+  int64 user_id = 2;                    // 用户ID，关联到用户表
+  ProductType product_type = 3;         // 商品类型
+  int64 product_id = 4;                 // 商品ID，关联到对应产品配置表
+  string product_name = 5;              // 商品名称快照，保存购买时的名称
+  string product_image_url = 6;         // 商品图片地址快照，保存购买时的图片URL
+  int32 product_quantity = 7;           // 商品数量，表示用户拥有的该商品数量
+  int64 sku_id = 8;                     // 商品SKU ID，关联到商品SKU配置表
+  string sku_name = 9;                  // SKU名称快照，保存购买时的SKU名称
+  int64 price = 10;                     // 商品价格快照，保存购买时的价格（单位：ustd）
+
+  // 以下字段仅对种子类型有效
+  int64 growth_time = 11;               // 生长时间快照（单位：分钟）
+  int64 coin_reward = 12;               // 成熟后的收益快照（单位：代币）
+
+  // 自己操作相关字段
+  int64 self_time_reduced_per_water = 13;       // 自己每次浇水减少的时间快照（单位：分钟）
+  int64 self_water_reduction_percentage = 14;   // 自己浇水减少时间的百分比快照（0-100）
+  int64 self_time_reduced_per_fertilizer = 15;  // 自己每次施肥减少的时间快照（单位：分钟）
+  int64 self_fertilizer_reduction_percentage = 16; // 自己施肥减少时间的百分比快照（0-100）
+
+  // 好友操作相关字段
+  int64 friend_water_time_reduction = 17;       // 好友每次浇水减少的时间快照（单位：分钟）
+  int64 friend_water_percentage = 18;           // 好友浇水减少时间的百分比快照（0-100）
+  int64 friend_fertilizer_time_reduction = 19;  // 好友每次施肥减少的时间快照（单位：分钟）
+  int64 friend_fertilizer_percentage = 20;      // 好友施肥减少时间的百分比快照（0-100）
+}
+
+// 农场相关消息
+// ------------------------------------
+
+/**
+ * 获取用户农场信息请求
+ * 用于查询当前用户的农场状态信息
+ */
+message UserFarmInfoMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 用户农场信息响应
+ * 包含用户农场的基本信息
+ */
+message UserFarmReply {
+  int64 id = 1;                         // 主键ID
+  int64 farm_id = 2;                    // 农场ID
+  int64 user_id = 3;                    // 用户ID
+  string farm_name = 4;                 // 农场名称
+  int64 total_land_count = 5;           // 农场总土地数量
+  int64 water_limit_per_day = 6;        // 每日浇水限制次数
+  int64 fertilizer_limit_per_day = 7;   // 每日作物施肥限制次数（每个作物）
+  int64 total_reward_coins = 8;         // 农场总收益金币
+  BooleanStatus has_received_free_gift = 9;  // 是否已领取新用户免费商品
+  BooleanStatus has_completed_tutorial = 10; // 是否已参加过新手教程
+}
+
+/**
+ * 用户土地信息响应
+ * 包含用户所有土地的信息列表
+ */
+message UserLandReply {
+  repeated UserLandDetail rows = 1;  // 用户土地信息列表
+}
+
+/**
+ * 用户土地详细信息
+ * 表示用户的单块土地的详细状态
+ */
+message UserLandDetail {
+  string id = 1;                    // UUID
+  int64 land_id = 2;                // 土地ID
+  int64 user_id = 3;                // 用户ID
+  int64 farm_id = 4;                // 农场ID
+  int64 plant_id = 5;               // 种植记录ID
+  int64 position = 6;               // 土地位置编号（1-20暂时）
+  LandStatus status = 7;            // 土地状态
+  optional UserPlantingDetail planted_plant = 8;  // 种植信息，当status为PLANTED时才有值
+}
+
+/**
+ * 用户种植记录详细信息
+ * 表示用户种植的单株作物的详细信息
+ */
+message UserPlantingDetail {
+  string id = 1;                    // UUID
+  int64 plant_id = 2;               // 种植记录ID
+  int64 user_id = 3;                // 用户ID
+  int64 farm_id = 4;                // 农场ID
+  int64 land_id = 5;                // 土地ID
+  string crop_name = 6;             // 作物名称
+  int64 plant_time = 7;             // 种植时间（Unix时间戳）
+  int64 water_count = 8;            // 已浇水总次数
+  int64 fertilizer_count = 9;       // 已施肥总次数
+  HarvestStatus is_harvested = 10;  // 是否已收获
+  int64 harvested_at = 11;          // 收获时间（Unix时间戳）
+  int64 coins_earned = 12;          // 作物产生的金币数量
+  GrowthStatus status = 13;         // 生长状态
+}
+
+/**
+ * 用户农场操作请求
+ * 用于对自己或他人的农场进行各种操作
+ */
+message UserFarmOpsMsg {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  FarmOperationType operate_type = 2; // 操作类型，必填
+  int64 op_to_user_id = 3;           // 被操作的用户ID，必填（可以是自己或好友ID）
+  int64 op_to_land_id = 4;           // 被操作的土地ID，必填
+  int64 op_land_position = 5;        // 被操作的土地位置编号，必填
+}
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// -------------------------------------------------------------------------------------消息定义----------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
