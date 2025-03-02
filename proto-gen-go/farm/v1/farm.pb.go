@@ -20,6 +20,167 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// *
+// MessageID 枚举
+// 定义系统中所有消息类型的唯一标识符
+type MessageID int32
+
+const (
+	// 未知消息
+	MessageID_MESSAGE_ID_UNSPECIFIED MessageID = 0
+	// 商店相关消息 (200-299)
+	MessageID_FARMS_STORE_INFO_MSG MessageID = 200
+	MessageID_STORE_INFO           MessageID = 201
+)
+
+// Enum value maps for MessageID.
+var (
+	MessageID_name = map[int32]string{
+		0:   "MESSAGE_ID_UNSPECIFIED",
+		200: "FARMS_STORE_INFO_MSG",
+		201: "STORE_INFO",
+	}
+	MessageID_value = map[string]int32{
+		"MESSAGE_ID_UNSPECIFIED": 0,
+		"FARMS_STORE_INFO_MSG":   200,
+		"STORE_INFO":             201,
+	}
+)
+
+func (x MessageID) Enum() *MessageID {
+	p := new(MessageID)
+	*p = x
+	return p
+}
+
+func (x MessageID) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (MessageID) Descriptor() protoreflect.EnumDescriptor {
+	return file_farm_v1_farm_proto_enumTypes[0].Descriptor()
+}
+
+func (MessageID) Type() protoreflect.EnumType {
+	return &file_farm_v1_farm_proto_enumTypes[0]
+}
+
+func (x MessageID) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use MessageID.Descriptor instead.
+func (MessageID) EnumDescriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{0}
+}
+
+// *
+// 是否状态枚举
+// 通用的是否状态枚举（用于多个字段）
+type BooleanStatus int32
+
+const (
+	BooleanStatus_BOOLEAN_UNSPECIFIED BooleanStatus = 0 // 未指定
+	BooleanStatus_NO                  BooleanStatus = 1 // 否
+	BooleanStatus_YES                 BooleanStatus = 2 // 是
+)
+
+// Enum value maps for BooleanStatus.
+var (
+	BooleanStatus_name = map[int32]string{
+		0: "BOOLEAN_UNSPECIFIED",
+		1: "NO",
+		2: "YES",
+	}
+	BooleanStatus_value = map[string]int32{
+		"BOOLEAN_UNSPECIFIED": 0,
+		"NO":                  1,
+		"YES":                 2,
+	}
+)
+
+func (x BooleanStatus) Enum() *BooleanStatus {
+	p := new(BooleanStatus)
+	*p = x
+	return p
+}
+
+func (x BooleanStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (BooleanStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_farm_v1_farm_proto_enumTypes[1].Descriptor()
+}
+
+func (BooleanStatus) Type() protoreflect.EnumType {
+	return &file_farm_v1_farm_proto_enumTypes[1]
+}
+
+func (x BooleanStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use BooleanStatus.Descriptor instead.
+func (BooleanStatus) EnumDescriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{1}
+}
+
+// *
+// 商品类型枚举
+// 定义商店中商品的类型
+type ProductType int32
+
+const (
+	ProductType_PRODUCT_TYPE_UNSPECIFIED ProductType = 0 // 未指定类型
+	ProductType_SEED                     ProductType = 1 // 种子
+	ProductType_FERTILIZER               ProductType = 2 // 肥料
+	ProductType_OTHER                    ProductType = 3 // 其他道具
+)
+
+// Enum value maps for ProductType.
+var (
+	ProductType_name = map[int32]string{
+		0: "PRODUCT_TYPE_UNSPECIFIED",
+		1: "SEED",
+		2: "FERTILIZER",
+		3: "OTHER",
+	}
+	ProductType_value = map[string]int32{
+		"PRODUCT_TYPE_UNSPECIFIED": 0,
+		"SEED":                     1,
+		"FERTILIZER":               2,
+		"OTHER":                    3,
+	}
+)
+
+func (x ProductType) Enum() *ProductType {
+	p := new(ProductType)
+	*p = x
+	return p
+}
+
+func (x ProductType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ProductType) Descriptor() protoreflect.EnumDescriptor {
+	return file_farm_v1_farm_proto_enumTypes[2].Descriptor()
+}
+
+func (ProductType) Type() protoreflect.EnumType {
+	return &file_farm_v1_farm_proto_enumTypes[2]
+}
+
+func (x ProductType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ProductType.Descriptor instead.
+func (ProductType) EnumDescriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{2}
+}
+
 type FarmReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -96,22 +257,432 @@ func (*FarmReply) Descriptor() ([]byte, []int) {
 	return file_farm_v1_farm_proto_rawDescGZIP(), []int{1}
 }
 
+// *
+// MQTT请求消息基础结构
+// 所有请求消息的基础结构，可根据需要扩展
+type MsgReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MsgReq) Reset() {
+	*x = MsgReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgReq) ProtoMessage() {}
+
+func (x *MsgReq) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MsgReq.ProtoReflect.Descriptor instead.
+func (*MsgReq) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{2}
+}
+
+// *
+// MQTT响应消息基础结构
+// 所有响应消息的基础结构，可根据需要扩展
+type MsgReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MsgReply) Reset() {
+	*x = MsgReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgReply) ProtoMessage() {}
+
+func (x *MsgReply) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MsgReply.ProtoReflect.Descriptor instead.
+func (*MsgReply) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{3}
+}
+
+// *
+// 获取用户商店信息请求
+// 用于查询当前用户的商店相关信息
+type FarmsStoreInfoMsgReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId   int64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // 用户身份验证令牌，必填
+	Page     int64 `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize int64 `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+}
+
+func (x *FarmsStoreInfoMsgReq) Reset() {
+	*x = FarmsStoreInfoMsgReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FarmsStoreInfoMsgReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FarmsStoreInfoMsgReq) ProtoMessage() {}
+
+func (x *FarmsStoreInfoMsgReq) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FarmsStoreInfoMsgReq.ProtoReflect.Descriptor instead.
+func (*FarmsStoreInfoMsgReq) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *FarmsStoreInfoMsgReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReq) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReq) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+// *
+// 商店信息响应
+// 包含商店内可购买的商品列表
+type FarmsStoreInfoMsgReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Page      int64        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize  int64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Total     int64        `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+	TotalPage int64        `protobuf:"varint,4,opt,name=total_page,json=totalPage,proto3" json:"total_page,omitempty"`
+	Rows      []*StoreInfo `protobuf:"bytes,5,rep,name=rows,proto3" json:"rows,omitempty"` // 商品信息列表
+	Extend    string       `protobuf:"bytes,6,opt,name=extend,proto3" json:"extend,omitempty"`
+}
+
+func (x *FarmsStoreInfoMsgReply) Reset() {
+	*x = FarmsStoreInfoMsgReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FarmsStoreInfoMsgReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FarmsStoreInfoMsgReply) ProtoMessage() {}
+
+func (x *FarmsStoreInfoMsgReply) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FarmsStoreInfoMsgReply.ProtoReflect.Descriptor instead.
+func (*FarmsStoreInfoMsgReply) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *FarmsStoreInfoMsgReply) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReply) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReply) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReply) GetTotalPage() int64 {
+	if x != nil {
+		return x.TotalPage
+	}
+	return 0
+}
+
+func (x *FarmsStoreInfoMsgReply) GetRows() []*StoreInfo {
+	if x != nil {
+		return x.Rows
+	}
+	return nil
+}
+
+func (x *FarmsStoreInfoMsgReply) GetExtend() string {
+	if x != nil {
+		return x.Extend
+	}
+	return ""
+}
+
+// *
+// 商店商品信息
+// 表示商店中的单个商品信息
+type StoreInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id              int64         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                                                               // 自增主键
+	ProductType     ProductType   `protobuf:"varint,2,opt,name=product_type,json=productType,proto3,enum=farm.v1.ProductType" json:"product_type,omitempty"` // 商品类型
+	ProductName     string        `protobuf:"bytes,3,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`                           // 商品名称
+	ProductImageUrl string        `protobuf:"bytes,4,opt,name=product_image_url,json=productImageUrl,proto3" json:"product_image_url,omitempty"`             // 商品图片地址
+	ProductId       int64         `protobuf:"varint,5,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`                                // 商品ID
+	Stock           int64         `protobuf:"varint,6,opt,name=stock,proto3" json:"stock,omitempty"`                                                         // 库存数量，-1表示无限
+	Sort            int64         `protobuf:"varint,7,opt,name=sort,proto3" json:"sort,omitempty"`                                                           // 排序字段
+	IsFree          BooleanStatus `protobuf:"varint,8,opt,name=is_free,json=isFree,proto3,enum=farm.v1.BooleanStatus" json:"is_free,omitempty"`              // 是否可以免费领取
+	IsEnabled       BooleanStatus `protobuf:"varint,9,opt,name=is_enabled,json=isEnabled,proto3,enum=farm.v1.BooleanStatus" json:"is_enabled,omitempty"`     // 是否启用
+}
+
+func (x *StoreInfo) Reset() {
+	*x = StoreInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StoreInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StoreInfo) ProtoMessage() {}
+
+func (x *StoreInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StoreInfo.ProtoReflect.Descriptor instead.
+func (*StoreInfo) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *StoreInfo) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *StoreInfo) GetProductType() ProductType {
+	if x != nil {
+		return x.ProductType
+	}
+	return ProductType_PRODUCT_TYPE_UNSPECIFIED
+}
+
+func (x *StoreInfo) GetProductName() string {
+	if x != nil {
+		return x.ProductName
+	}
+	return ""
+}
+
+func (x *StoreInfo) GetProductImageUrl() string {
+	if x != nil {
+		return x.ProductImageUrl
+	}
+	return ""
+}
+
+func (x *StoreInfo) GetProductId() int64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+func (x *StoreInfo) GetStock() int64 {
+	if x != nil {
+		return x.Stock
+	}
+	return 0
+}
+
+func (x *StoreInfo) GetSort() int64 {
+	if x != nil {
+		return x.Sort
+	}
+	return 0
+}
+
+func (x *StoreInfo) GetIsFree() BooleanStatus {
+	if x != nil {
+		return x.IsFree
+	}
+	return BooleanStatus_BOOLEAN_UNSPECIFIED
+}
+
+func (x *StoreInfo) GetIsEnabled() BooleanStatus {
+	if x != nil {
+		return x.IsEnabled
+	}
+	return BooleanStatus_BOOLEAN_UNSPECIFIED
+}
+
 var File_farm_v1_farm_proto protoreflect.FileDescriptor
 
 var file_farm_v1_farm_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x66, 0x61, 0x72, 0x6d, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x22, 0x09, 0x0a,
 	0x07, 0x46, 0x61, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x22, 0x0b, 0x0a, 0x09, 0x46, 0x61, 0x72, 0x6d,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x3d, 0x0a, 0x0b, 0x46, 0x61, 0x72, 0x6d, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74, 0x12, 0x10, 0x2e, 0x66,
-	0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x1a, 0x12,
-	0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x22, 0x00, 0x32, 0x42, 0x0a, 0x10, 0x46, 0x61, 0x72, 0x6d, 0x49, 0x6e, 0x6e, 0x65,
-	0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74,
-	0x12, 0x10, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52,
-	0x65, 0x71, 0x1a, 0x12, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72,
-	0x6d, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62,
-	0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x08, 0x0a, 0x06, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x22,
+	0x0a, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x60, 0x0a, 0x14, 0x46,
+	0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67,
+	0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04,
+	0x70, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65,
+	0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22, 0xbe, 0x01,
+	0x0a, 0x16, 0x46, 0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f,
+	0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x1b, 0x0a, 0x09,
+	0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74,
+	0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12,
+	0x1d, 0x0a, 0x0a, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x5f, 0x70, 0x61, 0x67, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x09, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x50, 0x61, 0x67, 0x65, 0x12, 0x26,
+	0x0a, 0x04, 0x72, 0x6f, 0x77, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x66,
+	0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f,
+	0x52, 0x04, 0x72, 0x6f, 0x77, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x78, 0x74, 0x65, 0x6e, 0x64,
+	0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x65, 0x78, 0x74, 0x65, 0x6e, 0x64, 0x22, 0xd4,
+	0x02, 0x0a, 0x09, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x37, 0x0a, 0x0c,
+	0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x14, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x72, 0x6f,
+	0x64, 0x75, 0x63, 0x74, 0x54, 0x79, 0x70, 0x65, 0x52, 0x0b, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x70, 0x72, 0x6f,
+	0x64, 0x75, 0x63, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x2a, 0x0a, 0x11, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0f, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6d, 0x61, 0x67,
+	0x65, 0x55, 0x72, 0x6c, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x5f,
+	0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x05, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x6f, 0x72,
+	0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x73, 0x6f, 0x72, 0x74, 0x12, 0x2f, 0x0a,
+	0x07, 0x69, 0x73, 0x5f, 0x66, 0x72, 0x65, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x16,
+	0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e,
+	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x69, 0x73, 0x46, 0x72, 0x65, 0x65, 0x12, 0x35,
+	0x0a, 0x0a, 0x69, 0x73, 0x5f, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x18, 0x09, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x16, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x6f,
+	0x6c, 0x65, 0x61, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x09, 0x69, 0x73, 0x45, 0x6e,
+	0x61, 0x62, 0x6c, 0x65, 0x64, 0x2a, 0x53, 0x0a, 0x09, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x49, 0x44, 0x12, 0x1a, 0x0a, 0x16, 0x4d, 0x45, 0x53, 0x53, 0x41, 0x47, 0x45, 0x5f, 0x49, 0x44,
+	0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x19,
+	0x0a, 0x14, 0x46, 0x41, 0x52, 0x4d, 0x53, 0x5f, 0x53, 0x54, 0x4f, 0x52, 0x45, 0x5f, 0x49, 0x4e,
+	0x46, 0x4f, 0x5f, 0x4d, 0x53, 0x47, 0x10, 0xc8, 0x01, 0x12, 0x0f, 0x0a, 0x0a, 0x53, 0x54, 0x4f,
+	0x52, 0x45, 0x5f, 0x49, 0x4e, 0x46, 0x4f, 0x10, 0xc9, 0x01, 0x2a, 0x39, 0x0a, 0x0d, 0x42, 0x6f,
+	0x6f, 0x6c, 0x65, 0x61, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x17, 0x0a, 0x13, 0x42,
+	0x4f, 0x4f, 0x4c, 0x45, 0x41, 0x4e, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49,
+	0x45, 0x44, 0x10, 0x00, 0x12, 0x06, 0x0a, 0x02, 0x4e, 0x4f, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03,
+	0x59, 0x45, 0x53, 0x10, 0x02, 0x2a, 0x50, 0x0a, 0x0b, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x18, 0x50, 0x52, 0x4f, 0x44, 0x55, 0x43, 0x54, 0x5f,
+	0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44,
+	0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x53, 0x45, 0x45, 0x44, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a,
+	0x46, 0x45, 0x52, 0x54, 0x49, 0x4c, 0x49, 0x5a, 0x45, 0x52, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05,
+	0x4f, 0x54, 0x48, 0x45, 0x52, 0x10, 0x03, 0x32, 0x3d, 0x0a, 0x0b, 0x46, 0x61, 0x72, 0x6d, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74, 0x12, 0x10,
+	0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52, 0x65, 0x71,
+	0x1a, 0x12, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0x66, 0x0a, 0x10, 0x46, 0x61, 0x72, 0x6d, 0x49, 0x6e,
+	0x6e, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x52, 0x0a, 0x0e, 0x46, 0x61,
+	0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1d, 0x2e, 0x66,
+	0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72,
+	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e, 0x66, 0x61,
+	0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x09,
+	0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -126,21 +697,34 @@ func file_farm_v1_farm_proto_rawDescGZIP() []byte {
 	return file_farm_v1_farm_proto_rawDescData
 }
 
-var file_farm_v1_farm_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_farm_v1_farm_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_farm_v1_farm_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_farm_v1_farm_proto_goTypes = []interface{}{
-	(*FarmReq)(nil),   // 0: farm.v1.FarmReq
-	(*FarmReply)(nil), // 1: farm.v1.FarmReply
+	(MessageID)(0),                 // 0: farm.v1.MessageID
+	(BooleanStatus)(0),             // 1: farm.v1.BooleanStatus
+	(ProductType)(0),               // 2: farm.v1.ProductType
+	(*FarmReq)(nil),                // 3: farm.v1.FarmReq
+	(*FarmReply)(nil),              // 4: farm.v1.FarmReply
+	(*MsgReq)(nil),                 // 5: farm.v1.MsgReq
+	(*MsgReply)(nil),               // 6: farm.v1.MsgReply
+	(*FarmsStoreInfoMsgReq)(nil),   // 7: farm.v1.FarmsStoreInfoMsgReq
+	(*FarmsStoreInfoMsgReply)(nil), // 8: farm.v1.FarmsStoreInfoMsgReply
+	(*StoreInfo)(nil),              // 9: farm.v1.StoreInfo
 }
 var file_farm_v1_farm_proto_depIdxs = []int32{
-	0, // 0: farm.v1.FarmService.Test:input_type -> farm.v1.FarmReq
-	0, // 1: farm.v1.FarmInnerService.Test:input_type -> farm.v1.FarmReq
-	1, // 2: farm.v1.FarmService.Test:output_type -> farm.v1.FarmReply
-	1, // 3: farm.v1.FarmInnerService.Test:output_type -> farm.v1.FarmReply
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	9, // 0: farm.v1.FarmsStoreInfoMsgReply.rows:type_name -> farm.v1.StoreInfo
+	2, // 1: farm.v1.StoreInfo.product_type:type_name -> farm.v1.ProductType
+	1, // 2: farm.v1.StoreInfo.is_free:type_name -> farm.v1.BooleanStatus
+	1, // 3: farm.v1.StoreInfo.is_enabled:type_name -> farm.v1.BooleanStatus
+	3, // 4: farm.v1.FarmService.Test:input_type -> farm.v1.FarmReq
+	7, // 5: farm.v1.FarmInnerService.FarmsStoreInfo:input_type -> farm.v1.FarmsStoreInfoMsgReq
+	4, // 6: farm.v1.FarmService.Test:output_type -> farm.v1.FarmReply
+	8, // 7: farm.v1.FarmInnerService.FarmsStoreInfo:output_type -> farm.v1.FarmsStoreInfoMsgReply
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_farm_v1_farm_proto_init() }
@@ -173,19 +757,80 @@ func file_farm_v1_farm_proto_init() {
 				return nil
 			}
 		}
+		file_farm_v1_farm_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FarmsStoreInfoMsgReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FarmsStoreInfoMsgReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StoreInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_farm_v1_farm_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   2,
+			NumEnums:      3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
 		GoTypes:           file_farm_v1_farm_proto_goTypes,
 		DependencyIndexes: file_farm_v1_farm_proto_depIdxs,
+		EnumInfos:         file_farm_v1_farm_proto_enumTypes,
 		MessageInfos:      file_farm_v1_farm_proto_msgTypes,
 	}.Build()
 	File_farm_v1_farm_proto = out.File

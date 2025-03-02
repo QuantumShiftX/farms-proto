@@ -236,9 +236,10 @@ message UserPersonalInfoMsgReply {
  */
 message UserEditPersonalInfoMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
-  int64 visualization = 2;        // 用户形象ID，可选（后端提供枚举值）
+  string avatar = 2;        // 用户形象(头像信息)
   string farm_name = 3;           // 农场名称，可选，修改时使用
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
+  BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
 }
 
 /**

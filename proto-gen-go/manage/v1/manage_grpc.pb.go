@@ -154,7 +154,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManageInnerServiceClient interface {
+	// 获取默认VIP等级信息
 	GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+	// 获取设置基础信息
 	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 }
 
@@ -188,7 +190,9 @@ func (c *manageInnerServiceClient) GetSettingBaseInfo(ctx context.Context, in *M
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility
 type ManageInnerServiceServer interface {
+	// 获取默认VIP等级信息
 	GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error)
+	// 获取设置基础信息
 	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }

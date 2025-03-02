@@ -14,14 +14,11 @@ import (
 )
 
 type (
-	FarmsStoreInfoMsgReply     = v1.FarmsStoreInfoMsgReply
-	FarmsStoreInfoMsgReq       = v1.FarmsStoreInfoMsgReq
 	ForgotPasswordReq          = v1.ForgotPasswordReq
 	MessageWrapper             = v1.MessageWrapper
 	MsgReply                   = v1.MsgReply
 	MsgReq                     = v1.MsgReq
 	RequestClientInfo          = v1.RequestClientInfo
-	StoreInfo                  = v1.StoreInfo
 	UserAuthInfoMsgReply       = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq         = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply    = v1.UserAuthenticationReply

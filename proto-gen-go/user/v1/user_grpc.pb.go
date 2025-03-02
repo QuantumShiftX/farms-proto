@@ -352,7 +352,6 @@ const (
 	UserInnerService_UserAuthentication_FullMethodName   = "/user.v1.UserInnerService/UserAuthentication"
 	UserInnerService_UserPersonalInfo_FullMethodName     = "/user.v1.UserInnerService/UserPersonalInfo"
 	UserInnerService_UserEditPersonalInfo_FullMethodName = "/user.v1.UserInnerService/UserEditPersonalInfo"
-	UserInnerService_FarmsStoreInfo_FullMethodName       = "/user.v1.UserInnerService/FarmsStoreInfo"
 	UserInnerService_UserStorageInfo_FullMethodName      = "/user.v1.UserInnerService/UserStorageInfo"
 	UserInnerService_UserFarmInfo_FullMethodName         = "/user.v1.UserInnerService/UserFarmInfo"
 	UserInnerService_UserFarmOps_FullMethodName          = "/user.v1.UserInnerService/UserFarmOps"
@@ -371,9 +370,7 @@ type UserInnerServiceClient interface {
 	// 用户个人信息
 	UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
-	UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
-	// 农场商店信息
-	FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
+	UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -426,18 +423,9 @@ func (c *userInnerServiceClient) UserPersonalInfo(ctx context.Context, in *UserP
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	out := new(MsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserEditPersonalInfo_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userInnerServiceClient) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
-	out := new(FarmsStoreInfoMsgReply)
-	err := c.cc.Invoke(ctx, UserInnerService_FarmsStoreInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -484,9 +472,7 @@ type UserInnerServiceServer interface {
 	// 用户个人信息
 	UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
-	UserEditPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
-	// 农场商店信息
-	FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error)
+	UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*MsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -512,11 +498,8 @@ func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *
 func (UnimplementedUserInnerServiceServer) UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPersonalInfo not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*MsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserEditPersonalInfo not implemented")
-}
-func (UnimplementedUserInnerServiceServer) FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FarmsStoreInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserStorageInfo not implemented")
@@ -613,7 +596,7 @@ func _UserInnerService_UserPersonalInfo_Handler(srv interface{}, ctx context.Con
 }
 
 func _UserInnerService_UserEditPersonalInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserPersonalInfoMsgReq)
+	in := new(UserEditPersonalInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -625,25 +608,7 @@ func _UserInnerService_UserEditPersonalInfo_Handler(srv interface{}, ctx context
 		FullMethod: UserInnerService_UserEditPersonalInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserEditPersonalInfo(ctx, req.(*UserPersonalInfoMsgReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserInnerService_FarmsStoreInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FarmsStoreInfoMsgReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserInnerServiceServer).FarmsStoreInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserInnerService_FarmsStoreInfo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).FarmsStoreInfo(ctx, req.(*FarmsStoreInfoMsgReq))
+		return srv.(UserInnerServiceServer).UserEditPersonalInfo(ctx, req.(*UserEditPersonalInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -728,10 +693,6 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserEditPersonalInfo",
 			Handler:    _UserInnerService_UserEditPersonalInfo_Handler,
-		},
-		{
-			MethodName: "FarmsStoreInfo",
-			Handler:    _UserInnerService_FarmsStoreInfo_Handler,
 		},
 		{
 			MethodName: "UserStorageInfo",

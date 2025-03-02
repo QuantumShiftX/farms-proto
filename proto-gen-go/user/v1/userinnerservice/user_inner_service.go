@@ -14,14 +14,11 @@ import (
 )
 
 type (
-	FarmsStoreInfoMsgReply     = v1.FarmsStoreInfoMsgReply
-	FarmsStoreInfoMsgReq       = v1.FarmsStoreInfoMsgReq
 	ForgotPasswordReq          = v1.ForgotPasswordReq
 	MessageWrapper             = v1.MessageWrapper
 	MsgReply                   = v1.MsgReply
 	MsgReq                     = v1.MsgReq
 	RequestClientInfo          = v1.RequestClientInfo
-	StoreInfo                  = v1.StoreInfo
 	UserAuthInfoMsgReply       = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq         = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply    = v1.UserAuthenticationReply
@@ -59,9 +56,7 @@ type (
 		// 用户个人信息
 		UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 		// 修改个人信息
-		UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
-		// 农场商店信息
-		FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
+		UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 		// 用户仓库信息
 		UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 		// 用户农场信息
@@ -106,15 +101,9 @@ func (m *defaultUserInnerService) UserPersonalInfo(ctx context.Context, in *User
 }
 
 // 修改个人信息
-func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserEditPersonalInfo(ctx, in, opts...)
-}
-
-// 农场商店信息
-func (m *defaultUserInnerService) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
-	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.FarmsStoreInfo(ctx, in, opts...)
 }
 
 // 用户仓库信息

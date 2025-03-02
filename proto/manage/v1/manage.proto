@@ -95,9 +95,8 @@ message SettlementConfig {
 
 
 service ManageInnerService {
+  // 获取默认VIP等级信息
   rpc GetDefaultVipInfo (ManageReq) returns (DefaultVipInfoReply);
+  // 获取设置基础信息
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
 }
-
-
-

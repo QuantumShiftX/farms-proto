@@ -116,9 +116,7 @@ service UserInnerService {
   // 用户个人信息
   rpc UserPersonalInfo (UserPersonalInfoMsgReq) returns (UserPersonalInfoMsgReply) {}
   // 修改个人信息
-  rpc UserEditPersonalInfo (UserPersonalInfoMsgReq) returns (MsgReply) {}
-  // 农场商店信息
-  rpc FarmsStoreInfo (FarmsStoreInfoMsgReq) returns (FarmsStoreInfoMsgReply) {}
+  rpc UserEditPersonalInfo (UserEditPersonalInfoMsgReq) returns (MsgReply) {}
   // 用户仓库信息
   rpc UserStorageInfo (UserStorageInfoMsgReq) returns (UserStorageInfoMsgReply) {}
   // 用户农场信息
@@ -370,9 +368,10 @@ message UserPersonalInfoMsgReply {
  */
 message UserEditPersonalInfoMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
-  int64 visualization = 2;        // 用户形象ID，可选（后端提供枚举值）
+  string avatar = 2;        // 用户形象(头像信息)
   string farm_name = 3;           // 农场名称，可选，修改时使用
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
+  BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
 }
 
 /**
@@ -400,41 +399,6 @@ message UserBalance {
   int64 user_id = 3;             // 用户ID
   int64 balance = 4;             // 可用余额
   int64 locked_balance = 5;      // 锁定余额（如提现中等）
-}
-
-// 商店相关消息
-// ------------------------------------
-
-/**
- * 获取用户商店信息请求
- * 用于查询当前用户的商店相关信息
- */
-message FarmsStoreInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-}
-
-/**
- * 商店信息响应
- * 包含商店内可购买的商品列表
- */
-message FarmsStoreInfoMsgReply {
-  repeated StoreInfo rows = 1;  // 商品信息列表
-}
-
-/**
- * 商店商品信息
- * 表示商店中的单个商品信息
- */
-message StoreInfo {
-  int64 id = 1;                    // 自增主键
-  ProductType product_type = 2;    // 商品类型
-  string product_name = 3;         // 商品名称
-  string product_image_url = 4;    // 商品图片地址
-  int64 product_id = 5;            // 商品ID
-  int64 stock = 6;                 // 库存数量，-1表示无限
-  int64 sort = 7;                  // 排序字段
-  BooleanStatus is_free = 8;       // 是否可以免费领取
-  BooleanStatus is_enabled = 9;    // 是否启用
 }
 
 // 用户仓库相关消息

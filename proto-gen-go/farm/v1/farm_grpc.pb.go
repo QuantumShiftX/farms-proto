@@ -109,14 +109,15 @@ var FarmService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	FarmInnerService_Test_FullMethodName = "/farm.v1.FarmInnerService/Test"
+	FarmInnerService_FarmsStoreInfo_FullMethodName = "/farm.v1.FarmInnerService/FarmsStoreInfo"
 )
 
 // FarmInnerServiceClient is the client API for FarmInnerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FarmInnerServiceClient interface {
-	Test(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*FarmReply, error)
+	// 农场商店信息
+	FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
 }
 
 type farmInnerServiceClient struct {
@@ -127,9 +128,9 @@ func NewFarmInnerServiceClient(cc grpc.ClientConnInterface) FarmInnerServiceClie
 	return &farmInnerServiceClient{cc}
 }
 
-func (c *farmInnerServiceClient) Test(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*FarmReply, error) {
-	out := new(FarmReply)
-	err := c.cc.Invoke(ctx, FarmInnerService_Test_FullMethodName, in, out, opts...)
+func (c *farmInnerServiceClient) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
+	out := new(FarmsStoreInfoMsgReply)
+	err := c.cc.Invoke(ctx, FarmInnerService_FarmsStoreInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +141,8 @@ func (c *farmInnerServiceClient) Test(ctx context.Context, in *FarmReq, opts ...
 // All implementations must embed UnimplementedFarmInnerServiceServer
 // for forward compatibility
 type FarmInnerServiceServer interface {
-	Test(context.Context, *FarmReq) (*FarmReply, error)
+	// 农场商店信息
+	FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error)
 	mustEmbedUnimplementedFarmInnerServiceServer()
 }
 
@@ -148,8 +150,8 @@ type FarmInnerServiceServer interface {
 type UnimplementedFarmInnerServiceServer struct {
 }
 
-func (UnimplementedFarmInnerServiceServer) Test(context.Context, *FarmReq) (*FarmReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedFarmInnerServiceServer) FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FarmsStoreInfo not implemented")
 }
 func (UnimplementedFarmInnerServiceServer) mustEmbedUnimplementedFarmInnerServiceServer() {}
 
@@ -164,20 +166,20 @@ func RegisterFarmInnerServiceServer(s grpc.ServiceRegistrar, srv FarmInnerServic
 	s.RegisterService(&FarmInnerService_ServiceDesc, srv)
 }
 
-func _FarmInnerService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FarmReq)
+func _FarmInnerService_FarmsStoreInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FarmsStoreInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FarmInnerServiceServer).Test(ctx, in)
+		return srv.(FarmInnerServiceServer).FarmsStoreInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FarmInnerService_Test_FullMethodName,
+		FullMethod: FarmInnerService_FarmsStoreInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FarmInnerServiceServer).Test(ctx, req.(*FarmReq))
+		return srv.(FarmInnerServiceServer).FarmsStoreInfo(ctx, req.(*FarmsStoreInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -190,8 +192,8 @@ var FarmInnerService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FarmInnerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _FarmInnerService_Test_Handler,
+			MethodName: "FarmsStoreInfo",
+			Handler:    _FarmInnerService_FarmsStoreInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

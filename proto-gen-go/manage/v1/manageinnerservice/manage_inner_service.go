@@ -27,7 +27,9 @@ type (
 	VipLevelDetail       = v1.VipLevelDetail
 
 	ManageInnerService interface {
+		// 获取默认VIP等级信息
 		GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+		// 获取设置基础信息
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 	}
 
@@ -42,11 +44,13 @@ func NewManageInnerService(cli zrpc.Client) ManageInnerService {
 	}
 }
 
+// 获取默认VIP等级信息
 func (m *defaultManageInnerService) GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetDefaultVipInfo(ctx, in, opts...)
 }
 
+// 获取设置基础信息
 func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetSettingBaseInfo(ctx, in, opts...)
