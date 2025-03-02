@@ -356,9 +356,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserInnerServiceClient interface {
-	UserConnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error)
-	UserDisconnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error)
-	UserAuthentication(ctx context.Context, in *UserAuthInfoMsg, opts ...grpc.CallOption) (*UserAuthInfoReply, error)
+	UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -369,7 +369,7 @@ func NewUserInnerServiceClient(cc grpc.ClientConnInterface) UserInnerServiceClie
 	return &userInnerServiceClient{cc}
 }
 
-func (c *userInnerServiceClient) UserConnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error) {
+func (c *userInnerServiceClient) UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	out := new(MsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserConnected_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -378,7 +378,7 @@ func (c *userInnerServiceClient) UserConnected(ctx context.Context, in *UserPers
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserDisconnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error) {
+func (c *userInnerServiceClient) UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	out := new(MsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserDisconnected_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -387,8 +387,8 @@ func (c *userInnerServiceClient) UserDisconnected(ctx context.Context, in *UserP
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *UserAuthInfoMsg, opts ...grpc.CallOption) (*UserAuthInfoReply, error) {
-	out := new(UserAuthInfoReply)
+func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error) {
+	out := new(UserAuthInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserAuthentication_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -400,9 +400,9 @@ func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *Use
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
 type UserInnerServiceServer interface {
-	UserConnected(context.Context, *UserPersonalInfoMsg) (*MsgReply, error)
-	UserDisconnected(context.Context, *UserPersonalInfoMsg) (*MsgReply, error)
-	UserAuthentication(context.Context, *UserAuthInfoMsg) (*UserAuthInfoReply, error)
+	UserConnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
+	UserDisconnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
+	UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -410,13 +410,13 @@ type UserInnerServiceServer interface {
 type UnimplementedUserInnerServiceServer struct {
 }
 
-func (UnimplementedUserInnerServiceServer) UserConnected(context.Context, *UserPersonalInfoMsg) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserConnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserConnected not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserDisconnected(context.Context, *UserPersonalInfoMsg) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserDisconnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDisconnected not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *UserAuthInfoMsg) (*UserAuthInfoReply, error) {
+func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAuthentication not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
@@ -433,7 +433,7 @@ func RegisterUserInnerServiceServer(s grpc.ServiceRegistrar, srv UserInnerServic
 }
 
 func _UserInnerService_UserConnected_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserPersonalInfoMsg)
+	in := new(UserPersonalInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -445,13 +445,13 @@ func _UserInnerService_UserConnected_Handler(srv interface{}, ctx context.Contex
 		FullMethod: UserInnerService_UserConnected_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserConnected(ctx, req.(*UserPersonalInfoMsg))
+		return srv.(UserInnerServiceServer).UserConnected(ctx, req.(*UserPersonalInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserInnerService_UserDisconnected_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserPersonalInfoMsg)
+	in := new(UserPersonalInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -463,13 +463,13 @@ func _UserInnerService_UserDisconnected_Handler(srv interface{}, ctx context.Con
 		FullMethod: UserInnerService_UserDisconnected_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserDisconnected(ctx, req.(*UserPersonalInfoMsg))
+		return srv.(UserInnerServiceServer).UserDisconnected(ctx, req.(*UserPersonalInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserInnerService_UserAuthentication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserAuthInfoMsg)
+	in := new(UserAuthInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -481,7 +481,7 @@ func _UserInnerService_UserAuthentication_Handler(srv interface{}, ctx context.C
 		FullMethod: UserInnerService_UserAuthentication_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserAuthentication(ctx, req.(*UserAuthInfoMsg))
+		return srv.(UserInnerServiceServer).UserAuthentication(ctx, req.(*UserAuthInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

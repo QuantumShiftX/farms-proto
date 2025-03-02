@@ -107,9 +107,9 @@ message UserAuthenticationReply {
 
 
 service UserInnerService {
-  rpc UserConnected (UserPersonalInfoMsg) returns (MsgReply) {}
-  rpc UserDisconnected (UserPersonalInfoMsg) returns (MsgReply) {}
-  rpc UserAuthentication (UserAuthInfoMsg) returns (UserAuthInfoReply);
+  rpc UserConnected (UserPersonalInfoMsgReq) returns (MsgReply) {}
+  rpc UserDisconnected (UserPersonalInfoMsgReq) returns (MsgReply) {}
+  rpc UserAuthentication (UserAuthInfoMsgReq) returns (UserAuthInfoMsgReply);
 }
 
 

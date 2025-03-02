@@ -14,45 +14,45 @@ import (
 )
 
 type (
-	FarmsStoreInfoMsg       = v1.FarmsStoreInfoMsg
-	FarmsStoreReply         = v1.FarmsStoreReply
-	ForgotPasswordReq       = v1.ForgotPasswordReq
-	MessageWrapper          = v1.MessageWrapper
-	MsgReply                = v1.MsgReply
-	MsgReq                  = v1.MsgReq
-	RequestClientInfo       = v1.RequestClientInfo
-	StoreInfo               = v1.StoreInfo
-	UserAuthInfoMsg         = v1.UserAuthInfoMsg
-	UserAuthInfoReply       = v1.UserAuthInfoReply
-	UserAuthenticationReply = v1.UserAuthenticationReply
-	UserAuthenticationReq   = v1.UserAuthenticationReq
-	UserBalance             = v1.UserBalance
-	UserEditPersonalInfoMsg = v1.UserEditPersonalInfoMsg
-	UserFarmInfoMsg         = v1.UserFarmInfoMsg
-	UserFarmOpsMsg          = v1.UserFarmOpsMsg
-	UserFarmReply           = v1.UserFarmReply
-	UserIdReq               = v1.UserIdReq
-	UserLandDetail          = v1.UserLandDetail
-	UserLandReply           = v1.UserLandReply
-	UserLoginResp           = v1.UserLoginResp
-	UserPersonalInfoMsg     = v1.UserPersonalInfoMsg
-	UserPersonalInfoReply   = v1.UserPersonalInfoReply
-	UserPlantingDetail      = v1.UserPlantingDetail
-	UserRegisterReq         = v1.UserRegisterReq
-	UserReply               = v1.UserReply
-	UserReq                 = v1.UserReq
-	UserSignInReq           = v1.UserSignInReq
-	UserSignOutReq          = v1.UserSignOutReq
-	UserStorageDetail       = v1.UserStorageDetail
-	UserStorageInfoMsg      = v1.UserStorageInfoMsg
-	UserStorageReply        = v1.UserStorageReply
-	UserWallet              = v1.UserWallet
-	VerifyAccountReq        = v1.VerifyAccountReq
+	FarmsStoreInfoMsgReply     = v1.FarmsStoreInfoMsgReply
+	FarmsStoreInfoMsgReq       = v1.FarmsStoreInfoMsgReq
+	ForgotPasswordReq          = v1.ForgotPasswordReq
+	MessageWrapper             = v1.MessageWrapper
+	MsgReply                   = v1.MsgReply
+	MsgReq                     = v1.MsgReq
+	RequestClientInfo          = v1.RequestClientInfo
+	StoreInfo                  = v1.StoreInfo
+	UserAuthInfoMsgReply       = v1.UserAuthInfoMsgReply
+	UserAuthInfoMsgReq         = v1.UserAuthInfoMsgReq
+	UserAuthenticationReply    = v1.UserAuthenticationReply
+	UserAuthenticationReq      = v1.UserAuthenticationReq
+	UserBalance                = v1.UserBalance
+	UserEditPersonalInfoMsgReq = v1.UserEditPersonalInfoMsgReq
+	UserFarmInfoMsgReply       = v1.UserFarmInfoMsgReply
+	UserFarmInfoMsgReq         = v1.UserFarmInfoMsgReq
+	UserFarmOpsMsgReq          = v1.UserFarmOpsMsgReq
+	UserIdReq                  = v1.UserIdReq
+	UserLandDetail             = v1.UserLandDetail
+	UserLandInfoMsgReply       = v1.UserLandInfoMsgReply
+	UserLoginResp              = v1.UserLoginResp
+	UserPersonalInfoMsgReply   = v1.UserPersonalInfoMsgReply
+	UserPersonalInfoMsgReq     = v1.UserPersonalInfoMsgReq
+	UserPlantingDetail         = v1.UserPlantingDetail
+	UserRegisterReq            = v1.UserRegisterReq
+	UserReply                  = v1.UserReply
+	UserReq                    = v1.UserReq
+	UserSignInReq              = v1.UserSignInReq
+	UserSignOutReq             = v1.UserSignOutReq
+	UserStorageDetail          = v1.UserStorageDetail
+	UserStorageInfoMsgReply    = v1.UserStorageInfoMsgReply
+	UserStorageInfoMsgReq      = v1.UserStorageInfoMsgReq
+	UserWallet                 = v1.UserWallet
+	VerifyAccountReq           = v1.VerifyAccountReq
 
 	UserInnerService interface {
-		UserConnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error)
-		UserDisconnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error)
-		UserAuthentication(ctx context.Context, in *UserAuthInfoMsg, opts ...grpc.CallOption) (*UserAuthInfoReply, error)
+		UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -66,17 +66,17 @@ func NewUserInnerService(cli zrpc.Client) UserInnerService {
 	}
 }
 
-func (m *defaultUserInnerService) UserConnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserConnected(ctx, in, opts...)
 }
 
-func (m *defaultUserInnerService) UserDisconnected(ctx context.Context, in *UserPersonalInfoMsg, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserDisconnected(ctx, in, opts...)
 }
 
-func (m *defaultUserInnerService) UserAuthentication(ctx context.Context, in *UserAuthInfoMsg, opts ...grpc.CallOption) (*UserAuthInfoReply, error) {
+func (m *defaultUserInnerService) UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserAuthentication(ctx, in, opts...)
 }
