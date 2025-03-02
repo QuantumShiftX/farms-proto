@@ -347,18 +347,39 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserInnerService_UserConnected_FullMethodName      = "/user.v1.UserInnerService/UserConnected"
-	UserInnerService_UserDisconnected_FullMethodName   = "/user.v1.UserInnerService/UserDisconnected"
-	UserInnerService_UserAuthentication_FullMethodName = "/user.v1.UserInnerService/UserAuthentication"
+	UserInnerService_UserConnected_FullMethodName        = "/user.v1.UserInnerService/UserConnected"
+	UserInnerService_UserDisconnected_FullMethodName     = "/user.v1.UserInnerService/UserDisconnected"
+	UserInnerService_UserAuthentication_FullMethodName   = "/user.v1.UserInnerService/UserAuthentication"
+	UserInnerService_UserPersonalInfo_FullMethodName     = "/user.v1.UserInnerService/UserPersonalInfo"
+	UserInnerService_UserEditPersonalInfo_FullMethodName = "/user.v1.UserInnerService/UserEditPersonalInfo"
+	UserInnerService_FarmsStoreInfo_FullMethodName       = "/user.v1.UserInnerService/FarmsStoreInfo"
+	UserInnerService_UserStorageInfo_FullMethodName      = "/user.v1.UserInnerService/UserStorageInfo"
+	UserInnerService_UserFarmInfo_FullMethodName         = "/user.v1.UserInnerService/UserFarmInfo"
+	UserInnerService_UserFarmOps_FullMethodName          = "/user.v1.UserInnerService/UserFarmOps"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserInnerServiceClient interface {
+	// 用户连接
 	UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	// 用户断开连接
 	UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	// 用户认证
 	UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
+	// 用户个人信息
+	UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
+	// 修改个人信息
+	UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	// 农场商店信息
+	FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
+	// 用户仓库信息
+	UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
+	// 用户农场信息
+	UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error)
+	// 用户操作农场
+	UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -396,13 +417,82 @@ func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *Use
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error) {
+	out := new(UserPersonalInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserPersonalInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	out := new(MsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserEditPersonalInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
+	out := new(FarmsStoreInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_FarmsStoreInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error) {
+	out := new(UserStorageInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserStorageInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error) {
+	out := new(UserFarmInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserFarmInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	out := new(MsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserFarmOps_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
 type UserInnerServiceServer interface {
+	// 用户连接
 	UserConnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
+	// 用户断开连接
 	UserDisconnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
+	// 用户认证
 	UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error)
+	// 用户个人信息
+	UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error)
+	// 修改个人信息
+	UserEditPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
+	// 农场商店信息
+	FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error)
+	// 用户仓库信息
+	UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error)
+	// 用户农场信息
+	UserFarmInfo(context.Context, *UserFarmInfoMsgReq) (*UserFarmInfoMsgReply, error)
+	// 用户操作农场
+	UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -418,6 +508,24 @@ func (UnimplementedUserInnerServiceServer) UserDisconnected(context.Context, *Us
 }
 func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAuthentication not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserPersonalInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserEditPersonalInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FarmsStoreInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserStorageInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserFarmInfo(context.Context, *UserFarmInfoMsgReq) (*UserFarmInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserFarmInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserFarmOps not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -486,6 +594,114 @@ func _UserInnerService_UserAuthentication_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserPersonalInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPersonalInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserPersonalInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserPersonalInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserPersonalInfo(ctx, req.(*UserPersonalInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserEditPersonalInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPersonalInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserEditPersonalInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserEditPersonalInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserEditPersonalInfo(ctx, req.(*UserPersonalInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_FarmsStoreInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FarmsStoreInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).FarmsStoreInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_FarmsStoreInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).FarmsStoreInfo(ctx, req.(*FarmsStoreInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserStorageInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserStorageInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserStorageInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserStorageInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserStorageInfo(ctx, req.(*UserStorageInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserFarmInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserFarmInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserFarmInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserFarmInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserFarmInfo(ctx, req.(*UserFarmInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserFarmOps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserFarmOpsMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserFarmOps(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserFarmOps_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserFarmOps(ctx, req.(*UserFarmOpsMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -504,6 +720,30 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserAuthentication",
 			Handler:    _UserInnerService_UserAuthentication_Handler,
+		},
+		{
+			MethodName: "UserPersonalInfo",
+			Handler:    _UserInnerService_UserPersonalInfo_Handler,
+		},
+		{
+			MethodName: "UserEditPersonalInfo",
+			Handler:    _UserInnerService_UserEditPersonalInfo_Handler,
+		},
+		{
+			MethodName: "FarmsStoreInfo",
+			Handler:    _UserInnerService_FarmsStoreInfo_Handler,
+		},
+		{
+			MethodName: "UserStorageInfo",
+			Handler:    _UserInnerService_UserStorageInfo_Handler,
+		},
+		{
+			MethodName: "UserFarmInfo",
+			Handler:    _UserInnerService_UserFarmInfo_Handler,
+		},
+		{
+			MethodName: "UserFarmOps",
+			Handler:    _UserInnerService_UserFarmOps_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -107,9 +107,25 @@ message UserAuthenticationReply {
 
 
 service UserInnerService {
+  // 用户连接
   rpc UserConnected (UserPersonalInfoMsgReq) returns (MsgReply) {}
+  // 用户断开连接
   rpc UserDisconnected (UserPersonalInfoMsgReq) returns (MsgReply) {}
+  // 用户认证
   rpc UserAuthentication (UserAuthInfoMsgReq) returns (UserAuthInfoMsgReply);
+  // 用户个人信息
+  rpc UserPersonalInfo (UserPersonalInfoMsgReq) returns (UserPersonalInfoMsgReply) {}
+  // 修改个人信息
+  rpc UserEditPersonalInfo (UserPersonalInfoMsgReq) returns (MsgReply) {}
+  // 农场商店信息
+  rpc FarmsStoreInfo (FarmsStoreInfoMsgReq) returns (FarmsStoreInfoMsgReply) {}
+  // 用户仓库信息
+  rpc UserStorageInfo (UserStorageInfoMsgReq) returns (UserStorageInfoMsgReply) {}
+  // 用户农场信息
+  rpc UserFarmInfo (UserFarmInfoMsgReq) returns (UserFarmInfoMsgReply) {}
+  // 用户操作农场
+  rpc UserFarmOps (UserFarmOpsMsgReq) returns (MsgReply) {}
+
 }
 
 

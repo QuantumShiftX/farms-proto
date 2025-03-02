@@ -50,9 +50,24 @@ type (
 	VerifyAccountReq           = v1.VerifyAccountReq
 
 	UserInnerService interface {
+		// 用户连接
 		UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		// 用户断开连接
 		UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		// 用户认证
 		UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
+		// 用户个人信息
+		UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
+		// 修改个人信息
+		UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		// 农场商店信息
+		FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
+		// 用户仓库信息
+		UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
+		// 用户农场信息
+		UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error)
+		// 用户操作农场
+		UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -66,17 +81,56 @@ func NewUserInnerService(cli zrpc.Client) UserInnerService {
 	}
 }
 
+// 用户连接
 func (m *defaultUserInnerService) UserConnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserConnected(ctx, in, opts...)
 }
 
+// 用户断开连接
 func (m *defaultUserInnerService) UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserDisconnected(ctx, in, opts...)
 }
 
+// 用户认证
 func (m *defaultUserInnerService) UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserAuthentication(ctx, in, opts...)
+}
+
+// 用户个人信息
+func (m *defaultUserInnerService) UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserPersonalInfo(ctx, in, opts...)
+}
+
+// 修改个人信息
+func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserEditPersonalInfo(ctx, in, opts...)
+}
+
+// 农场商店信息
+func (m *defaultUserInnerService) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.FarmsStoreInfo(ctx, in, opts...)
+}
+
+// 用户仓库信息
+func (m *defaultUserInnerService) UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserStorageInfo(ctx, in, opts...)
+}
+
+// 用户农场信息
+func (m *defaultUserInnerService) UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserFarmInfo(ctx, in, opts...)
+}
+
+// 用户操作农场
+func (m *defaultUserInnerService) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserFarmOps(ctx, in, opts...)
 }
