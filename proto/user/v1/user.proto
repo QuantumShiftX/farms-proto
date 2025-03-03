@@ -410,6 +410,8 @@ message UserBalance {
  */
 message UserStorageInfoMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
 }
 
 /**
@@ -417,7 +419,12 @@ message UserStorageInfoMsgReq {
  * 包含用户仓库中的所有物品
  */
 message UserStorageInfoMsgReply {
-  repeated UserStorageDetail rows = 1;  // 用户仓库物品列表
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated UserStorageDetail rows = 5;  // 用户仓库物品列表
+  string extend = 6;
 }
 
 /**
