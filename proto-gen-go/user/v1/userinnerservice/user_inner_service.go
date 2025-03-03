@@ -31,6 +31,7 @@ type (
 	UserIdReq                  = v1.UserIdReq
 	UserLandDetail             = v1.UserLandDetail
 	UserLandInfoMsgReply       = v1.UserLandInfoMsgReply
+	UserLandInfoMsgReq         = v1.UserLandInfoMsgReq
 	UserLoginResp              = v1.UserLoginResp
 	UserPersonalInfoMsgReply   = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq     = v1.UserPersonalInfoMsgReq
@@ -61,6 +62,8 @@ type (
 		UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 		// 用户农场信息
 		UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error)
+		// 用户土地信息
+		UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 		// 用户操作农场
 		UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 	}
@@ -116,6 +119,12 @@ func (m *defaultUserInnerService) UserStorageInfo(ctx context.Context, in *UserS
 func (m *defaultUserInnerService) UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFarmInfo(ctx, in, opts...)
+}
+
+// 用户土地信息
+func (m *defaultUserInnerService) UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserLandInfo(ctx, in, opts...)
 }
 
 // 用户操作农场

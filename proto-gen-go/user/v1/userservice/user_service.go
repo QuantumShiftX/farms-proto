@@ -31,6 +31,7 @@ type (
 	UserIdReq                  = v1.UserIdReq
 	UserLandDetail             = v1.UserLandDetail
 	UserLandInfoMsgReply       = v1.UserLandInfoMsgReply
+	UserLandInfoMsgReq         = v1.UserLandInfoMsgReq
 	UserLoginResp              = v1.UserLoginResp
 	UserPersonalInfoMsgReply   = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq     = v1.UserPersonalInfoMsgReq

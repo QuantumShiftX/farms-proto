@@ -354,6 +354,7 @@ const (
 	UserInnerService_UserEditPersonalInfo_FullMethodName = "/user.v1.UserInnerService/UserEditPersonalInfo"
 	UserInnerService_UserStorageInfo_FullMethodName      = "/user.v1.UserInnerService/UserStorageInfo"
 	UserInnerService_UserFarmInfo_FullMethodName         = "/user.v1.UserInnerService/UserFarmInfo"
+	UserInnerService_UserLandInfo_FullMethodName         = "/user.v1.UserInnerService/UserLandInfo"
 	UserInnerService_UserFarmOps_FullMethodName          = "/user.v1.UserInnerService/UserFarmOps"
 )
 
@@ -375,6 +376,8 @@ type UserInnerServiceClient interface {
 	UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
 	UserFarmInfo(ctx context.Context, in *UserFarmInfoMsgReq, opts ...grpc.CallOption) (*UserFarmInfoMsgReply, error)
+	// 用户土地信息
+	UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
 	UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 }
@@ -450,6 +453,15 @@ func (c *userInnerServiceClient) UserFarmInfo(ctx context.Context, in *UserFarmI
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error) {
+	out := new(UserLandInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserLandInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userInnerServiceClient) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	out := new(MsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserFarmOps_FullMethodName, in, out, opts...)
@@ -477,6 +489,8 @@ type UserInnerServiceServer interface {
 	UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
 	UserFarmInfo(context.Context, *UserFarmInfoMsgReq) (*UserFarmInfoMsgReply, error)
+	// 用户土地信息
+	UserLandInfo(context.Context, *UserLandInfoMsgReq) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
 	UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
@@ -506,6 +520,9 @@ func (UnimplementedUserInnerServiceServer) UserStorageInfo(context.Context, *Use
 }
 func (UnimplementedUserInnerServiceServer) UserFarmInfo(context.Context, *UserFarmInfoMsgReq) (*UserFarmInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFarmInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserLandInfo(context.Context, *UserLandInfoMsgReq) (*UserLandInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserLandInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFarmOps not implemented")
@@ -649,6 +666,24 @@ func _UserInnerService_UserFarmInfo_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserLandInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserLandInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserLandInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserLandInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserLandInfo(ctx, req.(*UserLandInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserInnerService_UserFarmOps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserFarmOpsMsgReq)
 	if err := dec(in); err != nil {
@@ -701,6 +736,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserFarmInfo",
 			Handler:    _UserInnerService_UserFarmInfo_Handler,
+		},
+		{
+			MethodName: "UserLandInfo",
+			Handler:    _UserInnerService_UserLandInfo_Handler,
 		},
 		{
 			MethodName: "UserFarmOps",
