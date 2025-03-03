@@ -436,6 +436,7 @@ message UserStorageInfoMsgReply {
  */
 message UserStorageDetail {
   int64 id = 1;                         // 自增主键
+  int64 storage_id = 21;                // 仓库物品ID
   int64 user_id = 2;                    // 用户ID，关联到用户表
   ProductType product_type = 3;         // 商品类型
   int64 product_id = 4;                 // 商品ID，关联到对应产品配置表
@@ -461,6 +462,7 @@ message UserStorageDetail {
   int64 friend_water_percentage = 18;           // 好友浇水减少时间的百分比快照（0-100）
   int64 friend_fertilizer_time_reduction = 19;  // 好友每次施肥减少的时间快照（单位：分钟）
   int64 friend_fertilizer_percentage = 20;      // 好友施肥减少时间的百分比快照（0-100）
+
 }
 
 // 农场相关消息
