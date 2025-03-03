@@ -412,6 +412,7 @@ message UserStorageInfoMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
   int64 page = 2;
   int64 page_size = 3;
+  ProductType product_type = 4;
 }
 
 /**
