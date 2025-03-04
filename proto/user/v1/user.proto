@@ -450,6 +450,8 @@ message UserStorageDetail {
   // 以下字段仅对种子类型有效
   int64 growth_time = 11;               // 生长时间快照（单位：分钟）
   int64 coin_reward = 12;               // 成熟后的收益快照（单位：代币）
+  int64  watering_frequency = 22; // 浇水频率（次/天）
+  int64  fertilizing_frequency = 23; //施肥频率（次/天)
 
   // 自己操作相关字段
   int64 self_time_reduced_per_water = 13;       // 自己每次浇水减少的时间快照（单位：分钟）
