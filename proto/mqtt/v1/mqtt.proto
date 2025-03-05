@@ -4,6 +4,7 @@ package mqtt.v1;
 option go_package = "./pb/v1";
 
 
+
 /**
  * MessageID 枚举
  * 定义系统中所有消息类型的唯一标识符
@@ -269,41 +270,6 @@ message UserBalance {
   int64 locked_balance = 5;      // 锁定余额（如提现中等）
 }
 
-// 商店相关消息
-// ------------------------------------
-
-/**
- * 获取用户商店信息请求
- * 用于查询当前用户的商店相关信息
- */
-message FarmsStoreInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-}
-
-/**
- * 商店信息响应
- * 包含商店内可购买的商品列表
- */
-message FarmsStoreInfoMsgReply {
-  repeated StoreInfo rows = 1;  // 商品信息列表
-}
-
-/**
- * 商店商品信息
- * 表示商店中的单个商品信息
- */
-message StoreInfo {
-  int64 id = 1;                    // 自增主键
-  ProductType product_type = 2;    // 商品类型
-  string product_name = 3;         // 商品名称
-  string product_image_url = 4;    // 商品图片地址
-  int64 product_id = 5;            // 商品ID
-  int64 stock = 6;                 // 库存数量，-1表示无限
-  int64 sort = 7;                  // 排序字段
-  BooleanStatus is_free = 8;       // 是否可以免费领取
-  BooleanStatus is_enabled = 9;    // 是否启用
-}
-
 // 用户仓库相关消息
 // ------------------------------------
 
@@ -313,6 +279,9 @@ message StoreInfo {
  */
 message UserStorageInfoMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+  ProductType product_type = 4;
 }
 
 /**
@@ -320,7 +289,12 @@ message UserStorageInfoMsgReq {
  * 包含用户仓库中的所有物品
  */
 message UserStorageInfoMsgReply {
-  repeated UserStorageDetail rows = 1;  // 用户仓库物品列表
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated UserStorageDetail rows = 5;  // 用户仓库物品列表
+  string extend = 6;
 }
 
 /**
@@ -329,6 +303,7 @@ message UserStorageInfoMsgReply {
  */
 message UserStorageDetail {
   int64 id = 1;                         // 自增主键
+  int64 storage_id = 21;                // 仓库物品ID
   int64 user_id = 2;                    // 用户ID，关联到用户表
   ProductType product_type = 3;         // 商品类型
   int64 product_id = 4;                 // 商品ID，关联到对应产品配置表
@@ -342,6 +317,8 @@ message UserStorageDetail {
   // 以下字段仅对种子类型有效
   int64 growth_time = 11;               // 生长时间快照（单位：分钟）
   int64 coin_reward = 12;               // 成熟后的收益快照（单位：代币）
+  int64  watering_frequency = 22; // 浇水频率（次/天）
+  int64  fertilizing_frequency = 23; //施肥频率（次/天)
 
   // 自己操作相关字段
   int64 self_time_reduced_per_water = 13;       // 自己每次浇水减少的时间快照（单位：分钟）
@@ -354,6 +331,7 @@ message UserStorageDetail {
   int64 friend_water_percentage = 18;           // 好友浇水减少时间的百分比快照（0-100）
   int64 friend_fertilizer_time_reduction = 19;  // 好友每次施肥减少的时间快照（单位：分钟）
   int64 friend_fertilizer_percentage = 20;      // 好友施肥减少时间的百分比快照（0-100）
+
 }
 
 // 农场相关消息
@@ -384,12 +362,33 @@ message UserFarmInfoMsgReply {
   BooleanStatus has_completed_tutorial = 10; // 是否已参加过新手教程
 }
 
+
+// 用户土地相关消息
+// ------------------------------------
+
+/**
+ * 获取用户土地信息请求
+ * 用于查询当前用户的土地信息
+ */
+message UserLandInfoMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+}
+
+
 /**
  * 用户土地信息响应
  * 包含用户所有土地的信息列表
  */
 message UserLandInfoMsgReply {
-  repeated UserLandDetail rows = 1;  // 用户土地信息列表
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated UserLandDetail rows = 5;  // 用户土地信息列表
+  string extend = 6;
+
 }
 
 /**
@@ -435,6 +434,52 @@ message UserFarmOpsMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
   FarmOperationType operate_type = 2; // 操作类型，必填
   int64 op_to_user_id = 3;           // 被操作的用户ID，必填（可以是自己或好友ID）
-  int64 op_to_land_id = 4;           // 被操作的土地ID，必填
-  int64 op_land_position = 5;        // 被操作的土地位置编号，必填
+  int64 op_to_farm_id = 4;           // 被操作的农场ID，必填
+  int64 op_to_land_id = 5;           // 被操作的土地ID，必填
+  int64 op_land_position = 6;        // 被操作的土地位置编号，必填
+  int64 storage_id = 7;  // 仓库物品ID（里面包含操作的作物详情）
+}
+
+
+
+// 商店相关消息
+// ------------------------------------
+
+/**
+ * 获取用户商店信息请求
+ * 用于查询当前用户的商店相关信息
+ */
+message FarmsStoreInfoMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+}
+
+/**
+ * 商店信息响应
+ * 包含商店内可购买的商品列表
+ */
+message FarmsStoreInfoMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated StoreInfo rows = 5;  // 商品信息列表
+  string extend = 6;
+}
+
+/**
+ * 商店商品信息
+ * 表示商店中的单个商品信息
+ */
+message StoreInfo {
+  int64 id = 1;                    // 自增主键
+  ProductType product_type = 2;    // 商品类型
+  string product_name = 3;         // 商品名称
+  string product_image_url = 4;    // 商品图片地址
+  int64 product_id = 5;            // 商品ID
+  int64 stock = 6;                 // 库存数量，-1表示无限
+  int64 sort = 7;                  // 排序字段
+  BooleanStatus is_free = 8;       // 是否可以免费领取
+  BooleanStatus is_enabled = 9;    // 是否启用
 }
