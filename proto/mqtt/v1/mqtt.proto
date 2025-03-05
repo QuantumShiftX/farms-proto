@@ -38,7 +38,7 @@ enum MessageID {
   USER_FARM_OPS_MSG = 403;
 
   // 心跳连接
-  HEART_BEAT = 8888;
+  USER_HEART_BEAT_MSG = 8888;
 
   // 错误消息 (500500+)
   ERR_COMMON = 500500;        // 通用错误
@@ -172,6 +172,29 @@ enum ProductType {
   SEED = 1;                      // 种子
   FERTILIZER = 2;                // 肥料
   OTHER = 3;                     // 其他道具
+}
+
+
+// 心跳相关消息
+// ------------------------------------
+
+/**
+ * 获取用户请求是否合法心跳
+ * 用token校验用户身份心跳
+ */
+message UserHeartBeatMsgReq {
+  string token = 1;  // 用户身份验证令牌，必填
+}
+
+
+/**
+ * 心跳响应
+ * 用token校验用户身份
+ */
+message UserHeartBeatMsgReply {
+  int64 user_id = 2;                   // 用户ID
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
 }
 
 
