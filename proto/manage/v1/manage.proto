@@ -53,17 +53,18 @@ message DefaultVipInfoReply{
 // SettingBaseInfo 代表所有设置的配置，包括基础设置和返利设置
 message SettingBaseInfoReply {
   // 基础设置
-  int64 initial_land = 1;          // 初始土地配置
-  int64 friend_watering_times = 2; // 好友浇水次数
-  string download_link = 3;        // 下载链接
-  int64 new_user_invitation = 4;   // 是否有新用户邀请
-  string about_platform = 5;       // 关于平台的描述
+  int64 initial_land = 1;          // 初始土地配置配置总数
+  int64 initial_cultivated = 2;          // 初始土地配置（开垦的总数）
+  int64 friend_watering_times = 3; // 好友浇水次数
+  string download_link = 4;        // 下载链接
+  int64 new_user_invitation = 5;   // 是否开启有新用户邀请
+  string about_platform = 6;       // 关于平台的描述
 
   // 返利设置
-  RegistrationRewards registration_rewards = 6; // 注册奖励
-  DepositRewards deposit_rewards = 7;           // 存款奖励
-  CollectionRewards collection_rewards = 8;     // 收集奖励
-  SettlementConfig settlement_config = 9;       // 结算配置
+  RegistrationRewards registration_rewards = 7; // 注册奖励
+  DepositRewards deposit_rewards = 8;           // 存款奖励
+  CollectionRewards collection_rewards = 9;     // 收集奖励
+  SettlementConfig settlement_config = 10;       // 结算配置
 }
 
 // RegistrationRewards 代表注册奖励配置
