@@ -14,17 +14,23 @@ import (
 )
 
 type (
-	FarmReply              = v1.FarmReply
-	FarmReq                = v1.FarmReq
-	FarmsStoreInfoMsgReply = v1.FarmsStoreInfoMsgReply
-	FarmsStoreInfoMsgReq   = v1.FarmsStoreInfoMsgReq
-	MsgReply               = v1.MsgReply
-	MsgReq                 = v1.MsgReq
-	StoreInfo              = v1.StoreInfo
+	FarmReply                = v1.FarmReply
+	FarmReq                  = v1.FarmReq
+	FarmsStoreInfoMsgReply   = v1.FarmsStoreInfoMsgReply
+	FarmsStoreInfoMsgReq     = v1.FarmsStoreInfoMsgReq
+	MsgReply                 = v1.MsgReply
+	MsgReq                   = v1.MsgReq
+	StoreInfo                = v1.StoreInfo
+	StoreProductInfoMsgReply = v1.StoreProductInfoMsgReply
+	StoreProductInfoMsgReq   = v1.StoreProductInfoMsgReq
 
 	FarmInnerService interface {
 		// 农场商店信息
 		FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
+		// 单个商品信息
+		StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
+		// 更新商品库存
+		UpdateProductStock(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*FarmReply, error)
 	}
 
 	defaultFarmInnerService struct {
@@ -42,4 +48,16 @@ func NewFarmInnerService(cli zrpc.Client) FarmInnerService {
 func (m *defaultFarmInnerService) FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error) {
 	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
 	return client.FarmsStoreInfo(ctx, in, opts...)
+}
+
+// 单个商品信息
+func (m *defaultFarmInnerService) StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.StoreProductInfo(ctx, in, opts...)
+}
+
+// 更新商品库存
+func (m *defaultFarmInnerService) UpdateProductStock(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*FarmReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.UpdateProductStock(ctx, in, opts...)
 }

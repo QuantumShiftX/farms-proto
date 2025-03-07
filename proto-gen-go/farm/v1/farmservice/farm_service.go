@@ -14,13 +14,15 @@ import (
 )
 
 type (
-	FarmReply              = v1.FarmReply
-	FarmReq                = v1.FarmReq
-	FarmsStoreInfoMsgReply = v1.FarmsStoreInfoMsgReply
-	FarmsStoreInfoMsgReq   = v1.FarmsStoreInfoMsgReq
-	MsgReply               = v1.MsgReply
-	MsgReq                 = v1.MsgReq
-	StoreInfo              = v1.StoreInfo
+	FarmReply                = v1.FarmReply
+	FarmReq                  = v1.FarmReq
+	FarmsStoreInfoMsgReply   = v1.FarmsStoreInfoMsgReply
+	FarmsStoreInfoMsgReq     = v1.FarmsStoreInfoMsgReq
+	MsgReply                 = v1.MsgReply
+	MsgReq                   = v1.MsgReq
+	StoreInfo                = v1.StoreInfo
+	StoreProductInfoMsgReply = v1.StoreProductInfoMsgReply
+	StoreProductInfoMsgReq   = v1.StoreProductInfoMsgReq
 
 	FarmService interface {
 		Test(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*FarmReply, error)
