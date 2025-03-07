@@ -14,38 +14,46 @@ import (
 )
 
 type (
-	ForgotPasswordReq          = v1.ForgotPasswordReq
-	MessageWrapper             = v1.MessageWrapper
-	MsgReply                   = v1.MsgReply
-	MsgReq                     = v1.MsgReq
-	RequestClientInfo          = v1.RequestClientInfo
-	UserAuthInfoMsgReply       = v1.UserAuthInfoMsgReply
-	UserAuthInfoMsgReq         = v1.UserAuthInfoMsgReq
-	UserAuthenticationReply    = v1.UserAuthenticationReply
-	UserAuthenticationReq      = v1.UserAuthenticationReq
-	UserBalance                = v1.UserBalance
-	UserEditPersonalInfoMsgReq = v1.UserEditPersonalInfoMsgReq
-	UserFarmInfoMsgReply       = v1.UserFarmInfoMsgReply
-	UserFarmInfoMsgReq         = v1.UserFarmInfoMsgReq
-	UserFarmOpsMsgReq          = v1.UserFarmOpsMsgReq
-	UserIdReq                  = v1.UserIdReq
-	UserLandDetail             = v1.UserLandDetail
-	UserLandInfoMsgReply       = v1.UserLandInfoMsgReply
-	UserLandInfoMsgReq         = v1.UserLandInfoMsgReq
-	UserLoginResp              = v1.UserLoginResp
-	UserPersonalInfoMsgReply   = v1.UserPersonalInfoMsgReply
-	UserPersonalInfoMsgReq     = v1.UserPersonalInfoMsgReq
-	UserPlantingDetail         = v1.UserPlantingDetail
-	UserRegisterReq            = v1.UserRegisterReq
-	UserReply                  = v1.UserReply
-	UserReq                    = v1.UserReq
-	UserSignInReq              = v1.UserSignInReq
-	UserSignOutReq             = v1.UserSignOutReq
-	UserStorageDetail          = v1.UserStorageDetail
-	UserStorageInfoMsgReply    = v1.UserStorageInfoMsgReply
-	UserStorageInfoMsgReq      = v1.UserStorageInfoMsgReq
-	UserWallet                 = v1.UserWallet
-	VerifyAccountReq           = v1.VerifyAccountReq
+	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
+	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
+	ForgotPasswordReq             = v1.ForgotPasswordReq
+	FriendRankingInfo             = v1.FriendRankingInfo
+	LookUserFarmsInfoMsgReply     = v1.LookUserFarmsInfoMsgReply
+	LookUserFarmsInfoMsgReq       = v1.LookUserFarmsInfoMsgReq
+	MessageWrapper                = v1.MessageWrapper
+	MsgReply                      = v1.MsgReply
+	MsgReq                        = v1.MsgReq
+	MyRankingInfo                 = v1.MyRankingInfo
+	RequestClientInfo             = v1.RequestClientInfo
+	UserAuthInfoMsgReply          = v1.UserAuthInfoMsgReply
+	UserAuthInfoMsgReq            = v1.UserAuthInfoMsgReq
+	UserAuthenticationReply       = v1.UserAuthenticationReply
+	UserAuthenticationReq         = v1.UserAuthenticationReq
+	UserBalance                   = v1.UserBalance
+	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
+	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
+	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
+	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
+	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
+	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
+	UserIdReq                     = v1.UserIdReq
+	UserLandDetail                = v1.UserLandDetail
+	UserLandInfoMsgReply          = v1.UserLandInfoMsgReply
+	UserLandInfoMsgReq            = v1.UserLandInfoMsgReq
+	UserLoginResp                 = v1.UserLoginResp
+	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
+	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
+	UserPlantingDetail            = v1.UserPlantingDetail
+	UserRegisterReq               = v1.UserRegisterReq
+	UserReply                     = v1.UserReply
+	UserReq                       = v1.UserReq
+	UserSignInReq                 = v1.UserSignInReq
+	UserSignOutReq                = v1.UserSignOutReq
+	UserStorageDetail             = v1.UserStorageDetail
+	UserStorageInfoMsgReply       = v1.UserStorageInfoMsgReply
+	UserStorageInfoMsgReq         = v1.UserStorageInfoMsgReq
+	UserWallet                    = v1.UserWallet
+	VerifyAccountReq              = v1.VerifyAccountReq
 
 	UserInnerService interface {
 		// 用户连接
@@ -66,6 +74,12 @@ type (
 		UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 		// 用户操作农场
 		UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		// 获取好友列表及排名
+		UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error)
+		// 获取全局用户列表和排名
+		AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error)
+		// 查看用户农场信息
+		LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -131,4 +145,22 @@ func (m *defaultUserInnerService) UserLandInfo(ctx context.Context, in *UserLand
 func (m *defaultUserInnerService) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFarmOps(ctx, in, opts...)
+}
+
+// 获取好友列表及排名
+func (m *defaultUserInnerService) UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserFriendRankingInfo(ctx, in, opts...)
+}
+
+// 获取全局用户列表和排名
+func (m *defaultUserInnerService) AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.AllUserRankingInfo(ctx, in, opts...)
+}
+
+// 查看用户农场信息
+func (m *defaultUserInnerService) LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.LookUserFarmsInfo(ctx, in, opts...)
 }

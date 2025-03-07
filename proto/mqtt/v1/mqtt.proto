@@ -18,6 +18,8 @@ enum MessageID {
   USER_AUTH_INFO_MSG = 2;
   USER_PERSONAL_INFO_MSG = 3;
   USER_EDIT_PERSONAL_INFO_MSG = 4;
+  USER_FRIEND_RANKING_INFO_MSG = 5;
+  ALL_USER_RANKING_INFO_MSG = 6;
 
   // 钱包相关消息 (100-199)
   USER_WALLET = 100;
@@ -36,9 +38,10 @@ enum MessageID {
   USER_LAND_INFO_MSG = 401;
   USER_PLANTING_DETAIL = 402;
   USER_FARM_OPS_MSG = 403;
+  LOOK_USER_FARMS_INFO_MSG = 404;
 
   // 心跳连接
-  USER_HEART_BEAT_MSG = 8888;
+  HEART_BEAT = 8888;
 
   // 错误消息 (500500+)
   ERR_COMMON = 500500;        // 通用错误
@@ -47,6 +50,7 @@ enum MessageID {
   ERR_USER_NOT_EXIST = 500503; // 用户不存在
   ERR_USER_AUTH = 500504;      // 认证失败
 }
+
 
 /**
  * MessageWrapper 消息包装结构
@@ -100,8 +104,9 @@ enum LandStatus {
  */
 enum HarvestStatus {
   HARVEST_STATUS_UNSPECIFIED = 0;  // 未指定状态
-  NOT_HARVESTED = 1;               // 未收获
+  NOT_HARVESTED = 1;               // 未收获 （没成熟）
   HARVESTED = 2;                   // 已收获
+  WAIT_HARVESTED = 3;                   // 待收获（已成熟）
 }
 
 /**

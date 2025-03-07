@@ -347,15 +347,18 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserInnerService_UserConnected_FullMethodName        = "/user.v1.UserInnerService/UserConnected"
-	UserInnerService_UserDisconnected_FullMethodName     = "/user.v1.UserInnerService/UserDisconnected"
-	UserInnerService_UserAuthentication_FullMethodName   = "/user.v1.UserInnerService/UserAuthentication"
-	UserInnerService_UserPersonalInfo_FullMethodName     = "/user.v1.UserInnerService/UserPersonalInfo"
-	UserInnerService_UserEditPersonalInfo_FullMethodName = "/user.v1.UserInnerService/UserEditPersonalInfo"
-	UserInnerService_UserStorageInfo_FullMethodName      = "/user.v1.UserInnerService/UserStorageInfo"
-	UserInnerService_UserFarmInfo_FullMethodName         = "/user.v1.UserInnerService/UserFarmInfo"
-	UserInnerService_UserLandInfo_FullMethodName         = "/user.v1.UserInnerService/UserLandInfo"
-	UserInnerService_UserFarmOps_FullMethodName          = "/user.v1.UserInnerService/UserFarmOps"
+	UserInnerService_UserConnected_FullMethodName         = "/user.v1.UserInnerService/UserConnected"
+	UserInnerService_UserDisconnected_FullMethodName      = "/user.v1.UserInnerService/UserDisconnected"
+	UserInnerService_UserAuthentication_FullMethodName    = "/user.v1.UserInnerService/UserAuthentication"
+	UserInnerService_UserPersonalInfo_FullMethodName      = "/user.v1.UserInnerService/UserPersonalInfo"
+	UserInnerService_UserEditPersonalInfo_FullMethodName  = "/user.v1.UserInnerService/UserEditPersonalInfo"
+	UserInnerService_UserStorageInfo_FullMethodName       = "/user.v1.UserInnerService/UserStorageInfo"
+	UserInnerService_UserFarmInfo_FullMethodName          = "/user.v1.UserInnerService/UserFarmInfo"
+	UserInnerService_UserLandInfo_FullMethodName          = "/user.v1.UserInnerService/UserLandInfo"
+	UserInnerService_UserFarmOps_FullMethodName           = "/user.v1.UserInnerService/UserFarmOps"
+	UserInnerService_UserFriendRankingInfo_FullMethodName = "/user.v1.UserInnerService/UserFriendRankingInfo"
+	UserInnerService_AllUserRankingInfo_FullMethodName    = "/user.v1.UserInnerService/AllUserRankingInfo"
+	UserInnerService_LookUserFarmsInfo_FullMethodName     = "/user.v1.UserInnerService/LookUserFarmsInfo"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -380,6 +383,12 @@ type UserInnerServiceClient interface {
 	UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
 	UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	// 获取好友列表及排名
+	UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error)
+	// 获取全局用户列表和排名
+	AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error)
+	// 查看用户农场信息
+	LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -471,6 +480,33 @@ func (c *userInnerServiceClient) UserFarmOps(ctx context.Context, in *UserFarmOp
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error) {
+	out := new(UserFriendRankingInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserFriendRankingInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error) {
+	out := new(AllUserRankingInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_AllUserRankingInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error) {
+	out := new(LookUserFarmsInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_LookUserFarmsInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -493,6 +529,12 @@ type UserInnerServiceServer interface {
 	UserLandInfo(context.Context, *UserLandInfoMsgReq) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
 	UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error)
+	// 获取好友列表及排名
+	UserFriendRankingInfo(context.Context, *UserFriendRankingInfoMsgReq) (*UserFriendRankingInfoMsgReply, error)
+	// 获取全局用户列表和排名
+	AllUserRankingInfo(context.Context, *AllUserRankingInfoMsgReq) (*AllUserRankingInfoMsgReply, error)
+	// 查看用户农场信息
+	LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -526,6 +568,15 @@ func (UnimplementedUserInnerServiceServer) UserLandInfo(context.Context, *UserLa
 }
 func (UnimplementedUserInnerServiceServer) UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFarmOps not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserFriendRankingInfo(context.Context, *UserFriendRankingInfoMsgReq) (*UserFriendRankingInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserFriendRankingInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) AllUserRankingInfo(context.Context, *AllUserRankingInfoMsgReq) (*AllUserRankingInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AllUserRankingInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookUserFarmsInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -702,6 +753,60 @@ func _UserInnerService_UserFarmOps_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserFriendRankingInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserFriendRankingInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserFriendRankingInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserFriendRankingInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserFriendRankingInfo(ctx, req.(*UserFriendRankingInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_AllUserRankingInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AllUserRankingInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).AllUserRankingInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_AllUserRankingInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).AllUserRankingInfo(ctx, req.(*AllUserRankingInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_LookUserFarmsInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookUserFarmsInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).LookUserFarmsInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_LookUserFarmsInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).LookUserFarmsInfo(ctx, req.(*LookUserFarmsInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -744,6 +849,18 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserFarmOps",
 			Handler:    _UserInnerService_UserFarmOps_Handler,
+		},
+		{
+			MethodName: "UserFriendRankingInfo",
+			Handler:    _UserInnerService_UserFriendRankingInfo_Handler,
+		},
+		{
+			MethodName: "AllUserRankingInfo",
+			Handler:    _UserInnerService_AllUserRankingInfo_Handler,
+		},
+		{
+			MethodName: "LookUserFarmsInfo",
+			Handler:    _UserInnerService_LookUserFarmsInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
