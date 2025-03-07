@@ -3,7 +3,41 @@ syntax = "proto3";
 package mqtt.v1;
 option go_package = "./pb/v1";
 
+/**
+ * MessageWrapper 消息包装结构
+ * 所有消息的外层包装，包含消息ID和消息内容
+ */
+message MessageWrapper {
+  MessageID msg_id = 1;       // 消息ID
+  bytes payload = 2;          // 消息内容，经过序列化的二进制数据
+  int64 timestamp = 3;        // 消息时间戳
+  string session_id = 4;      // 会话ID
+  repeated string tags = 5;   // 消息标签
+}
 
+// =========================================
+// 基础消息结构定义
+// =========================================
+
+/**
+ * MQTT请求消息基础结构
+ * 所有请求消息的基础结构，可根据需要扩展
+ */
+message MsgReq {
+  // 暂无字段，可根据需要扩展
+}
+
+/**
+ * MQTT响应消息基础结构
+ * 所有响应消息的基础结构，可根据需要扩展
+ */
+message MsgReply {
+  // 暂无字段，可根据需要扩展
+}
+
+// =========================================
+// 枚举类型定义
+// =========================================
 
 /**
  * MessageID 枚举
@@ -45,7 +79,7 @@ enum MessageID {
   VIP_LEVEL_INFO_MSG = 600;
 
   // 心跳连接
-  HEART_BEAT = 8888;
+  USER_HEART_BEAT_MSG = 8888;
 
   // 错误消息 (500500+)
   ERR_COMMON = 500500;        // 通用错误
@@ -54,41 +88,6 @@ enum MessageID {
   ERR_USER_NOT_EXIST = 500503; // 用户不存在
   ERR_USER_AUTH = 500504;      // 认证失败
 }
-
-/**
- * MessageWrapper 消息包装结构
- * 所有消息的外层包装，包含消息ID和消息内容
- */
-message MessageWrapper {
-  MessageID msg_id = 1;       // 消息ID
-  bytes payload = 2;          // 消息内容，经过序列化的二进制数据
-  int64 timestamp = 3;        // 消息时间戳
-  string session_id = 4;      // 会话ID
-  repeated string tags = 5;   // 消息标签
-}
-
-
-// 基础消息定义
-// ------------------------------------
-
-/**
- * MQTT请求消息基础结构
- * 所有请求消息的基础结构，可根据需要扩展
- */
-message MsgReq {
-  // 暂无字段，可根据需要扩展
-}
-
-/**
- * MQTT响应消息基础结构
- * 所有响应消息的基础结构，可根据需要扩展
- */
-message MsgReply {
-  // 暂无字段，可根据需要扩展
-}
-
-// 枚举类型定义
-// ------------------------------------
 
 /**
  * 土地状态枚举
@@ -144,7 +143,7 @@ enum FarmOperationType {
  */
 enum WalletType {
   WALLET_TYPE_UNSPECIFIED = 0;  // 未指定类型
-  USERS_WALLET = 1;              // 用户钱包
+  USERS_WALLET = 1;             // 用户钱包
   AGENT_WALLET = 2;             // 代理钱包
   REWARD_WALLET = 3;            // 奖励钱包
   USDT_WALLET = 4;              // USDT钱包
@@ -182,9 +181,9 @@ enum ProductType {
   OTHER = 3;                     // 其他道具
 }
 
-
+// =========================================
 // 鉴权相关消息
-// ------------------------------------
+// =========================================
 
 /**
  * 获取用户请求是否合法
@@ -205,10 +204,31 @@ message UserAuthInfoMsgReply {
   string currency_code = 7;            // 币种代码
 }
 
+// =========================================
+// 心跳相关消息
+// =========================================
 
+/**
+ * 获取用户请求是否合法心跳
+ * 用token校验用户身份心跳
+ */
+message UserHeartBeatMsgReq {
+  string token = 1;  // 用户身份验证令牌，必填
+}
 
+/**
+ * 心跳响应
+ * 用token校验用户身份
+ */
+message UserHeartBeatMsgReply {
+  int64 user_id = 2;                   // 用户ID
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+}
+
+// =========================================
 // 用户相关消息
-// ------------------------------------
+// =========================================
 
 /**
  * 获取用户个人信息请求
@@ -229,8 +249,8 @@ message UserPersonalInfoMsgReply {
   string language_code = 6;            // 语言代码
   string currency_code = 7;            // 币种代码
   int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
-  int64 vip_level_val = 9;              // 会员等级值
-  string vip_level_name = 10;              // 会员等级名称
+  int64 vip_level_val = 9;             // 会员等级值
+  string vip_level_name = 10;          // 会员等级名称
   string remark = 11;                  // 用户备注
   int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
   string invitation_code = 13;         // 用户的邀请码
@@ -246,9 +266,9 @@ message UserPersonalInfoMsgReply {
  * 用于更新用户的个人信息设置
  */
 message UserEditPersonalInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-  string avatar = 2;        // 用户形象(头像信息)
-  string farm_name = 3;           // 农场名称，可选，修改时使用
+  int64 user_id = 1;                         // 用户身份验证令牌，必填
+  string avatar = 2;                         // 用户形象(头像信息)
+  string farm_name = 3;                      // 农场名称，可选，修改时使用
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
 }
@@ -280,18 +300,19 @@ message UserBalance {
   int64 locked_balance = 5;      // 锁定余额（如提现中等）
 }
 
+// =========================================
 // 用户仓库相关消息
-// ------------------------------------
+// =========================================
 
 /**
  * 获取用户仓库信息请求
  * 用于查询当前用户的仓库库存信息
  */
 message UserStorageInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-  int64 page = 2;
-  int64 page_size = 3;
-  ProductType product_type = 4;
+  int64 user_id = 1;          // 用户身份验证令牌，必填
+  int64 page = 2;             // 页码
+  int64 page_size = 3;        // 每页项目数
+  ProductType product_type = 4; // 商品类型筛选
 }
 
 /**
@@ -299,12 +320,12 @@ message UserStorageInfoMsgReq {
  * 包含用户仓库中的所有物品
  */
 message UserStorageInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated UserStorageDetail rows = 5;  // 用户仓库物品列表
-  string extend = 6;
+  int64 page = 1;                        // 当前页码
+  int64 page_size = 2;                   // 每页项目数
+  int64 total = 3;                       // 总项目数
+  int64 total_page = 4;                  // 总页数
+  repeated UserStorageDetail rows = 5;   // 用户仓库物品列表
+  string extend = 6;                     // 扩展信息
 }
 
 /**
@@ -327,8 +348,8 @@ message UserStorageDetail {
   // 以下字段仅对种子类型有效
   int64 growth_time = 11;               // 生长时间快照（单位：分钟）
   int64 coin_reward = 12;               // 成熟后的收益快照（单位：代币）
-  int64  watering_frequency = 22; // 浇水频率（次/天）
-  int64  fertilizing_frequency = 23; //施肥频率（次/天)
+  int64 watering_frequency = 22;        // 浇水频率（次/天）
+  int64 fertilizing_frequency = 23;     // 施肥频率（次/天)
 
   // 自己操作相关字段
   int64 self_time_reduced_per_water = 13;       // 自己每次浇水减少的时间快照（单位：分钟）
@@ -341,260 +362,20 @@ message UserStorageDetail {
   int64 friend_water_percentage = 18;           // 好友浇水减少时间的百分比快照（0-100）
   int64 friend_fertilizer_time_reduction = 19;  // 好友每次施肥减少的时间快照（单位：分钟）
   int64 friend_fertilizer_percentage = 20;      // 好友施肥减少时间的百分比快照（0-100）
-
 }
 
-// 农场相关消息
-// ------------------------------------
-
-/**
- * 获取用户农场信息请求
- * 用于查询当前用户的农场状态信息
- */
-message UserFarmInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-}
-
-/**
- * 用户农场信息响应
- * 包含用户农场的基本信息
- */
-message UserFarmInfoMsgReply {
-  int64 id = 1;                         // 主键ID
-  int64 farm_id = 2;                    // 农场ID
-  int64 user_id = 3;                    // 用户ID
-  string farm_name = 4;                 // 农场名称
-  int64 total_land_count = 5;           // 农场总土地数量
-  int64 water_limit_per_day = 6;        // 每日浇水限制次数
-  int64 fertilizer_limit_per_day = 7;   // 每日作物施肥限制次数
-  int64 total_reward_coins = 8;         // 农场总收益金币
-  BooleanStatus has_received_free_gift = 9;  // 是否已领取新用户免费商品
-  BooleanStatus has_completed_tutorial = 10; // 是否已参加过新手教程
-}
-
-
-// 用户土地相关消息
-// ------------------------------------
-
-/**
- * 获取用户土地信息请求
- * 用于查询当前用户的土地信息
- */
-message UserLandInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-  int64 page = 2;
-  int64 page_size = 3;
-}
-
-
-/**
- * 用户土地信息响应
- * 包含用户所有土地的信息列表
- */
-message UserLandInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated UserLandDetail rows = 5;  // 用户土地信息列表
-  string extend = 6;
-
-}
-
-/**
- * 用户土地详细信息
- * 表示用户的单块土地的详细状态
- */
-message UserLandDetail {
-  string id = 1;                    // UUID
-  int64 land_id = 2;                // 土地ID
-  int64 user_id = 3;                // 用户ID
-  int64 farm_id = 4;                // 农场ID
-  int64 plant_id = 5;               // 种植记录ID
-  int64 position = 6;               // 土地位置编号（1-20暂时）
-  LandStatus status = 7;            // 土地状态
-  optional UserPlantingDetail planted_plant = 8;  // 种植信息，当status为PLANTED时才有值
-}
-
-/**
- * 用户种植记录详细信息
- * 表示用户种植的单株作物的详细信息
- */
-message UserPlantingDetail {
-  string id = 1;                    // UUID
-  int64 plant_id = 2;               // 种植记录ID
-  int64 user_id = 3;                // 用户ID
-  int64 farm_id = 4;                // 农场ID
-  int64 land_id = 5;                // 土地ID
-  string crop_name = 6;             // 作物名称
-  int64 plant_time = 7;             // 种植时间（Unix时间戳）
-  int64 water_count = 8;            // 已浇水总次数
-  int64 fertilizer_count = 9;       // 已施肥总次数
-  HarvestStatus is_harvested = 10;  // 是否已收获
-  int64 harvested_at = 11;          // 收获时间（Unix时间戳）
-  int64 coins_earned = 12;          // 作物产生的金币数量
-  GrowthStatus status = 13;         // 生长状态
-}
-
-/**
- * 用户农场操作请求
- * 用于对自己或他人的农场进行各种操作
- */
-message UserFarmOpsMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-  FarmOperationType operate_type = 2; // 操作类型，必填
-  int64 op_to_user_id = 3;           // 被操作的用户ID，必填（可以是自己或好友ID）
-  int64 op_to_farm_id = 4;           // 被操作的农场ID，必填
-  int64 op_to_land_id = 5;           // 被操作的土地ID，必填
-  int64 op_land_position = 6;        // 被操作的土地位置编号，必填
-  int64 storage_id = 7;  // 仓库物品ID（里面包含操作的作物详情）
-}
-
-
-
-/**
- * 用户全局排名
- * 展示所有用户的排名和自己的排名
- */
-message AllUserRankingInfoMsgReq {
-  int64 user_id = 1;          // 请求用户的ID
-  int64 page = 2;             // 页码，从1开始
-  int64 page_size = 3;        // 每页数量
-}
-
-// 用户排名列表响应
-message AllUserRankingInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated FriendRankingInfo rows = 5;  // 用户排名列表
-  MyRankingInfo my_ranking = 6;            // 我的排名信息
-}
-
-
-
-/**
- * 用户好友排名
- * 展示所有好友的排名和自己的排名
- */
-message UserFriendRankingInfoMsgReq {
-  int64 user_id = 1;          // 请求用户的ID
-  int64 page = 2;             // 页码，从1开始
-  int64 page_size = 3;        // 每页数量
-}
-
-// 好友排名列表响应
-message UserFriendRankingInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated FriendRankingInfo rows = 5;  // 好友排名列表
-  MyRankingInfo my_ranking = 6;            // 我的排名信息
-}
-
-
-// 单个好友排名信息
-message FriendRankingInfo {
-  int64 user_id = 2;          // 用户ID
-  int64 friend_id = 3;        // 好友ID
-  string username = 4;        // 用户名
-  string avatar_url = 5;      // 头像URL
-  int64 vip_level_id = 6;     // VIP等级ID
-  int64 vip_level_val = 7;              // 会员等级值
-  string vip_level_name = 8;              // 会员等级名称
-  int64 coin = 9;             // 金币数量
-  int64 updated_at = 10;       // 更新时间戳
-  int64 rank = 11;             // 排名位置
-}
-
-// 我的排名信息
-message MyRankingInfo {
-  int64 user_id = 1;          // 我的用户ID
-  string username = 2;        // 我的用户名
-  string avatar_url = 3;      // 我的头像URL
-  int64 vip_level_id = 4;     // 我的VIP等级ID
-  int64 vip_level_val = 5;              // 会员等级值
-  string vip_level_name = 6;              // 会员等级名称
-  int64 coin = 7;             // 我的金币数量
-  int64 rank = 8;             // 我在好友中的排名位置
-  int64 total_friends = 9;    // 好友总数
-}
-
-
-
-/**
- * 用户产看他人农场的操作请求
- * 表示查看他人的信息
- */
-message LookUserFarmsInfoMsgReq {
-  int64 user_id = 1;  // 查看用户ID
-  int64 viewed_user_id = 2;  // 被查看用户ID
-}
-
-message LookUserFarmsInfoMsgReply {
-  // 用户相关信息
-  int64 user_id = 2;                   // 用户ID
-  int64 pid = 3;                       // 上级ID（邀请用户的ID）
-  string username = 4;                 // 账号名称
-  string language_code = 6;            // 语言代码
-  string currency_code = 7;            // 币种代码
-  int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
-  int64 vip_level_val = 9;              // 会员等级值
-  string vip_level_name = 10;              // 会员等级名称
-  string remark = 11;                  // 用户备注
-  int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
-  string avatar = 14;                  // 用户头像URL
-  // 农场相关信息
-  int64 farm_id = 15;                    // 农场ID
-  string farm_name = 17;                 // 农场名称
-  int64 total_land_count = 18;           // 农场总土地数量
-  int64 water_limit_per_day = 19;        // 每日浇水限制次数
-  int64 fertilizer_limit_per_day = 20;   // 每日作物施肥限制次数
-  int64 total_reward_coins = 21;         // 农场总收益金币
-  // 土地信息
-  repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
-
-}
-
-
-
-/**
- * 商店信息响应
- * 包含商店内可购买的商品列表
- */
-message VipLevelInfoMsgReply {
-  repeated VIPLevelInfo rows = 1;  // 商品信息列表
-}
-
-
-// VIPLevel represents a VIP level configuration with its reward settings
-message VIPLevelInfo {
-  int64 id = 1;
-  string level_name = 2;
-  int64 level_val = 3;
-  int64 is_default_level = 4;
-  int64 growth_value = 5;
-  int64 upgrade_reward_fertilizer_num = 6;
-  int64 upgrade_reward_tree_maturity_period = 7;
-  int64 upgrade_reward_tree_num = 8;
-  string remarks = 9;
-  int64 is_enabled = 10;
-}
-
-
+// =========================================
 // 商店相关消息
-// ------------------------------------
+// =========================================
 
 /**
  * 获取用户商店信息请求
  * 用于查询当前用户的商店相关信息
  */
 message FarmsStoreInfoMsgReq {
-  int64 user_id = 1;  // 用户身份验证令牌，必填
-  int64 page = 2;
-  int64 page_size = 3;
+  int64 user_id = 1;        // 用户身份验证令牌，必填
+  int64 page = 2;           // 页码
+  int64 page_size = 3;      // 每页项目数
 }
 
 /**
@@ -602,12 +383,12 @@ message FarmsStoreInfoMsgReq {
  * 包含商店内可购买的商品列表
  */
 message FarmsStoreInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated StoreInfo rows = 5;  // 商品信息列表
-  string extend = 6;
+  int64 page = 1;                  // 当前页码
+  int64 page_size = 2;             // 每页项目数
+  int64 total = 3;                 // 总项目数
+  int64 total_page = 4;            // 总页数
+  repeated StoreInfo rows = 5;     // 商品信息列表
+  string extend = 6;               // 扩展信息
 }
 
 /**
@@ -624,29 +405,281 @@ message StoreInfo {
   int64 sort = 7;                  // 排序字段
   BooleanStatus is_free = 8;       // 是否可以免费领取
   BooleanStatus is_enabled = 9;    // 是否启用
-  string crop_name = 12;                            // 作物名称
+  string crop_name = 12;                           // 作物名称
   int64 crop_price = 13;                           // 作物价格（单位：代币）
-  int64 maturity_income = 14;                 // 成熟收益（代币）
-  int64 maturity_period = 15;                 // 成熟周期（单位：分）
-  int64 watering_frequency = 16;              // 浇水频率（次/天）
-  int64 fertilizing_frequency = 17;           // 施肥频率（次/天）
-  int64 self_watering_decrease_time = 18;     // 自己每次浇水减少时间（单位：分）
-  int64 self_watering_decrease_percentage = 19; // 自己每次浇水减少百分比（0-100）
-  int64 self_fertilizing_decrease_time = 20; // 自己每次施肥减少时间（单位：分）
+  int64 maturity_income = 14;                      // 成熟收益（代币）
+  int64 maturity_period = 15;                      // 成熟周期（单位：分）
+  int64 watering_frequency = 16;                   // 浇水频率（次/天）
+  int64 fertilizing_frequency = 17;                // 施肥频率（次/天）
+  int64 self_watering_decrease_time = 18;          // 自己每次浇水减少时间（单位：分）
+  int64 self_watering_decrease_percentage = 19;    // 自己每次浇水减少百分比（0-100）
+  int64 self_fertilizing_decrease_time = 20;       // 自己每次施肥减少时间（单位：分）
   int64 self_fertilizing_decrease_percentage = 21; // 自己每次施肥减少百分比（0-100）
-  int64 friend_watering_decrease_time = 22;  // 好友每次浇水减少时间（单位：分）
-  int64 friend_watering_decrease_percentage = 23; // 好友每次浇水减少百分比（0-100）
-  int64 friend_fertilizing_decrease_time = 24; // 好友每次施肥减少时间（单位：分）
+  int64 friend_watering_decrease_time = 22;        // 好友每次浇水减少时间（单位：分）
+  int64 friend_watering_decrease_percentage = 23;  // 好友每次浇水减少百分比（0-100）
+  int64 friend_fertilizing_decrease_time = 24;     // 好友每次施肥减少时间（单位：分）
   int64 friend_fertilizing_decrease_percentage = 25; // 好友每次施肥减少百分比（0-100）
 }
 
-
 /**
- * 购买商店商品信息
- *
+ * 购买商店商品信息请求
+ * 用于购买商店中的商品
  */
 message UserPurchaseGoodsMsgReq {
-  int64 user_id = 1;
-  int64 id = 2;
+  int64 user_id = 1;           // 用户ID
+  int64 id = 2;                // 商品ID
+  BooleanStatus is_free = 3;   // 是否为免费商品
+  int64 goods_num = 4;         // 购买数量
+}
 
+// =========================================
+// 农场相关消息
+// =========================================
+
+/**
+ * 获取用户农场信息请求
+ * 用于查询当前用户的农场状态信息
+ */
+message UserFarmInfoMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 用户农场信息响应
+ * 包含用户农场的基本信息
+ */
+message UserFarmInfoMsgReply {
+  int64 id = 1;                                // 主键ID
+  int64 farm_id = 2;                           // 农场ID
+  int64 user_id = 3;                           // 用户ID
+  string farm_name = 4;                        // 农场名称
+  int64 total_land_count = 5;                  // 农场总土地数量
+  int64 water_limit_per_day = 6;               // 每日浇水限制次数
+  int64 fertilizer_limit_per_day = 7;          // 每日作物施肥限制次数
+  int64 total_reward_coins = 8;                // 农场总收益金币
+  BooleanStatus has_received_free_gift = 9;    // 是否已领取新用户免费商品
+  BooleanStatus has_completed_tutorial = 10;   // 是否已参加过新手教程
+}
+
+/**
+ * 获取用户土地信息请求
+ * 用于查询当前用户的土地信息
+ */
+message UserLandInfoMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;     // 页码
+  int64 page_size = 3; // 每页项目数
+}
+
+/**
+ * 用户土地信息响应
+ * 包含用户所有土地的信息列表
+ */
+message UserLandInfoMsgReply {
+  int64 page = 1;                      // 当前页码
+  int64 page_size = 2;                 // 每页项目数
+  int64 total = 3;                     // 总项目数
+  int64 total_page = 4;                // 总页数
+  repeated UserLandDetail rows = 5;    // 用户土地信息列表
+  string extend = 6;                   // 扩展信息
+}
+
+/**
+ * 用户土地详细信息
+ * 表示用户的单块土地的详细状态
+ */
+message UserLandDetail {
+  string id = 1;                              // UUID
+  int64 land_id = 2;                          // 土地ID
+  int64 user_id = 3;                          // 用户ID
+  int64 farm_id = 4;                          // 农场ID
+  int64 plant_id = 5;                         // 种植记录ID
+  int64 position = 6;                         // 土地位置编号（1-20暂时）
+  LandStatus status = 7;                      // 土地状态
+  optional UserPlantingDetail planted_plant = 8;  // 种植信息，当status为PLANTED时才有值
+}
+
+/**
+ * 用户种植记录详细信息
+ * 表示用户种植的单株作物的详细信息
+ */
+message UserPlantingDetail {
+  string id = 1;                      // UUID
+  int64 plant_id = 2;                 // 种植记录ID
+  int64 user_id = 3;                  // 用户ID
+  int64 farm_id = 4;                  // 农场ID
+  int64 land_id = 5;                  // 土地ID
+  string crop_name = 6;               // 作物名称
+  int64 plant_time = 7;               // 种植时间（Unix时间戳）
+  int64 water_count = 8;              // 已浇水总次数
+  int64 fertilizer_count = 9;         // 已施肥总次数
+  HarvestStatus is_harvested = 10;    // 是否已收获
+  int64 harvested_at = 11;            // 收获时间（Unix时间戳）
+  int64 coins_earned = 12;            // 作物产生的金币数量
+  GrowthStatus status = 13;           // 生长状态
+}
+
+/**
+ * 用户农场操作请求
+ * 用于对自己或他人的农场进行各种操作
+ */
+message UserFarmOpsMsgReq {
+  int64 user_id = 1;                  // 用户身份验证令牌，必填
+  FarmOperationType operate_type = 2;  // 操作类型，必填
+  int64 op_to_user_id = 3;            // 被操作的用户ID，必填（可以是自己或好友ID）
+  int64 op_to_farm_id = 4;            // 被操作的农场ID，必填
+  int64 op_to_land_id = 5;            // 被操作的土地ID，必填
+  int64 op_land_position = 6;         // 被操作的土地位置编号，必填
+  int64 storage_id = 7;               // 仓库物品ID（里面包含操作的作物详情）
+}
+
+/**
+ * 用户产看他人农场的操作请求
+ * 表示查看他人的信息
+ */
+message LookUserFarmsInfoMsgReq {
+  int64 user_id = 1;          // 查看用户ID
+  int64 viewed_user_id = 2;   // 被查看用户ID
+}
+
+/**
+ * 查看他人农场信息响应
+ * 包含他人农场的详细信息
+ */
+message LookUserFarmsInfoMsgReply {
+  // 用户相关信息
+  int64 user_id = 2;                   // 用户ID
+  int64 pid = 3;                       // 上级ID（邀请用户的ID）
+  string username = 4;                 // 账号名称
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+  int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
+  int64 vip_level_val = 9;             // 会员等级值
+  string vip_level_name = 10;          // 会员等级名称
+  string remark = 11;                  // 用户备注
+  int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
+  string avatar = 14;                  // 用户头像URL
+
+  // 农场相关信息
+  int64 farm_id = 15;                    // 农场ID
+  string farm_name = 17;                 // 农场名称
+  int64 total_land_count = 18;           // 农场总土地数量
+  int64 water_limit_per_day = 19;        // 每日浇水限制次数
+  int64 fertilizer_limit_per_day = 20;   // 每日作物施肥限制次数
+  int64 total_reward_coins = 21;         // 农场总收益金币
+
+  // 土地信息
+  repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
+}
+
+// =========================================
+// 排名相关消息
+// =========================================
+
+/**
+ * 用户全局排名请求
+ * 展示所有用户的排名和自己的排名
+ */
+message AllUserRankingInfoMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+}
+
+/**
+ * 用户排名列表响应
+ * 包含全局排名和自己的排名
+ */
+message AllUserRankingInfoMsgReply {
+  int64 page = 1;                         // 当前页码
+  int64 page_size = 2;                    // 每页项目数
+  int64 total = 3;                        // 总项目数
+  int64 total_page = 4;                   // 总页数
+  repeated FriendRankingInfo rows = 5;    // 用户排名列表
+  MyRankingInfo my_ranking = 6;           // 我的排名信息
+}
+
+/**
+ * 用户好友排名请求
+ * 展示所有好友的排名和自己的排名
+ */
+message UserFriendRankingInfoMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+}
+
+/**
+ * 好友排名列表响应
+ * 包含所有好友的排名和自己的排名
+ */
+message UserFriendRankingInfoMsgReply {
+  int64 page = 1;                        // 当前页码
+  int64 page_size = 2;                   // 每页项目数
+  int64 total = 3;                       // 总项目数
+  int64 total_page = 4;                  // 总页数
+  repeated FriendRankingInfo rows = 5;   // 好友排名列表
+  MyRankingInfo my_ranking = 6;          // 我的排名信息
+}
+
+/**
+ * 单个好友排名信息
+ * 表示单个好友在排名中的详细信息
+ */
+message FriendRankingInfo {
+  int64 user_id = 2;          // 用户ID
+  int64 friend_id = 3;        // 好友ID
+  string username = 4;        // 用户名
+  string avatar_url = 5;      // 头像URL
+  int64 vip_level_id = 6;     // VIP等级ID
+  int64 vip_level_val = 7;    // 会员等级值
+  string vip_level_name = 8;  // 会员等级名称
+  int64 coin = 9;             // 金币数量
+  int64 updated_at = 10;      // 更新时间戳
+  int64 rank = 11;            // 排名位置
+}
+
+/**
+ * 我的排名信息
+ * 表示当前用户在排名中的详细信息
+ */
+message MyRankingInfo {
+  int64 user_id = 1;          // 我的用户ID
+  string username = 2;        // 我的用户名
+  string avatar_url = 3;      // 我的头像URL
+  int64 vip_level_id = 4;     // 我的VIP等级ID
+  int64 vip_level_val = 5;    // 会员等级值
+  string vip_level_name = 6;  // 会员等级名称
+  int64 coin = 7;             // 我的金币数量
+  int64 rank = 8;             // 我在好友中的排名位置
+  int64 total_friends = 9;    // 好友总数
+}
+
+// =========================================
+// VIP等级相关消息
+// =========================================
+
+/**
+ * VIP等级信息响应
+ * 包含系统中所有VIP等级的配置信息
+ */
+message VipLevelInfoMsgReply {
+  repeated VIPLevelInfo rows = 1;  // VIP等级信息列表
+}
+
+/**
+ * VIP等级详细信息
+ * 表示单个VIP等级的配置和奖励信息
+ */
+message VIPLevelInfo {
+  int64 id = 1;                          // 等级ID
+  string level_name = 2;                 // 等级名称
+  int64 level_val = 3;                   // 等级值
+  int64 is_default_level = 4;            // 是否为默认等级
+  int64 growth_value = 5;                // 升级所需成长值
+  int64 upgrade_reward_fertilizer_num = 6;    // 升级奖励肥料数量
+  int64 upgrade_reward_tree_maturity_period = 7;  // 升级奖励树木成熟周期
+  int64 upgrade_reward_tree_num = 8;     // 升级奖励树木数量
+  string remarks = 9;                    // 备注说明
+  int64 is_enabled = 10;                 // 是否启用
 }
