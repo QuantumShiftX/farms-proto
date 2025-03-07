@@ -40,6 +40,9 @@ enum MessageID {
   USER_FARM_OPS_MSG = 403;
   LOOK_USER_FARMS_INFO_MSG = 404;
 
+  // 配置相关信息 (600-699)
+  VIP_LEVEL_INFO_MSG = 600;
+
   // 心跳连接
   HEART_BEAT = 8888;
 
@@ -50,7 +53,6 @@ enum MessageID {
   ERR_USER_NOT_EXIST = 500503; // 用户不存在
   ERR_USER_AUTH = 500504;      // 认证失败
 }
-
 
 /**
  * MessageWrapper 消息包装结构
@@ -106,7 +108,7 @@ enum HarvestStatus {
   HARVEST_STATUS_UNSPECIFIED = 0;  // 未指定状态
   NOT_HARVESTED = 1;               // 未收获 （没成熟）
   HARVESTED = 2;                   // 已收获
-  WAIT_HARVESTED = 3;                   // 待收获（已成熟）
+  WAIT_HARVESTED = 3;              // 待收获（已成熟）
 }
 
 /**
@@ -180,29 +182,6 @@ enum ProductType {
 }
 
 
-// 心跳相关消息
-// ------------------------------------
-
-/**
- * 获取用户请求是否合法心跳
- * 用token校验用户身份心跳
- */
-message UserHeartBeatMsgReq {
-  string token = 1;  // 用户身份验证令牌，必填
-}
-
-
-/**
- * 心跳响应
- * 用token校验用户身份
- */
-message UserHeartBeatMsgReply {
-  int64 user_id = 2;                   // 用户ID
-  string language_code = 6;            // 语言代码
-  string currency_code = 7;            // 币种代码
-}
-
-
 // 鉴权相关消息
 // ------------------------------------
 
@@ -248,8 +227,10 @@ message UserPersonalInfoMsgReply {
   string username = 4;                 // 账号名称
   string language_code = 6;            // 语言代码
   string currency_code = 7;            // 币种代码
-  int32 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
-  string remark = 10;                  // 用户备注
+  int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
+  int64 vip_level_val = 9;              // 会员等级值
+  string vip_level_name = 10;              // 会员等级名称
+  string remark = 11;                  // 用户备注
   int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
   string invitation_code = 13;         // 用户的邀请码
   string avatar = 14;                  // 用户头像URL
@@ -384,7 +365,7 @@ message UserFarmInfoMsgReply {
   string farm_name = 4;                 // 农场名称
   int64 total_land_count = 5;           // 农场总土地数量
   int64 water_limit_per_day = 6;        // 每日浇水限制次数
-  int64 fertilizer_limit_per_day = 7;   // 每日作物施肥限制次数（每个作物）
+  int64 fertilizer_limit_per_day = 7;   // 每日作物施肥限制次数
   int64 total_reward_coins = 8;         // 农场总收益金币
   BooleanStatus has_received_free_gift = 9;  // 是否已领取新用户免费商品
   BooleanStatus has_completed_tutorial = 10; // 是否已参加过新手教程
@@ -468,6 +449,138 @@ message UserFarmOpsMsgReq {
   int64 storage_id = 7;  // 仓库物品ID（里面包含操作的作物详情）
 }
 
+
+
+/**
+ * 用户全局排名
+ * 展示所有用户的排名和自己的排名
+ */
+message AllUserRankingInfoMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+}
+
+// 用户排名列表响应
+message AllUserRankingInfoMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated FriendRankingInfo rows = 5;  // 用户排名列表
+  MyRankingInfo my_ranking = 6;            // 我的排名信息
+}
+
+
+
+/**
+ * 用户好友排名
+ * 展示所有好友的排名和自己的排名
+ */
+message UserFriendRankingInfoMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+}
+
+// 好友排名列表响应
+message UserFriendRankingInfoMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated FriendRankingInfo rows = 5;  // 好友排名列表
+  MyRankingInfo my_ranking = 6;            // 我的排名信息
+}
+
+
+// 单个好友排名信息
+message FriendRankingInfo {
+  int64 user_id = 2;          // 用户ID
+  int64 friend_id = 3;        // 好友ID
+  string username = 4;        // 用户名
+  string avatar_url = 5;      // 头像URL
+  int64 vip_level_id = 6;     // VIP等级ID
+  int64 vip_level_val = 7;              // 会员等级值
+  string vip_level_name = 8;              // 会员等级名称
+  int64 coin = 9;             // 金币数量
+  int64 updated_at = 10;       // 更新时间戳
+  int64 rank = 11;             // 排名位置
+}
+
+// 我的排名信息
+message MyRankingInfo {
+  int64 user_id = 1;          // 我的用户ID
+  string username = 2;        // 我的用户名
+  string avatar_url = 3;      // 我的头像URL
+  int64 vip_level_id = 4;     // 我的VIP等级ID
+  int64 vip_level_val = 5;              // 会员等级值
+  string vip_level_name = 6;              // 会员等级名称
+  int64 coin = 7;             // 我的金币数量
+  int64 rank = 8;             // 我在好友中的排名位置
+  int64 total_friends = 9;    // 好友总数
+}
+
+
+
+/**
+ * 用户产看他人农场的操作请求
+ * 表示查看他人的信息
+ */
+message LookUserFarmsInfoMsgReq {
+  int64 user_id = 1;  // 查看用户ID
+  int64 viewed_user_id = 2;  // 被查看用户ID
+}
+
+message LookUserFarmsInfoMsgReply {
+  // 用户相关信息
+  int64 user_id = 2;                   // 用户ID
+  int64 pid = 3;                       // 上级ID（邀请用户的ID）
+  string username = 4;                 // 账号名称
+  string language_code = 6;            // 语言代码
+  string currency_code = 7;            // 币种代码
+  int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
+  int64 vip_level_val = 9;              // 会员等级值
+  string vip_level_name = 10;              // 会员等级名称
+  string remark = 11;                  // 用户备注
+  int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
+  string avatar = 14;                  // 用户头像URL
+  // 农场相关信息
+  int64 farm_id = 15;                    // 农场ID
+  string farm_name = 17;                 // 农场名称
+  int64 total_land_count = 18;           // 农场总土地数量
+  int64 water_limit_per_day = 19;        // 每日浇水限制次数
+  int64 fertilizer_limit_per_day = 20;   // 每日作物施肥限制次数
+  int64 total_reward_coins = 21;         // 农场总收益金币
+  // 土地信息
+  repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
+
+}
+
+
+
+/**
+ * 商店信息响应
+ * 包含商店内可购买的商品列表
+ */
+message VipLevelInfoMsgReply {
+  repeated VIPLevelInfo rows = 1;  // 商品信息列表
+}
+
+
+// VIPLevel represents a VIP level configuration with its reward settings
+message VIPLevelInfo {
+  int64 id = 1;
+  string level_name = 2;
+  int64 level_val = 3;
+  int64 is_default_level = 4;
+  int64 growth_value = 5;
+  int64 upgrade_reward_fertilizer_num = 6;
+  int64 upgrade_reward_tree_maturity_period = 7;
+  int64 upgrade_reward_tree_num = 8;
+  string remarks = 9;
+  int64 is_enabled = 10;
+}
 
 
 // 商店相关消息
