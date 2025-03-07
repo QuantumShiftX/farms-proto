@@ -273,6 +273,10 @@ message UserEditPersonalInfoMsgReq {
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
 }
 
+message UserEditPersonalInfoMsgReply {
+
+}
+
 /**
  * 用户钱包地址信息
  * 表示用户的各种加密货币钱包地址
@@ -432,6 +436,10 @@ message UserPurchaseGoodsMsgReq {
   int64 goods_num = 4;         // 购买数量
 }
 
+message UserPurchaseGoodsMsgReply {
+
+}
+
 // =========================================
 // 农场相关消息
 // =========================================
@@ -531,6 +539,14 @@ message UserFarmOpsMsgReq {
   int64 op_to_land_id = 5;            // 被操作的土地ID，必填
   int64 op_land_position = 6;         // 被操作的土地位置编号，必填
   int64 storage_id = 7;               // 仓库物品ID（里面包含操作的作物详情）
+}
+
+/**
+ * 用户农场操作响应
+ * 用于对自己或他人的农场进行各种操作
+ */
+message UserFarmOpsMsgReply {
+
 }
 
 /**
@@ -658,6 +674,13 @@ message MyRankingInfo {
 // =========================================
 // VIP等级相关消息
 // =========================================
+/**
+ * VIP等级信息请求
+ * 包含系统中所有VIP等级的配置信息
+ */
+message VipLevelInfoMsgReq {
+}
+
 
 /**
  * VIP等级信息响应

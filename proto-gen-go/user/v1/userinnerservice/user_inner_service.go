@@ -30,9 +30,11 @@ type (
 	UserAuthenticationReply       = v1.UserAuthenticationReply
 	UserAuthenticationReq         = v1.UserAuthenticationReq
 	UserBalance                   = v1.UserBalance
+	UserEditPersonalInfoMsgReply  = v1.UserEditPersonalInfoMsgReply
 	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
 	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
+	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
@@ -44,6 +46,7 @@ type (
 	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail            = v1.UserPlantingDetail
+	UserPurchaseGoodsMsgReply     = v1.UserPurchaseGoodsMsgReply
 	UserPurchaseGoodsMsgReq       = v1.UserPurchaseGoodsMsgReq
 	UserRegisterReq               = v1.UserRegisterReq
 	UserReply                     = v1.UserReply
@@ -66,7 +69,7 @@ type (
 		// 用户个人信息
 		UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 		// 修改个人信息
-		UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error)
 		// 用户仓库信息
 		UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 		// 用户农场信息
@@ -74,7 +77,7 @@ type (
 		// 用户土地信息
 		UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 		// 用户操作农场
-		UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*UserFarmOpsMsgReply, error)
 		// 获取好友列表及排名
 		UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error)
 		// 获取全局用户列表和排名
@@ -82,7 +85,7 @@ type (
 		// 查看用户农场信息
 		LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
 		// 用户购买商品
-		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -121,7 +124,7 @@ func (m *defaultUserInnerService) UserPersonalInfo(ctx context.Context, in *User
 }
 
 // 修改个人信息
-func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserEditPersonalInfo(ctx, in, opts...)
 }
@@ -145,7 +148,7 @@ func (m *defaultUserInnerService) UserLandInfo(ctx context.Context, in *UserLand
 }
 
 // 用户操作农场
-func (m *defaultUserInnerService) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*UserFarmOpsMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFarmOps(ctx, in, opts...)
 }
@@ -169,7 +172,7 @@ func (m *defaultUserInnerService) LookUserFarmsInfo(ctx context.Context, in *Loo
 }
 
 // 用户购买商品
-func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserPurchaseGoods(ctx, in, opts...)
 }

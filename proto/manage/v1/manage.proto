@@ -101,7 +101,7 @@ service ManageInnerService {
   // 获取设置基础信息
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
   // 获取vip等级信息
-  rpc VipLevelInfo (MsgReq) returns (VipLevelInfoMsgReply);
+  rpc VipLevelInfo (VipLevelInfoMsgReq) returns (VipLevelInfoMsgReply);
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
@@ -129,23 +129,10 @@ enum MessageID {
 // 基础消息定义
 // ------------------------------------
 
-/**
- * MQTT请求消息基础结构
- * 所有请求消息的基础结构，可根据需要扩展
- */
-message MsgReq {
-  // 暂无字段，可根据需要扩展
+
+message VipLevelInfoMsgReq {
+
 }
-
-/**
- * MQTT响应消息基础结构
- * 所有响应消息的基础结构，可根据需要扩展
- */
-message MsgReply {
-  // 暂无字段，可根据需要扩展
-}
-
-
 
 
 /**

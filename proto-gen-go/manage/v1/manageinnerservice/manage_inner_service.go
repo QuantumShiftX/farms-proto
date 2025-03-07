@@ -20,8 +20,6 @@ type (
 	GetAgreementReply    = v1.GetAgreementReply
 	ManageReply          = v1.ManageReply
 	ManageReq            = v1.ManageReq
-	MsgReply             = v1.MsgReply
-	MsgReq               = v1.MsgReq
 	RegistrationRewards  = v1.RegistrationRewards
 	SendCaptchaReq       = v1.SendCaptchaReq
 	SettingBaseInfoReply = v1.SettingBaseInfoReply
@@ -29,6 +27,7 @@ type (
 	VIPLevelInfo         = v1.VIPLevelInfo
 	VipLevelDetail       = v1.VipLevelDetail
 	VipLevelInfoMsgReply = v1.VipLevelInfoMsgReply
+	VipLevelInfoMsgReq   = v1.VipLevelInfoMsgReq
 
 	ManageInnerService interface {
 		// 获取默认VIP等级信息
@@ -36,7 +35,7 @@ type (
 		// 获取设置基础信息
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 		// 获取vip等级信息
-		VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
+		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -63,7 +62,7 @@ func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *
 }
 
 // 获取vip等级信息
-func (m *defaultManageInnerService) VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
+func (m *defaultManageInnerService) VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.VipLevelInfo(ctx, in, opts...)
 }

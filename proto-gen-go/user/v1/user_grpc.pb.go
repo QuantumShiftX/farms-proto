@@ -375,7 +375,7 @@ type UserInnerServiceClient interface {
 	// 用户个人信息
 	UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
-	UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -383,7 +383,7 @@ type UserInnerServiceClient interface {
 	// 用户土地信息
 	UserLandInfo(ctx context.Context, in *UserLandInfoMsgReq, opts ...grpc.CallOption) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
-	UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*UserFarmOpsMsgReply, error)
 	// 获取好友列表及排名
 	UserFriendRankingInfo(ctx context.Context, in *UserFriendRankingInfoMsgReq, opts ...grpc.CallOption) (*UserFriendRankingInfoMsgReply, error)
 	// 获取全局用户列表和排名
@@ -391,7 +391,7 @@ type UserInnerServiceClient interface {
 	// 查看用户农场信息
 	LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
 	// 用户购买商品
-	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
+	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -438,8 +438,8 @@ func (c *userInnerServiceClient) UserPersonalInfo(ctx context.Context, in *UserP
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
-	out := new(MsgReply)
+func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error) {
+	out := new(UserEditPersonalInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserEditPersonalInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -474,8 +474,8 @@ func (c *userInnerServiceClient) UserLandInfo(ctx context.Context, in *UserLandI
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
-	out := new(MsgReply)
+func (c *userInnerServiceClient) UserFarmOps(ctx context.Context, in *UserFarmOpsMsgReq, opts ...grpc.CallOption) (*UserFarmOpsMsgReply, error) {
+	out := new(UserFarmOpsMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserFarmOps_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -510,8 +510,8 @@ func (c *userInnerServiceClient) LookUserFarmsInfo(ctx context.Context, in *Look
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
-	out := new(MsgReply)
+func (c *userInnerServiceClient) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error) {
+	out := new(UserPurchaseGoodsMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserPurchaseGoods_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -532,7 +532,7 @@ type UserInnerServiceServer interface {
 	// 用户个人信息
 	UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
-	UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*MsgReply, error)
+	UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*UserEditPersonalInfoMsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -540,7 +540,7 @@ type UserInnerServiceServer interface {
 	// 用户土地信息
 	UserLandInfo(context.Context, *UserLandInfoMsgReq) (*UserLandInfoMsgReply, error)
 	// 用户操作农场
-	UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error)
+	UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*UserFarmOpsMsgReply, error)
 	// 获取好友列表及排名
 	UserFriendRankingInfo(context.Context, *UserFriendRankingInfoMsgReq) (*UserFriendRankingInfoMsgReply, error)
 	// 获取全局用户列表和排名
@@ -548,7 +548,7 @@ type UserInnerServiceServer interface {
 	// 查看用户农场信息
 	LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error)
 	// 用户购买商品
-	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*MsgReply, error)
+	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -568,7 +568,7 @@ func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *
 func (UnimplementedUserInnerServiceServer) UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPersonalInfo not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*UserEditPersonalInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserEditPersonalInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error) {
@@ -580,7 +580,7 @@ func (UnimplementedUserInnerServiceServer) UserFarmInfo(context.Context, *UserFa
 func (UnimplementedUserInnerServiceServer) UserLandInfo(context.Context, *UserLandInfoMsgReq) (*UserLandInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserLandInfo not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserFarmOps(context.Context, *UserFarmOpsMsgReq) (*UserFarmOpsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFarmOps not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserFriendRankingInfo(context.Context, *UserFriendRankingInfoMsgReq) (*UserFriendRankingInfoMsgReply, error) {
@@ -592,7 +592,7 @@ func (UnimplementedUserInnerServiceServer) AllUserRankingInfo(context.Context, *
 func (UnimplementedUserInnerServiceServer) LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LookUserFarmsInfo not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*MsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPurchaseGoods not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}

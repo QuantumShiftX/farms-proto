@@ -30,9 +30,11 @@ type (
 	UserAuthenticationReply       = v1.UserAuthenticationReply
 	UserAuthenticationReq         = v1.UserAuthenticationReq
 	UserBalance                   = v1.UserBalance
+	UserEditPersonalInfoMsgReply  = v1.UserEditPersonalInfoMsgReply
 	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
 	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
+	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
@@ -44,6 +46,7 @@ type (
 	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail            = v1.UserPlantingDetail
+	UserPurchaseGoodsMsgReply     = v1.UserPurchaseGoodsMsgReply
 	UserPurchaseGoodsMsgReq       = v1.UserPurchaseGoodsMsgReq
 	UserRegisterReq               = v1.UserRegisterReq
 	UserReply                     = v1.UserReply

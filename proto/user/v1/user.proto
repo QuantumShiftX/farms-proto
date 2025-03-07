@@ -116,7 +116,7 @@ service UserInnerService {
   // 用户个人信息
   rpc UserPersonalInfo (UserPersonalInfoMsgReq) returns (UserPersonalInfoMsgReply) {}
   // 修改个人信息
-  rpc UserEditPersonalInfo (UserEditPersonalInfoMsgReq) returns (MsgReply) {}
+  rpc UserEditPersonalInfo (UserEditPersonalInfoMsgReq) returns (UserEditPersonalInfoMsgReply) {}
   // 用户仓库信息
   rpc UserStorageInfo (UserStorageInfoMsgReq) returns (UserStorageInfoMsgReply) {}
   // 用户农场信息
@@ -124,7 +124,7 @@ service UserInnerService {
   // 用户土地信息
   rpc UserLandInfo (UserLandInfoMsgReq) returns (UserLandInfoMsgReply) {}
   // 用户操作农场
-  rpc UserFarmOps (UserFarmOpsMsgReq) returns (MsgReply) {}
+  rpc UserFarmOps (UserFarmOpsMsgReq) returns (UserFarmOpsMsgReply) {}
   // 获取好友列表及排名
   rpc UserFriendRankingInfo (UserFriendRankingInfoMsgReq) returns (UserFriendRankingInfoMsgReply) {}
   // 获取全局用户列表和排名
@@ -132,7 +132,7 @@ service UserInnerService {
   // 查看用户农场信息
   rpc LookUserFarmsInfo (LookUserFarmsInfoMsgReq) returns (LookUserFarmsInfoMsgReply) {}
   // 用户购买商品
-  rpc UserPurchaseGoods (UserPurchaseGoodsMsgReq) returns (MsgReply) {}
+  rpc UserPurchaseGoods (UserPurchaseGoodsMsgReq) returns (UserPurchaseGoodsMsgReply) {}
 
 }
 
@@ -205,25 +205,6 @@ message MessageWrapper {
   repeated string tags = 5;   // 消息标签
 }
 
-
-// 基础消息定义
-// ------------------------------------
-
-/**
- * MQTT请求消息基础结构
- * 所有请求消息的基础结构，可根据需要扩展
- */
-message MsgReq {
-  // 暂无字段，可根据需要扩展
-}
-
-/**
- * MQTT响应消息基础结构
- * 所有响应消息的基础结构，可根据需要扩展
- */
-message MsgReply {
-  // 暂无字段，可根据需要扩展
-}
 
 // 枚举类型定义
 // ------------------------------------
@@ -320,6 +301,21 @@ enum ProductType {
   OTHER = 3;                     // 其他道具
 }
 
+/**
+ * 所有请求消息的基础结构，可根据需要扩展
+ */
+message MsgReq {
+  // 暂无字段，可根据需要扩展
+}
+
+/**
+ * 所有响应消息的基础结构，可根据需要扩展
+ */
+message MsgReply {
+  // 暂无字段，可根据需要扩展
+}
+
+
 
 // 鉴权相关消息
 // ------------------------------------
@@ -391,6 +387,10 @@ message UserEditPersonalInfoMsgReq {
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
 }
 
+
+message UserEditPersonalInfoMsgReply {
+
+}
 /**
  * 用户钱包地址信息
  * 表示用户的各种加密货币钱包地址
@@ -588,7 +588,9 @@ message UserFarmOpsMsgReq {
   int64 storage_id = 7;  // 仓库物品ID（里面包含操作的作物详情）
 }
 
+message UserFarmOpsMsgReply {
 
+}
 
 /**
  * 用户全局排名
@@ -707,7 +709,9 @@ message UserPurchaseGoodsMsgReq {
   int64 goods_num = 4;
 
 }
+message UserPurchaseGoodsMsgReply {
 
+}
 
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //

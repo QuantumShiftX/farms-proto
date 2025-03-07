@@ -160,7 +160,7 @@ type ManageInnerServiceClient interface {
 	// 获取设置基础信息
 	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 	// 获取vip等级信息
-	VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
+	VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -189,7 +189,7 @@ func (c *manageInnerServiceClient) GetSettingBaseInfo(ctx context.Context, in *M
 	return out, nil
 }
 
-func (c *manageInnerServiceClient) VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
+func (c *manageInnerServiceClient) VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
 	out := new(VipLevelInfoMsgReply)
 	err := c.cc.Invoke(ctx, ManageInnerService_VipLevelInfo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -207,7 +207,7 @@ type ManageInnerServiceServer interface {
 	// 获取设置基础信息
 	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
 	// 获取vip等级信息
-	VipLevelInfo(context.Context, *MsgReq) (*VipLevelInfoMsgReply, error)
+	VipLevelInfo(context.Context, *VipLevelInfoMsgReq) (*VipLevelInfoMsgReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -221,7 +221,7 @@ func (UnimplementedManageInnerServiceServer) GetDefaultVipInfo(context.Context, 
 func (UnimplementedManageInnerServiceServer) GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSettingBaseInfo not implemented")
 }
-func (UnimplementedManageInnerServiceServer) VipLevelInfo(context.Context, *MsgReq) (*VipLevelInfoMsgReply, error) {
+func (UnimplementedManageInnerServiceServer) VipLevelInfo(context.Context, *VipLevelInfoMsgReq) (*VipLevelInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VipLevelInfo not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
@@ -274,7 +274,7 @@ func _ManageInnerService_GetSettingBaseInfo_Handler(srv interface{}, ctx context
 }
 
 func _ManageInnerService_VipLevelInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgReq)
+	in := new(VipLevelInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func _ManageInnerService_VipLevelInfo_Handler(srv interface{}, ctx context.Conte
 		FullMethod: ManageInnerService_VipLevelInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageInnerServiceServer).VipLevelInfo(ctx, req.(*MsgReq))
+		return srv.(ManageInnerServiceServer).VipLevelInfo(ctx, req.(*VipLevelInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
