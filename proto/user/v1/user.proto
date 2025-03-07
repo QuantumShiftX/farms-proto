@@ -593,8 +593,8 @@ message UserFarmOpsMsgReq {
  */
 message AllUserRankingInfoMsgReq {
   int64 user_id = 1;          // 请求用户的ID
-  int32 page = 2;             // 页码，从1开始
-  int32 page_size = 3;        // 每页数量
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
 }
 
 // 用户排名列表响应
