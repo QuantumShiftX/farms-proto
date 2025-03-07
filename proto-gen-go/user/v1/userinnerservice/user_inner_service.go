@@ -44,6 +44,7 @@ type (
 	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail            = v1.UserPlantingDetail
+	UserPurchaseGoodsMsgReq       = v1.UserPurchaseGoodsMsgReq
 	UserRegisterReq               = v1.UserRegisterReq
 	UserReply                     = v1.UserReply
 	UserReq                       = v1.UserReq
@@ -80,6 +81,8 @@ type (
 		AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error)
 		// 查看用户农场信息
 		LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
+		// 用户购买商品
+		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -163,4 +166,10 @@ func (m *defaultUserInnerService) AllUserRankingInfo(ctx context.Context, in *Al
 func (m *defaultUserInnerService) LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.LookUserFarmsInfo(ctx, in, opts...)
+}
+
+// 用户购买商品
+func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserPurchaseGoods(ctx, in, opts...)
 }

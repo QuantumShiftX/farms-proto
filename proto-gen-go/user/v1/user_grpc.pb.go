@@ -359,6 +359,7 @@ const (
 	UserInnerService_UserFriendRankingInfo_FullMethodName = "/user.v1.UserInnerService/UserFriendRankingInfo"
 	UserInnerService_AllUserRankingInfo_FullMethodName    = "/user.v1.UserInnerService/AllUserRankingInfo"
 	UserInnerService_LookUserFarmsInfo_FullMethodName     = "/user.v1.UserInnerService/LookUserFarmsInfo"
+	UserInnerService_UserPurchaseGoods_FullMethodName     = "/user.v1.UserInnerService/UserPurchaseGoods"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -389,6 +390,8 @@ type UserInnerServiceClient interface {
 	AllUserRankingInfo(ctx context.Context, in *AllUserRankingInfoMsgReq, opts ...grpc.CallOption) (*AllUserRankingInfoMsgReply, error)
 	// 查看用户农场信息
 	LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
+	// 用户购买商品
+	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -507,6 +510,15 @@ func (c *userInnerServiceClient) LookUserFarmsInfo(ctx context.Context, in *Look
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*MsgReply, error) {
+	out := new(MsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserPurchaseGoods_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -535,6 +547,8 @@ type UserInnerServiceServer interface {
 	AllUserRankingInfo(context.Context, *AllUserRankingInfoMsgReq) (*AllUserRankingInfoMsgReply, error)
 	// 查看用户农场信息
 	LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error)
+	// 用户购买商品
+	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*MsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -577,6 +591,9 @@ func (UnimplementedUserInnerServiceServer) AllUserRankingInfo(context.Context, *
 }
 func (UnimplementedUserInnerServiceServer) LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LookUserFarmsInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*MsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserPurchaseGoods not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -807,6 +824,24 @@ func _UserInnerService_LookUserFarmsInfo_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserPurchaseGoods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserPurchaseGoodsMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserPurchaseGoods(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserPurchaseGoods_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserPurchaseGoods(ctx, req.(*UserPurchaseGoodsMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -861,6 +896,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LookUserFarmsInfo",
 			Handler:    _UserInnerService_LookUserFarmsInfo_Handler,
+		},
+		{
+			MethodName: "UserPurchaseGoods",
+			Handler:    _UserInnerService_UserPurchaseGoods_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

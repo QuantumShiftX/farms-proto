@@ -44,6 +44,7 @@ type (
 	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail            = v1.UserPlantingDetail
+	UserPurchaseGoodsMsgReq       = v1.UserPurchaseGoodsMsgReq
 	UserRegisterReq               = v1.UserRegisterReq
 	UserReply                     = v1.UserReply
 	UserReq                       = v1.UserReq

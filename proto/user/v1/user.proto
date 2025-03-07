@@ -131,6 +131,8 @@ service UserInnerService {
   rpc AllUserRankingInfo (AllUserRankingInfoMsgReq) returns (AllUserRankingInfoMsgReply) {}
   // 查看用户农场信息
   rpc LookUserFarmsInfo (LookUserFarmsInfoMsgReq) returns (LookUserFarmsInfoMsgReply) {}
+  // 用户购买商品
+  rpc UserPurchaseGoods (UserPurchaseGoodsMsgReq) returns (MsgReply) {}
 
 }
 
@@ -171,6 +173,7 @@ enum MessageID {
   // 仓库相关消息 (300-399)
   USER_STORAGE_INFO_MSG = 300;
   USER_STORAGE_DETAIL = 301;
+  USER_PURCHASE_GOODS_MSG = 302;
 
   // 农场相关消息 (400-499)
   USER_FARM_INFO_MSG = 400;
@@ -692,6 +695,17 @@ message LookUserFarmsInfoMsgReply {
   repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
 
 }
+
+/**
+ * 购买商店商品信息
+ *
+ */
+message UserPurchaseGoodsMsgReq {
+  int64 user_id = 1;
+  int64 product_id = 2;
+
+}
+
 
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
