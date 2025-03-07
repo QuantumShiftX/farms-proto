@@ -365,7 +365,7 @@ message UserPersonalInfoMsgReply {
   string currency_code = 7;            // 币种代码
   int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
   int64 vip_level_val = 9;              // 会员等级值
-  int64 vip_level_name = 10;              // 会员等级名称
+  string vip_level_name = 10;              // 会员等级名称
   string remark = 11;                  // 用户备注
   int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
   string invitation_code = 13;         // 用户的邀请码
@@ -638,7 +638,7 @@ message FriendRankingInfo {
   string avatar_url = 5;      // 头像URL
   int64 vip_level_id = 6;     // VIP等级ID
   int64 vip_level_val = 7;              // 会员等级值
-  int64 vip_level_name = 8;              // 会员等级名称
+  string vip_level_name = 8;              // 会员等级名称
   int64 coin = 9;             // 金币数量
   int64 updated_at = 10;       // 更新时间戳
   int64 rank = 11;             // 排名位置
@@ -651,7 +651,7 @@ message MyRankingInfo {
   string avatar_url = 3;      // 我的头像URL
   int64 vip_level_id = 4;     // 我的VIP等级ID
   int64 vip_level_val = 5;              // 会员等级值
-  int64 vip_level_name = 6;              // 会员等级名称
+  string vip_level_name = 6;              // 会员等级名称
   int64 coin = 7;             // 我的金币数量
   int64 rank = 8;             // 我在好友中的排名位置
   int64 total_friends = 9;    // 好友总数
@@ -677,7 +677,7 @@ message LookUserFarmsInfoMsgReply {
   string currency_code = 7;            // 币种代码
   int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
   int64 vip_level_val = 9;              // 会员等级值
-  int64 vip_level_name = 10;              // 会员等级名称
+  string vip_level_name = 10;              // 会员等级名称
   string remark = 11;                  // 用户备注
   int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
   string avatar = 14;                  // 用户头像URL

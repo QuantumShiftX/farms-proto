@@ -3532,16 +3532,16 @@ type FriendRankingInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserId       int64  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                     // 用户ID
-	FriendId     int64  `protobuf:"varint,3,opt,name=friend_id,json=friendId,proto3" json:"friend_id,omitempty"`               // 好友ID
-	Username     string `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`                                // 用户名
-	AvatarUrl    string `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`             // 头像URL
-	VipLevelId   int64  `protobuf:"varint,6,opt,name=vip_level_id,json=vipLevelId,proto3" json:"vip_level_id,omitempty"`       // VIP等级ID
-	VipLevelVal  int64  `protobuf:"varint,7,opt,name=vip_level_val,json=vipLevelVal,proto3" json:"vip_level_val,omitempty"`    // 会员等级值
-	VipLevelName int64  `protobuf:"varint,8,opt,name=vip_level_name,json=vipLevelName,proto3" json:"vip_level_name,omitempty"` // 会员等级名称
-	Coin         int64  `protobuf:"varint,9,opt,name=coin,proto3" json:"coin,omitempty"`                                       // 金币数量
-	UpdatedAt    int64  `protobuf:"varint,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`           // 更新时间戳
-	Rank         int64  `protobuf:"varint,11,opt,name=rank,proto3" json:"rank,omitempty"`                                      // 排名位置
+	UserId       int64  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                    // 用户ID
+	FriendId     int64  `protobuf:"varint,3,opt,name=friend_id,json=friendId,proto3" json:"friend_id,omitempty"`              // 好友ID
+	Username     string `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`                               // 用户名
+	AvatarUrl    string `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`            // 头像URL
+	VipLevelId   int64  `protobuf:"varint,6,opt,name=vip_level_id,json=vipLevelId,proto3" json:"vip_level_id,omitempty"`      // VIP等级ID
+	VipLevelVal  int64  `protobuf:"varint,7,opt,name=vip_level_val,json=vipLevelVal,proto3" json:"vip_level_val,omitempty"`   // 会员等级值
+	VipLevelName string `protobuf:"bytes,8,opt,name=vip_level_name,json=vipLevelName,proto3" json:"vip_level_name,omitempty"` // 会员等级名称
+	Coin         int64  `protobuf:"varint,9,opt,name=coin,proto3" json:"coin,omitempty"`                                      // 金币数量
+	UpdatedAt    int64  `protobuf:"varint,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`          // 更新时间戳
+	Rank         int64  `protobuf:"varint,11,opt,name=rank,proto3" json:"rank,omitempty"`                                     // 排名位置
 }
 
 func (x *FriendRankingInfo) Reset() {
@@ -3618,11 +3618,11 @@ func (x *FriendRankingInfo) GetVipLevelVal() int64 {
 	return 0
 }
 
-func (x *FriendRankingInfo) GetVipLevelName() int64 {
+func (x *FriendRankingInfo) GetVipLevelName() string {
 	if x != nil {
 		return x.VipLevelName
 	}
-	return 0
+	return ""
 }
 
 func (x *FriendRankingInfo) GetCoin() int64 {
@@ -3652,15 +3652,15 @@ type MyRankingInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserId       int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                     // 我的用户ID
-	Username     string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`                                // 我的用户名
-	AvatarUrl    string `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`             // 我的头像URL
-	VipLevelId   int64  `protobuf:"varint,4,opt,name=vip_level_id,json=vipLevelId,proto3" json:"vip_level_id,omitempty"`       // 我的VIP等级ID
-	VipLevelVal  int64  `protobuf:"varint,5,opt,name=vip_level_val,json=vipLevelVal,proto3" json:"vip_level_val,omitempty"`    // 会员等级值
-	VipLevelName int64  `protobuf:"varint,6,opt,name=vip_level_name,json=vipLevelName,proto3" json:"vip_level_name,omitempty"` // 会员等级名称
-	Coin         int64  `protobuf:"varint,7,opt,name=coin,proto3" json:"coin,omitempty"`                                       // 我的金币数量
-	Rank         int64  `protobuf:"varint,8,opt,name=rank,proto3" json:"rank,omitempty"`                                       // 我在好友中的排名位置
-	TotalFriends int64  `protobuf:"varint,9,opt,name=total_friends,json=totalFriends,proto3" json:"total_friends,omitempty"`   // 好友总数
+	UserId       int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                    // 我的用户ID
+	Username     string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`                               // 我的用户名
+	AvatarUrl    string `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`            // 我的头像URL
+	VipLevelId   int64  `protobuf:"varint,4,opt,name=vip_level_id,json=vipLevelId,proto3" json:"vip_level_id,omitempty"`      // 我的VIP等级ID
+	VipLevelVal  int64  `protobuf:"varint,5,opt,name=vip_level_val,json=vipLevelVal,proto3" json:"vip_level_val,omitempty"`   // 会员等级值
+	VipLevelName string `protobuf:"bytes,6,opt,name=vip_level_name,json=vipLevelName,proto3" json:"vip_level_name,omitempty"` // 会员等级名称
+	Coin         int64  `protobuf:"varint,7,opt,name=coin,proto3" json:"coin,omitempty"`                                      // 我的金币数量
+	Rank         int64  `protobuf:"varint,8,opt,name=rank,proto3" json:"rank,omitempty"`                                      // 我在好友中的排名位置
+	TotalFriends int64  `protobuf:"varint,9,opt,name=total_friends,json=totalFriends,proto3" json:"total_friends,omitempty"`  // 好友总数
 }
 
 func (x *MyRankingInfo) Reset() {
@@ -3730,11 +3730,11 @@ func (x *MyRankingInfo) GetVipLevelVal() int64 {
 	return 0
 }
 
-func (x *MyRankingInfo) GetVipLevelName() int64 {
+func (x *MyRankingInfo) GetVipLevelName() string {
 	if x != nil {
 		return x.VipLevelName
 	}
-	return 0
+	return ""
 }
 
 func (x *MyRankingInfo) GetCoin() int64 {
@@ -4462,7 +4462,7 @@ var file_user_v1_user_proto_rawDesc = []byte{
 	0x76, 0x69, 0x70, 0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x5f, 0x76, 0x61, 0x6c, 0x18, 0x07, 0x20,
 	0x01, 0x28, 0x03, 0x52, 0x0b, 0x76, 0x69, 0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x56, 0x61, 0x6c,
 	0x12, 0x24, 0x0a, 0x0e, 0x76, 0x69, 0x70, 0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x5f, 0x6e, 0x61,
-	0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x76, 0x69, 0x70, 0x4c, 0x65, 0x76,
+	0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x76, 0x69, 0x70, 0x4c, 0x65, 0x76,
 	0x65, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x69, 0x6e, 0x18, 0x09,
 	0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x63, 0x6f, 0x69, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x75, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09,
@@ -4480,7 +4480,7 @@ var file_user_v1_user_proto_rawDesc = []byte{
 	0x65, 0x6c, 0x5f, 0x76, 0x61, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x76, 0x69,
 	0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x56, 0x61, 0x6c, 0x12, 0x24, 0x0a, 0x0e, 0x76, 0x69, 0x70,
 	0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x0c, 0x76, 0x69, 0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12,
+	0x09, 0x52, 0x0c, 0x76, 0x69, 0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12,
 	0x12, 0x0a, 0x04, 0x63, 0x6f, 0x69, 0x6e, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x63,
 	0x6f, 0x69, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x61, 0x6e, 0x6b, 0x18, 0x08, 0x20, 0x01, 0x28,
 	0x03, 0x52, 0x04, 0x72, 0x61, 0x6e, 0x6b, 0x12, 0x23, 0x0a, 0x0d, 0x74, 0x6f, 0x74, 0x61, 0x6c,
