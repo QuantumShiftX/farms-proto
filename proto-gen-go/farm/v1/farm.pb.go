@@ -415,6 +415,283 @@ func (x *StoreProductInfoMsgReply) GetIsEnabled() BooleanStatus {
 	return BooleanStatus_BOOLEAN_UNSPECIFIED
 }
 
+type CropsProductInfoMsgReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id []int64 `protobuf:"varint,1,rep,packed,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *CropsProductInfoMsgReq) Reset() {
+	*x = CropsProductInfoMsgReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CropsProductInfoMsgReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CropsProductInfoMsgReq) ProtoMessage() {}
+
+func (x *CropsProductInfoMsgReq) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CropsProductInfoMsgReq.ProtoReflect.Descriptor instead.
+func (*CropsProductInfoMsgReq) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CropsProductInfoMsgReq) GetId() []int64 {
+	if x != nil {
+		return x.Id
+	}
+	return nil
+}
+
+type CropsProductInfoMsgReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Rows []*CropsProductInfo `protobuf:"bytes,1,rep,name=rows,proto3" json:"rows,omitempty"`
+}
+
+func (x *CropsProductInfoMsgReply) Reset() {
+	*x = CropsProductInfoMsgReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CropsProductInfoMsgReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CropsProductInfoMsgReply) ProtoMessage() {}
+
+func (x *CropsProductInfoMsgReply) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CropsProductInfoMsgReply.ProtoReflect.Descriptor instead.
+func (*CropsProductInfoMsgReply) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CropsProductInfoMsgReply) GetRows() []*CropsProductInfo {
+	if x != nil {
+		return x.Rows
+	}
+	return nil
+}
+
+type CropsProductInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id                                  int64         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                                                                                                                   // 作物ID
+	Name                                string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`                                                                                                                // 作物名称
+	Price                               int64         `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`                                                                                                             // 作物价格（单位：代币）
+	MaturityIncome                      int64         `protobuf:"varint,4,opt,name=maturity_income,json=maturityIncome,proto3" json:"maturity_income,omitempty"`                                                                     // 成熟收益（代币）
+	MaturityPeriod                      int64         `protobuf:"varint,5,opt,name=maturity_period,json=maturityPeriod,proto3" json:"maturity_period,omitempty"`                                                                     // 成熟周期（单位：分）
+	WateringFrequency                   int64         `protobuf:"varint,6,opt,name=watering_frequency,json=wateringFrequency,proto3" json:"watering_frequency,omitempty"`                                                            // 浇水频率（次/天）
+	FertilizingFrequency                int64         `protobuf:"varint,7,opt,name=fertilizing_frequency,json=fertilizingFrequency,proto3" json:"fertilizing_frequency,omitempty"`                                                   // 施肥频率（次/天）
+	SelfWateringDecreaseTime            int64         `protobuf:"varint,8,opt,name=self_watering_decrease_time,json=selfWateringDecreaseTime,proto3" json:"self_watering_decrease_time,omitempty"`                                   // 自己每次浇水减少时间（单位：分）
+	SelfWateringDecreasePercentage      int64         `protobuf:"varint,9,opt,name=self_watering_decrease_percentage,json=selfWateringDecreasePercentage,proto3" json:"self_watering_decrease_percentage,omitempty"`                 // 自己每次浇水减少百分比（0-100）
+	SelfFertilizingDecreaseTime         int64         `protobuf:"varint,10,opt,name=self_fertilizing_decrease_time,json=selfFertilizingDecreaseTime,proto3" json:"self_fertilizing_decrease_time,omitempty"`                         // 自己每次施肥减少时间（单位：分）
+	SelfFertilizingDecreasePercentage   int64         `protobuf:"varint,11,opt,name=self_fertilizing_decrease_percentage,json=selfFertilizingDecreasePercentage,proto3" json:"self_fertilizing_decrease_percentage,omitempty"`       // 自己每次施肥减少百分比（0-100）
+	FriendWateringDecreaseTime          int64         `protobuf:"varint,12,opt,name=friend_watering_decrease_time,json=friendWateringDecreaseTime,proto3" json:"friend_watering_decrease_time,omitempty"`                            // 好友每次浇水减少时间（单位：分）
+	FriendWateringDecreasePercentage    int64         `protobuf:"varint,13,opt,name=friend_watering_decrease_percentage,json=friendWateringDecreasePercentage,proto3" json:"friend_watering_decrease_percentage,omitempty"`          // 好友每次浇水减少百分比（0-100）
+	FriendFertilizingDecreaseTime       int64         `protobuf:"varint,14,opt,name=friend_fertilizing_decrease_time,json=friendFertilizingDecreaseTime,proto3" json:"friend_fertilizing_decrease_time,omitempty"`                   // 好友每次施肥减少时间（单位：分）
+	FriendFertilizingDecreasePercentage int64         `protobuf:"varint,15,opt,name=friend_fertilizing_decrease_percentage,json=friendFertilizingDecreasePercentage,proto3" json:"friend_fertilizing_decrease_percentage,omitempty"` // 好友每次施肥减少百分比（0-100）
+	IsAvailable                         BooleanStatus `protobuf:"varint,16,opt,name=is_available,json=isAvailable,proto3,enum=farm.v1.BooleanStatus" json:"is_available,omitempty"`                                                  // 是否上架（1 = 上架, 2 = 下架）
+	Sort                                int64         `protobuf:"varint,17,opt,name=sort,proto3" json:"sort,omitempty"`                                                                                                              // 排序（用于显示顺序）
+	IsEnabled                           BooleanStatus `protobuf:"varint,18,opt,name=is_enabled,json=isEnabled,proto3,enum=farm.v1.BooleanStatus" json:"is_enabled,omitempty"`                                                        // 是否启用（1 = 启用, 2 = 禁用）
+}
+
+func (x *CropsProductInfo) Reset() {
+	*x = CropsProductInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_farm_v1_farm_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CropsProductInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CropsProductInfo) ProtoMessage() {}
+
+func (x *CropsProductInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_farm_v1_farm_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CropsProductInfo.ProtoReflect.Descriptor instead.
+func (*CropsProductInfo) Descriptor() ([]byte, []int) {
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CropsProductInfo) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CropsProductInfo) GetPrice() int64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetMaturityIncome() int64 {
+	if x != nil {
+		return x.MaturityIncome
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetMaturityPeriod() int64 {
+	if x != nil {
+		return x.MaturityPeriod
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetWateringFrequency() int64 {
+	if x != nil {
+		return x.WateringFrequency
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetFertilizingFrequency() int64 {
+	if x != nil {
+		return x.FertilizingFrequency
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetSelfWateringDecreaseTime() int64 {
+	if x != nil {
+		return x.SelfWateringDecreaseTime
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetSelfWateringDecreasePercentage() int64 {
+	if x != nil {
+		return x.SelfWateringDecreasePercentage
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetSelfFertilizingDecreaseTime() int64 {
+	if x != nil {
+		return x.SelfFertilizingDecreaseTime
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetSelfFertilizingDecreasePercentage() int64 {
+	if x != nil {
+		return x.SelfFertilizingDecreasePercentage
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetFriendWateringDecreaseTime() int64 {
+	if x != nil {
+		return x.FriendWateringDecreaseTime
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetFriendWateringDecreasePercentage() int64 {
+	if x != nil {
+		return x.FriendWateringDecreasePercentage
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetFriendFertilizingDecreaseTime() int64 {
+	if x != nil {
+		return x.FriendFertilizingDecreaseTime
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetFriendFertilizingDecreasePercentage() int64 {
+	if x != nil {
+		return x.FriendFertilizingDecreasePercentage
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetIsAvailable() BooleanStatus {
+	if x != nil {
+		return x.IsAvailable
+	}
+	return BooleanStatus_BOOLEAN_UNSPECIFIED
+}
+
+func (x *CropsProductInfo) GetSort() int64 {
+	if x != nil {
+		return x.Sort
+	}
+	return 0
+}
+
+func (x *CropsProductInfo) GetIsEnabled() BooleanStatus {
+	if x != nil {
+		return x.IsEnabled
+	}
+	return BooleanStatus_BOOLEAN_UNSPECIFIED
+}
+
 // *
 // MQTT请求消息基础结构
 // 所有请求消息的基础结构，可根据需要扩展
@@ -427,7 +704,7 @@ type MsgReq struct {
 func (x *MsgReq) Reset() {
 	*x = MsgReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_farm_v1_farm_proto_msgTypes[4]
+		mi := &file_farm_v1_farm_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -440,7 +717,7 @@ func (x *MsgReq) String() string {
 func (*MsgReq) ProtoMessage() {}
 
 func (x *MsgReq) ProtoReflect() protoreflect.Message {
-	mi := &file_farm_v1_farm_proto_msgTypes[4]
+	mi := &file_farm_v1_farm_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -453,7 +730,7 @@ func (x *MsgReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MsgReq.ProtoReflect.Descriptor instead.
 func (*MsgReq) Descriptor() ([]byte, []int) {
-	return file_farm_v1_farm_proto_rawDescGZIP(), []int{4}
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{7}
 }
 
 // *
@@ -468,7 +745,7 @@ type MsgReply struct {
 func (x *MsgReply) Reset() {
 	*x = MsgReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_farm_v1_farm_proto_msgTypes[5]
+		mi := &file_farm_v1_farm_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -481,7 +758,7 @@ func (x *MsgReply) String() string {
 func (*MsgReply) ProtoMessage() {}
 
 func (x *MsgReply) ProtoReflect() protoreflect.Message {
-	mi := &file_farm_v1_farm_proto_msgTypes[5]
+	mi := &file_farm_v1_farm_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -494,7 +771,7 @@ func (x *MsgReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MsgReply.ProtoReflect.Descriptor instead.
 func (*MsgReply) Descriptor() ([]byte, []int) {
-	return file_farm_v1_farm_proto_rawDescGZIP(), []int{5}
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{8}
 }
 
 // *
@@ -513,7 +790,7 @@ type FarmsStoreInfoMsgReq struct {
 func (x *FarmsStoreInfoMsgReq) Reset() {
 	*x = FarmsStoreInfoMsgReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_farm_v1_farm_proto_msgTypes[6]
+		mi := &file_farm_v1_farm_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -526,7 +803,7 @@ func (x *FarmsStoreInfoMsgReq) String() string {
 func (*FarmsStoreInfoMsgReq) ProtoMessage() {}
 
 func (x *FarmsStoreInfoMsgReq) ProtoReflect() protoreflect.Message {
-	mi := &file_farm_v1_farm_proto_msgTypes[6]
+	mi := &file_farm_v1_farm_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -539,7 +816,7 @@ func (x *FarmsStoreInfoMsgReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FarmsStoreInfoMsgReq.ProtoReflect.Descriptor instead.
 func (*FarmsStoreInfoMsgReq) Descriptor() ([]byte, []int) {
-	return file_farm_v1_farm_proto_rawDescGZIP(), []int{6}
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *FarmsStoreInfoMsgReq) GetUserId() int64 {
@@ -582,7 +859,7 @@ type FarmsStoreInfoMsgReply struct {
 func (x *FarmsStoreInfoMsgReply) Reset() {
 	*x = FarmsStoreInfoMsgReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_farm_v1_farm_proto_msgTypes[7]
+		mi := &file_farm_v1_farm_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -595,7 +872,7 @@ func (x *FarmsStoreInfoMsgReply) String() string {
 func (*FarmsStoreInfoMsgReply) ProtoMessage() {}
 
 func (x *FarmsStoreInfoMsgReply) ProtoReflect() protoreflect.Message {
-	mi := &file_farm_v1_farm_proto_msgTypes[7]
+	mi := &file_farm_v1_farm_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -608,7 +885,7 @@ func (x *FarmsStoreInfoMsgReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FarmsStoreInfoMsgReply.ProtoReflect.Descriptor instead.
 func (*FarmsStoreInfoMsgReply) Descriptor() ([]byte, []int) {
-	return file_farm_v1_farm_proto_rawDescGZIP(), []int{7}
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *FarmsStoreInfoMsgReply) GetPage() int64 {
@@ -675,7 +952,7 @@ type StoreInfo struct {
 func (x *StoreInfo) Reset() {
 	*x = StoreInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_farm_v1_farm_proto_msgTypes[8]
+		mi := &file_farm_v1_farm_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -688,7 +965,7 @@ func (x *StoreInfo) String() string {
 func (*StoreInfo) ProtoMessage() {}
 
 func (x *StoreInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_farm_v1_farm_proto_msgTypes[8]
+	mi := &file_farm_v1_farm_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -701,7 +978,7 @@ func (x *StoreInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StoreInfo.ProtoReflect.Descriptor instead.
 func (*StoreInfo) Descriptor() ([]byte, []int) {
-	return file_farm_v1_farm_proto_rawDescGZIP(), []int{8}
+	return file_farm_v1_farm_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *StoreInfo) GetId() int64 {
@@ -798,6 +1075,75 @@ var file_farm_v1_farm_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x69, 0x73, 0x5f, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x18, 0x09, 0x20, 0x01,
 	0x28, 0x0e, 0x32, 0x16, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x6f,
 	0x6c, 0x65, 0x61, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x09, 0x69, 0x73, 0x45, 0x6e,
+	0x61, 0x62, 0x6c, 0x65, 0x64, 0x22, 0x28, 0x0a, 0x16, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x03, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x49, 0x0a, 0x18, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49,
+	0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2d, 0x0a, 0x04, 0x72,
+	0x6f, 0x77, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x66, 0x61, 0x72, 0x6d,
+	0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x72, 0x6f, 0x77, 0x73, 0x22, 0xd8, 0x07, 0x0a, 0x10, 0x43,
+	0x72, 0x6f, 0x70, 0x73, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12, 0x27, 0x0a, 0x0f, 0x6d, 0x61, 0x74,
+	0x75, 0x72, 0x69, 0x74, 0x79, 0x5f, 0x69, 0x6e, 0x63, 0x6f, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x0e, 0x6d, 0x61, 0x74, 0x75, 0x72, 0x69, 0x74, 0x79, 0x49, 0x6e, 0x63, 0x6f,
+	0x6d, 0x65, 0x12, 0x27, 0x0a, 0x0f, 0x6d, 0x61, 0x74, 0x75, 0x72, 0x69, 0x74, 0x79, 0x5f, 0x70,
+	0x65, 0x72, 0x69, 0x6f, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0e, 0x6d, 0x61, 0x74,
+	0x75, 0x72, 0x69, 0x74, 0x79, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x12, 0x2d, 0x0a, 0x12, 0x77,
+	0x61, 0x74, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x66, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63,
+	0x79, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x11, 0x77, 0x61, 0x74, 0x65, 0x72, 0x69, 0x6e,
+	0x67, 0x46, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x12, 0x33, 0x0a, 0x15, 0x66, 0x65,
+	0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x5f, 0x66, 0x72, 0x65, 0x71, 0x75, 0x65,
+	0x6e, 0x63, 0x79, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x14, 0x66, 0x65, 0x72, 0x74, 0x69,
+	0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x46, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x12,
+	0x3d, 0x0a, 0x1b, 0x73, 0x65, 0x6c, 0x66, 0x5f, 0x77, 0x61, 0x74, 0x65, 0x72, 0x69, 0x6e, 0x67,
+	0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x08,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x18, 0x73, 0x65, 0x6c, 0x66, 0x57, 0x61, 0x74, 0x65, 0x72, 0x69,
+	0x6e, 0x67, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x49,
+	0x0a, 0x21, 0x73, 0x65, 0x6c, 0x66, 0x5f, 0x77, 0x61, 0x74, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x5f,
+	0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74,
+	0x61, 0x67, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x03, 0x52, 0x1e, 0x73, 0x65, 0x6c, 0x66, 0x57,
+	0x61, 0x74, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50,
+	0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x12, 0x43, 0x0a, 0x1e, 0x73, 0x65, 0x6c,
+	0x66, 0x5f, 0x66, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x5f, 0x64, 0x65,
+	0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x0a, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x1b, 0x73, 0x65, 0x6c, 0x66, 0x46, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69,
+	0x6e, 0x67, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x4f,
+	0x0a, 0x24, 0x73, 0x65, 0x6c, 0x66, 0x5f, 0x66, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69,
+	0x6e, 0x67, 0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x65, 0x72, 0x63,
+	0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x03, 0x52, 0x21, 0x73, 0x65,
+	0x6c, 0x66, 0x46, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x44, 0x65, 0x63,
+	0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x12,
+	0x41, 0x0a, 0x1d, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x5f, 0x77, 0x61, 0x74, 0x65, 0x72, 0x69,
+	0x6e, 0x67, 0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65,
+	0x18, 0x0c, 0x20, 0x01, 0x28, 0x03, 0x52, 0x1a, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x57, 0x61,
+	0x74, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x54, 0x69,
+	0x6d, 0x65, 0x12, 0x4d, 0x0a, 0x23, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x5f, 0x77, 0x61, 0x74,
+	0x65, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x70,
+	0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x20, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x57, 0x61, 0x74, 0x65, 0x72, 0x69, 0x6e, 0x67, 0x44,
+	0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67,
+	0x65, 0x12, 0x47, 0x0a, 0x20, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x5f, 0x66, 0x65, 0x72, 0x74,
+	0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65,
+	0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x03, 0x52, 0x1d, 0x66, 0x72, 0x69,
+	0x65, 0x6e, 0x64, 0x46, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x44, 0x65,
+	0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x53, 0x0a, 0x26, 0x66, 0x72,
+	0x69, 0x65, 0x6e, 0x64, 0x5f, 0x66, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67,
+	0x5f, 0x64, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x5f, 0x70, 0x65, 0x72, 0x63, 0x65, 0x6e,
+	0x74, 0x61, 0x67, 0x65, 0x18, 0x0f, 0x20, 0x01, 0x28, 0x03, 0x52, 0x23, 0x66, 0x72, 0x69, 0x65,
+	0x6e, 0x64, 0x46, 0x65, 0x72, 0x74, 0x69, 0x6c, 0x69, 0x7a, 0x69, 0x6e, 0x67, 0x44, 0x65, 0x63,
+	0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x65, 0x72, 0x63, 0x65, 0x6e, 0x74, 0x61, 0x67, 0x65, 0x12,
+	0x39, 0x0a, 0x0c, 0x69, 0x73, 0x5f, 0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x18,
+	0x10, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x16, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e,
+	0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x0b, 0x69,
+	0x73, 0x41, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x6f,
+	0x72, 0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x73, 0x6f, 0x72, 0x74, 0x12, 0x35,
+	0x0a, 0x0a, 0x69, 0x73, 0x5f, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x18, 0x12, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x16, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x6f, 0x6f,
+	0x6c, 0x65, 0x61, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x09, 0x69, 0x73, 0x45, 0x6e,
 	0x61, 0x62, 0x6c, 0x65, 0x64, 0x22, 0x08, 0x0a, 0x06, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x22,
 	0x0a, 0x0a, 0x08, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x60, 0x0a, 0x14, 0x46,
 	0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67,
@@ -857,7 +1203,7 @@ var file_farm_v1_farm_proto_rawDesc = []byte{
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x54, 0x65, 0x73, 0x74, 0x12, 0x10,
 	0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52, 0x65, 0x71,
 	0x1a, 0x12, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0x8d, 0x02, 0x0a, 0x10, 0x46, 0x61, 0x72, 0x6d, 0x49,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0xe7, 0x02, 0x0a, 0x10, 0x46, 0x61, 0x72, 0x6d, 0x49,
 	0x6e, 0x6e, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x52, 0x0a, 0x0e, 0x46,
 	0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1d, 0x2e,
 	0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x73, 0x53, 0x74, 0x6f,
@@ -874,8 +1220,14 @@ var file_farm_v1_farm_proto_rawDesc = []byte{
 	0x1f, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x50,
 	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71,
 	0x1a, 0x12, 0x2e, 0x66, 0x61, 0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x61, 0x72, 0x6d, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76,
-	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x58, 0x0a, 0x10, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1f, 0x2e, 0x66, 0x61, 0x72,
+	0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x66, 0x61,
+	0x72, 0x6d, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x6f, 0x70, 0x73, 0x50, 0x72, 0x6f, 0x64, 0x75,
+	0x63, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00,
+	0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -891,7 +1243,7 @@ func file_farm_v1_farm_proto_rawDescGZIP() []byte {
 }
 
 var file_farm_v1_farm_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_farm_v1_farm_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_farm_v1_farm_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_farm_v1_farm_proto_goTypes = []interface{}{
 	(MessageID)(0),                   // 0: farm.v1.MessageID
 	(BooleanStatus)(0),               // 1: farm.v1.BooleanStatus
@@ -900,33 +1252,41 @@ var file_farm_v1_farm_proto_goTypes = []interface{}{
 	(*FarmReply)(nil),                // 4: farm.v1.FarmReply
 	(*StoreProductInfoMsgReq)(nil),   // 5: farm.v1.StoreProductInfoMsgReq
 	(*StoreProductInfoMsgReply)(nil), // 6: farm.v1.StoreProductInfoMsgReply
-	(*MsgReq)(nil),                   // 7: farm.v1.MsgReq
-	(*MsgReply)(nil),                 // 8: farm.v1.MsgReply
-	(*FarmsStoreInfoMsgReq)(nil),     // 9: farm.v1.FarmsStoreInfoMsgReq
-	(*FarmsStoreInfoMsgReply)(nil),   // 10: farm.v1.FarmsStoreInfoMsgReply
-	(*StoreInfo)(nil),                // 11: farm.v1.StoreInfo
+	(*CropsProductInfoMsgReq)(nil),   // 7: farm.v1.CropsProductInfoMsgReq
+	(*CropsProductInfoMsgReply)(nil), // 8: farm.v1.CropsProductInfoMsgReply
+	(*CropsProductInfo)(nil),         // 9: farm.v1.CropsProductInfo
+	(*MsgReq)(nil),                   // 10: farm.v1.MsgReq
+	(*MsgReply)(nil),                 // 11: farm.v1.MsgReply
+	(*FarmsStoreInfoMsgReq)(nil),     // 12: farm.v1.FarmsStoreInfoMsgReq
+	(*FarmsStoreInfoMsgReply)(nil),   // 13: farm.v1.FarmsStoreInfoMsgReply
+	(*StoreInfo)(nil),                // 14: farm.v1.StoreInfo
 }
 var file_farm_v1_farm_proto_depIdxs = []int32{
 	2,  // 0: farm.v1.StoreProductInfoMsgReply.product_type:type_name -> farm.v1.ProductType
 	1,  // 1: farm.v1.StoreProductInfoMsgReply.is_free:type_name -> farm.v1.BooleanStatus
 	1,  // 2: farm.v1.StoreProductInfoMsgReply.is_enabled:type_name -> farm.v1.BooleanStatus
-	11, // 3: farm.v1.FarmsStoreInfoMsgReply.rows:type_name -> farm.v1.StoreInfo
-	2,  // 4: farm.v1.StoreInfo.product_type:type_name -> farm.v1.ProductType
-	1,  // 5: farm.v1.StoreInfo.is_free:type_name -> farm.v1.BooleanStatus
-	1,  // 6: farm.v1.StoreInfo.is_enabled:type_name -> farm.v1.BooleanStatus
-	3,  // 7: farm.v1.FarmService.Test:input_type -> farm.v1.FarmReq
-	9,  // 8: farm.v1.FarmInnerService.FarmsStoreInfo:input_type -> farm.v1.FarmsStoreInfoMsgReq
-	5,  // 9: farm.v1.FarmInnerService.StoreProductInfo:input_type -> farm.v1.StoreProductInfoMsgReq
-	5,  // 10: farm.v1.FarmInnerService.UpdateProductStock:input_type -> farm.v1.StoreProductInfoMsgReq
-	4,  // 11: farm.v1.FarmService.Test:output_type -> farm.v1.FarmReply
-	10, // 12: farm.v1.FarmInnerService.FarmsStoreInfo:output_type -> farm.v1.FarmsStoreInfoMsgReply
-	6,  // 13: farm.v1.FarmInnerService.StoreProductInfo:output_type -> farm.v1.StoreProductInfoMsgReply
-	4,  // 14: farm.v1.FarmInnerService.UpdateProductStock:output_type -> farm.v1.FarmReply
-	11, // [11:15] is the sub-list for method output_type
-	7,  // [7:11] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	9,  // 3: farm.v1.CropsProductInfoMsgReply.rows:type_name -> farm.v1.CropsProductInfo
+	1,  // 4: farm.v1.CropsProductInfo.is_available:type_name -> farm.v1.BooleanStatus
+	1,  // 5: farm.v1.CropsProductInfo.is_enabled:type_name -> farm.v1.BooleanStatus
+	14, // 6: farm.v1.FarmsStoreInfoMsgReply.rows:type_name -> farm.v1.StoreInfo
+	2,  // 7: farm.v1.StoreInfo.product_type:type_name -> farm.v1.ProductType
+	1,  // 8: farm.v1.StoreInfo.is_free:type_name -> farm.v1.BooleanStatus
+	1,  // 9: farm.v1.StoreInfo.is_enabled:type_name -> farm.v1.BooleanStatus
+	3,  // 10: farm.v1.FarmService.Test:input_type -> farm.v1.FarmReq
+	12, // 11: farm.v1.FarmInnerService.FarmsStoreInfo:input_type -> farm.v1.FarmsStoreInfoMsgReq
+	5,  // 12: farm.v1.FarmInnerService.StoreProductInfo:input_type -> farm.v1.StoreProductInfoMsgReq
+	5,  // 13: farm.v1.FarmInnerService.UpdateProductStock:input_type -> farm.v1.StoreProductInfoMsgReq
+	7,  // 14: farm.v1.FarmInnerService.CropsProductInfo:input_type -> farm.v1.CropsProductInfoMsgReq
+	4,  // 15: farm.v1.FarmService.Test:output_type -> farm.v1.FarmReply
+	13, // 16: farm.v1.FarmInnerService.FarmsStoreInfo:output_type -> farm.v1.FarmsStoreInfoMsgReply
+	6,  // 17: farm.v1.FarmInnerService.StoreProductInfo:output_type -> farm.v1.StoreProductInfoMsgReply
+	4,  // 18: farm.v1.FarmInnerService.UpdateProductStock:output_type -> farm.v1.FarmReply
+	8,  // 19: farm.v1.FarmInnerService.CropsProductInfo:output_type -> farm.v1.CropsProductInfoMsgReply
+	15, // [15:20] is the sub-list for method output_type
+	10, // [10:15] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_farm_v1_farm_proto_init() }
@@ -984,7 +1344,7 @@ func file_farm_v1_farm_proto_init() {
 			}
 		}
 		file_farm_v1_farm_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgReq); i {
+			switch v := v.(*CropsProductInfoMsgReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -996,7 +1356,7 @@ func file_farm_v1_farm_proto_init() {
 			}
 		}
 		file_farm_v1_farm_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgReply); i {
+			switch v := v.(*CropsProductInfoMsgReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1008,7 +1368,7 @@ func file_farm_v1_farm_proto_init() {
 			}
 		}
 		file_farm_v1_farm_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FarmsStoreInfoMsgReq); i {
+			switch v := v.(*CropsProductInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1020,7 +1380,7 @@ func file_farm_v1_farm_proto_init() {
 			}
 		}
 		file_farm_v1_farm_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FarmsStoreInfoMsgReply); i {
+			switch v := v.(*MsgReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1032,6 +1392,42 @@ func file_farm_v1_farm_proto_init() {
 			}
 		}
 		file_farm_v1_farm_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FarmsStoreInfoMsgReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FarmsStoreInfoMsgReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_farm_v1_farm_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*StoreInfo); i {
 			case 0:
 				return &v.state
@@ -1050,7 +1446,7 @@ func file_farm_v1_farm_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_farm_v1_farm_proto_rawDesc,
 			NumEnums:      3,
-			NumMessages:   9,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   2,
 		},

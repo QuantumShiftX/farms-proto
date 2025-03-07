@@ -14,6 +14,9 @@ import (
 )
 
 type (
+	CropsProductInfo         = v1.CropsProductInfo
+	CropsProductInfoMsgReply = v1.CropsProductInfoMsgReply
+	CropsProductInfoMsgReq   = v1.CropsProductInfoMsgReq
 	FarmReply                = v1.FarmReply
 	FarmReq                  = v1.FarmReq
 	FarmsStoreInfoMsgReply   = v1.FarmsStoreInfoMsgReply

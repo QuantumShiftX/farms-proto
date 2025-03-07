@@ -32,6 +32,40 @@ message StoreProductInfoMsgReply {
   BooleanStatus is_enabled = 9;    // 是否启用
 }
 
+
+message CropsProductInfoMsgReq {
+  repeated int64 id = 1;
+}
+
+message CropsProductInfoMsgReply {
+  repeated CropsProductInfo rows = 1;
+}
+
+
+message CropsProductInfo {
+  int64 id = 1;                              // 作物ID
+  string name = 2;                            // 作物名称
+  int64 price = 3;                           // 作物价格（单位：代币）
+  int64 maturity_income = 4;                 // 成熟收益（代币）
+  int64 maturity_period = 5;                 // 成熟周期（单位：分）
+  int64 watering_frequency = 6;              // 浇水频率（次/天）
+  int64 fertilizing_frequency = 7;           // 施肥频率（次/天）
+  int64 self_watering_decrease_time = 8;     // 自己每次浇水减少时间（单位：分）
+  int64 self_watering_decrease_percentage = 9; // 自己每次浇水减少百分比（0-100）
+  int64 self_fertilizing_decrease_time = 10; // 自己每次施肥减少时间（单位：分）
+  int64 self_fertilizing_decrease_percentage = 11; // 自己每次施肥减少百分比（0-100）
+  int64 friend_watering_decrease_time = 12;  // 好友每次浇水减少时间（单位：分）
+  int64 friend_watering_decrease_percentage = 13; // 好友每次浇水减少百分比（0-100）
+  int64 friend_fertilizing_decrease_time = 14; // 好友每次施肥减少时间（单位：分）
+  int64 friend_fertilizing_decrease_percentage = 15; // 好友每次施肥减少百分比（0-100）
+  BooleanStatus is_available = 16;                  // 是否上架（1 = 上架, 2 = 下架）
+  int64 sort = 17;                          // 排序（用于显示顺序）
+  BooleanStatus is_enabled = 18;                    // 是否启用（1 = 启用, 2 = 禁用）
+}
+
+
+
+
 service FarmInnerService {
   // 农场商店信息
   rpc FarmsStoreInfo (FarmsStoreInfoMsgReq) returns (FarmsStoreInfoMsgReply) {}
@@ -39,6 +73,8 @@ service FarmInnerService {
   rpc StoreProductInfo (StoreProductInfoMsgReq) returns (StoreProductInfoMsgReply) {}
   // 更新商品库存
   rpc UpdateProductStock (StoreProductInfoMsgReq) returns (FarmReply) {}
+  // 获取种子信息
+  rpc CropsProductInfo (CropsProductInfoMsgReq) returns (CropsProductInfoMsgReply) {}
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
