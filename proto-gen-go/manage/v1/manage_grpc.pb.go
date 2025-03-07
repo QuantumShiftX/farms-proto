@@ -148,6 +148,7 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 const (
 	ManageInnerService_GetDefaultVipInfo_FullMethodName  = "/manage.v1.ManageInnerService/GetDefaultVipInfo"
 	ManageInnerService_GetSettingBaseInfo_FullMethodName = "/manage.v1.ManageInnerService/GetSettingBaseInfo"
+	ManageInnerService_VipLevelInfo_FullMethodName       = "/manage.v1.ManageInnerService/VipLevelInfo"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
@@ -158,6 +159,8 @@ type ManageInnerServiceClient interface {
 	GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
 	// 获取设置基础信息
 	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
+	// 获取vip等级信息
+	VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -186,6 +189,15 @@ func (c *manageInnerServiceClient) GetSettingBaseInfo(ctx context.Context, in *M
 	return out, nil
 }
 
+func (c *manageInnerServiceClient) VipLevelInfo(ctx context.Context, in *MsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
+	out := new(VipLevelInfoMsgReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_VipLevelInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageInnerServiceServer is the server API for ManageInnerService service.
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility
@@ -194,6 +206,8 @@ type ManageInnerServiceServer interface {
 	GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error)
 	// 获取设置基础信息
 	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
+	// 获取vip等级信息
+	VipLevelInfo(context.Context, *MsgReq) (*VipLevelInfoMsgReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -206,6 +220,9 @@ func (UnimplementedManageInnerServiceServer) GetDefaultVipInfo(context.Context, 
 }
 func (UnimplementedManageInnerServiceServer) GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSettingBaseInfo not implemented")
+}
+func (UnimplementedManageInnerServiceServer) VipLevelInfo(context.Context, *MsgReq) (*VipLevelInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VipLevelInfo not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 
@@ -256,6 +273,24 @@ func _ManageInnerService_GetSettingBaseInfo_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageInnerService_VipLevelInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).VipLevelInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_VipLevelInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).VipLevelInfo(ctx, req.(*MsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageInnerService_ServiceDesc is the grpc.ServiceDesc for ManageInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -270,6 +305,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSettingBaseInfo",
 			Handler:    _ManageInnerService_GetSettingBaseInfo_Handler,
+		},
+		{
+			MethodName: "VipLevelInfo",
+			Handler:    _ManageInnerService_VipLevelInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

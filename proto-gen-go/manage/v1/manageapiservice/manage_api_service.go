@@ -20,11 +20,15 @@ type (
 	GetAgreementReply    = v1.GetAgreementReply
 	ManageReply          = v1.ManageReply
 	ManageReq            = v1.ManageReq
+	MsgReply             = v1.MsgReply
+	MsgReq               = v1.MsgReq
 	RegistrationRewards  = v1.RegistrationRewards
 	SendCaptchaReq       = v1.SendCaptchaReq
 	SettingBaseInfoReply = v1.SettingBaseInfoReply
 	SettlementConfig     = v1.SettlementConfig
+	VIPLevelInfo         = v1.VIPLevelInfo
 	VipLevelDetail       = v1.VipLevelDetail
+	VipLevelInfoMsgReply = v1.VipLevelInfoMsgReply
 
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
