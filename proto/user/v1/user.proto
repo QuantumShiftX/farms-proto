@@ -704,6 +704,7 @@ message UserPurchaseGoodsMsgReq {
   int64 user_id = 1;
   int64 id = 2;
   BooleanStatus is_free = 3;
+  int64 goods_num = 4;
 
 }
 
