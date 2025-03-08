@@ -14,6 +14,8 @@ import (
 )
 
 type (
+	CropsInfoListMsgReply    = v1.CropsInfoListMsgReply
+	CropsInfoListMsgReq      = v1.CropsInfoListMsgReq
 	CropsProductInfo         = v1.CropsProductInfo
 	CropsProductInfoMsgReply = v1.CropsProductInfoMsgReply
 	CropsProductInfoMsgReq   = v1.CropsProductInfoMsgReq
@@ -36,6 +38,8 @@ type (
 		UpdateProductStock(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*FarmReply, error)
 		// 获取种子信息
 		CropsProductInfo(ctx context.Context, in *CropsProductInfoMsgReq, opts ...grpc.CallOption) (*CropsProductInfoMsgReply, error)
+		// 获取种子列表
+		CropsInfoList(ctx context.Context, in *CropsInfoListMsgReq, opts ...grpc.CallOption) (*CropsInfoListMsgReply, error)
 	}
 
 	defaultFarmInnerService struct {
@@ -71,4 +75,10 @@ func (m *defaultFarmInnerService) UpdateProductStock(ctx context.Context, in *St
 func (m *defaultFarmInnerService) CropsProductInfo(ctx context.Context, in *CropsProductInfoMsgReq, opts ...grpc.CallOption) (*CropsProductInfoMsgReply, error) {
 	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
 	return client.CropsProductInfo(ctx, in, opts...)
+}
+
+// 获取种子列表
+func (m *defaultFarmInnerService) CropsInfoList(ctx context.Context, in *CropsInfoListMsgReq, opts ...grpc.CallOption) (*CropsInfoListMsgReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.CropsInfoList(ctx, in, opts...)
 }

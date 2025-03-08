@@ -62,6 +62,7 @@ enum MessageID {
   // 商店相关消息 (200-299)
   FARMS_STORE_INFO_MSG = 200;
   STORE_INFO = 201;
+  CROPS_INFO_LIST_MSG = 202;
 
   // 仓库相关消息 (300-399)
   USER_STORAGE_INFO_MSG = 300;
@@ -341,12 +342,12 @@ message UserStorageDetail {
   int64 storage_id = 21;                // 仓库物品ID
   int64 user_id = 2;                    // 用户ID，关联到用户表
   ProductType product_type = 3;         // 商品类型
-  int64 product_id = 4;                 // 商品ID，关联到对应产品配置表
+  int64 product_id = 4;                 // 商品ID，关联到对应产品配置表（商品ID）
   string product_name = 5;              // 商品名称快照，保存购买时的名称
   string product_image_url = 6;         // 商品图片地址快照，保存购买时的图片URL
   int32 product_quantity = 7;           // 商品数量，表示用户拥有的该商品数量
-  int64 sku_id = 8;                     // 商品SKU ID，关联到商品SKU配置表
-  string sku_name = 9;                  // SKU名称快照，保存购买时的SKU名称
+  int64 sku_id = 8;                     // 商品SKU ID，关联到商品SKU配置表(对应作物ID)
+  string sku_name = 9;                  // SKU名称快照，保存购买时的SKU名称（对应作物名称）
   int64 price = 10;                     // 商品价格快照，保存购买时的价格（单位：ustd）
 
   // 以下字段仅对种子类型有效
@@ -410,7 +411,7 @@ message StoreInfo {
   BooleanStatus is_free = 8;       // 是否可以免费领取
   BooleanStatus is_enabled = 9;    // 是否启用
   string crop_name = 12;                           // 作物名称
-  int64 crop_price = 13;                           // 作物价格（单位：代币）
+  int64 crop_price = 13;                           // 作物价格（单位：USTD）
   int64 maturity_income = 14;                      // 成熟收益（代币）
   int64 maturity_period = 15;                      // 成熟周期（单位：分）
   int64 watering_frequency = 16;                   // 浇水频率（次/天）
@@ -439,6 +440,55 @@ message UserPurchaseGoodsMsgReq {
 message UserPurchaseGoodsMsgReply {
 
 }
+
+
+
+// 种子相关消息
+// ------------------------------------
+
+/**
+ * 获取系统种子相关信息请求
+ * 用于查询当前系统设置的种子相关信息
+ */
+message CropsInfoListMsgReq {
+  int64 page = 1;
+  int64 page_size = 2;
+}
+
+/**
+ * 种子信息响应
+ * 包含系统可使用的种子列表
+ */
+message CropsInfoListMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated CropsProductInfo rows = 5;  // 种子信息列表
+  string extend = 6;
+}
+
+message CropsProductInfo {
+  int64 id = 1;                              // 作物ID
+  string name = 2;                            // 作物名称
+  int64 price = 3;                           // 作物价格（单位：ustd）
+  int64 maturity_income = 4;                 // 成熟收益（代币）
+  int64 maturity_period = 5;                 // 成熟周期（单位：分）
+  int64 watering_frequency = 6;              // 浇水频率（次/天）
+  int64 fertilizing_frequency = 7;           // 施肥频率（次/天）
+  int64 self_watering_decrease_time = 8;     // 自己每次浇水减少时间（单位：分）
+  int64 self_watering_decrease_percentage = 9; // 自己每次浇水减少百分比（0-100）
+  int64 self_fertilizing_decrease_time = 10; // 自己每次施肥减少时间（单位：分）
+  int64 self_fertilizing_decrease_percentage = 11; // 自己每次施肥减少百分比（0-100）
+  int64 friend_watering_decrease_time = 12;  // 好友每次浇水减少时间（单位：分）
+  int64 friend_watering_decrease_percentage = 13; // 好友每次浇水减少百分比（0-100）
+  int64 friend_fertilizing_decrease_time = 14; // 好友每次施肥减少时间（单位：分）
+  int64 friend_fertilizing_decrease_percentage = 15; // 好友每次施肥减少百分比（0-100）
+  BooleanStatus is_available = 16;                  // 是否上架（1 = 上架, 2 = 下架）
+  int64 sort = 17;                          // 排序（用于显示顺序）
+  BooleanStatus is_enabled = 18;                    // 是否启用（1 = 启用, 2 = 禁用）
+}
+
 
 // =========================================
 // 农场相关消息
@@ -517,7 +567,7 @@ message UserPlantingDetail {
   int64 user_id = 3;                  // 用户ID
   int64 farm_id = 4;                  // 农场ID
   int64 land_id = 5;                  // 土地ID
-  string crop_name = 6;               // 作物名称
+  string crop_id = 6;                 // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
   int64 plant_time = 7;               // 种植时间（Unix时间戳）
   int64 water_count = 8;              // 已浇水总次数
   int64 fertilizer_count = 9;         // 已施肥总次数
