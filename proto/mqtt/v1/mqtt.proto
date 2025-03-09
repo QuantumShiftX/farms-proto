@@ -412,6 +412,7 @@ message StoreInfo {
   BooleanStatus is_enabled = 9;    // 是否启用
   string crop_name = 12;                           // 作物名称
   int64 crop_price = 13;                           // 作物价格（单位：USTD）
+  int64 estimated_value = 26;                           // 作物预估价值（作物代币*固定比例能换多少USTD 单位：USTD）
   int64 maturity_income = 14;                      // 成熟收益（代币）
   int64 maturity_period = 15;                      // 成熟周期（单位：分）
   int64 watering_frequency = 16;                   // 浇水频率（次/天）
