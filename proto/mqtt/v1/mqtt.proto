@@ -567,7 +567,7 @@ message UserPlantingDetail {
   int64 user_id = 3;                  // 用户ID
   int64 farm_id = 4;                  // 农场ID
   int64 land_id = 5;                  // 土地ID
-  string crop_id = 6;                 // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
+  int64 crop_id = 6;                 // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
   int64 plant_time = 7;               // 种植时间（Unix时间戳）
   int64 water_count = 8;              // 已浇水总次数
   int64 fertilizer_count = 9;         // 已施肥总次数

@@ -3202,7 +3202,7 @@ type UserPlantingDetail struct {
 	UserId          int64         `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                                            // 用户ID
 	FarmId          int64         `protobuf:"varint,4,opt,name=farm_id,json=farmId,proto3" json:"farm_id,omitempty"`                                            // 农场ID
 	LandId          int64         `protobuf:"varint,5,opt,name=land_id,json=landId,proto3" json:"land_id,omitempty"`                                            // 土地ID
-	CropId          string        `protobuf:"bytes,6,opt,name=crop_id,json=cropId,proto3" json:"crop_id,omitempty"`                                             // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
+	CropId          int64         `protobuf:"varint,6,opt,name=crop_id,json=cropId,proto3" json:"crop_id,omitempty"`                                            // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
 	PlantTime       int64         `protobuf:"varint,7,opt,name=plant_time,json=plantTime,proto3" json:"plant_time,omitempty"`                                   // 种植时间（Unix时间戳）
 	WaterCount      int64         `protobuf:"varint,8,opt,name=water_count,json=waterCount,proto3" json:"water_count,omitempty"`                                // 已浇水总次数
 	FertilizerCount int64         `protobuf:"varint,9,opt,name=fertilizer_count,json=fertilizerCount,proto3" json:"fertilizer_count,omitempty"`                 // 已施肥总次数
@@ -3279,11 +3279,11 @@ func (x *UserPlantingDetail) GetLandId() int64 {
 	return 0
 }
 
-func (x *UserPlantingDetail) GetCropId() string {
+func (x *UserPlantingDetail) GetCropId() int64 {
 	if x != nil {
 		return x.CropId
 	}
-	return ""
+	return 0
 }
 
 func (x *UserPlantingDetail) GetPlantTime() int64 {
@@ -4961,7 +4961,7 @@ var file_mqtt_v1_mqtt_proto_rawDesc = []byte{
 	0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x66, 0x61, 0x72, 0x6d, 0x49, 0x64, 0x12, 0x17,
 	0x0a, 0x07, 0x6c, 0x61, 0x6e, 0x64, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52,
 	0x06, 0x6c, 0x61, 0x6e, 0x64, 0x49, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x63, 0x72, 0x6f, 0x70, 0x5f,
-	0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x63, 0x72, 0x6f, 0x70, 0x49, 0x64,
+	0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x63, 0x72, 0x6f, 0x70, 0x49, 0x64,
 	0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x6c, 0x61, 0x6e, 0x74, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x07,
 	0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x70, 0x6c, 0x61, 0x6e, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12,
 	0x1f, 0x0a, 0x0b, 0x77, 0x61, 0x74, 0x65, 0x72, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x08,
