@@ -203,6 +203,7 @@ message UserAuthInfoMsgReply {
   int64 pid = 3;                       // 上级ID（邀请用户的ID）
   string language_code = 6;            // 语言代码
   string currency_code = 7;            // 币种代码
+  int64 current_time = 8;       // 当前服务器时间戳
 }
 
 // =========================================
@@ -225,6 +226,7 @@ message UserHeartBeatMsgReply {
   int64 user_id = 2;                   // 用户ID
   string language_code = 6;            // 语言代码
   string currency_code = 7;            // 币种代码
+  int64 current_time = 8;       // 当前服务器时间戳
 }
 
 // =========================================
