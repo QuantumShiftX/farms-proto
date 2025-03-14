@@ -20,7 +20,6 @@ type (
 	FriendRankingInfo             = v1.FriendRankingInfo
 	LookUserFarmsInfoMsgReply     = v1.LookUserFarmsInfoMsgReply
 	LookUserFarmsInfoMsgReq       = v1.LookUserFarmsInfoMsgReq
-	MessageWrapper                = v1.MessageWrapper
 	MsgReply                      = v1.MsgReply
 	MsgReq                        = v1.MsgReq
 	MyRankingInfo                 = v1.MyRankingInfo
@@ -36,6 +35,9 @@ type (
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
+	UserFortuneTreeInfo           = v1.UserFortuneTreeInfo
+	UserFortuneTreeMsgReply       = v1.UserFortuneTreeMsgReply
+	UserFortuneTreeMsgReq         = v1.UserFortuneTreeMsgReq
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
 	UserIdReq                     = v1.UserIdReq

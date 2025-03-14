@@ -26,14 +26,19 @@ type (
 	MsgReply                 = v1.MsgReply
 	MsgReq                   = v1.MsgReq
 	StoreInfo                = v1.StoreInfo
+	StoreProductInfo         = v1.StoreProductInfo
 	StoreProductInfoMsgReply = v1.StoreProductInfoMsgReply
 	StoreProductInfoMsgReq   = v1.StoreProductInfoMsgReq
+	StoreProductListMsgReply = v1.StoreProductListMsgReply
+	StoreProductListMsgReq   = v1.StoreProductListMsgReq
 
 	FarmInnerService interface {
 		// 农场商店信息
 		FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
 		// 单个商品信息
 		StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
+		// 商品信息列表
+		StoreProductList(ctx context.Context, in *StoreProductListMsgReq, opts ...grpc.CallOption) (*StoreProductListMsgReply, error)
 		// 更新商品库存
 		UpdateProductStock(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*FarmReply, error)
 		// 获取种子信息
@@ -63,6 +68,12 @@ func (m *defaultFarmInnerService) FarmsStoreInfo(ctx context.Context, in *FarmsS
 func (m *defaultFarmInnerService) StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
 	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
 	return client.StoreProductInfo(ctx, in, opts...)
+}
+
+// 商品信息列表
+func (m *defaultFarmInnerService) StoreProductList(ctx context.Context, in *StoreProductListMsgReq, opts ...grpc.CallOption) (*StoreProductListMsgReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.StoreProductList(ctx, in, opts...)
 }
 
 // 更新商品库存

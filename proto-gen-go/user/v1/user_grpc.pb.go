@@ -360,6 +360,7 @@ const (
 	UserInnerService_AllUserRankingInfo_FullMethodName    = "/user.v1.UserInnerService/AllUserRankingInfo"
 	UserInnerService_LookUserFarmsInfo_FullMethodName     = "/user.v1.UserInnerService/LookUserFarmsInfo"
 	UserInnerService_UserPurchaseGoods_FullMethodName     = "/user.v1.UserInnerService/UserPurchaseGoods"
+	UserInnerService_UserFortuneTreeInfo_FullMethodName   = "/user.v1.UserInnerService/UserFortuneTreeInfo"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -392,6 +393,8 @@ type UserInnerServiceClient interface {
 	LookUserFarmsInfo(ctx context.Context, in *LookUserFarmsInfoMsgReq, opts ...grpc.CallOption) (*LookUserFarmsInfoMsgReply, error)
 	// 用户购买商品
 	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
+	// 用户的发财树信息
+	UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -519,6 +522,15 @@ func (c *userInnerServiceClient) UserPurchaseGoods(ctx context.Context, in *User
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error) {
+	out := new(UserFortuneTreeMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserFortuneTreeInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -549,6 +561,8 @@ type UserInnerServiceServer interface {
 	LookUserFarmsInfo(context.Context, *LookUserFarmsInfoMsgReq) (*LookUserFarmsInfoMsgReply, error)
 	// 用户购买商品
 	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error)
+	// 用户的发财树信息
+	UserFortuneTreeInfo(context.Context, *UserFortuneTreeMsgReq) (*UserFortuneTreeMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -594,6 +608,9 @@ func (UnimplementedUserInnerServiceServer) LookUserFarmsInfo(context.Context, *L
 }
 func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPurchaseGoods not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserFortuneTreeInfo(context.Context, *UserFortuneTreeMsgReq) (*UserFortuneTreeMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserFortuneTreeInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -842,6 +859,24 @@ func _UserInnerService_UserPurchaseGoods_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserFortuneTreeInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserFortuneTreeMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserFortuneTreeInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserFortuneTreeInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserFortuneTreeInfo(ctx, req.(*UserFortuneTreeMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -900,6 +935,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserPurchaseGoods",
 			Handler:    _UserInnerService_UserPurchaseGoods_Handler,
+		},
+		{
+			MethodName: "UserFortuneTreeInfo",
+			Handler:    _UserInnerService_UserFortuneTreeInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

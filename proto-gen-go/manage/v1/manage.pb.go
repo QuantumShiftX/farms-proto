@@ -270,7 +270,7 @@ type VipLevelDetail struct {
 	GrowthValue                     int64  `protobuf:"varint,5,opt,name=growth_value,json=growthValue,proto3" json:"growth_value,omitempty"`                                                                   // 达到该等级所需的成长值
 	UpgradeRewardFertilizerNum      int64  `protobuf:"varint,6,opt,name=upgrade_reward_fertilizer_num,json=upgradeRewardFertilizerNum,proto3" json:"upgrade_reward_fertilizer_num,omitempty"`                  // 升级奖励的肥料数量
 	UpgradeRewardTreeMaturityPeriod int64  `protobuf:"varint,7,opt,name=upgrade_reward_tree_maturity_period,json=upgradeRewardTreeMaturityPeriod,proto3" json:"upgrade_reward_tree_maturity_period,omitempty"` // 奖励树的成熟周期（小时）
-	UpgradeRewardTreeNum            int64  `protobuf:"varint,8,opt,name=upgrade_reward_tree_num,json=upgradeRewardTreeNum,proto3" json:"upgrade_reward_tree_num,omitempty"`                                    // 升级奖励的树木数量
+	UpgradeRewardTreeNum            int64  `protobuf:"varint,8,opt,name=upgrade_reward_tree_num,json=upgradeRewardTreeNum,proto3" json:"upgrade_reward_tree_num,omitempty"`                                    // 获得的发财树代币数量(收获)
 	Remarks                         string `protobuf:"bytes,9,opt,name=remarks,proto3" json:"remarks,omitempty"`                                                                                               // 等级的备注信息
 	IsEnabled                       int64  `protobuf:"varint,10,opt,name=is_enabled,json=isEnabled,proto3" json:"is_enabled,omitempty"`                                                                        // 等级是否启用（1：启用，2：禁用）
 }

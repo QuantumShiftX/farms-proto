@@ -26,8 +26,11 @@ type (
 	MsgReply                 = v1.MsgReply
 	MsgReq                   = v1.MsgReq
 	StoreInfo                = v1.StoreInfo
+	StoreProductInfo         = v1.StoreProductInfo
 	StoreProductInfoMsgReply = v1.StoreProductInfoMsgReply
 	StoreProductInfoMsgReq   = v1.StoreProductInfoMsgReq
+	StoreProductListMsgReply = v1.StoreProductListMsgReply
+	StoreProductListMsgReq   = v1.StoreProductListMsgReq
 
 	FarmService interface {
 		Test(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*FarmReply, error)

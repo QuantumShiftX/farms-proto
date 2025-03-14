@@ -21,18 +21,37 @@ message StoreProductInfoMsgReq {
   int64 stock = 2;
 }
 
-message StoreProductInfoMsgReply {
+message StoreProductInfo {
   int64 id = 1;                    // 自增主键
   ProductType product_type = 2;    // 商品类型
   string product_name = 3;         // 商品名称
   string product_image_url = 4;    // 商品图片地址
-  int64 product_id = 5;            // 商品ID
+  int64 sku_id = 5;                // 物品ID
   int64 stock = 6;                 // 库存数量，-1表示无限
   int64 sort = 7;                  // 排序字段
   BooleanStatus is_free = 8;       // 是否可以免费领取
   BooleanStatus is_enabled = 9;    // 是否启用
 }
 
+message StoreProductInfoMsgReply {
+  int64 id = 1;                    // 自增主键
+  ProductType product_type = 2;    // 商品类型
+  string product_name = 3;         // 商品名称
+  string product_image_url = 4;    // 商品图片地址
+  int64 sku_id = 5;                // 物品ID
+  int64 stock = 6;                 // 库存数量，-1表示无限
+  int64 sort = 7;                  // 排序字段
+  BooleanStatus is_free = 8;       // 是否可以免费领取
+  BooleanStatus is_enabled = 9;    // 是否启用
+}
+
+message StoreProductListMsgReq {
+  repeated int64 id = 1;
+}
+
+message StoreProductListMsgReply {
+  map<int64, StoreProductInfo>  result = 1;
+}
 
 message CropsProductInfoMsgReq {
   repeated int64 ids = 1;
@@ -52,6 +71,8 @@ service FarmInnerService {
   rpc FarmsStoreInfo (FarmsStoreInfoMsgReq) returns (FarmsStoreInfoMsgReply) {}
   // 单个商品信息
   rpc StoreProductInfo (StoreProductInfoMsgReq) returns (StoreProductInfoMsgReply) {}
+  // 商品信息列表
+  rpc StoreProductList (StoreProductListMsgReq) returns (StoreProductListMsgReply) {}
   // 更新商品库存
   rpc UpdateProductStock (StoreProductInfoMsgReq) returns (FarmReply) {}
   // 获取种子信息
@@ -67,22 +88,6 @@ service FarmInnerService {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
-
-/**
- * MessageID 枚举
- * 定义系统中所有消息类型的唯一标识符
- */
-enum MessageID {
-  // 未知消息
-  MESSAGE_ID_UNSPECIFIED = 0;
-
-  // 商店相关消息 (200-299)
-  FARMS_STORE_INFO_MSG = 200;
-  STORE_INFO = 201;
-  CROPS_INFO_LIST_MSG = 202;
-
-
-}
 
 // 基础消息定义
 // ------------------------------------

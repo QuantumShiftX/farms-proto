@@ -54,6 +54,7 @@ enum MessageID {
   USER_EDIT_PERSONAL_INFO_MSG = 4;
   USER_FRIEND_RANKING_INFO_MSG = 5;
   ALL_USER_RANKING_INFO_MSG = 6;
+  USER_FORTUNE_TREE_INFO_MSG = 7;
 
   // 钱包相关消息 (100-199)
   USER_WALLET = 100;
@@ -639,7 +640,28 @@ message LookUserFarmsInfoMsgReply {
 
   // 土地信息
   repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
+  // 发财树信息
+  UserFortuneTreeInfo fortune_tree = 22;  // 用户的发财树信息
 }
+
+/**
+ * 用户发财树详细信息
+ * 表示用户的发财树详细信息
+ */
+message UserFortuneTreeInfo {
+  int64 id = 1; // 发财树唯一标识ID
+  int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
+  int64 vip_level_id = 3; // VIP等级ID，影响金币产出和生产周期
+  int64 cycle_start_time = 4; // 当前周期开始时间（时间戳，秒）
+  int32 is_ready_to_harvest = 5; // 是否可以收获标志：1-不可收获，2-可收获
+  int64 last_harvest_time = 6;  // 上次收获时间（时间戳，秒）
+  int64 next_harvest_time = 7; // 下次可收获时间（时间戳，秒）
+  int64 cycle_harvested_icon = 8; // 当前周期可收获的金币
+  int64 total_harvested = 9; // 历史总收获金币数量统计
+  int64 created_at = 10; // 发财树创建时间（时间戳，秒）
+  int64 updated_at = 11; // 发财树信息最后更新时间（时间戳，秒）
+}
+
 
 // =========================================
 // 排名相关消息
@@ -723,6 +745,35 @@ message MyRankingInfo {
   int64 rank = 8;             // 我在好友中的排名位置
   int64 total_friends = 9;    // 好友总数
 }
+
+
+
+/**
+ * 用户发财树请求
+ * 展示用户的发财树信息
+ */
+message UserFortuneTreeMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+}
+
+/**
+ * 用户发财树响应
+ * 包含用户的发财树信息
+ */
+message UserFortuneTreeMsgReply {
+  int64 id = 1; // 发财树唯一标识ID
+  int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
+  int64 vip_level_id = 3; // VIP等级ID，影响金币产出和生产周期
+  int64 cycle_start_time = 4; // 当前周期开始时间（时间戳，秒）
+  int32 is_ready_to_harvest = 5; // 是否可以收获标志：1-不可收获，2-可收获
+  int64 last_harvest_time = 6;  // 上次收获时间（时间戳，秒）
+  int64 next_harvest_time = 7; // 下次可收获时间（时间戳，秒）
+  int64 cycle_harvested_icon = 8; // 当前周期可收获的金币
+  int64 total_harvested = 9; // 历史总收获金币数量统计
+  int64 created_at = 10; // 发财树创建时间（时间戳，秒）
+  int64 updated_at = 11; // 发财树信息最后更新时间（时间戳，秒）
+}
+
 
 // =========================================
 // VIP等级相关消息
