@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package dispatcher.v1;
+option go_package = "./pb/v1";
+
+
+message DispatcherReq {
+
+}
+message DispatcherReply {}
+
+
+
+// 异步任务（需要调用客户端触发）
+service DispatcherAsync {
+  rpc TestAsync (DispatcherReq) returns (DispatcherReply) {};
+}
+
+
+
+
+// 定时任务
+service DispatcherTimer {
+  // 发财树状态检查
+  rpc CycleFertileTreeStatusCheck(DispatcherReq) returns (DispatcherReply) {};
+  // 农场作物状态检查
+  rpc CycleCropStatusCheck(DispatcherReq) returns (DispatcherReply) {};
+  // 公告消息检查
+  rpc CycleBulletinMsgCheck(DispatcherReq) returns (DispatcherReply) {};
+}

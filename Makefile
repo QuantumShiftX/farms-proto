@@ -27,7 +27,7 @@ endif
 
 # 项目配置
 PROJECT_ROOT ?= ..$(PATH_SEP)farms-rpc-server$(PATH_SEP)app
-SERVICES ?= agent farm manage user
+SERVICES ?= agent farm manage user dispatcher
 #SERVICES ?= mqtt
 PROTO_ROOT ?= .$(PATH_SEP)proto
 PROTO_THIRD_PARTY ?= $(PROTO_ROOT)$(PATH_SEP)third_party
