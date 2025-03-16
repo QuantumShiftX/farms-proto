@@ -14,20 +14,23 @@ import (
 )
 
 type (
-	CollectionRewards    = v1.CollectionRewards
-	DefaultVipInfoReply  = v1.DefaultVipInfoReply
-	DepositRewards       = v1.DepositRewards
-	GetAgreementReply    = v1.GetAgreementReply
-	ManageReply          = v1.ManageReply
-	ManageReq            = v1.ManageReq
-	RegistrationRewards  = v1.RegistrationRewards
-	SendCaptchaReq       = v1.SendCaptchaReq
-	SettingBaseInfoReply = v1.SettingBaseInfoReply
-	SettlementConfig     = v1.SettlementConfig
-	VIPLevelInfo         = v1.VIPLevelInfo
-	VipLevelDetail       = v1.VipLevelDetail
-	VipLevelInfoMsgReply = v1.VipLevelInfoMsgReply
-	VipLevelInfoMsgReq   = v1.VipLevelInfoMsgReq
+	CollectionRewards         = v1.CollectionRewards
+	DefaultVipInfoReply       = v1.DefaultVipInfoReply
+	DepositRewards            = v1.DepositRewards
+	GetAgreementReply         = v1.GetAgreementReply
+	GetNotificationsListReply = v1.GetNotificationsListReply
+	GetNotificationsListReq   = v1.GetNotificationsListReq
+	ManageReply               = v1.ManageReply
+	ManageReq                 = v1.ManageReq
+	NotificationInfo          = v1.NotificationInfo
+	RegistrationRewards       = v1.RegistrationRewards
+	SendCaptchaReq            = v1.SendCaptchaReq
+	SettingBaseInfoReply      = v1.SettingBaseInfoReply
+	SettlementConfig          = v1.SettlementConfig
+	VIPLevelInfo              = v1.VIPLevelInfo
+	VipLevelDetail            = v1.VipLevelDetail
+	VipLevelInfoMsgReply      = v1.VipLevelInfoMsgReply
+	VipLevelInfoMsgReq        = v1.VipLevelInfoMsgReq
 
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)

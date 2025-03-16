@@ -14,20 +14,23 @@ import (
 )
 
 type (
-	CollectionRewards    = v1.CollectionRewards
-	DefaultVipInfoReply  = v1.DefaultVipInfoReply
-	DepositRewards       = v1.DepositRewards
-	GetAgreementReply    = v1.GetAgreementReply
-	ManageReply          = v1.ManageReply
-	ManageReq            = v1.ManageReq
-	RegistrationRewards  = v1.RegistrationRewards
-	SendCaptchaReq       = v1.SendCaptchaReq
-	SettingBaseInfoReply = v1.SettingBaseInfoReply
-	SettlementConfig     = v1.SettlementConfig
-	VIPLevelInfo         = v1.VIPLevelInfo
-	VipLevelDetail       = v1.VipLevelDetail
-	VipLevelInfoMsgReply = v1.VipLevelInfoMsgReply
-	VipLevelInfoMsgReq   = v1.VipLevelInfoMsgReq
+	CollectionRewards         = v1.CollectionRewards
+	DefaultVipInfoReply       = v1.DefaultVipInfoReply
+	DepositRewards            = v1.DepositRewards
+	GetAgreementReply         = v1.GetAgreementReply
+	GetNotificationsListReply = v1.GetNotificationsListReply
+	GetNotificationsListReq   = v1.GetNotificationsListReq
+	ManageReply               = v1.ManageReply
+	ManageReq                 = v1.ManageReq
+	NotificationInfo          = v1.NotificationInfo
+	RegistrationRewards       = v1.RegistrationRewards
+	SendCaptchaReq            = v1.SendCaptchaReq
+	SettingBaseInfoReply      = v1.SettingBaseInfoReply
+	SettlementConfig          = v1.SettlementConfig
+	VIPLevelInfo              = v1.VIPLevelInfo
+	VipLevelDetail            = v1.VipLevelDetail
+	VipLevelInfoMsgReply      = v1.VipLevelInfoMsgReply
+	VipLevelInfoMsgReq        = v1.VipLevelInfoMsgReq
 
 	ManageInnerService interface {
 		// 获取默认VIP等级信息
@@ -36,6 +39,8 @@ type (
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 		// 获取vip等级信息
 		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
+		// 获取模板信息列表
+		GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -65,4 +70,10 @@ func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *
 func (m *defaultManageInnerService) VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.VipLevelInfo(ctx, in, opts...)
+}
+
+// 获取模板信息列表
+func (m *defaultManageInnerService) GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetNotificationsList(ctx, in, opts...)
 }

@@ -93,7 +93,26 @@ message SettlementConfig {
   string settlement_time = 1; // 结算时间，格式为HH:mm:ss
 }
 
+message GetNotificationsListReq {
+  string type_code = 1;
+  string language_code = 2;
+}
 
+message GetNotificationsListReply {
+  map<string, NotificationInfo> notifications = 1;
+}
+
+message NotificationInfo {
+  int64 template_id = 1;  // 关联的通知模板ID
+  string type_code = 2;   // 类型编码，如 'daily_greeting'
+  string sub_type_code = 3;  // 子类型编码，如 'morning'
+  int32 is_active = 4;    // 是否启用：1-启用，2-禁用
+  string remarks = 5;     // 备注，描述模板的用途或说明
+  int64 id = 6;                  // 唯一标识ID
+  string language_code = 8;       // 语言编码，如 'zh', 'en'
+  string title = 9;               // 通知标题
+  string content = 10;             // 通知内容
+}
 
 service ManageInnerService {
   // 获取默认VIP等级信息
@@ -102,7 +121,13 @@ service ManageInnerService {
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
   // 获取vip等级信息
   rpc VipLevelInfo (VipLevelInfoMsgReq) returns (VipLevelInfoMsgReply);
+  // 获取模板信息列表
+  rpc GetNotificationsList (GetNotificationsListReq) returns (GetNotificationsListReply);
 }
+
+
+
+
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
@@ -111,21 +136,6 @@ service ManageInnerService {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
-
-/**
- * MessageID 枚举
- * 定义系统中所有消息类型的唯一标识符
- */
-enum MessageID {
-  // 未知消息
-  MESSAGE_ID_UNSPECIFIED = 0;
-
-  // 配置相关信息 (600-699)
-  VIP_LEVEL_INFO_MSG = 600;
-
-
-}
-
 // 基础消息定义
 // ------------------------------------
 

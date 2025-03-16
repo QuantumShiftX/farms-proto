@@ -109,8 +109,8 @@ enum LandStatus {
 enum HarvestStatus {
   HARVEST_STATUS_UNSPECIFIED = 0;  // 未指定状态
   NOT_HARVESTED = 1;               // 未收获 （没成熟）
-  HARVESTED = 2;                   // 已收获
-  WAIT_HARVESTED = 3;              // 待收获（已成熟）
+  HARVESTED = 2;                   // 可收获（已成熟）
+  WAIT_HARVESTED = 3;              // 已收获
 }
 
 /**
@@ -559,6 +559,12 @@ message UserLandDetail {
   int64 position = 6;                         // 土地位置编号（1-20暂时）
   LandStatus status = 7;                      // 土地状态
   optional UserPlantingDetail planted_plant = 8;  // 种植信息，当status为PLANTED时才有值
+  // 一些土地状态描述
+  string crop_need_water = 9; // 农作物待浇水 (为空就是不展示)
+  string crop_can_harvest = 10; // 农作物待收获 (为空就是不展示)
+  string seed_wait_plant = 11; // 种子待种植 (为空就是不展示)
+  string crop_need_fertilize = 12; // 农作物待施肥 (为空就是不展示)
+  string buy_seed = 13; // 购买种子 (为空就是不展示)
 }
 
 /**
@@ -809,4 +815,47 @@ message VIPLevelInfo {
   int64 upgrade_reward_tree_num = 8;     // 升级奖励树木数量
   string remarks = 9;                    // 备注说明
   int64 is_enabled = 10;                 // 是否启用
+}
+
+
+
+// 通知类型枚举
+enum NotificationType {
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;
+  NOTIFICATION_TYPE_DAILY_GREETING = 1;   // 日常问候
+  NOTIFICATION_TYPE_OPERATION_TIP = 2;    // 游戏操作提示
+  NOTIFICATION_TYPE_FRIEND_INFO = 3;      // 好友互动通知
+  NOTIFICATION_TYPE_SYSTEM_INFO = 4;      // 系统通知
+}
+
+// 通知子类型枚举
+enum NotificationSubType {
+  NOTIFICATION_SUB_TYPE_UNSPECIFIED = 0;
+
+  // 日常问候子类型 (1-20 范围)
+  NOTIFICATION_SUB_TYPE_MORNING = 1;        // 早上问候
+  NOTIFICATION_SUB_TYPE_NOON = 2;           // 中午问候
+  NOTIFICATION_SUB_TYPE_EVENING = 3;        // 晚上问候
+  NOTIFICATION_SUB_TYPE_RETURN_PLAYER = 4;  // 老玩家回归问候
+
+  // 游戏操作提示子类型 (21-40 范围)
+  NOTIFICATION_SUB_TYPE_CROP_NEED_WATER = 21;     // 农作物待浇水
+  NOTIFICATION_SUB_TYPE_CROP_CAN_HARVEST = 22;    // 农作物待收获
+  NOTIFICATION_SUB_TYPE_SEED_WAIT_PLANT = 23;     // 种子待种植
+  NOTIFICATION_SUB_TYPE_CROP_NEED_FERTILIZE = 24; // 农作物待施肥
+  NOTIFICATION_SUB_TYPE_BUY_SEED = 25;            // 购买种子
+
+  // 好友互动通知子类型 (41-60 范围)
+  NOTIFICATION_SUB_TYPE_FRIEND_REGISTER = 41;  // 新好友注册
+  NOTIFICATION_SUB_TYPE_FRIEND_WATERED = 42;   // 好友浇水
+  NOTIFICATION_SUB_TYPE_FRIEND_VISIT = 43;     // 好友查看农场
+  NOTIFICATION_SUB_TYPE_FRIEND_HARVEST = 44;   // 好友收获
+  NOTIFICATION_SUB_TYPE_FRIEND_BUY_SEED = 45;  // 好友购买种子
+  NOTIFICATION_SUB_TYPE_FRIEND_PLANT = 46;     // 好友种植
+
+  // 系统通知子类型 (61-80 范围)
+  NOTIFICATION_SUB_TYPE_DEPOSIT_SUCCESS = 61;     // 存款成功
+  NOTIFICATION_SUB_TYPE_WITHDRAW_AVAILABLE = 62;  // 可以提款
+  NOTIFICATION_SUB_TYPE_VIP_UPGRADE = 63;         // VIP等级提升
+  NOTIFICATION_SUB_TYPE_RANKING_BREAK = 64;       // 打破排行榜记录
 }
