@@ -25,6 +25,8 @@ service DispatcherTimer {
   rpc CycleFertileTreeStatusCheck(DispatcherReq) returns (DispatcherReply) {};
   // 农场作物状态检查
   rpc CycleCropStatusCheck(DispatcherReq) returns (DispatcherReply) {};
+  // 农场作物状态更新
+  rpc CycleCropStageUpdate(DispatcherReq) returns (DispatcherReply) {};
   // 公告消息检查
   rpc CycleBulletinMsgCheck(DispatcherReq) returns (DispatcherReply) {};
 }

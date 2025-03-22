@@ -14,16 +14,36 @@ import (
 )
 
 type (
+	AdjustHarvestTimeRequest      = v1.AdjustHarvestTimeRequest
+	AdjustHarvestTimeResponse     = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
 	ForgotPasswordReq             = v1.ForgotPasswordReq
 	FriendRankingInfo             = v1.FriendRankingInfo
+	GetOnlineUserListReply        = v1.GetOnlineUserListReply
+	GetOnlineUserListReq          = v1.GetOnlineUserListReq
+	GrowthProgressRequest         = v1.GrowthProgressRequest
+	GrowthProgressResponse        = v1.GrowthProgressResponse
 	LookUserFarmsInfoMsgReply     = v1.LookUserFarmsInfoMsgReply
 	LookUserFarmsInfoMsgReq       = v1.LookUserFarmsInfoMsgReq
+	MaintenanceNeeds              = v1.MaintenanceNeeds
+	MaintenanceNeedsRequest       = v1.MaintenanceNeedsRequest
+	MaintenanceNeedsResponse      = v1.MaintenanceNeedsResponse
 	MsgReply                      = v1.MsgReply
 	MsgReq                        = v1.MsgReq
 	MyRankingInfo                 = v1.MyRankingInfo
+	PlantInfo                     = v1.PlantInfo
+	PlantStateInfo                = v1.PlantStateInfo
+	PlantStateRequest             = v1.PlantStateRequest
+	PlantStateResponse            = v1.PlantStateResponse
+	PlantStatusRequest            = v1.PlantStatusRequest
+	PlantStatusResponse           = v1.PlantStatusResponse
 	RequestClientInfo             = v1.RequestClientInfo
+	StageTime                     = v1.StageTime
+	StageTimelinesRequest         = v1.StageTimelinesRequest
+	StageTimelinesResponse        = v1.StageTimelinesResponse
+	TimeReductionRequest          = v1.TimeReductionRequest
+	TimeReductionResponse         = v1.TimeReductionResponse
 	UserAuthInfoMsgReply          = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq            = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply       = v1.UserAuthenticationReply

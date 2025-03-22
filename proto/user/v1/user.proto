@@ -86,12 +86,189 @@ service UserAuthService {
   rpc LoginOut (UserSignOutReq) returns (UserReply) {}
 }
 
+// 植物状态请求
+message PlantStatusRequest {
+  int64 plant_timestamp = 1;  // 种植时间
+  int64 harvest_timestamp = 2;  // 预期收获时间
+  int64 default_growth_minutes = 3;  // 默认生长时间(分钟)
+}
+
+// 植物状态响应
+message PlantStatusResponse {
+  int64 status = 1;  // 植物当前生长阶段(1-6)
+}
+
+// 时间减少计算请求
+message TimeReductionRequest {
+  PlantInfo plant_info = 1;  // 植物信息
+  bool is_self_action = 2;  // 是否是自己的操作
+  bool is_watering = 3;  // 是否是浇水操作(否则为施肥)
+}
+
+// 时间减少计算响应
+message TimeReductionResponse {
+  int64 time_reduction_minutes = 1;  // 减少的时间(分钟)
+}
+
+// 生长阶段时间计算请求
+message StageTimelinesRequest {
+  PlantInfo plant_info = 1;  // 植物信息
+}
+
+// 生长阶段时间点
+message StageTime {
+  int64 plant_id = 1;
+  int64 user_id = 2;
+  int64 farm_id = 3;
+  int64 land_id = 4;
+  int64 stage_number = 5;  // 阶段编号(1-6)
+  int64 expected_time = 6;  // 预计达到时间
+  bool is_reached = 7;  // 是否已达到
+}
+
+// 生长阶段时间计算响应
+message StageTimelinesResponse {
+  repeated StageTime stage_times = 1;  // 各个阶段时间点
+}
+
+// 收获时间调整请求
+message AdjustHarvestTimeRequest {
+  PlantInfo plant_info = 1;  // 植物信息
+  bool is_self_action = 2;  // 是否是自己的操作
+  bool is_watering = 3;  // 是否是浇水操作(否则为施肥)
+}
+
+// 收获时间调整响应
+message AdjustHarvestTimeResponse {
+  int64 new_harvest_time = 1;  // 新的收获时间
+  int64 time_reduced = 2;  // 减少的时间(秒)
+}
+
+// 维护需求检查请求
+message MaintenanceNeedsRequest {
+  int64 user_id = 1;
+}
+
+// 维护需求检查响应
+message MaintenanceNeedsResponse {
+  repeated MaintenanceNeeds maintenance_needs = 1;
+}
 
 
-service UserService {
-  rpc Test (UserReq) returns (UserReply) {}
+// 维护需求检查响应
+message MaintenanceNeeds {
+  int64 needs_water = 1;  // 是否可浇水 1可以，2不行
+  int64 needs_fertilizer = 2;  // 是否可施肥 1可以，2不行
+  int64 position = 3;  // 土地坐标
+  int64 land_id = 4;  // 土地ID
+  int64 plant_id = 5;  // 种植ID
+}
+
+
+// 生长进度请求
+message GrowthProgressRequest {
+  int64 plant_time = 1;  // 种植时间
+  int64 harvest_time = 2;  // 收获时间
+  int64 current_time = 3;  // 当前时间(如果为0则使用服务器时间)
+}
+
+// 生长进度响应
+message GrowthProgressResponse {
+  double growth_percentage = 1;  // 生长进度百分比(0-100)
+  int64 remaining_time = 2;  // 剩余生长时间(秒)
+}
+
+// 植物当前状态请求
+message PlantStateRequest {
+  int64 user_id = 1;
+}
+
+// 植物当前状态响应
+message PlantStateResponse {
+  map<int64, PlantStateInfo> plant_states = 1;
+}
+
+// 植物当前状态响应
+message PlantStateInfo {
+  int64 current_stage = 1;  // 当前生长阶段(1-6)
+  double growth_percentage = 2;  // 生长进度百分比(0-100)
+  int64 ready_to_harvest = 3;  // 是否可以收获
+  int64 needs_water = 4;  // 是否需要浇水
+  int64 needs_fertilizer = 5;  // 是否需要施肥
+  int64 time_to_next_stage = 6;  // 距离下一阶段的时间(秒)
+  int64 time_to_harvest = 7;  // 距离收获的时间(秒)
+  int64 next_stage = 8;  // 下一个生长阶段
+  UserPlantingDetail plant_info = 9; // 当前的植物信息
+}
+
+// 植物信息
+message PlantInfo {
+  int64 plant_id = 1;
+  int64 user_id = 2;
+  int64 farm_id = 3;
+  int64 land_id = 4;
+  int64 plant_time = 5;  // 种植时间
+  int64 growth_time = 6;  // 生长时间(分钟)
+  int64 harvested_at = 7;  // 预期收获时间
+  int64 water_count = 8;  // 已浇水次数
+  int64 fertilizer_count = 9;  // 已施肥次数
+  int64 is_harvested = 10;  // 收获状态
+  int64 status = 11;  // 当前状态
+  int64 watering_frequency = 12;  // 浇水频率(分钟)
+  int64 fertilizing_frequency = 13;  // 施肥频率(分钟)
+  int64 self_time_reduced_per_water = 14;  // 每次自己浇水减少的时间
+  int64 self_water_reduction_percentage = 15;  // 自己浇水减少时间的百分比
+  int64 self_time_reduced_per_fertilizer = 16;  // 每次自己施肥减少的时间
+  int64 self_fertilizer_reduction_percentage = 17;  // 自己施肥减少时间的百分比
+  int64 friend_water_time_reduction = 18;  // 好友浇水减少的时间
+  int64 friend_water_percentage = 19;  // 好友浇水百分比
+  int64 friend_fertilizer_time_reduction = 20;  // 好友施肥减少的时间
+  int64 friend_fertilizer_percentage = 21;  // 好友施肥百分比
+}
+
+service UserPlantGrowthService {
+  // 计算植物当前生长阶段
+  rpc CalculatePlantStatus (PlantStatusRequest) returns (PlantStatusResponse);
+
+  // 计算操作减少的时间
+  rpc CalculateTimeReduction (TimeReductionRequest) returns (TimeReductionResponse);
+
+  // 计算所有生长阶段时间点
+  rpc CalculateStageTimelines (StageTimelinesRequest) returns (StageTimelinesResponse);
+
+  // 调整收获时间
+  rpc AdjustHarvestTime (AdjustHarvestTimeRequest) returns (AdjustHarvestTimeResponse);
+
+  // 检查是否需要浇水/施肥
+  rpc CheckMaintenanceNeeds (MaintenanceNeedsRequest) returns (MaintenanceNeedsResponse);
+
+  // 获取植物当前生长进度
+  rpc GetGrowthProgress (GrowthProgressRequest) returns (GrowthProgressResponse);
+
+  // 获取植物当前状态的综合信息
+  rpc GetPlantCurrentState (PlantStateRequest) returns (PlantStateResponse);
 
 }
+
+message GetOnlineUserListReq{
+  int64 page = 1;
+  int64 pageSize = 2;
+}
+
+message GetOnlineUserListReply{
+  int64 total = 1;
+  repeated int64  user_id = 2;
+}
+
+
+
+service UserRpcInnerService {
+  // 获取在线用户ID信息
+  rpc GetOnlineUserList (GetOnlineUserListReq) returns (GetOnlineUserListReply) {}
+
+}
+
+
 
 
 message UserIdReq {
@@ -512,7 +689,7 @@ message UserLandDetail {
  * 表示用户种植的单株作物的详细信息
  */
 message UserPlantingDetail {
-  string id = 1;                    // UUID
+  int64 id = 1;                    // 自增ID
   int64 plant_id = 2;               // 种植记录ID
   int64 user_id = 3;                // 用户ID
   int64 farm_id = 4;                // 农场ID

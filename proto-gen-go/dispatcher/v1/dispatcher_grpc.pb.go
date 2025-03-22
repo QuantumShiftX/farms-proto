@@ -111,6 +111,7 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 const (
 	DispatcherTimer_CycleFertileTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherTimer/CycleFertileTreeStatusCheck"
 	DispatcherTimer_CycleCropStatusCheck_FullMethodName        = "/dispatcher.v1.DispatcherTimer/CycleCropStatusCheck"
+	DispatcherTimer_CycleCropStageUpdate_FullMethodName        = "/dispatcher.v1.DispatcherTimer/CycleCropStageUpdate"
 	DispatcherTimer_CycleBulletinMsgCheck_FullMethodName       = "/dispatcher.v1.DispatcherTimer/CycleBulletinMsgCheck"
 )
 
@@ -122,6 +123,8 @@ type DispatcherTimerClient interface {
 	CycleFertileTreeStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 农场作物状态检查
 	CycleCropStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 农场作物状态更新
+	CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 公告消息检查
 	CycleBulletinMsgCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
@@ -152,6 +155,15 @@ func (c *dispatcherTimerClient) CycleCropStatusCheck(ctx context.Context, in *Di
 	return out, nil
 }
 
+func (c *dispatcherTimerClient) CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherTimer_CycleCropStageUpdate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dispatcherTimerClient) CycleBulletinMsgCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
 	err := c.cc.Invoke(ctx, DispatcherTimer_CycleBulletinMsgCheck_FullMethodName, in, out, opts...)
@@ -169,6 +181,8 @@ type DispatcherTimerServer interface {
 	CycleFertileTreeStatusCheck(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	// 农场作物状态检查
 	CycleCropStatusCheck(context.Context, *DispatcherReq) (*DispatcherReply, error)
+	// 农场作物状态更新
+	CycleCropStageUpdate(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	// 公告消息检查
 	CycleBulletinMsgCheck(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherTimerServer()
@@ -183,6 +197,9 @@ func (UnimplementedDispatcherTimerServer) CycleFertileTreeStatusCheck(context.Co
 }
 func (UnimplementedDispatcherTimerServer) CycleCropStatusCheck(context.Context, *DispatcherReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CycleCropStatusCheck not implemented")
+}
+func (UnimplementedDispatcherTimerServer) CycleCropStageUpdate(context.Context, *DispatcherReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CycleCropStageUpdate not implemented")
 }
 func (UnimplementedDispatcherTimerServer) CycleBulletinMsgCheck(context.Context, *DispatcherReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CycleBulletinMsgCheck not implemented")
@@ -236,6 +253,24 @@ func _DispatcherTimer_CycleCropStatusCheck_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherTimer_CycleCropStageUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DispatcherReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherTimerServer).CycleCropStageUpdate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherTimer_CycleCropStageUpdate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherTimerServer).CycleCropStageUpdate(ctx, req.(*DispatcherReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DispatcherTimer_CycleBulletinMsgCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DispatcherReq)
 	if err := dec(in); err != nil {
@@ -268,6 +303,10 @@ var DispatcherTimer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CycleCropStatusCheck",
 			Handler:    _DispatcherTimer_CycleCropStatusCheck_Handler,
+		},
+		{
+			MethodName: "CycleCropStageUpdate",
+			Handler:    _DispatcherTimer_CycleCropStageUpdate_Handler,
 		},
 		{
 			MethodName: "CycleBulletinMsgCheck",

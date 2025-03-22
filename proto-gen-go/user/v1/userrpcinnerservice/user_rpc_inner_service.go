@@ -2,7 +2,7 @@
 // goctl 1.7.6
 // Source: user.proto
 
-package userauthservice
+package userrpcinnerservice
 
 import (
 	"context"
@@ -81,46 +81,24 @@ type (
 	UserWallet                    = v1.UserWallet
 	VerifyAccountReq              = v1.VerifyAccountReq
 
-	UserAuthService interface {
-		Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error)
-		Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error)
-		ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error)
-		VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error)
-		LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error)
+	UserRpcInnerService interface {
+		// 获取在线用户ID信息
+		GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error)
 	}
 
-	defaultUserAuthService struct {
+	defaultUserRpcInnerService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewUserAuthService(cli zrpc.Client) UserAuthService {
-	return &defaultUserAuthService{
+func NewUserRpcInnerService(cli zrpc.Client) UserRpcInnerService {
+	return &defaultUserRpcInnerService{
 		cli: cli,
 	}
 }
 
-func (m *defaultUserAuthService) Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error) {
-	client := v1.NewUserAuthServiceClient(m.cli.Conn())
-	return client.Register(ctx, in, opts...)
-}
-
-func (m *defaultUserAuthService) Login(ctx context.Context, in *UserSignInReq, opts ...grpc.CallOption) (*UserLoginResp, error) {
-	client := v1.NewUserAuthServiceClient(m.cli.Conn())
-	return client.Login(ctx, in, opts...)
-}
-
-func (m *defaultUserAuthService) ForgotPwd(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*UserReply, error) {
-	client := v1.NewUserAuthServiceClient(m.cli.Conn())
-	return client.ForgotPwd(ctx, in, opts...)
-}
-
-func (m *defaultUserAuthService) VerifyAccount(ctx context.Context, in *VerifyAccountReq, opts ...grpc.CallOption) (*UserReply, error) {
-	client := v1.NewUserAuthServiceClient(m.cli.Conn())
-	return client.VerifyAccount(ctx, in, opts...)
-}
-
-func (m *defaultUserAuthService) LoginOut(ctx context.Context, in *UserSignOutReq, opts ...grpc.CallOption) (*UserReply, error) {
-	client := v1.NewUserAuthServiceClient(m.cli.Conn())
-	return client.LoginOut(ctx, in, opts...)
+// 获取在线用户ID信息
+func (m *defaultUserRpcInnerService) GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error) {
+	client := v1.NewUserRpcInnerServiceClient(m.cli.Conn())
+	return client.GetOnlineUserList(ctx, in, opts...)
 }

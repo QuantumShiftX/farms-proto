@@ -257,89 +257,418 @@ var UserAuthService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserService_Test_FullMethodName = "/user.v1.UserService/Test"
+	UserPlantGrowthService_CalculatePlantStatus_FullMethodName    = "/user.v1.UserPlantGrowthService/CalculatePlantStatus"
+	UserPlantGrowthService_CalculateTimeReduction_FullMethodName  = "/user.v1.UserPlantGrowthService/CalculateTimeReduction"
+	UserPlantGrowthService_CalculateStageTimelines_FullMethodName = "/user.v1.UserPlantGrowthService/CalculateStageTimelines"
+	UserPlantGrowthService_AdjustHarvestTime_FullMethodName       = "/user.v1.UserPlantGrowthService/AdjustHarvestTime"
+	UserPlantGrowthService_CheckMaintenanceNeeds_FullMethodName   = "/user.v1.UserPlantGrowthService/CheckMaintenanceNeeds"
+	UserPlantGrowthService_GetGrowthProgress_FullMethodName       = "/user.v1.UserPlantGrowthService/GetGrowthProgress"
+	UserPlantGrowthService_GetPlantCurrentState_FullMethodName    = "/user.v1.UserPlantGrowthService/GetPlantCurrentState"
 )
 
-// UserServiceClient is the client API for UserService service.
+// UserPlantGrowthServiceClient is the client API for UserPlantGrowthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserServiceClient interface {
-	Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error)
+type UserPlantGrowthServiceClient interface {
+	// 计算植物当前生长阶段
+	CalculatePlantStatus(ctx context.Context, in *PlantStatusRequest, opts ...grpc.CallOption) (*PlantStatusResponse, error)
+	// 计算操作减少的时间
+	CalculateTimeReduction(ctx context.Context, in *TimeReductionRequest, opts ...grpc.CallOption) (*TimeReductionResponse, error)
+	// 计算所有生长阶段时间点
+	CalculateStageTimelines(ctx context.Context, in *StageTimelinesRequest, opts ...grpc.CallOption) (*StageTimelinesResponse, error)
+	// 调整收获时间
+	AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error)
+	// 检查是否需要浇水/施肥
+	CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error)
+	// 获取植物当前生长进度
+	GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error)
+	// 获取植物当前状态的综合信息
+	GetPlantCurrentState(ctx context.Context, in *PlantStateRequest, opts ...grpc.CallOption) (*PlantStateResponse, error)
 }
 
-type userServiceClient struct {
+type userPlantGrowthServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
-	return &userServiceClient{cc}
+func NewUserPlantGrowthServiceClient(cc grpc.ClientConnInterface) UserPlantGrowthServiceClient {
+	return &userPlantGrowthServiceClient{cc}
 }
 
-func (c *userServiceClient) Test(ctx context.Context, in *UserReq, opts ...grpc.CallOption) (*UserReply, error) {
-	out := new(UserReply)
-	err := c.cc.Invoke(ctx, UserService_Test_FullMethodName, in, out, opts...)
+func (c *userPlantGrowthServiceClient) CalculatePlantStatus(ctx context.Context, in *PlantStatusRequest, opts ...grpc.CallOption) (*PlantStatusResponse, error) {
+	out := new(PlantStatusResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_CalculatePlantStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserServiceServer is the server API for UserService service.
-// All implementations must embed UnimplementedUserServiceServer
+func (c *userPlantGrowthServiceClient) CalculateTimeReduction(ctx context.Context, in *TimeReductionRequest, opts ...grpc.CallOption) (*TimeReductionResponse, error) {
+	out := new(TimeReductionResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_CalculateTimeReduction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userPlantGrowthServiceClient) CalculateStageTimelines(ctx context.Context, in *StageTimelinesRequest, opts ...grpc.CallOption) (*StageTimelinesResponse, error) {
+	out := new(StageTimelinesResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_CalculateStageTimelines_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userPlantGrowthServiceClient) AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error) {
+	out := new(AdjustHarvestTimeResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_AdjustHarvestTime_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userPlantGrowthServiceClient) CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error) {
+	out := new(MaintenanceNeedsResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_CheckMaintenanceNeeds_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userPlantGrowthServiceClient) GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error) {
+	out := new(GrowthProgressResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_GetGrowthProgress_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userPlantGrowthServiceClient) GetPlantCurrentState(ctx context.Context, in *PlantStateRequest, opts ...grpc.CallOption) (*PlantStateResponse, error) {
+	out := new(PlantStateResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_GetPlantCurrentState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserPlantGrowthServiceServer is the server API for UserPlantGrowthService service.
+// All implementations must embed UnimplementedUserPlantGrowthServiceServer
 // for forward compatibility
-type UserServiceServer interface {
-	Test(context.Context, *UserReq) (*UserReply, error)
-	mustEmbedUnimplementedUserServiceServer()
+type UserPlantGrowthServiceServer interface {
+	// 计算植物当前生长阶段
+	CalculatePlantStatus(context.Context, *PlantStatusRequest) (*PlantStatusResponse, error)
+	// 计算操作减少的时间
+	CalculateTimeReduction(context.Context, *TimeReductionRequest) (*TimeReductionResponse, error)
+	// 计算所有生长阶段时间点
+	CalculateStageTimelines(context.Context, *StageTimelinesRequest) (*StageTimelinesResponse, error)
+	// 调整收获时间
+	AdjustHarvestTime(context.Context, *AdjustHarvestTimeRequest) (*AdjustHarvestTimeResponse, error)
+	// 检查是否需要浇水/施肥
+	CheckMaintenanceNeeds(context.Context, *MaintenanceNeedsRequest) (*MaintenanceNeedsResponse, error)
+	// 获取植物当前生长进度
+	GetGrowthProgress(context.Context, *GrowthProgressRequest) (*GrowthProgressResponse, error)
+	// 获取植物当前状态的综合信息
+	GetPlantCurrentState(context.Context, *PlantStateRequest) (*PlantStateResponse, error)
+	mustEmbedUnimplementedUserPlantGrowthServiceServer()
 }
 
-// UnimplementedUserServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedUserServiceServer struct {
+// UnimplementedUserPlantGrowthServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedUserPlantGrowthServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) Test(context.Context, *UserReq) (*UserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Test not implemented")
+func (UnimplementedUserPlantGrowthServiceServer) CalculatePlantStatus(context.Context, *PlantStatusRequest) (*PlantStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculatePlantStatus not implemented")
 }
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
+func (UnimplementedUserPlantGrowthServiceServer) CalculateTimeReduction(context.Context, *TimeReductionRequest) (*TimeReductionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateTimeReduction not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) CalculateStageTimelines(context.Context, *StageTimelinesRequest) (*StageTimelinesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateStageTimelines not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) AdjustHarvestTime(context.Context, *AdjustHarvestTimeRequest) (*AdjustHarvestTimeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdjustHarvestTime not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) CheckMaintenanceNeeds(context.Context, *MaintenanceNeedsRequest) (*MaintenanceNeedsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckMaintenanceNeeds not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) GetGrowthProgress(context.Context, *GrowthProgressRequest) (*GrowthProgressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGrowthProgress not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) GetPlantCurrentState(context.Context, *PlantStateRequest) (*PlantStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPlantCurrentState not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) mustEmbedUnimplementedUserPlantGrowthServiceServer() {
+}
 
-// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserServiceServer will
+// UnsafeUserPlantGrowthServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserPlantGrowthServiceServer will
 // result in compilation errors.
-type UnsafeUserServiceServer interface {
-	mustEmbedUnimplementedUserServiceServer()
+type UnsafeUserPlantGrowthServiceServer interface {
+	mustEmbedUnimplementedUserPlantGrowthServiceServer()
 }
 
-func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
-	s.RegisterService(&UserService_ServiceDesc, srv)
+func RegisterUserPlantGrowthServiceServer(s grpc.ServiceRegistrar, srv UserPlantGrowthServiceServer) {
+	s.RegisterService(&UserPlantGrowthService_ServiceDesc, srv)
 }
 
-func _UserService_Test_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserReq)
+func _UserPlantGrowthService_CalculatePlantStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PlantStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Test(ctx, in)
+		return srv.(UserPlantGrowthServiceServer).CalculatePlantStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_Test_FullMethodName,
+		FullMethod: UserPlantGrowthService_CalculatePlantStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Test(ctx, req.(*UserReq))
+		return srv.(UserPlantGrowthServiceServer).CalculatePlantStatus(ctx, req.(*PlantStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+func _UserPlantGrowthService_CalculateTimeReduction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TimeReductionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).CalculateTimeReduction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_CalculateTimeReduction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).CalculateTimeReduction(ctx, req.(*TimeReductionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserPlantGrowthService_CalculateStageTimelines_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StageTimelinesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).CalculateStageTimelines(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_CalculateStageTimelines_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).CalculateStageTimelines(ctx, req.(*StageTimelinesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserPlantGrowthService_AdjustHarvestTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdjustHarvestTimeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).AdjustHarvestTime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_AdjustHarvestTime_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).AdjustHarvestTime(ctx, req.(*AdjustHarvestTimeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserPlantGrowthService_CheckMaintenanceNeeds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MaintenanceNeedsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).CheckMaintenanceNeeds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_CheckMaintenanceNeeds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).CheckMaintenanceNeeds(ctx, req.(*MaintenanceNeedsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserPlantGrowthService_GetGrowthProgress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GrowthProgressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).GetGrowthProgress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_GetGrowthProgress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).GetGrowthProgress(ctx, req.(*GrowthProgressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserPlantGrowthService_GetPlantCurrentState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PlantStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).GetPlantCurrentState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_GetPlantCurrentState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).GetPlantCurrentState(ctx, req.(*PlantStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// UserPlantGrowthService_ServiceDesc is the grpc.ServiceDesc for UserPlantGrowthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.v1.UserService",
-	HandlerType: (*UserServiceServer)(nil),
+var UserPlantGrowthService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.v1.UserPlantGrowthService",
+	HandlerType: (*UserPlantGrowthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Test",
-			Handler:    _UserService_Test_Handler,
+			MethodName: "CalculatePlantStatus",
+			Handler:    _UserPlantGrowthService_CalculatePlantStatus_Handler,
+		},
+		{
+			MethodName: "CalculateTimeReduction",
+			Handler:    _UserPlantGrowthService_CalculateTimeReduction_Handler,
+		},
+		{
+			MethodName: "CalculateStageTimelines",
+			Handler:    _UserPlantGrowthService_CalculateStageTimelines_Handler,
+		},
+		{
+			MethodName: "AdjustHarvestTime",
+			Handler:    _UserPlantGrowthService_AdjustHarvestTime_Handler,
+		},
+		{
+			MethodName: "CheckMaintenanceNeeds",
+			Handler:    _UserPlantGrowthService_CheckMaintenanceNeeds_Handler,
+		},
+		{
+			MethodName: "GetGrowthProgress",
+			Handler:    _UserPlantGrowthService_GetGrowthProgress_Handler,
+		},
+		{
+			MethodName: "GetPlantCurrentState",
+			Handler:    _UserPlantGrowthService_GetPlantCurrentState_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "user/v1/user.proto",
+}
+
+const (
+	UserRpcInnerService_GetOnlineUserList_FullMethodName = "/user.v1.UserRpcInnerService/GetOnlineUserList"
+)
+
+// UserRpcInnerServiceClient is the client API for UserRpcInnerService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type UserRpcInnerServiceClient interface {
+	// 获取在线用户ID信息
+	GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error)
+}
+
+type userRpcInnerServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewUserRpcInnerServiceClient(cc grpc.ClientConnInterface) UserRpcInnerServiceClient {
+	return &userRpcInnerServiceClient{cc}
+}
+
+func (c *userRpcInnerServiceClient) GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error) {
+	out := new(GetOnlineUserListReply)
+	err := c.cc.Invoke(ctx, UserRpcInnerService_GetOnlineUserList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserRpcInnerServiceServer is the server API for UserRpcInnerService service.
+// All implementations must embed UnimplementedUserRpcInnerServiceServer
+// for forward compatibility
+type UserRpcInnerServiceServer interface {
+	// 获取在线用户ID信息
+	GetOnlineUserList(context.Context, *GetOnlineUserListReq) (*GetOnlineUserListReply, error)
+	mustEmbedUnimplementedUserRpcInnerServiceServer()
+}
+
+// UnimplementedUserRpcInnerServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedUserRpcInnerServiceServer struct {
+}
+
+func (UnimplementedUserRpcInnerServiceServer) GetOnlineUserList(context.Context, *GetOnlineUserListReq) (*GetOnlineUserListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOnlineUserList not implemented")
+}
+func (UnimplementedUserRpcInnerServiceServer) mustEmbedUnimplementedUserRpcInnerServiceServer() {}
+
+// UnsafeUserRpcInnerServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserRpcInnerServiceServer will
+// result in compilation errors.
+type UnsafeUserRpcInnerServiceServer interface {
+	mustEmbedUnimplementedUserRpcInnerServiceServer()
+}
+
+func RegisterUserRpcInnerServiceServer(s grpc.ServiceRegistrar, srv UserRpcInnerServiceServer) {
+	s.RegisterService(&UserRpcInnerService_ServiceDesc, srv)
+}
+
+func _UserRpcInnerService_GetOnlineUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOnlineUserListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserRpcInnerServiceServer).GetOnlineUserList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserRpcInnerService_GetOnlineUserList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserRpcInnerServiceServer).GetOnlineUserList(ctx, req.(*GetOnlineUserListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// UserRpcInnerService_ServiceDesc is the grpc.ServiceDesc for UserRpcInnerService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var UserRpcInnerService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.v1.UserRpcInnerService",
+	HandlerType: (*UserRpcInnerServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetOnlineUserList",
+			Handler:    _UserRpcInnerService_GetOnlineUserList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -22,6 +22,8 @@ type (
 		CycleFertileTreeStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 农场作物状态检查
 		CycleCropStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 农场作物状态更新
+		CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 公告消息检查
 		CycleBulletinMsgCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
@@ -47,6 +49,12 @@ func (m *defaultDispatcherTimer) CycleFertileTreeStatusCheck(ctx context.Context
 func (m *defaultDispatcherTimer) CycleCropStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherTimerClient(m.cli.Conn())
 	return client.CycleCropStatusCheck(ctx, in, opts...)
+}
+
+// 农场作物状态更新
+func (m *defaultDispatcherTimer) CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherTimerClient(m.cli.Conn())
+	return client.CycleCropStageUpdate(ctx, in, opts...)
 }
 
 // 公告消息检查
