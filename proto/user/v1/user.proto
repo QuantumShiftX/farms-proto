@@ -664,7 +664,7 @@ message UserLandInfoMsgReply {
  * 表示用户的单块土地的详细状态
  */
 message UserLandDetail {
-  string id = 1;                    // UUID
+  int64 id = 1;                    // UUID
   int64 land_id = 2;                // 土地ID
   int64 user_id = 3;                // 用户ID
   int64 farm_id = 4;                // 农场ID
