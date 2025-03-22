@@ -81,8 +81,10 @@ enum MessageID {
   VIP_LEVEL_INFO_MSG = 600;
 
 
-  // 主动推送消息messageID
-  NOTIFICATION_TYPE_BULLETIN_MSG = 2000;   // 公告相关
+  // 主动推送消息messageID (800-899)
+  USER_NOTIFICATION_INFO_MSG = 800;
+
+
 
 
 
@@ -96,6 +98,8 @@ enum MessageID {
   ERR_USER_NOT_EXIST = 500503; // 用户不存在
   ERR_USER_AUTH = 500504;      // 认证失败
 }
+
+
 
 /**
  * 土地状态枚举
@@ -764,7 +768,7 @@ message MyRankingInfo {
  * 用户发财树请求
  * 展示用户的发财树信息
  */
-message UserFortuneTreeMsgReq {
+message UserFortuneTreeInfoMsgReq {
   int64 user_id = 1;          // 请求用户的ID
 }
 
@@ -772,7 +776,7 @@ message UserFortuneTreeMsgReq {
  * 用户发财树响应
  * 包含用户的发财树信息
  */
-message UserFortuneTreeMsgReply {
+message UserFortuneTreeInfoMsgReply {
   int64 id = 1; // 发财树唯一标识ID
   int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
   int64 vip_level_id = 3; // VIP等级ID，影响金币产出和生产周期
@@ -825,57 +829,60 @@ message VIPLevelInfo {
 
 
 
-
-// 用户通知消息
-message UserNotificationTypeBulletinMsgReply {
-  int64 user_id = 1;                     // 用户ID
-  int32 type = 2;                        // 通知类型 (使用枚举)
-  int32 sub_type = 3;                     // 通知子类型 (使用枚举)
-  string title = 4;                       // 标题
-  string content = 5;                     // 内容
-  map<string, string> params = 6;         // 参数键值对
-  int64 created_at = 7;                   // 创建时间 (时间戳)
+// =========================================
+// 通知相关消息
+// =========================================
+// UserNotification 用户通知结构---公告信息body
+// UserNotification represents user notification structure USER_NOTIFICATION_INFO_MSG
+message UserNotificationInfoMsgReply {
+  int64 user_id = 1;  // 用户ID | User ID
+  NotificationType type = 2;  // 通知类型 | Notification type
+  NotificationSubType sub_type = 3;  // 通知子类型 | Notification subtype
+  string title = 4;  // 通知标题 | Notification title
+  string content = 5;  // 通知内容 | Notification content
+  map<string, string> params = 6;  // 通知参数 | Notification parameters
+  int64 created_at = 7;  // 创建时间 | Creation timestamp
 }
 
-
-// NotificationType 定义通知的主要类别
+// NotificationType 定义通知类型枚举
+// NotificationType defines notification type enum
 enum NotificationType {
-  NOTIFICATION_TYPE_UNSPECIFIED = 0;             // 未指定类型
-  NOTIFICATION_TYPE_DAILY_GREETING = 1000;          // 日常问候类通知 (daily_greeting)
-  NOTIFICATION_TYPE_OPERATION_TIP = 2000;           // 游戏操作提示类通知 (operation_tip)
-  NOTIFICATION_TYPE_FRIEND_INFO = 3000;             // 好友互动通知 (friend_info)
-  NOTIFICATION_TYPE_SYSTEM_INFO = 4000;             // 系统通知 (system_info)
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;  // 未指定 | Unspecified
+  NOTIFICATION_TYPE_DAILY_GREETING = 1000;  // 日常问候 | Daily greeting
+  NOTIFICATION_TYPE_OPERATION_TIP = 2000;  // 操作提示 | Operation tip
+  NOTIFICATION_TYPE_FRIEND_INFO = 3000;  // 好友信息 | Friend info
+  NOTIFICATION_TYPE_SYSTEM_INFO = 4000;  // 系统信息 | System info
 }
 
-// NotificationSubType 定义每种通知类型的具体子类型
+// NotificationSubType 定义通知子类型枚举
+// NotificationSubType defines notification subtype enum
 enum NotificationSubType {
-  // 默认/未指定值
-  NOTIFICATION_SUB_TYPE_UNSPECIFIED = 0;         // 未指定子类型
+  NOTIFICATION_SUB_TYPE_UNSPECIFIED = 0;  // 未指定 | Unspecified
 
-  // 日常问候子类型 (1000-1999范围)
-  NOTIFICATION_SUB_TYPE_MORNING = 1001;             // 早上问候 (morning)
-  NOTIFICATION_SUB_TYPE_NOON = 1002;                // 中午问候 (noon)
-  NOTIFICATION_SUB_TYPE_EVENING = 1003;             // 晚上问候 (evening)
-  NOTIFICATION_SUB_TYPE_RETURN_PLAYER = 1004;       // 老玩家回归问候 (return_player)
+  // 日常问候子类型 (1000-1999) | Daily greeting subtypes (1000-1999)
+  NOTIFICATION_SUB_TYPE_MORNING = 1001;  // 早上问候 | Morning greeting
+  NOTIFICATION_SUB_TYPE_NOON = 1002;  // 中午问候 | Noon greeting
+  NOTIFICATION_SUB_TYPE_EVENING = 1003;  // 晚上问候 | Evening greeting
+  NOTIFICATION_SUB_TYPE_RETURN_PLAYER = 1004;  // 老玩家回归问候 | Returning player greeting
 
-  // 操作提示子类型 (2000-2999范围)
-  NOTIFICATION_SUB_TYPE_CROP_NEED_WATER = 2001;    // 农作物待浇水 (crop_need_water)
-  NOTIFICATION_SUB_TYPE_CROP_CAN_HARVEST = 2002;   // 农作物待收获 (crop_can_harvest)
-  NOTIFICATION_SUB_TYPE_SEED_WAIT_PLANT = 2003;    // 种子待种植 (seed_wait_plant)
-  NOTIFICATION_SUB_TYPE_CROP_NEED_FERTILIZE = 2004;// 农作物待施肥 (crop_need_fertilize)
-  NOTIFICATION_SUB_TYPE_BUY_SEED = 2005;           // 购买种子 (buy_seed)
+  // 操作提示子类型 (2000-2999) | Operation tip subtypes (2000-2999)
+  NOTIFICATION_SUB_TYPE_CROP_NEED_WATER = 2001;  // 农作物待浇水 | Crop needs water
+  NOTIFICATION_SUB_TYPE_CROP_CAN_HARVEST = 2002;  // 农作物待收获 | Crop can be harvested
+  NOTIFICATION_SUB_TYPE_SEED_WAIT_PLANT = 2003;  // 种子待种植 | Seed waiting to be planted
+  NOTIFICATION_SUB_TYPE_CROP_NEED_FERTILIZE = 2004;  // 农作物待施肥 | Crop needs fertilizer
+  NOTIFICATION_SUB_TYPE_BUY_SEED = 2005;  // 购买种子 | Buy seed
 
-  // 好友信息子类型 (3000-3999范围)
-  NOTIFICATION_SUB_TYPE_FRIEND_REGISTER = 3001;    // 新好友注册 (friend_register)
-  NOTIFICATION_SUB_TYPE_FRIEND_WATERED = 3002;     // 好友浇水 (friend_watered)
-  NOTIFICATION_SUB_TYPE_FRIEND_VISIT = 3003;       // 好友查看农场 (friend_visit)
-  NOTIFICATION_SUB_TYPE_FRIEND_HARVEST = 3004;     // 好友收获 (friend_harvest)
-  NOTIFICATION_SUB_TYPE_FRIEND_BUY_SEED = 3005;    // 好友购买种子 (friend_buy_seed)
-  NOTIFICATION_SUB_TYPE_FRIEND_PLANT = 3006;       // 好友种植 (friend_plant)
+  // 好友信息子类型 (3000-3999) | Friend info subtypes (3000-3999)
+  NOTIFICATION_SUB_TYPE_FRIEND_REGISTER = 3001;  // 新好友注册 | New friend registered
+  NOTIFICATION_SUB_TYPE_FRIEND_WATERED = 3002;  // 好友浇水 | Friend watered
+  NOTIFICATION_SUB_TYPE_FRIEND_VISIT = 3003;  // 好友查看农场 | Friend visited farm
+  NOTIFICATION_SUB_TYPE_FRIEND_HARVEST = 3004;  // 好友收获 | Friend harvested
+  NOTIFICATION_SUB_TYPE_FRIEND_BUY_SEED = 3005;  // 好友购买种子 | Friend bought seed
+  NOTIFICATION_SUB_TYPE_FRIEND_PLANT = 3006;  // 好友种植 | Friend planted
 
-  // 系统信息子类型 (4000-4999范围)
-  NOTIFICATION_SUB_TYPE_DEPOSIT_SUCCESS = 4001;    // 存款成功 (deposit_success)
-  NOTIFICATION_SUB_TYPE_WITHDRAW_AVAILABLE = 4002; // 可以提款 (withdraw_available)
-  NOTIFICATION_SUB_TYPE_VIP_UPGRADE = 4003;        // VIP等级提升 (vip_upgrade)
-  NOTIFICATION_SUB_TYPE_RANKING_BREAK = 4004;      // 打破排行榜记录 (ranking_break)
+  // 系统信息子类型 (4000-4999) | System info subtypes (4000-4999)
+  NOTIFICATION_SUB_TYPE_DEPOSIT_SUCCESS = 4001;  // 存款成功 | Deposit successful
+  NOTIFICATION_SUB_TYPE_WITHDRAW_AVAILABLE = 4002;  // 可以提款 | Withdrawal available
+  NOTIFICATION_SUB_TYPE_VIP_UPGRADE = 4003;  // VIP等级提升 | VIP level upgraded
+  NOTIFICATION_SUB_TYPE_RANKING_BREAK = 4004;  // 打破排行榜记录 | Ranking record broken
 }

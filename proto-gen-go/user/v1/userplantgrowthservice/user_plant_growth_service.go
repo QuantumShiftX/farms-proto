@@ -56,8 +56,8 @@ type (
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
 	UserFortuneTreeInfo           = v1.UserFortuneTreeInfo
-	UserFortuneTreeMsgReply       = v1.UserFortuneTreeMsgReply
-	UserFortuneTreeMsgReq         = v1.UserFortuneTreeMsgReq
+	UserFortuneTreeInfoMsgReply   = v1.UserFortuneTreeInfoMsgReply
+	UserFortuneTreeInfoMsgReq     = v1.UserFortuneTreeInfoMsgReq
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
 	UserIdReq                     = v1.UserIdReq

@@ -56,8 +56,8 @@ type (
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
 	UserFortuneTreeInfo           = v1.UserFortuneTreeInfo
-	UserFortuneTreeMsgReply       = v1.UserFortuneTreeMsgReply
-	UserFortuneTreeMsgReq         = v1.UserFortuneTreeMsgReq
+	UserFortuneTreeInfoMsgReply   = v1.UserFortuneTreeInfoMsgReply
+	UserFortuneTreeInfoMsgReq     = v1.UserFortuneTreeInfoMsgReq
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
 	UserIdReq                     = v1.UserIdReq
@@ -109,7 +109,7 @@ type (
 		// 用户购买商品
 		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 		// 用户的发财树信息
-		UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error)
+		UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -202,7 +202,7 @@ func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *Use
 }
 
 // 用户的发财树信息
-func (m *defaultUserInnerService) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error) {
+func (m *defaultUserInnerService) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFortuneTreeInfo(ctx, in, opts...)
 }

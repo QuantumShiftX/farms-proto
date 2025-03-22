@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package err.v1;
+
+option go_package = "./pb/v1";
+
+// ErrorCode 定义系统中所有错误码
+// ErrorCode defines all error codes in the system
+enum ErrorCode {
+  // 通用错误码 (000-399)
+  // General error codes (000-399)
+  ERROR_CODE_UNSPECIFIED = 0;      // 未指定错误 | Unspecified error
+
+  // 基础错误码 (400-699)
+  // Basic error codes (400-699)
+  PARAM_ERROR = 400;               // 参数错误 | Parameter error
+  UNAUTHORIZED_ERROR = 401;        // 无权限 | Unauthorized
+  SERVER_ERROR = 500;              // 服务拥堵，请稍后再试 | Service congestion, please try again later
+  SERVER_INTERNAL_ERROR = 501;     // 服务器内部错误 | Internal server error
+  DB_ERROR = 600;                  // 数据库错误 | Database error
+
+  // 验证码相关错误 (700-799)
+  // Verification code related errors (700-799)
+  CAPTCHA_ERROR = 700;             // 验证码错误 | Captcha error
+  GOOGLE_AUTH_CODE_REQUIRED = 701; // 需要Google验证码 | Google authentication code required
+
+  // 用户相关错误码 (10000-19999)
+  // User related error codes (10000-19999)
+  USER_NOT_FOUND_ERROR = 10000;           // 用户不存在 | User not found
+  USER_CREATE_ERROR = 10001;              // 创建用户错误 | Error creating user
+  USER_SIGN_IN_ERROR = 10002;             // 用户登录错误 | User sign-in error
+  USER_FORGOT_PWD_ERROR = 10003;          // 重置密码错误 | Password reset error
+  USER_VALIDATE_ERROR = 10004;            // 用户验证错误 | User validation error
+  USER_AGREEMENT_ERROR = 10005;           // 获取用户协议错误 | Error retrieving user agreement
+  USER_SEND_CAPTCHA_ERROR = 10006;        // 发送验证码错误 | Error sending captcha
+  USER_PASSWORD_MISMATCH_ERROR = 10007;   // 密码不匹配 | Password mismatch
+  USER_ACCOUNT_DISABLED_ERROR = 10008;    // 账户已禁用 | Account disabled
+  USER_DUPLICATE_USERNAME_ERROR = 10009;  // 用户名已存在 | Username already exists
+  USER_INVALID_EMAIL_ERROR = 10010;       // 无效的邮箱格式 | Invalid email format
+  USER_TOKEN_EXPIRED_ERROR = 10011;       // 用户令牌过期 | User token expired
+  USER_INVALID_PHONE_ERROR = 10012;       // 无效的电话格式 | Invalid phone format
+  USER_VALIDATION_TYPE_ERROR = 10013;     // 验证类型错误 | Validation type error
+  USER_CREDENTIALS_ERROR = 10014;         // 用户或密码信息有误 | Incorrect username or password
+  USER_NAME_EXISTS_ERROR = 10015;         // 用户名字已存在 | Username already exists
+  USER_VALIDATION_MATCH_ERROR = 10016;    // 验证匹配失败 | Validation match failed
+
+  // 农场相关错误码 (20000-29999)
+  // Farm related error codes (20000-29999)
+  FARM_NOT_FOUND_ERROR = 20000;           // 农场不存在 | Farm not found
+  FARM_CREATE_ERROR = 20001;              // 创建农场失败 | Failed to create farm
+  FARM_UPDATE_ERROR = 20002;              // 更新农场信息失败 | Failed to update farm information
+  FARM_DELETE_ERROR = 20003;              // 删除农场失败 | Failed to delete farm
+  FARM_PERMISSION_ERROR = 20004;          // 无权操作该农场 | No permission to operate this farm
+  FARM_CROP_ERROR = 20005;                // 作物操作错误 | Crop operation error
+  FARM_IRRIGATION_ERROR = 20006;          // 灌溉系统错误 | Irrigation system error
+  FARM_INVENTORY_ERROR = 20007;           // 库存管理错误 | Inventory management error
+
+  // 配置相关错误码 (90000-99999)
+  // Configuration related error codes (90000-99999)
+  CONFIG_NOT_FOUND_ERROR = 90000;         // 配置不存在 | Configuration not found
+  CONFIG_INVALID_ERROR = 90001;           // 配置无效 | Invalid configuration
+  CONFIG_UPDATE_ERROR = 90002;            // 更新配置失败 | Failed to update configuration
+  CONFIG_PERMISSION_ERROR = 90003;        // 无权修改配置 | No permission to modify configuration
+  CONFIG_FORMAT_ERROR = 90004;            // 配置格式错误 | Configuration format error
+}

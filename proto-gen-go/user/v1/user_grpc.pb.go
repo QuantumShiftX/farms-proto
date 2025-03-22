@@ -723,7 +723,7 @@ type UserInnerServiceClient interface {
 	// 用户购买商品
 	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
-	UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error)
+	UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -851,8 +851,8 @@ func (c *userInnerServiceClient) UserPurchaseGoods(ctx context.Context, in *User
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeMsgReply, error) {
-	out := new(UserFortuneTreeMsgReply)
+func (c *userInnerServiceClient) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error) {
+	out := new(UserFortuneTreeInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserFortuneTreeInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -891,7 +891,7 @@ type UserInnerServiceServer interface {
 	// 用户购买商品
 	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
-	UserFortuneTreeInfo(context.Context, *UserFortuneTreeMsgReq) (*UserFortuneTreeMsgReply, error)
+	UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -938,7 +938,7 @@ func (UnimplementedUserInnerServiceServer) LookUserFarmsInfo(context.Context, *L
 func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPurchaseGoods not implemented")
 }
-func (UnimplementedUserInnerServiceServer) UserFortuneTreeInfo(context.Context, *UserFortuneTreeMsgReq) (*UserFortuneTreeMsgReply, error) {
+func (UnimplementedUserInnerServiceServer) UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFortuneTreeInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
@@ -1189,7 +1189,7 @@ func _UserInnerService_UserPurchaseGoods_Handler(srv interface{}, ctx context.Co
 }
 
 func _UserInnerService_UserFortuneTreeInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserFortuneTreeMsgReq)
+	in := new(UserFortuneTreeInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1201,7 +1201,7 @@ func _UserInnerService_UserFortuneTreeInfo_Handler(srv interface{}, ctx context.
 		FullMethod: UserInnerService_UserFortuneTreeInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserFortuneTreeInfo(ctx, req.(*UserFortuneTreeMsgReq))
+		return srv.(UserInnerServiceServer).UserFortuneTreeInfo(ctx, req.(*UserFortuneTreeInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -311,7 +311,7 @@ service UserInnerService {
   // 用户购买商品
   rpc UserPurchaseGoods (UserPurchaseGoodsMsgReq) returns (UserPurchaseGoodsMsgReply) {}
   // 用户的发财树信息
-  rpc UserFortuneTreeInfo (UserFortuneTreeMsgReq) returns (UserFortuneTreeMsgReply) {}
+  rpc UserFortuneTreeInfo (UserFortuneTreeInfoMsgReq) returns (UserFortuneTreeInfoMsgReply) {}
 
 }
 
@@ -861,11 +861,11 @@ message UserPurchaseGoodsMsgReply {
 
 }
 
-message UserFortuneTreeMsgReq{
+message UserFortuneTreeInfoMsgReq{
   int64 user_id = 1;
 }
 
-message UserFortuneTreeMsgReply {
+message UserFortuneTreeInfoMsgReply {
   int64 id = 1; // 发财树唯一标识ID
   int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
   int64 vip_level_id = 3; // VIP等级ID，影响金币产出和生产周期
