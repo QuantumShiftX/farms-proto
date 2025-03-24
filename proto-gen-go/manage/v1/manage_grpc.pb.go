@@ -187,7 +187,7 @@ const (
 	ManageInnerService_GetSettingBaseInfo_FullMethodName   = "/manage.v1.ManageInnerService/GetSettingBaseInfo"
 	ManageInnerService_VipLevelInfo_FullMethodName         = "/manage.v1.ManageInnerService/VipLevelInfo"
 	ManageInnerService_GetNotificationsList_FullMethodName = "/manage.v1.ManageInnerService/GetNotificationsList"
-	ManageInnerService_GetApkAddress_FullMethodName        = "/manage.v1.ManageInnerService/GetApkAddress"
+	ManageInnerService_GetDownloadAddress_FullMethodName   = "/manage.v1.ManageInnerService/GetDownloadAddress"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
@@ -203,7 +203,7 @@ type ManageInnerServiceClient interface {
 	// 获取模板信息列表
 	GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
 	// 获取下载地址
-	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
+	GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -250,9 +250,9 @@ func (c *manageInnerServiceClient) GetNotificationsList(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *manageInnerServiceClient) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
-	out := new(GetApkAddressReply)
-	err := c.cc.Invoke(ctx, ManageInnerService_GetApkAddress_FullMethodName, in, out, opts...)
+func (c *manageInnerServiceClient) GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error) {
+	out := new(GetDownloadAddrReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetDownloadAddress_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ type ManageInnerServiceServer interface {
 	// 获取模板信息列表
 	GetNotificationsList(context.Context, *GetNotificationsListReq) (*GetNotificationsListReply, error)
 	// 获取下载地址
-	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
+	GetDownloadAddress(context.Context, *ManageReq) (*GetDownloadAddrReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -292,8 +292,8 @@ func (UnimplementedManageInnerServiceServer) VipLevelInfo(context.Context, *VipL
 func (UnimplementedManageInnerServiceServer) GetNotificationsList(context.Context, *GetNotificationsListReq) (*GetNotificationsListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNotificationsList not implemented")
 }
-func (UnimplementedManageInnerServiceServer) GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetApkAddress not implemented")
+func (UnimplementedManageInnerServiceServer) GetDownloadAddress(context.Context, *ManageReq) (*GetDownloadAddrReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDownloadAddress not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 
@@ -380,20 +380,20 @@ func _ManageInnerService_GetNotificationsList_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ManageInnerService_GetApkAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ManageInnerService_GetDownloadAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ManageReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManageInnerServiceServer).GetApkAddress(ctx, in)
+		return srv.(ManageInnerServiceServer).GetDownloadAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ManageInnerService_GetApkAddress_FullMethodName,
+		FullMethod: ManageInnerService_GetDownloadAddress_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageInnerServiceServer).GetApkAddress(ctx, req.(*ManageReq))
+		return srv.(ManageInnerServiceServer).GetDownloadAddress(ctx, req.(*ManageReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -422,8 +422,8 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ManageInnerService_GetNotificationsList_Handler,
 		},
 		{
-			MethodName: "GetApkAddress",
-			Handler:    _ManageInnerService_GetApkAddress_Handler,
+			MethodName: "GetDownloadAddress",
+			Handler:    _ManageInnerService_GetDownloadAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

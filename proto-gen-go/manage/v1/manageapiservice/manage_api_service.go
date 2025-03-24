@@ -19,6 +19,7 @@ type (
 	DepositRewards            = v1.DepositRewards
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq
 	ManageReply               = v1.ManageReply

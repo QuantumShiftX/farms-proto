@@ -1011,6 +1011,61 @@ func (x *NotificationInfo) GetContent() string {
 	return ""
 }
 
+type GetDownloadAddrReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PageAddr string `protobuf:"bytes,1,opt,name=page_addr,json=pageAddr,proto3" json:"page_addr,omitempty"` // 下载地址
+	ApkAddr  string `protobuf:"bytes,2,opt,name=apk_addr,json=apkAddr,proto3" json:"apk_addr,omitempty"`    // 下载地址
+}
+
+func (x *GetDownloadAddrReply) Reset() {
+	*x = GetDownloadAddrReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_manage_v1_manage_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetDownloadAddrReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDownloadAddrReply) ProtoMessage() {}
+
+func (x *GetDownloadAddrReply) ProtoReflect() protoreflect.Message {
+	mi := &file_manage_v1_manage_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDownloadAddrReply.ProtoReflect.Descriptor instead.
+func (*GetDownloadAddrReply) Descriptor() ([]byte, []int) {
+	return file_manage_v1_manage_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetDownloadAddrReply) GetPageAddr() string {
+	if x != nil {
+		return x.PageAddr
+	}
+	return ""
+}
+
+func (x *GetDownloadAddrReply) GetApkAddr() string {
+	if x != nil {
+		return x.ApkAddr
+	}
+	return ""
+}
+
 type VipLevelInfoMsgReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1020,7 +1075,7 @@ type VipLevelInfoMsgReq struct {
 func (x *VipLevelInfoMsgReq) Reset() {
 	*x = VipLevelInfoMsgReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_manage_v1_manage_proto_msgTypes[15]
+		mi := &file_manage_v1_manage_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1033,7 +1088,7 @@ func (x *VipLevelInfoMsgReq) String() string {
 func (*VipLevelInfoMsgReq) ProtoMessage() {}
 
 func (x *VipLevelInfoMsgReq) ProtoReflect() protoreflect.Message {
-	mi := &file_manage_v1_manage_proto_msgTypes[15]
+	mi := &file_manage_v1_manage_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1046,7 +1101,7 @@ func (x *VipLevelInfoMsgReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VipLevelInfoMsgReq.ProtoReflect.Descriptor instead.
 func (*VipLevelInfoMsgReq) Descriptor() ([]byte, []int) {
-	return file_manage_v1_manage_proto_rawDescGZIP(), []int{15}
+	return file_manage_v1_manage_proto_rawDescGZIP(), []int{16}
 }
 
 // *
@@ -1063,7 +1118,7 @@ type VipLevelInfoMsgReply struct {
 func (x *VipLevelInfoMsgReply) Reset() {
 	*x = VipLevelInfoMsgReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_manage_v1_manage_proto_msgTypes[16]
+		mi := &file_manage_v1_manage_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1076,7 +1131,7 @@ func (x *VipLevelInfoMsgReply) String() string {
 func (*VipLevelInfoMsgReply) ProtoMessage() {}
 
 func (x *VipLevelInfoMsgReply) ProtoReflect() protoreflect.Message {
-	mi := &file_manage_v1_manage_proto_msgTypes[16]
+	mi := &file_manage_v1_manage_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1089,7 +1144,7 @@ func (x *VipLevelInfoMsgReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VipLevelInfoMsgReply.ProtoReflect.Descriptor instead.
 func (*VipLevelInfoMsgReply) Descriptor() ([]byte, []int) {
-	return file_manage_v1_manage_proto_rawDescGZIP(), []int{16}
+	return file_manage_v1_manage_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *VipLevelInfoMsgReply) GetRows() []*VIPLevelInfo {
@@ -1120,7 +1175,7 @@ type VIPLevelInfo struct {
 func (x *VIPLevelInfo) Reset() {
 	*x = VIPLevelInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_manage_v1_manage_proto_msgTypes[17]
+		mi := &file_manage_v1_manage_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1133,7 +1188,7 @@ func (x *VIPLevelInfo) String() string {
 func (*VIPLevelInfo) ProtoMessage() {}
 
 func (x *VIPLevelInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_manage_v1_manage_proto_msgTypes[17]
+	mi := &file_manage_v1_manage_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1146,7 +1201,7 @@ func (x *VIPLevelInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VIPLevelInfo.ProtoReflect.Descriptor instead.
 func (*VIPLevelInfo) Descriptor() ([]byte, []int) {
-	return file_manage_v1_manage_proto_rawDescGZIP(), []int{17}
+	return file_manage_v1_manage_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *VIPLevelInfo) GetId() int64 {
@@ -1378,7 +1433,12 @@ var file_manage_v1_manage_proto_rawDesc = []byte{
 	0x64, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74,
 	0x65, 0x6e, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x22, 0x14, 0x0a, 0x12, 0x56, 0x69, 0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x49, 0x6e,
+	0x6e, 0x74, 0x22, 0x4e, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x44, 0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61,
+	0x64, 0x41, 0x64, 0x64, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61,
+	0x67, 0x65, 0x5f, 0x61, 0x64, 0x64, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70,
+	0x61, 0x67, 0x65, 0x41, 0x64, 0x64, 0x72, 0x12, 0x19, 0x0a, 0x08, 0x61, 0x70, 0x6b, 0x5f, 0x61,
+	0x64, 0x64, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x70, 0x6b, 0x41, 0x64,
+	0x64, 0x72, 0x22, 0x14, 0x0a, 0x12, 0x56, 0x69, 0x70, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x49, 0x6e,
 	0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x22, 0x43, 0x0a, 0x14, 0x56, 0x69, 0x70, 0x4c,
 	0x65, 0x76, 0x65, 0x6c, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x70, 0x6c, 0x79,
 	0x12, 0x2b, 0x0a, 0x04, 0x72, 0x6f, 0x77, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17,
@@ -1425,7 +1485,7 @@ var file_manage_v1_manage_proto_rawDesc = []byte{
 	0x65, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1d,
 	0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x70,
 	0x6b, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32,
-	0xa6, 0x03, 0x0a, 0x12, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x6e, 0x65, 0x72, 0x53,
+	0xad, 0x03, 0x0a, 0x12, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x6e, 0x65, 0x72, 0x53,
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x49, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x44, 0x65, 0x66,
 	0x61, 0x75, 0x6c, 0x74, 0x56, 0x69, 0x70, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x14, 0x2e, 0x6d, 0x61,
 	0x6e, 0x61, 0x67, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x52, 0x65,
@@ -1447,12 +1507,13 @@ var file_manage_v1_manage_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x24, 0x2e, 0x6d, 0x61, 0x6e,
 	0x61, 0x67, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69,
 	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79,
-	0x12, 0x46, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41, 0x70, 0x6b, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73,
-	0x73, 0x12, 0x14, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65,
-	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x70, 0x6b, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73,
-	0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62,
-	0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x4d, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x44, 0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x41,
+	0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x14, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x2e,
+	0x76, 0x31, 0x2e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e, 0x6d,
+	0x61, 0x6e, 0x61, 0x67, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x44, 0x6f, 0x77, 0x6e,
+	0x6c, 0x6f, 0x61, 0x64, 0x41, 0x64, 0x64, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42,
+	0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -1467,7 +1528,7 @@ func file_manage_v1_manage_proto_rawDescGZIP() []byte {
 	return file_manage_v1_manage_proto_rawDescData
 }
 
-var file_manage_v1_manage_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_manage_v1_manage_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_manage_v1_manage_proto_goTypes = []interface{}{
 	(*ManageReq)(nil),                 // 0: manage.v1.ManageReq
 	(*ManageReply)(nil),               // 1: manage.v1.ManageReply
@@ -1484,10 +1545,11 @@ var file_manage_v1_manage_proto_goTypes = []interface{}{
 	(*GetNotificationsListReq)(nil),   // 12: manage.v1.GetNotificationsListReq
 	(*GetNotificationsListReply)(nil), // 13: manage.v1.GetNotificationsListReply
 	(*NotificationInfo)(nil),          // 14: manage.v1.NotificationInfo
-	(*VipLevelInfoMsgReq)(nil),        // 15: manage.v1.VipLevelInfoMsgReq
-	(*VipLevelInfoMsgReply)(nil),      // 16: manage.v1.VipLevelInfoMsgReply
-	(*VIPLevelInfo)(nil),              // 17: manage.v1.VIPLevelInfo
-	nil,                               // 18: manage.v1.GetNotificationsListReply.NotificationsEntry
+	(*GetDownloadAddrReply)(nil),      // 15: manage.v1.GetDownloadAddrReply
+	(*VipLevelInfoMsgReq)(nil),        // 16: manage.v1.VipLevelInfoMsgReq
+	(*VipLevelInfoMsgReply)(nil),      // 17: manage.v1.VipLevelInfoMsgReply
+	(*VIPLevelInfo)(nil),              // 18: manage.v1.VIPLevelInfo
+	nil,                               // 19: manage.v1.GetNotificationsListReply.NotificationsEntry
 }
 var file_manage_v1_manage_proto_depIdxs = []int32{
 	5,  // 0: manage.v1.DefaultVipInfoReply.vip_info:type_name -> manage.v1.VipLevelDetail
@@ -1495,25 +1557,25 @@ var file_manage_v1_manage_proto_depIdxs = []int32{
 	9,  // 2: manage.v1.SettingBaseInfoReply.deposit_rewards:type_name -> manage.v1.DepositRewards
 	10, // 3: manage.v1.SettingBaseInfoReply.collection_rewards:type_name -> manage.v1.CollectionRewards
 	11, // 4: manage.v1.SettingBaseInfoReply.settlement_config:type_name -> manage.v1.SettlementConfig
-	18, // 5: manage.v1.GetNotificationsListReply.notifications:type_name -> manage.v1.GetNotificationsListReply.NotificationsEntry
-	17, // 6: manage.v1.VipLevelInfoMsgReply.rows:type_name -> manage.v1.VIPLevelInfo
+	19, // 5: manage.v1.GetNotificationsListReply.notifications:type_name -> manage.v1.GetNotificationsListReply.NotificationsEntry
+	18, // 6: manage.v1.VipLevelInfoMsgReply.rows:type_name -> manage.v1.VIPLevelInfo
 	14, // 7: manage.v1.GetNotificationsListReply.NotificationsEntry.value:type_name -> manage.v1.NotificationInfo
 	2,  // 8: manage.v1.ManageApiService.SendCaptcha:input_type -> manage.v1.SendCaptchaReq
 	0,  // 9: manage.v1.ManageApiService.GetAgreement:input_type -> manage.v1.ManageReq
 	0,  // 10: manage.v1.ManageApiService.GetApkAddress:input_type -> manage.v1.ManageReq
 	0,  // 11: manage.v1.ManageInnerService.GetDefaultVipInfo:input_type -> manage.v1.ManageReq
 	0,  // 12: manage.v1.ManageInnerService.GetSettingBaseInfo:input_type -> manage.v1.ManageReq
-	15, // 13: manage.v1.ManageInnerService.VipLevelInfo:input_type -> manage.v1.VipLevelInfoMsgReq
+	16, // 13: manage.v1.ManageInnerService.VipLevelInfo:input_type -> manage.v1.VipLevelInfoMsgReq
 	12, // 14: manage.v1.ManageInnerService.GetNotificationsList:input_type -> manage.v1.GetNotificationsListReq
-	0,  // 15: manage.v1.ManageInnerService.GetApkAddress:input_type -> manage.v1.ManageReq
+	0,  // 15: manage.v1.ManageInnerService.GetDownloadAddress:input_type -> manage.v1.ManageReq
 	1,  // 16: manage.v1.ManageApiService.SendCaptcha:output_type -> manage.v1.ManageReply
 	3,  // 17: manage.v1.ManageApiService.GetAgreement:output_type -> manage.v1.GetAgreementReply
 	4,  // 18: manage.v1.ManageApiService.GetApkAddress:output_type -> manage.v1.GetApkAddressReply
 	6,  // 19: manage.v1.ManageInnerService.GetDefaultVipInfo:output_type -> manage.v1.DefaultVipInfoReply
 	7,  // 20: manage.v1.ManageInnerService.GetSettingBaseInfo:output_type -> manage.v1.SettingBaseInfoReply
-	16, // 21: manage.v1.ManageInnerService.VipLevelInfo:output_type -> manage.v1.VipLevelInfoMsgReply
+	17, // 21: manage.v1.ManageInnerService.VipLevelInfo:output_type -> manage.v1.VipLevelInfoMsgReply
 	13, // 22: manage.v1.ManageInnerService.GetNotificationsList:output_type -> manage.v1.GetNotificationsListReply
-	4,  // 23: manage.v1.ManageInnerService.GetApkAddress:output_type -> manage.v1.GetApkAddressReply
+	15, // 23: manage.v1.ManageInnerService.GetDownloadAddress:output_type -> manage.v1.GetDownloadAddrReply
 	16, // [16:24] is the sub-list for method output_type
 	8,  // [8:16] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
@@ -1708,7 +1770,7 @@ func file_manage_v1_manage_proto_init() {
 			}
 		}
 		file_manage_v1_manage_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*VipLevelInfoMsgReq); i {
+			switch v := v.(*GetDownloadAddrReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1720,7 +1782,7 @@ func file_manage_v1_manage_proto_init() {
 			}
 		}
 		file_manage_v1_manage_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*VipLevelInfoMsgReply); i {
+			switch v := v.(*VipLevelInfoMsgReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1732,6 +1794,18 @@ func file_manage_v1_manage_proto_init() {
 			}
 		}
 		file_manage_v1_manage_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VipLevelInfoMsgReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_manage_v1_manage_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VIPLevelInfo); i {
 			case 0:
 				return &v.state
@@ -1750,7 +1824,7 @@ func file_manage_v1_manage_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_manage_v1_manage_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   2,
 		},

@@ -19,6 +19,7 @@ type (
 	DepositRewards            = v1.DepositRewards
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq
 	ManageReply               = v1.ManageReply
@@ -43,7 +44,7 @@ type (
 		// 获取模板信息列表
 		GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
 		// 获取下载地址
-		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
+		GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -82,7 +83,7 @@ func (m *defaultManageInnerService) GetNotificationsList(ctx context.Context, in
 }
 
 // 获取下载地址
-func (m *defaultManageInnerService) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
+func (m *defaultManageInnerService) GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
-	return client.GetApkAddress(ctx, in, opts...)
+	return client.GetDownloadAddress(ctx, in, opts...)
 }
