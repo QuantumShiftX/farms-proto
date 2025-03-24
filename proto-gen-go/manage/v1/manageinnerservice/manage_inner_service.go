@@ -42,6 +42,8 @@ type (
 		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 		// 获取模板信息列表
 		GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
+		// 获取下载地址
+		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -77,4 +79,10 @@ func (m *defaultManageInnerService) VipLevelInfo(ctx context.Context, in *VipLev
 func (m *defaultManageInnerService) GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetNotificationsList(ctx, in, opts...)
+}
+
+// 获取下载地址
+func (m *defaultManageInnerService) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetApkAddress(ctx, in, opts...)
 }

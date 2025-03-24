@@ -130,6 +130,8 @@ service ManageInnerService {
   rpc VipLevelInfo (VipLevelInfoMsgReq) returns (VipLevelInfoMsgReply);
   // 获取模板信息列表
   rpc GetNotificationsList (GetNotificationsListReq) returns (GetNotificationsListReply);
+  // 获取下载地址
+  rpc GetApkAddress (ManageReq) returns (GetApkAddressReply) {}
 }
 
 
