@@ -167,7 +167,7 @@ message StoreInfo {
   ProductType product_type = 2;    // 商品类型
   string product_name = 3;         // 商品名称
   string product_image_url = 4;    // 商品图片地址
-  int64 product_id = 5;            // 商品ID
+  int64 sku_id = 5;            // 物品的ID
   int64 stock = 6;                 // 库存数量，-1表示无限
   int64 sort = 7;                  // 排序字段
   BooleanStatus is_free = 8;       // 是否可以免费领取

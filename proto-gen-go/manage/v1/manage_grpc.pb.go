@@ -202,7 +202,7 @@ type ManageInnerServiceClient interface {
 	VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 	// 获取模板信息列表
 	GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
-	// 获取下载地址
+	// 获取下载地址----addr
 	GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 }
 
@@ -271,7 +271,7 @@ type ManageInnerServiceServer interface {
 	VipLevelInfo(context.Context, *VipLevelInfoMsgReq) (*VipLevelInfoMsgReply, error)
 	// 获取模板信息列表
 	GetNotificationsList(context.Context, *GetNotificationsListReq) (*GetNotificationsListReply, error)
-	// 获取下载地址
+	// 获取下载地址----addr
 	GetDownloadAddress(context.Context, *ManageReq) (*GetDownloadAddrReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }

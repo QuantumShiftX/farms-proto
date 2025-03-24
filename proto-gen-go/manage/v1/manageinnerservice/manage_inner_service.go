@@ -43,7 +43,7 @@ type (
 		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 		// 获取模板信息列表
 		GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
-		// 获取下载地址
+		// 获取下载地址----addr
 		GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 	}
 
@@ -82,7 +82,7 @@ func (m *defaultManageInnerService) GetNotificationsList(ctx context.Context, in
 	return client.GetNotificationsList(ctx, in, opts...)
 }
 
-// 获取下载地址
+// 获取下载地址----addr
 func (m *defaultManageInnerService) GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetDownloadAddress(ctx, in, opts...)
