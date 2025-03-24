@@ -61,7 +61,8 @@ message SettingBaseInfoReply {
   int64 initial_land = 1;          // 初始土地配置配置总数
   int64 initial_cultivated = 2;          // 初始土地配置（开垦的总数）
   int64 friend_watering_times = 3; // 好友浇水次数
-  string download_link = 4;        // 下载链接
+  string download_page_link = 4;        // 下载页面链接
+  string download_apk_link = 11;        // 下载apk链接
   int64 new_user_invitation = 5;   // 是否开启有新用户邀请
   string about_platform = 6;       // 关于平台的描述
 
