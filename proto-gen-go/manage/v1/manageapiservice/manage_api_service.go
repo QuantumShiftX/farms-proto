@@ -18,6 +18,7 @@ type (
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
 	GetAgreementReply         = v1.GetAgreementReply
+	GetApkAddressReply        = v1.GetApkAddressReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq
 	ManageReply               = v1.ManageReply
@@ -35,6 +36,7 @@ type (
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
+		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 	}
 
 	defaultManageApiService struct {
@@ -56,4 +58,9 @@ func (m *defaultManageApiService) SendCaptcha(ctx context.Context, in *SendCaptc
 func (m *defaultManageApiService) GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
 	return client.GetAgreement(ctx, in, opts...)
+}
+
+func (m *defaultManageApiService) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
+	client := v1.NewManageApiServiceClient(m.cli.Conn())
+	return client.GetApkAddress(ctx, in, opts...)
 }

@@ -22,12 +22,17 @@ message GetAgreementReply {
   string  privacy_notice = 2 ; // 隐私声明
 }
 
+message GetApkAddressReply {
+  string  addr = 1; // 下载地址
+
+}
 
 
 
 service ManageApiService {
   rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
   rpc GetAgreement (ManageReq) returns (GetAgreementReply) {}
+  rpc GetApkAddress (ManageReq) returns (GetApkAddressReply) {}
 }
 
 // VipLevel 代表 VIP 等级配置

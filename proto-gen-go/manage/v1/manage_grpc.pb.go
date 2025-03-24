@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ManageApiService_SendCaptcha_FullMethodName  = "/manage.v1.ManageApiService/SendCaptcha"
-	ManageApiService_GetAgreement_FullMethodName = "/manage.v1.ManageApiService/GetAgreement"
+	ManageApiService_SendCaptcha_FullMethodName   = "/manage.v1.ManageApiService/SendCaptcha"
+	ManageApiService_GetAgreement_FullMethodName  = "/manage.v1.ManageApiService/GetAgreement"
+	ManageApiService_GetApkAddress_FullMethodName = "/manage.v1.ManageApiService/GetApkAddress"
 )
 
 // ManageApiServiceClient is the client API for ManageApiService service.
@@ -29,6 +30,7 @@ const (
 type ManageApiServiceClient interface {
 	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
+	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 }
 
 type manageApiServiceClient struct {
@@ -57,12 +59,22 @@ func (c *manageApiServiceClient) GetAgreement(ctx context.Context, in *ManageReq
 	return out, nil
 }
 
+func (c *manageApiServiceClient) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
+	out := new(GetApkAddressReply)
+	err := c.cc.Invoke(ctx, ManageApiService_GetApkAddress_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageApiServiceServer is the server API for ManageApiService service.
 // All implementations must embed UnimplementedManageApiServiceServer
 // for forward compatibility
 type ManageApiServiceServer interface {
 	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
 	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
+	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedManageApiServiceServer) SendCaptcha(context.Context, *SendCap
 }
 func (UnimplementedManageApiServiceServer) GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgreement not implemented")
+}
+func (UnimplementedManageApiServiceServer) GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApkAddress not implemented")
 }
 func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
 
@@ -125,6 +140,24 @@ func _ManageApiService_GetAgreement_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageApiService_GetApkAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ManageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageApiServiceServer).GetApkAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageApiService_GetApkAddress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageApiServiceServer).GetApkAddress(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageApiService_ServiceDesc is the grpc.ServiceDesc for ManageApiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAgreement",
 			Handler:    _ManageApiService_GetAgreement_Handler,
+		},
+		{
+			MethodName: "GetApkAddress",
+			Handler:    _ManageApiService_GetApkAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+package payment.v1;
+option go_package = "./pb/v1";
+
+
+// 代付申请请求
+message AgentPayApplyReq {
+  string mch_id = 1;
+  string product_id = 2;
+  string mch_order_no = 3;
+  int64 amount = 4;
+  string currency = 5;
+  string collection_type = 6;
+  string bank_name = 7;
+  string account_name = 8;
+  string account_no = 9;
+  string province = 10;
+  string city = 11;
+  string account_attr = 12;
+  string bank_number = 13;
+  string uid = 14;
+  string user_name = 15;
+  string user_mobile = 16;
+  string user_email = 17;
+  string notify_url = 18;
+  string remark = 19;
+  string extra = 20;
+}
+
+// 代付申请响应
+message AgentPayApplyReply {
+  string ret_code = 1;
+  string ret_msg = 2;
+  string agentpay_order_id = 3;
+  int64 fee = 4;
+  string extra = 5;
+  int32 status = 6;
+  string sign = 7;
+}
+
+// 代付查询请求
+message AgentPayQueryReq {
+  string mch_id = 1;
+  string mch_order_no = 2;
+  string agentpay_order_id = 3;
+}
+
+// 代付查询响应
+message AgentPayQueryReply {
+  string ret_code = 1;
+  string mch_order_no = 2;
+  string agentpay_order_id = 3;
+  int64 amount = 4;
+  int64 fee = 5;
+  int32 status = 6;
+  string trans_msg = 7;
+  string extra = 8;
+  string sign = 9;
+}
+
+// 代付凭证查询响应
+message AgentPayQueryCepReply {
+  string ret_code = 1;
+  string mch_order_no = 2;
+  string agentpay_order_id = 3;
+  int64 amount = 4;
+  int64 fee = 5;
+  int32 status = 6;
+  string trans_msg = 7;
+  string extra = 8;
+  string url_cep = 9;
+  string sign = 10;
+}
+
+// 余额查询请求
+message AgentPayBalanceReq {
+  string mch_id = 1;
+}
+
+// 余额查询响应
+message AgentPayBalanceReply {
+  string ret_code = 1;
+  int64 available_agentpay_balance = 2;
+  int64 agentpay_balance = 3;
+  int64 available_balance = 4;
+  int64 balance = 5;
+  string sign = 6;
+}
+
+// 回调通知请求
+message AgentPayNotifyReq {
+  string agentpay_order_id = 1;
+  string mch_order_no = 2;
+  int32 status = 3;
+  int64 amount = 4;
+  int64 fee = 5;
+  string trans_msg = 6;
+  string extra = 7;
+  string sign = 8;
+}
+
+// 验证通知响应
+message VerifyNotifyReply {
+  bool is_valid = 1;
+}
+
+
+// 代付服务定义
+service AgentPayInnerService {
+  // 申请代付
+  rpc Apply(AgentPayApplyReq) returns (AgentPayApplyReply) {}
+
+  // 查询代付订单
+  rpc QueryOrder(AgentPayQueryReq) returns (AgentPayQueryReply) {}
+
+  // 查询代付凭证
+  rpc QueryCep(AgentPayQueryReq) returns (AgentPayQueryCepReply) {}
+
+  // 查询余额
+  rpc QueryBalance(AgentPayBalanceReq) returns (AgentPayBalanceReply) {}
+
+  // 验证回调通知
+  rpc VerifyNotify(AgentPayNotifyReq) returns (VerifyNotifyReply) {}
+}
+

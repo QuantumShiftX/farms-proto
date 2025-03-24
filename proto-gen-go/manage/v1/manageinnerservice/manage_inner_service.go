@@ -18,6 +18,7 @@ type (
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
 	GetAgreementReply         = v1.GetAgreementReply
+	GetApkAddressReply        = v1.GetApkAddressReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq
 	ManageReply               = v1.ManageReply
