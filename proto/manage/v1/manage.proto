@@ -23,7 +23,8 @@ message GetAgreementReply {
 }
 
 message GetApkAddressReply {
-  string  addr = 1; // 下载地址
+  string  page_addr = 1; // 下载地址
+  string  apk_addr = 2; // 下载地址
 
 }
 
