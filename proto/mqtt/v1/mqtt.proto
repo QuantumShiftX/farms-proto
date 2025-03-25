@@ -583,19 +583,36 @@ message UserLandDetail {
  * 表示用户种植的单株作物的详细信息
  */
 message UserPlantingDetail {
-  int64 id = 1;                      // 自增ID
-  int64 plant_id = 2;                 // 种植记录ID
-  int64 user_id = 3;                  // 用户ID
-  int64 farm_id = 4;                  // 农场ID
-  int64 land_id = 5;                  // 土地ID
-  int64 crop_id = 6;                 // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
-  int64 plant_time = 7;               // 种植时间（Unix时间戳）
-  int64 water_count = 8;              // 已浇水总次数
-  int64 fertilizer_count = 9;         // 已施肥总次数
-  HarvestStatus is_harvested = 10;    // 是否已收获
-  int64 harvested_at = 11;            // 收获时间（Unix时间戳）
-  int64 coins_earned = 12;            // 作物产生的金币数量
-  GrowthStatus status = 13;           // 生长状态
+  int64 id = 1;                    // 自增ID
+  int64 plant_id = 2;               // 种植记录ID
+  int64 user_id = 3;                // 用户ID
+  int64 farm_id = 4;                // 农场ID
+  int64 land_id = 5;                // 土地ID
+  int64 storage_id = 6;               // 用户的仓库物品ID
+  int64 plant_time = 29;             // 种植时间（Unix时间戳）
+  int64 water_count = 8;            // 已浇水总次数
+  int64 fertilizer_count = 9;       // 已施肥总次数
+  HarvestStatus is_harvested = 10;  // 是否已收获
+  int64 harvested_at = 11;          // 收获时间（Unix时间戳）
+  int64 coins_earned = 12;          // 作物产生的金币数量
+  GrowthStatus status = 13;         // 生长状态
+  // 快照字段
+  string product_name = 28;  // 种植时商品名称快照
+  int64 crop_id = 7;         // 作物ID（对应商店信息中的sku_id或者种子信息中的id）
+  string crop_name = 14;  // 种植时作物的作物名称快照
+  int64 price = 15;  // 种植时作物的价格快照
+  int64 growth_time = 16;  // 种植时作物的生长时间快照
+  int64 coin_reward = 17;  // 种植时作物的金币奖励快照
+  int64 watering_frequency = 18;  // 种植时作物的浇水频率快照
+  int64 fertilizing_frequency = 19;  // 种植时作物的施肥频率快照
+  int64 self_time_reduced_per_water = 20;  // 种植时每次自己浇水减少的时间快照
+  int64 self_water_reduction_percentage = 21;  // 种植时自己浇水减少时间的百分比快照
+  int64 self_time_reduced_per_fertilizer = 22;  // 种植时每次自己施肥减少的时间快照
+  int64 self_fertilizer_reduction_percentage = 23;  // 种植时自己施肥减少时间的百分比快照
+  int64 friend_water_time_reduction = 24;  // 种植时好友浇水减少的时间快照
+  int64 friend_water_percentage = 25;  // 种植时好友浇水百分比快照
+  int64 friend_fertilizer_time_reduction = 26;  // 种植时好友施肥减少的时间快照
+  int64 friend_fertilizer_percentage = 27;  // 种植时好友施肥百分比快照
 }
 
 /**
