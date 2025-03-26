@@ -858,6 +858,8 @@ message FriendRankingInfo {
   int64 coin = 9;             // 金币数量
   int64 updated_at = 10;      // 更新时间戳
   int64 rank = 11;            // 排名位置
+  int64 farm_name = 12;             // 农场名称
+  int64 can_water_num = 13;   // 是否可以浇水（能给他人浇水次数）
 }
 
 /**
