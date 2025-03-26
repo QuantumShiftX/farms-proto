@@ -51,6 +51,8 @@ type (
 	UserBalance                   = v1.UserBalance
 	UserEditPersonalInfoMsgReply  = v1.UserEditPersonalInfoMsgReply
 	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
+	UserEditSensitiveInfoMsgReply = v1.UserEditSensitiveInfoMsgReply
+	UserEditSensitiveInfoMsgReq   = v1.UserEditSensitiveInfoMsgReq
 	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply

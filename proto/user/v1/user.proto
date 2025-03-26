@@ -294,6 +294,8 @@ service UserInnerService {
   rpc UserPersonalInfo (UserPersonalInfoMsgReq) returns (UserPersonalInfoMsgReply) {}
   // 修改个人信息
   rpc UserEditPersonalInfo (UserEditPersonalInfoMsgReq) returns (UserEditPersonalInfoMsgReply) {}
+  // 修改个人敏感信息
+  rpc UserEditSensitiveInfo (UserEditSensitiveInfoMsgReq) returns (UserEditSensitiveInfoMsgReply) {}
   // 用户仓库信息
   rpc UserStorageInfo (UserStorageInfoMsgReq) returns (UserStorageInfoMsgReply) {}
   // 用户农场信息
@@ -506,10 +508,30 @@ message UserEditPersonalInfoMsgReq {
   string farm_name = 3;           // 农场名称，可选，修改时使用
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
+  string language_code = 6;  // 编辑语言
 }
 
 
 message UserEditPersonalInfoMsgReply {
+
+}
+
+/**
+ * 编辑用户个人信息请求
+ * 用于更新用户的个人敏感信息设置
+ */
+message UserEditSensitiveInfoMsgReq {
+  int64 category = 1;  // 1：修改密码，2：修改设置二级密码 ，3：验证账号（传3单独验证账号，2：设置二级密码的时候必须验证账号，1：不用验证账号）
+  int64 user_id = 2;  // 用户身份验证令牌，必填
+  string old_password = 3;  //旧密码
+  string new_password = 4;  //新密码
+  string account = 5;       // 账号
+  int64 verify_type = 6;    // 验证方式：1-密码验证，2-短信验证，3-邮箱验证，4-图片验证码
+  string captcha = 7;       // 验证码
+}
+
+
+message UserEditSensitiveInfoMsgReply {
 
 }
 /**

@@ -681,6 +681,7 @@ const (
 	UserInnerService_UserAuthentication_FullMethodName    = "/user.v1.UserInnerService/UserAuthentication"
 	UserInnerService_UserPersonalInfo_FullMethodName      = "/user.v1.UserInnerService/UserPersonalInfo"
 	UserInnerService_UserEditPersonalInfo_FullMethodName  = "/user.v1.UserInnerService/UserEditPersonalInfo"
+	UserInnerService_UserEditSensitiveInfo_FullMethodName = "/user.v1.UserInnerService/UserEditSensitiveInfo"
 	UserInnerService_UserStorageInfo_FullMethodName       = "/user.v1.UserInnerService/UserStorageInfo"
 	UserInnerService_UserFarmInfo_FullMethodName          = "/user.v1.UserInnerService/UserFarmInfo"
 	UserInnerService_UserLandInfo_FullMethodName          = "/user.v1.UserInnerService/UserLandInfo"
@@ -706,6 +707,8 @@ type UserInnerServiceClient interface {
 	UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
 	UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error)
+	// 修改个人敏感信息
+	UserEditSensitiveInfo(ctx context.Context, in *UserEditSensitiveInfoMsgReq, opts ...grpc.CallOption) (*UserEditSensitiveInfoMsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -773,6 +776,15 @@ func (c *userInnerServiceClient) UserPersonalInfo(ctx context.Context, in *UserP
 func (c *userInnerServiceClient) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error) {
 	out := new(UserEditPersonalInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserEditPersonalInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserEditSensitiveInfo(ctx context.Context, in *UserEditSensitiveInfoMsgReq, opts ...grpc.CallOption) (*UserEditSensitiveInfoMsgReply, error) {
+	out := new(UserEditSensitiveInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserEditSensitiveInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -874,6 +886,8 @@ type UserInnerServiceServer interface {
 	UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
 	UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*UserEditPersonalInfoMsgReply, error)
+	// 修改个人敏感信息
+	UserEditSensitiveInfo(context.Context, *UserEditSensitiveInfoMsgReq) (*UserEditSensitiveInfoMsgReply, error)
 	// 用户仓库信息
 	UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error)
 	// 用户农场信息
@@ -913,6 +927,9 @@ func (UnimplementedUserInnerServiceServer) UserPersonalInfo(context.Context, *Us
 }
 func (UnimplementedUserInnerServiceServer) UserEditPersonalInfo(context.Context, *UserEditPersonalInfoMsgReq) (*UserEditPersonalInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserEditPersonalInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserEditSensitiveInfo(context.Context, *UserEditSensitiveInfoMsgReq) (*UserEditSensitiveInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserEditSensitiveInfo not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserStorageInfo(context.Context, *UserStorageInfoMsgReq) (*UserStorageInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserStorageInfo not implemented")
@@ -1040,6 +1057,24 @@ func _UserInnerService_UserEditPersonalInfo_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserInnerServiceServer).UserEditPersonalInfo(ctx, req.(*UserEditPersonalInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserEditSensitiveInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserEditSensitiveInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserEditSensitiveInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserEditSensitiveInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserEditSensitiveInfo(ctx, req.(*UserEditSensitiveInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1232,6 +1267,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserEditPersonalInfo",
 			Handler:    _UserInnerService_UserEditPersonalInfo_Handler,
+		},
+		{
+			MethodName: "UserEditSensitiveInfo",
+			Handler:    _UserInnerService_UserEditSensitiveInfo_Handler,
 		},
 		{
 			MethodName: "UserStorageInfo",

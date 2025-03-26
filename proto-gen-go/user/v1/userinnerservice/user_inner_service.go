@@ -51,6 +51,8 @@ type (
 	UserBalance                   = v1.UserBalance
 	UserEditPersonalInfoMsgReply  = v1.UserEditPersonalInfoMsgReply
 	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
+	UserEditSensitiveInfoMsgReply = v1.UserEditSensitiveInfoMsgReply
+	UserEditSensitiveInfoMsgReq   = v1.UserEditSensitiveInfoMsgReq
 	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
@@ -92,6 +94,8 @@ type (
 		UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 		// 修改个人信息
 		UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error)
+		// 修改个人敏感信息
+		UserEditSensitiveInfo(ctx context.Context, in *UserEditSensitiveInfoMsgReq, opts ...grpc.CallOption) (*UserEditSensitiveInfoMsgReply, error)
 		// 用户仓库信息
 		UserStorageInfo(ctx context.Context, in *UserStorageInfoMsgReq, opts ...grpc.CallOption) (*UserStorageInfoMsgReply, error)
 		// 用户农场信息
@@ -151,6 +155,12 @@ func (m *defaultUserInnerService) UserPersonalInfo(ctx context.Context, in *User
 func (m *defaultUserInnerService) UserEditPersonalInfo(ctx context.Context, in *UserEditPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserEditPersonalInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserEditPersonalInfo(ctx, in, opts...)
+}
+
+// 修改个人敏感信息
+func (m *defaultUserInnerService) UserEditSensitiveInfo(ctx context.Context, in *UserEditSensitiveInfoMsgReq, opts ...grpc.CallOption) (*UserEditSensitiveInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserEditSensitiveInfo(ctx, in, opts...)
 }
 
 // 用户仓库信息
