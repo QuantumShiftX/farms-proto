@@ -31,6 +31,7 @@ type (
 	SettlementConfig          = v1.SettlementConfig
 	VIPLevelInfo              = v1.VIPLevelInfo
 	VipLevelDetail            = v1.VipLevelDetail
+	VipLevelInfoMsgData       = v1.VipLevelInfoMsgData
 	VipLevelInfoMsgReply      = v1.VipLevelInfoMsgReply
 	VipLevelInfoMsgReq        = v1.VipLevelInfoMsgReq
 
