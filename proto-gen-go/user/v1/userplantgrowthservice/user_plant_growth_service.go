@@ -19,6 +19,8 @@ type (
 	AllUserRankingInfoMsgData     = v1.AllUserRankingInfoMsgData
 	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
+	CheckCropsNeedsRequest        = v1.CheckCropsNeedsRequest
+	CheckCropsNeedsResponse       = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq             = v1.ForgotPasswordReq
 	FriendRankingInfo             = v1.FriendRankingInfo
 	GetOnlineUserListReply        = v1.GetOnlineUserListReply
@@ -104,6 +106,8 @@ type (
 		AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error)
 		// 检查是否需要浇水/施肥
 		CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error)
+		// 检查是否需要浇水/施肥
+		CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error)
 		// 获取植物当前生长进度
 		GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error)
 		// 获取植物当前状态的综合信息
@@ -149,6 +153,12 @@ func (m *defaultUserPlantGrowthService) AdjustHarvestTime(ctx context.Context, i
 func (m *defaultUserPlantGrowthService) CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error) {
 	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
 	return client.CheckMaintenanceNeeds(ctx, in, opts...)
+}
+
+// 检查是否需要浇水/施肥
+func (m *defaultUserPlantGrowthService) CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error) {
+	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
+	return client.CheckMaintenanceNeedsMap(ctx, in, opts...)
 }
 
 // 获取植物当前生长进度

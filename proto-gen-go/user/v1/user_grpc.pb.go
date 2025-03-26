@@ -257,13 +257,14 @@ var UserAuthService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserPlantGrowthService_CalculatePlantStatus_FullMethodName    = "/user.v1.UserPlantGrowthService/CalculatePlantStatus"
-	UserPlantGrowthService_CalculateTimeReduction_FullMethodName  = "/user.v1.UserPlantGrowthService/CalculateTimeReduction"
-	UserPlantGrowthService_CalculateStageTimelines_FullMethodName = "/user.v1.UserPlantGrowthService/CalculateStageTimelines"
-	UserPlantGrowthService_AdjustHarvestTime_FullMethodName       = "/user.v1.UserPlantGrowthService/AdjustHarvestTime"
-	UserPlantGrowthService_CheckMaintenanceNeeds_FullMethodName   = "/user.v1.UserPlantGrowthService/CheckMaintenanceNeeds"
-	UserPlantGrowthService_GetGrowthProgress_FullMethodName       = "/user.v1.UserPlantGrowthService/GetGrowthProgress"
-	UserPlantGrowthService_GetPlantCurrentState_FullMethodName    = "/user.v1.UserPlantGrowthService/GetPlantCurrentState"
+	UserPlantGrowthService_CalculatePlantStatus_FullMethodName     = "/user.v1.UserPlantGrowthService/CalculatePlantStatus"
+	UserPlantGrowthService_CalculateTimeReduction_FullMethodName   = "/user.v1.UserPlantGrowthService/CalculateTimeReduction"
+	UserPlantGrowthService_CalculateStageTimelines_FullMethodName  = "/user.v1.UserPlantGrowthService/CalculateStageTimelines"
+	UserPlantGrowthService_AdjustHarvestTime_FullMethodName        = "/user.v1.UserPlantGrowthService/AdjustHarvestTime"
+	UserPlantGrowthService_CheckMaintenanceNeeds_FullMethodName    = "/user.v1.UserPlantGrowthService/CheckMaintenanceNeeds"
+	UserPlantGrowthService_CheckMaintenanceNeedsMap_FullMethodName = "/user.v1.UserPlantGrowthService/CheckMaintenanceNeedsMap"
+	UserPlantGrowthService_GetGrowthProgress_FullMethodName        = "/user.v1.UserPlantGrowthService/GetGrowthProgress"
+	UserPlantGrowthService_GetPlantCurrentState_FullMethodName     = "/user.v1.UserPlantGrowthService/GetPlantCurrentState"
 )
 
 // UserPlantGrowthServiceClient is the client API for UserPlantGrowthService service.
@@ -280,6 +281,8 @@ type UserPlantGrowthServiceClient interface {
 	AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error)
 	// 检查是否需要浇水/施肥
 	CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error)
+	// 检查是否需要浇水/施肥
+	CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error)
 	// 获取植物当前生长进度
 	GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error)
 	// 获取植物当前状态的综合信息
@@ -339,6 +342,15 @@ func (c *userPlantGrowthServiceClient) CheckMaintenanceNeeds(ctx context.Context
 	return out, nil
 }
 
+func (c *userPlantGrowthServiceClient) CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error) {
+	out := new(CheckCropsNeedsResponse)
+	err := c.cc.Invoke(ctx, UserPlantGrowthService_CheckMaintenanceNeedsMap_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userPlantGrowthServiceClient) GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error) {
 	out := new(GrowthProgressResponse)
 	err := c.cc.Invoke(ctx, UserPlantGrowthService_GetGrowthProgress_FullMethodName, in, out, opts...)
@@ -371,6 +383,8 @@ type UserPlantGrowthServiceServer interface {
 	AdjustHarvestTime(context.Context, *AdjustHarvestTimeRequest) (*AdjustHarvestTimeResponse, error)
 	// 检查是否需要浇水/施肥
 	CheckMaintenanceNeeds(context.Context, *MaintenanceNeedsRequest) (*MaintenanceNeedsResponse, error)
+	// 检查是否需要浇水/施肥
+	CheckMaintenanceNeedsMap(context.Context, *CheckCropsNeedsRequest) (*CheckCropsNeedsResponse, error)
 	// 获取植物当前生长进度
 	GetGrowthProgress(context.Context, *GrowthProgressRequest) (*GrowthProgressResponse, error)
 	// 获取植物当前状态的综合信息
@@ -396,6 +410,9 @@ func (UnimplementedUserPlantGrowthServiceServer) AdjustHarvestTime(context.Conte
 }
 func (UnimplementedUserPlantGrowthServiceServer) CheckMaintenanceNeeds(context.Context, *MaintenanceNeedsRequest) (*MaintenanceNeedsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckMaintenanceNeeds not implemented")
+}
+func (UnimplementedUserPlantGrowthServiceServer) CheckMaintenanceNeedsMap(context.Context, *CheckCropsNeedsRequest) (*CheckCropsNeedsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckMaintenanceNeedsMap not implemented")
 }
 func (UnimplementedUserPlantGrowthServiceServer) GetGrowthProgress(context.Context, *GrowthProgressRequest) (*GrowthProgressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGrowthProgress not implemented")
@@ -507,6 +524,24 @@ func _UserPlantGrowthService_CheckMaintenanceNeeds_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserPlantGrowthService_CheckMaintenanceNeedsMap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckCropsNeedsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPlantGrowthServiceServer).CheckMaintenanceNeedsMap(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPlantGrowthService_CheckMaintenanceNeedsMap_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPlantGrowthServiceServer).CheckMaintenanceNeedsMap(ctx, req.(*CheckCropsNeedsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserPlantGrowthService_GetGrowthProgress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GrowthProgressRequest)
 	if err := dec(in); err != nil {
@@ -569,6 +604,10 @@ var UserPlantGrowthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckMaintenanceNeeds",
 			Handler:    _UserPlantGrowthService_CheckMaintenanceNeeds_Handler,
+		},
+		{
+			MethodName: "CheckMaintenanceNeedsMap",
+			Handler:    _UserPlantGrowthService_CheckMaintenanceNeedsMap_Handler,
 		},
 		{
 			MethodName: "GetGrowthProgress",

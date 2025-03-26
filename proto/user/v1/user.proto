@@ -157,6 +157,15 @@ message MaintenanceNeedsResponse {
 }
 
 
+// 维护需求检查请求
+message CheckCropsNeedsRequest {
+  repeated int64 user_id = 1;
+}
+// 维护需求检查响应
+message CheckCropsNeedsResponse {
+  map<int64, MaintenanceNeeds>  maintenance_needs = 1;
+}
+
 // 维护需求检查响应
 message MaintenanceNeeds {
   int64 needs_water = 1;  // 是否可浇水 1可以，2不行
@@ -243,6 +252,9 @@ service UserPlantGrowthService {
 
   // 检查是否需要浇水/施肥
   rpc CheckMaintenanceNeeds (MaintenanceNeedsRequest) returns (MaintenanceNeedsResponse);
+
+  // 检查是否需要浇水/施肥
+  rpc CheckMaintenanceNeedsMap (CheckCropsNeedsRequest) returns (CheckCropsNeedsResponse);
 
   // 获取植物当前生长进度
   rpc GetGrowthProgress (GrowthProgressRequest) returns (GrowthProgressResponse);

@@ -19,6 +19,8 @@ type (
 	AllUserRankingInfoMsgData     = v1.AllUserRankingInfoMsgData
 	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
+	CheckCropsNeedsRequest        = v1.CheckCropsNeedsRequest
+	CheckCropsNeedsResponse       = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq             = v1.ForgotPasswordReq
 	FriendRankingInfo             = v1.FriendRankingInfo
 	GetOnlineUserListReply        = v1.GetOnlineUserListReply
