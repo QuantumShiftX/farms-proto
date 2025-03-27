@@ -224,11 +224,17 @@ message UserAuthInfoData {
   int64 current_time = 5;             // 当前服务器时间戳
 }
 
+//message UserAuthInfoMsgReply {
+//  int64 code = 1;                     // 响应状态码
+//  string msg = 2;                     // 响应消息
+//  UserAuthInfoData data = 3;          // 响应数据
+//}
 message UserAuthInfoMsgReply {
   int64 code = 1;                     // 响应状态码
   string msg = 2;                     // 响应消息
-  UserAuthInfoData data = 3;          // 响应数据
+  string data = 3;         // 响应数据
 }
+
 
 // =========================================
 // 心跳相关消息
