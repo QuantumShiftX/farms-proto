@@ -47,6 +47,7 @@ enum ErrorCode {
   USER_VALIDATION_MATCH_ERROR = 10016;    // 验证匹配失败 | Validation match failed
   USER_STORAGE_NOT_FOUND_ERROR = 10017;   // 用户仓储空间不存在 | Storage space does not exist
   USER_INFO_FIND_ERROR = 10018;           // 用户信息查询失败 | Failed to query user information
+  USER_INSUFFICIENT_BALANCE_ERROR = 10019; // 余额不足 | Insufficient balance
 
   // 农场相关错误码 (20000-29999)
   // Farm related error codes (20000-29999)
@@ -59,6 +60,11 @@ enum ErrorCode {
   FARM_IRRIGATION_ERROR = 20006;          // 灌溉系统错误 | Irrigation system error
   FARM_INVENTORY_ERROR = 20007;           // 库存管理错误 | Inventory management error
   USER_FARM_NOT_FOUND_ERROR = 20008;      // 用户农场不存在 | User farm does not exist
+  ERR_INSUFFICIENT_STOCK = 20009;      // 该商品库存不足 | Insufficient stock
+  ERR_NOT_FREE_PRODUCT = 20010;        // 该商品不能免费领取 | Product not eligible for free claim
+  ERR_FREE_PRODUCT_LIMIT_EXCEED = 20011; // 免费领取商品一次只能购买1个 | Free product limited to 1 per order
+  ERR_PRODUCT_INFO_INCORRECT = 20012;  // 商品信息错误 | Product information error
+
 
   // 配置相关错误码 (90000-99999)
   // Configuration related error codes (90000-99999)
