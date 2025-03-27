@@ -16,7 +16,6 @@ import (
 type (
 	AdjustHarvestTimeRequest      = v1.AdjustHarvestTimeRequest
 	AdjustHarvestTimeResponse     = v1.AdjustHarvestTimeResponse
-	AllUserRankingInfoMsgData     = v1.AllUserRankingInfoMsgData
 	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
 	CheckCropsNeedsRequest        = v1.CheckCropsNeedsRequest
@@ -27,7 +26,6 @@ type (
 	GetOnlineUserListReq          = v1.GetOnlineUserListReq
 	GrowthProgressRequest         = v1.GrowthProgressRequest
 	GrowthProgressResponse        = v1.GrowthProgressResponse
-	LookUserFarmsInfoMsgData      = v1.LookUserFarmsInfoMsgData
 	LookUserFarmsInfoMsgReply     = v1.LookUserFarmsInfoMsgReply
 	LookUserFarmsInfoMsgReq       = v1.LookUserFarmsInfoMsgReq
 	MaintenanceNeeds              = v1.MaintenanceNeeds
@@ -49,7 +47,6 @@ type (
 	StageTimelinesResponse        = v1.StageTimelinesResponse
 	TimeReductionRequest          = v1.TimeReductionRequest
 	TimeReductionResponse         = v1.TimeReductionResponse
-	UserAuthInfoMsgData           = v1.UserAuthInfoMsgData
 	UserAuthInfoMsgReply          = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq            = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply       = v1.UserAuthenticationReply
@@ -59,25 +56,20 @@ type (
 	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
 	UserEditSensitiveInfoMsgReply = v1.UserEditSensitiveInfoMsgReply
 	UserEditSensitiveInfoMsgReq   = v1.UserEditSensitiveInfoMsgReq
-	UserFarmInfoMsgData           = v1.UserFarmInfoMsgData
 	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
 	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
 	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
 	UserFortuneTreeInfo           = v1.UserFortuneTreeInfo
-	UserFortuneTreeInfoMsgData    = v1.UserFortuneTreeInfoMsgData
 	UserFortuneTreeInfoMsgReply   = v1.UserFortuneTreeInfoMsgReply
 	UserFortuneTreeInfoMsgReq     = v1.UserFortuneTreeInfoMsgReq
-	UserFriendRankingInfoMsgData  = v1.UserFriendRankingInfoMsgData
 	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
 	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
 	UserIdReq                     = v1.UserIdReq
 	UserLandDetail                = v1.UserLandDetail
-	UserLandInfoMsgData           = v1.UserLandInfoMsgData
 	UserLandInfoMsgReply          = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq            = v1.UserLandInfoMsgReq
 	UserLoginResp                 = v1.UserLoginResp
-	UserPersonalInfoMsgData       = v1.UserPersonalInfoMsgData
 	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail            = v1.UserPlantingDetail
@@ -89,7 +81,6 @@ type (
 	UserSignInReq                 = v1.UserSignInReq
 	UserSignOutReq                = v1.UserSignOutReq
 	UserStorageDetail             = v1.UserStorageDetail
-	UserStorageInfoMsgData        = v1.UserStorageInfoMsgData
 	UserStorageInfoMsgReply       = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq         = v1.UserStorageInfoMsgReq
 	UserWallet                    = v1.UserWallet

@@ -165,15 +165,9 @@ message VipLevelInfoMsgReq {
  * 商店信息响应
  * 包含商店内可购买的商品列表
  */
-message VipLevelInfoMsgData {
+message VipLevelInfoMsgReply {
   repeated VIPLevelInfo rows = 1;  // 商品信息列表
 }
-message VipLevelInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  VipLevelInfoMsgData data = 3;      // 响应数据
-}
-
 
 // VIPLevel represents a VIP level configuration with its reward settings
 message VIPLevelInfo {

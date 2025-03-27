@@ -149,19 +149,13 @@ message FarmsStoreInfoMsgReq {
  * 商店信息响应
  * 包含商店内可购买的商品列表
  */
-message FarmsStoreInfoMsgData {
+message FarmsStoreInfoMsgReply {
   int64 page = 1;
   int64 page_size = 2;
   int64 total = 3;
   int64 total_page = 4;
   repeated StoreInfo rows = 5;  // 商品信息列表
   string extend = 6;
-}
-
-message FarmsStoreInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  FarmsStoreInfoMsgData data = 3;      // 响应数据
 }
 
 /**
@@ -212,18 +206,13 @@ message CropsInfoListMsgReq {
  * 种子信息响应
  * 包含系统可使用的种子列表
  */
-message CropsInfoListMsgData {
+message CropsInfoListMsgReply {
   int64 page = 1;
   int64 page_size = 2;
   int64 total = 3;
   int64 total_page = 4;
   repeated CropsProductInfo rows = 5;  // 种子信息列表
   string extend = 6;
-}
-message CropsInfoListMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  CropsInfoListMsgData data = 3;      // 响应数据
 }
 
 message CropsProductInfo {

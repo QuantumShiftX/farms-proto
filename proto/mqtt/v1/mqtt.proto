@@ -31,13 +31,9 @@ message MsgReq {
  * MQTT响应消息基础结构
  * 所有响应消息的基础结构，可根据需要扩展
  */
-message MsgData {
-
-}
 message MsgReply {
   int64 code = 1;                     // 响应状态码
   string msg = 2;                     // 响应消息
-  MsgData data = 3;  // 响应数据
 }
 
 // =========================================
@@ -216,24 +212,12 @@ message UserAuthInfoMsgReq {
  * 用token校验用户身份
  */
 
-message UserAuthInfoData {
+message UserAuthInfoMsgReply {
   int64 user_id = 1;                  // 用户ID
   int64 pid = 2;                      // 上级ID（邀请用户的ID）
   string language_code = 3;           // 语言代码
   string currency_code = 4;           // 币种代码
   int64 current_time = 5;             // 当前服务器时间戳
-}
-
-//message UserAuthInfoMsgReply {
-//  int64 code = 1;                     // 响应状态码
-//  string msg = 2;                     // 响应消息
-//  UserAuthInfoData data = 3;          // 响应数据
-//}
-message UserAuthInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  string data = 3;         // 响应数据
-  int64 user_id = 4;         // 响应数据
 }
 
 
@@ -253,16 +237,11 @@ message UserHeartBeatMsgReq {
  * 心跳响应
  * 用token校验用户身份
  */
-message UserHeartBeatData {
+message UserHeartBeatMsgReply {
   int64 user_id = 1;                  // 用户ID
   string language_code = 2;           // 语言代码
   string currency_code = 3;           // 币种代码
   int64 current_time = 4;             // 当前服务器时间戳
-}
-message UserHeartBeatMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserHeartBeatData data = 3;         // 响应数据
 }
 
 // =========================================
@@ -281,7 +260,7 @@ message UserPersonalInfoMsgReq {
  * 用户个人信息响应
  * 包含用户的详细个人信息
  */
-message UserPersonalInfoData {
+message UserPersonalInfoMsgReply {
   int64 user_id = 1;                  // 用户ID
   int64 pid = 2;                      // 上级ID（邀请用户的ID）
   string username = 3;                // 账号名称
@@ -300,11 +279,6 @@ message UserPersonalInfoData {
   repeated UserWallet wallets = 16;   // 用户的钱包地址列表
   repeated UserBalance balances = 17; // 用户的各类钱包余额列表
 }
-message UserPersonalInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserPersonalInfoData data = 3;      // 响应数据
-}
 
 /**
  * 编辑用户个人信息请求
@@ -320,9 +294,8 @@ message UserEditPersonalInfoMsgReq {
 }
 
 message UserEditPersonalInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  MsgData data = 3;      // 响应数据
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
 }
 
 /**
@@ -341,9 +314,8 @@ message UserEditSensitiveInfoMsgReq {
 
 
 message UserEditSensitiveInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  MsgData data = 3;      // 响应数据
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
 }
 
 
@@ -393,18 +365,13 @@ message UserStorageInfoMsgReq {
  * 用户仓库信息响应
  * 包含用户仓库中的所有物品
  */
-message UserStorageInfoMsgData {
+message UserStorageInfoMsgReply {
   int64 page = 1;                        // 当前页码
   int64 page_size = 2;                   // 每页项目数
   int64 total = 3;                       // 总项目数
   int64 total_page = 4;                  // 总页数
   repeated UserStorageDetail rows = 5;   // 用户仓库物品列表
   string extend = 6;                     // 扩展信息
-}
-message UserStorageInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserStorageInfoMsgData data = 3;      // 响应数据
 }
 
 /**
@@ -461,19 +428,13 @@ message FarmsStoreInfoMsgReq {
  * 商店信息响应
  * 包含商店内可购买的商品列表
  */
-message FarmsStoreInfoMsgData {
+message FarmsStoreInfoMsgReply {
   int64 page = 1;                  // 当前页码
   int64 page_size = 2;             // 每页项目数
   int64 total = 3;                 // 总项目数
   int64 total_page = 4;            // 总页数
   repeated StoreInfo rows = 5;     // 商品信息列表
   string extend = 6;               // 扩展信息
-}
-
-message FarmsStoreInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  FarmsStoreInfoMsgData data = 3;      // 响应数据
 }
 
 /**
@@ -519,9 +480,8 @@ message UserPurchaseGoodsMsgReq {
 }
 
 message UserPurchaseGoodsMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  MsgData data = 3;      // 响应数据
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
 }
 
 
@@ -542,7 +502,7 @@ message CropsInfoListMsgReq {
  * 种子信息响应
  * 包含系统可使用的种子列表
  */
-message CropsInfoListMsgData {
+message CropsInfoListMsgReply {
   int64 page = 1;
   int64 page_size = 2;
   int64 total = 3;
@@ -550,12 +510,11 @@ message CropsInfoListMsgData {
   repeated CropsProductInfo rows = 5;  // 种子信息列表
   string extend = 6;
 }
-message CropsInfoListMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  CropsInfoListMsgData data = 3;      // 响应数据
-}
 
+/**
+ * 种子信息
+ * 包含系统可使用的单个种子的详细信息
+ */
 message CropsProductInfo {
   int64 id = 1;                              // 作物ID
   string name = 2;                            // 作物名称
@@ -594,7 +553,7 @@ message UserFarmInfoMsgReq {
  * 用户农场信息响应
  * 包含用户农场的基本信息
  */
-message UserFarmInfoMsgData {
+message UserFarmInfoMsgReply {
   int64 id = 1;                                // 主键ID
   int64 farm_id = 2;                           // 农场ID
   int64 user_id = 3;                           // 用户ID
@@ -607,11 +566,6 @@ message UserFarmInfoMsgData {
   BooleanStatus has_completed_tutorial = 10;   // 是否已参加过新手教程
 }
 
-message UserFarmInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserFarmInfoMsgData data = 3;      // 响应数据
-}
 
 /**
  * 获取用户土地信息请求
@@ -627,7 +581,7 @@ message UserLandInfoMsgReq {
  * 用户土地信息响应
  * 包含用户所有土地的信息列表
  */
-message UserLandInfoMsgData {
+message UserLandInfoMsgReply {
   int64 page = 1;                      // 当前页码
   int64 page_size = 2;                 // 每页项目数
   int64 total = 3;                     // 总项目数
@@ -636,11 +590,6 @@ message UserLandInfoMsgData {
   string extend = 6;                   // 扩展信息
 }
 
-message UserLandInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserLandInfoMsgData data = 3;      // 响应数据
-}
 
 /**
  * 用户土地详细信息
@@ -719,9 +668,8 @@ message UserFarmOpsMsgReq {
  * 用于对自己或他人的农场进行各种操作
  */
 message UserFarmOpsMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  MsgData data = 3;      // 响应数据
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
 }
 
 /**
@@ -737,7 +685,7 @@ message LookUserFarmsInfoMsgReq {
  * 查看他人农场信息响应
  * 包含他人农场的详细信息
  */
-message LookUserFarmsInfoMsgData {
+message LookUserFarmsInfoMsgReply {
   // 用户相关信息
   int64 user_id = 2;                   // 用户ID
   int64 pid = 3;                       // 上级ID（邀请用户的ID）
@@ -764,11 +712,7 @@ message LookUserFarmsInfoMsgData {
   // 发财树信息
   UserFortuneTreeInfo fortune_tree = 22;  // 用户的发财树信息
 }
-message LookUserFarmsInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  LookUserFarmsInfoMsgData data = 3;      // 响应数据
-}
+
 
 /**
  * 用户发财树详细信息
@@ -807,7 +751,7 @@ message AllUserRankingInfoMsgReq {
  * 用户排名列表响应
  * 包含全局排名和自己的排名
  */
-message AllUserRankingInfoMsgData {
+message AllUserRankingInfoMsgReply {
   int64 page = 1;                         // 当前页码
   int64 page_size = 2;                    // 每页项目数
   int64 total = 3;                        // 总项目数
@@ -816,11 +760,6 @@ message AllUserRankingInfoMsgData {
   MyRankingInfo my_ranking = 6;           // 我的排名信息
 }
 
-message AllUserRankingInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  AllUserRankingInfoMsgData data = 3;      // 响应数据
-}
 
 /**
  * 用户好友排名请求
@@ -836,18 +775,13 @@ message UserFriendRankingInfoMsgReq {
  * 好友排名列表响应
  * 包含所有好友的排名和自己的排名
  */
-message UserFriendRankingInfoMsgData {
+message UserFriendRankingInfoMsgReply {
   int64 page = 1;                        // 当前页码
   int64 page_size = 2;                   // 每页项目数
   int64 total = 3;                       // 总项目数
   int64 total_page = 4;                  // 总页数
   repeated FriendRankingInfo rows = 5;   // 好友排名列表
   MyRankingInfo my_ranking = 6;          // 我的排名信息
-}
-message UserFriendRankingInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserFriendRankingInfoMsgData data = 3;      // 响应数据
 }
 
 /**
@@ -899,7 +833,7 @@ message UserFortuneTreeInfoMsgReq {
  * 用户发财树响应
  * 包含用户的发财树信息
  */
-message UserFortuneTreeInfoMsgData {
+message UserFortuneTreeInfoMsgReply {
   int64 id = 1; // 发财树唯一标识ID
   int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
   int64 vip_level_id = 3; // VIP等级ID，影响金币产出和生产周期
@@ -911,11 +845,6 @@ message UserFortuneTreeInfoMsgData {
   int64 total_harvested = 9; // 历史总收获金币数量统计
   int64 created_at = 10; // 发财树创建时间（时间戳，秒）
   int64 updated_at = 11; // 发财树信息最后更新时间（时间戳，秒）
-}
-message UserFortuneTreeInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserFortuneTreeInfoMsgData data = 3;      // 响应数据
 }
 
 
@@ -934,15 +863,9 @@ message VipLevelInfoMsgReq {
  * VIP等级信息响应
  * 包含系统中所有VIP等级的配置信息
  */
-message VipLevelInfoMsgData {
+message VipLevelInfoMsgReply {
   repeated VIPLevelInfo rows = 1;  // VIP等级信息列表
 }
-message VipLevelInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  VipLevelInfoMsgData data = 3;      // 响应数据
-}
-
 
 /**
  * VIP等级详细信息
@@ -968,7 +891,7 @@ message VIPLevelInfo {
 // =========================================
 // UserNotification 用户通知结构---公告信息body
 // UserNotification represents user notification structure USER_NOTIFICATION_INFO_MSG
-message UserNotificationInfoMsgData {
+message UserNotificationInfoMsgReply {
   int64 user_id = 1;  // 用户ID | User ID
   NotificationType type = 2;  // 通知类型 | Notification type
   NotificationSubType sub_type = 3;  // 通知子类型 | Notification subtype
@@ -977,11 +900,7 @@ message UserNotificationInfoMsgData {
   map<string, string> params = 6;  // 通知参数 | Notification parameters
   int64 created_at = 7;  // 创建时间 | Creation timestamp
 }
-message UserNotificationInfoMsgReply {
-  int64 code = 1;                     // 响应状态码
-  string msg = 2;                     // 响应消息
-  UserNotificationInfoMsgData data = 3;      // 响应数据
-}
+
 // NotificationType 定义通知类型枚举
 // NotificationType defines notification type enum
 enum NotificationType {
