@@ -45,6 +45,8 @@ enum ErrorCode {
   USER_CREDENTIALS_ERROR = 10014;         // 用户或密码信息有误 | Incorrect username or password
   USER_NAME_EXISTS_ERROR = 10015;         // 用户名字已存在 | Username already exists
   USER_VALIDATION_MATCH_ERROR = 10016;    // 验证匹配失败 | Validation match failed
+  USER_STORAGE_NOT_FOUND_ERROR = 10017;   // 用户仓储空间不存在 | Storage space does not exist
+  USER_INFO_FIND_ERROR = 10018;           // 用户信息查询失败 | Failed to query user information
 
   // 农场相关错误码 (20000-29999)
   // Farm related error codes (20000-29999)
@@ -56,6 +58,7 @@ enum ErrorCode {
   FARM_CROP_ERROR = 20005;                // 作物操作错误 | Crop operation error
   FARM_IRRIGATION_ERROR = 20006;          // 灌溉系统错误 | Irrigation system error
   FARM_INVENTORY_ERROR = 20007;           // 库存管理错误 | Inventory management error
+  USER_FARM_NOT_FOUND_ERROR = 20008;      // 用户农场不存在 | User farm does not exist
 
   // 配置相关错误码 (90000-99999)
   // Configuration related error codes (90000-99999)
