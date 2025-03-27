@@ -11,6 +11,8 @@ enum ErrorCode {
   // General error codes (000-399)
   ERROR_CODE_UNSPECIFIED = 0;      // 未指定错误 | Unspecified error
 
+  // General error codes (000-399)
+  SUCCESS_CODE = 200;      // 成功 | success no error
   // 基础错误码 (400-699)
   // Basic error codes (400-699)
   PARAM_ERROR = 400;               // 参数错误 | Parameter error
