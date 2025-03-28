@@ -214,7 +214,7 @@ message UserAuthInfoMsgReq {
 
 message UserAuthInfoMsgReply {
   int64 user_id = 1;                  // 用户ID
-  int64 pid = 2;                      // 上级ID（邀请用户的ID）
+//  int64 pid = 2;                      // 上级ID（邀请用户的ID）
   string language_code = 3;           // 语言代码
   string currency_code = 4;           // 币种代码
   int64 current_time = 5;             // 当前服务器时间戳
