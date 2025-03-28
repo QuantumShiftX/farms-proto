@@ -493,22 +493,22 @@ message UserPersonalInfoMsgReq {
  */
 message UserPersonalInfoMsgReply {
   int64 user_id = 1;                   // 用户ID
-  int64 pid = 2;                       // 上级ID（邀请用户的ID）
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
   string username = 3;                 // 账号名称
   string language_code = 4;            // 语言代码
   string currency_code = 5;            // 币种代码
   int64 vip_level_id = 6;              // 会员等级ID（关联user_vip_levels表）
   int64 vip_level_val = 7;              // 会员等级值
   string vip_level_name = 8;              // 会员等级名称
-//  string remark = 9;                  // 用户备注
-//  int64 last_login_time = 10;          // 最后登录时间（Unix时间戳）
-//  string invitation_code = 11;         // 用户的邀请码
-//  string invite_addr = 12;         // 用户的邀请链接
-//  string avatar = 13;                  // 用户头像URL
-//  string phone = 14;                   // 用户手机号
-//  string email = 15;                   // 用户邮箱
-//  repeated UserWallet wallets = 16;    // 用户的钱包地址列表
-//  repeated UserBalance balances = 17;  // 用户的各类钱包余额列表
+  //  string remark = 9;                  // 用户备注
+  //  int64 last_login_time = 10;          // 最后登录时间（Unix时间戳）
+  //  string invitation_code = 11;         // 用户的邀请码
+  //  string invite_addr = 12;         // 用户的邀请链接
+  //  string avatar = 13;                  // 用户头像URL
+  //  string phone = 14;                   // 用户手机号
+  //  string email = 15;                   // 用户邮箱
+  //  repeated UserWallet wallets = 16;    // 用户的钱包地址列表
+  //  repeated UserBalance balances = 17;  // 用户的各类钱包余额列表
 }
 
 

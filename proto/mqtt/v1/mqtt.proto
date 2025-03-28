@@ -262,7 +262,7 @@ message UserPersonalInfoMsgReq {
  */
 message UserPersonalInfoMsgReply {
   int64 user_id = 1;                  // 用户ID
-  int64 pid = 2;                      // 上级ID（邀请用户的ID）
+  int64 parent_id = 2;                      // 上级ID（邀请用户的ID）
   string username = 3;                // 账号名称
   string language_code = 4;           // 语言代码
   string currency_code = 5;           // 币种代码
