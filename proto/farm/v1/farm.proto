@@ -212,7 +212,6 @@ message CropsInfoListMsgReply {
   int64 total = 3;
   int64 total_page = 4;
   repeated CropsProductInfo rows = 5;  // 种子信息列表
-  string extend = 6;
 }
 
 message CropsProductInfo {
