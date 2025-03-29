@@ -830,6 +830,7 @@ message FriendRankingInfo {
   int64 rank = 11;             // 排名位置
   string farm_name = 12;             // 农场名称
   int64 water_interaction_status = 13;   // 互动浇水状态 0：未任何操作，1：帮他人浇水，2：他人帮自己浇水，3：互相浇水
+  int64 can_water_num = 14; // 可浇水次数
 }
 
 // 我的排名信息
