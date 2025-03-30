@@ -279,7 +279,7 @@ service PaymentInnerService {
 
 
 
-message UserRechargeMsgReq {
+message UserRechargeInfoMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 amount = 2;           // 充值金额(分)
   string channel_code = 4;  // 通道
@@ -287,11 +287,11 @@ message UserRechargeMsgReq {
 
 }
 
-message UserRechargeMsgReply {
+message UserRechargeInfoMsgReply {
   string pay_url = 4;         // 支付URL
 }
 
-message UserWithdrawMsgReq {
+message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 amount = 2;           // 提现金额(分)
   string client_ip = 5;       // 客户端IP
@@ -299,7 +299,7 @@ message UserWithdrawMsgReq {
   string extra = 11;          // 扩展域
 }
 
-message UserWithdrawMsgReply {
+message UserWithdrawInfoMsgReply {
   string ret_code = 1;        // 返回状态码
   string ret_msg = 2;         // 返回信息
   string withdraw_order_id = 3; // 提现订单号
@@ -326,12 +326,12 @@ message PaymentNotificationReq {
 
 
 // 充值通道列表响应
-message RechargeChannelsMsgReq {
+message RechargeChannelsInfoMsgReq {
 
 }
 
 // 充值通道列表响应
-message RechargeChannelsMsgReply {
+message RechargeChannelsInfoMsgReply {
   repeated RechargeChannel rows = 4;  // 充值通道列表
 }
 
@@ -345,14 +345,14 @@ message RechargeChannel {
 // 支付服务
 service UserPaymentInnerService {
   // 用户充值
-  rpc UserRecharge(UserRechargeMsgReq) returns (UserRechargeMsgReply) {}
+  rpc UserRecharge(UserRechargeInfoMsgReq) returns (UserRechargeInfoMsgReply) {}
 
   // 用户提现
-  rpc UserWithdraw(UserWithdrawMsgReq) returns (UserWithdrawMsgReply) {}
+  rpc UserWithdraw(UserWithdrawInfoMsgReq) returns (UserWithdrawInfoMsgReply) {}
 
   // 接收支付通知
   rpc ReceivePaymentNotice(PaymentNotificationReq) returns (PaymentReply) {}
 
   // 充值通道列表响应
-  rpc UserRechargeChannel(RechargeChannelsMsgReq) returns (RechargeChannelsMsgReply) {}
+  rpc UserRechargeChannel(RechargeChannelsInfoMsgReq) returns (RechargeChannelsInfoMsgReply) {}
 }

@@ -487,13 +487,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserPaymentInnerServiceClient interface {
 	// 用户充值
-	UserRecharge(ctx context.Context, in *UserRechargeMsgReq, opts ...grpc.CallOption) (*UserRechargeMsgReply, error)
+	UserRecharge(ctx context.Context, in *UserRechargeInfoMsgReq, opts ...grpc.CallOption) (*UserRechargeInfoMsgReply, error)
 	// 用户提现
-	UserWithdraw(ctx context.Context, in *UserWithdrawMsgReq, opts ...grpc.CallOption) (*UserWithdrawMsgReply, error)
+	UserWithdraw(ctx context.Context, in *UserWithdrawInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawInfoMsgReply, error)
 	// 接收支付通知
 	ReceivePaymentNotice(ctx context.Context, in *PaymentNotificationReq, opts ...grpc.CallOption) (*PaymentReply, error)
 	// 充值通道列表响应
-	UserRechargeChannel(ctx context.Context, in *RechargeChannelsMsgReq, opts ...grpc.CallOption) (*RechargeChannelsMsgReply, error)
+	UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error)
 }
 
 type userPaymentInnerServiceClient struct {
@@ -504,8 +504,8 @@ func NewUserPaymentInnerServiceClient(cc grpc.ClientConnInterface) UserPaymentIn
 	return &userPaymentInnerServiceClient{cc}
 }
 
-func (c *userPaymentInnerServiceClient) UserRecharge(ctx context.Context, in *UserRechargeMsgReq, opts ...grpc.CallOption) (*UserRechargeMsgReply, error) {
-	out := new(UserRechargeMsgReply)
+func (c *userPaymentInnerServiceClient) UserRecharge(ctx context.Context, in *UserRechargeInfoMsgReq, opts ...grpc.CallOption) (*UserRechargeInfoMsgReply, error) {
+	out := new(UserRechargeInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserRecharge_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -513,8 +513,8 @@ func (c *userPaymentInnerServiceClient) UserRecharge(ctx context.Context, in *Us
 	return out, nil
 }
 
-func (c *userPaymentInnerServiceClient) UserWithdraw(ctx context.Context, in *UserWithdrawMsgReq, opts ...grpc.CallOption) (*UserWithdrawMsgReply, error) {
-	out := new(UserWithdrawMsgReply)
+func (c *userPaymentInnerServiceClient) UserWithdraw(ctx context.Context, in *UserWithdrawInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawInfoMsgReply, error) {
+	out := new(UserWithdrawInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserWithdraw_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -531,8 +531,8 @@ func (c *userPaymentInnerServiceClient) ReceivePaymentNotice(ctx context.Context
 	return out, nil
 }
 
-func (c *userPaymentInnerServiceClient) UserRechargeChannel(ctx context.Context, in *RechargeChannelsMsgReq, opts ...grpc.CallOption) (*RechargeChannelsMsgReply, error) {
-	out := new(RechargeChannelsMsgReply)
+func (c *userPaymentInnerServiceClient) UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error) {
+	out := new(RechargeChannelsInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserRechargeChannel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -545,13 +545,13 @@ func (c *userPaymentInnerServiceClient) UserRechargeChannel(ctx context.Context,
 // for forward compatibility
 type UserPaymentInnerServiceServer interface {
 	// 用户充值
-	UserRecharge(context.Context, *UserRechargeMsgReq) (*UserRechargeMsgReply, error)
+	UserRecharge(context.Context, *UserRechargeInfoMsgReq) (*UserRechargeInfoMsgReply, error)
 	// 用户提现
-	UserWithdraw(context.Context, *UserWithdrawMsgReq) (*UserWithdrawMsgReply, error)
+	UserWithdraw(context.Context, *UserWithdrawInfoMsgReq) (*UserWithdrawInfoMsgReply, error)
 	// 接收支付通知
 	ReceivePaymentNotice(context.Context, *PaymentNotificationReq) (*PaymentReply, error)
 	// 充值通道列表响应
-	UserRechargeChannel(context.Context, *RechargeChannelsMsgReq) (*RechargeChannelsMsgReply, error)
+	UserRechargeChannel(context.Context, *RechargeChannelsInfoMsgReq) (*RechargeChannelsInfoMsgReply, error)
 	mustEmbedUnimplementedUserPaymentInnerServiceServer()
 }
 
@@ -559,16 +559,16 @@ type UserPaymentInnerServiceServer interface {
 type UnimplementedUserPaymentInnerServiceServer struct {
 }
 
-func (UnimplementedUserPaymentInnerServiceServer) UserRecharge(context.Context, *UserRechargeMsgReq) (*UserRechargeMsgReply, error) {
+func (UnimplementedUserPaymentInnerServiceServer) UserRecharge(context.Context, *UserRechargeInfoMsgReq) (*UserRechargeInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRecharge not implemented")
 }
-func (UnimplementedUserPaymentInnerServiceServer) UserWithdraw(context.Context, *UserWithdrawMsgReq) (*UserWithdrawMsgReply, error) {
+func (UnimplementedUserPaymentInnerServiceServer) UserWithdraw(context.Context, *UserWithdrawInfoMsgReq) (*UserWithdrawInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserWithdraw not implemented")
 }
 func (UnimplementedUserPaymentInnerServiceServer) ReceivePaymentNotice(context.Context, *PaymentNotificationReq) (*PaymentReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReceivePaymentNotice not implemented")
 }
-func (UnimplementedUserPaymentInnerServiceServer) UserRechargeChannel(context.Context, *RechargeChannelsMsgReq) (*RechargeChannelsMsgReply, error) {
+func (UnimplementedUserPaymentInnerServiceServer) UserRechargeChannel(context.Context, *RechargeChannelsInfoMsgReq) (*RechargeChannelsInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRechargeChannel not implemented")
 }
 func (UnimplementedUserPaymentInnerServiceServer) mustEmbedUnimplementedUserPaymentInnerServiceServer() {
@@ -586,7 +586,7 @@ func RegisterUserPaymentInnerServiceServer(s grpc.ServiceRegistrar, srv UserPaym
 }
 
 func _UserPaymentInnerService_UserRecharge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserRechargeMsgReq)
+	in := new(UserRechargeInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -598,13 +598,13 @@ func _UserPaymentInnerService_UserRecharge_Handler(srv interface{}, ctx context.
 		FullMethod: UserPaymentInnerService_UserRecharge_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserPaymentInnerServiceServer).UserRecharge(ctx, req.(*UserRechargeMsgReq))
+		return srv.(UserPaymentInnerServiceServer).UserRecharge(ctx, req.(*UserRechargeInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserPaymentInnerService_UserWithdraw_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserWithdrawMsgReq)
+	in := new(UserWithdrawInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -616,7 +616,7 @@ func _UserPaymentInnerService_UserWithdraw_Handler(srv interface{}, ctx context.
 		FullMethod: UserPaymentInnerService_UserWithdraw_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserPaymentInnerServiceServer).UserWithdraw(ctx, req.(*UserWithdrawMsgReq))
+		return srv.(UserPaymentInnerServiceServer).UserWithdraw(ctx, req.(*UserWithdrawInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -640,7 +640,7 @@ func _UserPaymentInnerService_ReceivePaymentNotice_Handler(srv interface{}, ctx 
 }
 
 func _UserPaymentInnerService_UserRechargeChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RechargeChannelsMsgReq)
+	in := new(RechargeChannelsInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -652,7 +652,7 @@ func _UserPaymentInnerService_UserRechargeChannel_Handler(srv interface{}, ctx c
 		FullMethod: UserPaymentInnerService_UserRechargeChannel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserPaymentInnerServiceServer).UserRechargeChannel(ctx, req.(*RechargeChannelsMsgReq))
+		return srv.(UserPaymentInnerServiceServer).UserRechargeChannel(ctx, req.(*RechargeChannelsInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

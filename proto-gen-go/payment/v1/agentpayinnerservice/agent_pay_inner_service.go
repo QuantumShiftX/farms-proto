@@ -39,12 +39,12 @@ type (
 	QueryOrderRequest                = v1.QueryOrderRequest
 	QueryOrderResponse               = v1.QueryOrderResponse
 	RechargeChannel                  = v1.RechargeChannel
-	RechargeChannelsMsgReply         = v1.RechargeChannelsMsgReply
-	RechargeChannelsMsgReq           = v1.RechargeChannelsMsgReq
-	UserRechargeMsgReply             = v1.UserRechargeMsgReply
-	UserRechargeMsgReq               = v1.UserRechargeMsgReq
-	UserWithdrawMsgReply             = v1.UserWithdrawMsgReply
-	UserWithdrawMsgReq               = v1.UserWithdrawMsgReq
+	RechargeChannelsInfoMsgReply     = v1.RechargeChannelsInfoMsgReply
+	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
+	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
+	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
+	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
+	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
 
 	AgentPayInnerService interface {
 		// 申请代付

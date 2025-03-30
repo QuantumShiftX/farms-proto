@@ -81,7 +81,8 @@ enum MessageID {
 
   // 配置相关信息 (600-699)
   VIP_LEVEL_INFO_MSG = 600;
-  RECHARGE_CHANNELS_MSG = 601;
+  RECHARGE_CHANNELS_INFO_MSG = 601;
+  USER_RECHARGE_INFO_MSG = 602;
 
 
 
@@ -895,12 +896,12 @@ message VIPLevelInfo {
 // =========================================
 
 // 充值通道列表响应
-message RechargeChannelsMsgReq {
+message RechargeChannelsInfoMsgReq {
 
 }
 
 // 充值通道列表响应
-message RechargeChannelsMsgReply {
+message RechargeChannelsInfoMsgReply {
   repeated RechargeChannel rows = 4;  // 充值通道列表
 }
 
@@ -910,7 +911,17 @@ message RechargeChannel {
   string recharge_channel_code = 8;         // 充值通道编码
 }
 
+message UserRechargeInfoMsgReq {
+  int64 user_id = 1;          // 用户ID
+  int64 amount = 2;           // 充值金额(分) 100 = 1元（大于0的整数）
+  string channel_code = 4;  // 通道
+  string extra = 9;           // 扩展域
 
+}
+
+message UserRechargeInfoMsgReply {
+  string pay_url = 4;         // 支付URL
+}
 
 // =========================================
 // 通知相关消息
