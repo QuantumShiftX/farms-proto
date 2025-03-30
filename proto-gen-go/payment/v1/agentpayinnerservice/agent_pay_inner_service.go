@@ -14,6 +14,8 @@ import (
 )
 
 type (
+	AgentPayNotifyRequest            = v1.AgentPayNotifyRequest
+	AgentPayNotifyResponse           = v1.AgentPayNotifyResponse
 	ApplyAgentPayRequest             = v1.ApplyAgentPayRequest
 	ApplyAgentPayResponse            = v1.ApplyAgentPayResponse
 	CreateCashierRequest             = v1.CreateCashierRequest
@@ -25,6 +27,7 @@ type (
 	PayParams                        = v1.PayParams
 	PaymentReply                     = v1.PaymentReply
 	PaymentReq                       = v1.PaymentReq
+	QueryAgentPayBalanceRequest      = v1.QueryAgentPayBalanceRequest
 	QueryAgentPayBalanceResponse     = v1.QueryAgentPayBalanceResponse
 	QueryAgentPayCertificateRequest  = v1.QueryAgentPayCertificateRequest
 	QueryAgentPayCertificateResponse = v1.QueryAgentPayCertificateResponse
@@ -40,9 +43,9 @@ type (
 		// 查询代付订单
 		QueryAgentPayOrder(ctx context.Context, in *QueryAgentPayOrderRequest, opts ...grpc.CallOption) (*QueryAgentPayOrderResponse, error)
 		// 查询代付凭证
-		HandleAgentPayNotify(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*PaymentReply, error)
+		HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error)
 		// 查询余额
-		QueryAgentPayBalance(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error)
+		QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error)
 		// 验证回调通知
 		QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error)
 	}
@@ -71,13 +74,13 @@ func (m *defaultAgentPayInnerService) QueryAgentPayOrder(ctx context.Context, in
 }
 
 // 查询代付凭证
-func (m *defaultAgentPayInnerService) HandleAgentPayNotify(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*PaymentReply, error) {
+func (m *defaultAgentPayInnerService) HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error) {
 	client := v1.NewAgentPayInnerServiceClient(m.cli.Conn())
 	return client.HandleAgentPayNotify(ctx, in, opts...)
 }
 
 // 查询余额
-func (m *defaultAgentPayInnerService) QueryAgentPayBalance(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
+func (m *defaultAgentPayInnerService) QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
 	client := v1.NewAgentPayInnerServiceClient(m.cli.Conn())
 	return client.QueryAgentPayBalance(ctx, in, opts...)
 }

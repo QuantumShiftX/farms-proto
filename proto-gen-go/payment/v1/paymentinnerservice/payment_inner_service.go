@@ -14,6 +14,8 @@ import (
 )
 
 type (
+	AgentPayNotifyRequest            = v1.AgentPayNotifyRequest
+	AgentPayNotifyResponse           = v1.AgentPayNotifyResponse
 	ApplyAgentPayRequest             = v1.ApplyAgentPayRequest
 	ApplyAgentPayResponse            = v1.ApplyAgentPayResponse
 	CreateCashierRequest             = v1.CreateCashierRequest
@@ -25,6 +27,7 @@ type (
 	PayParams                        = v1.PayParams
 	PaymentReply                     = v1.PaymentReply
 	PaymentReq                       = v1.PaymentReq
+	QueryAgentPayBalanceRequest      = v1.QueryAgentPayBalanceRequest
 	QueryAgentPayBalanceResponse     = v1.QueryAgentPayBalanceResponse
 	QueryAgentPayCertificateRequest  = v1.QueryAgentPayCertificateRequest
 	QueryAgentPayCertificateResponse = v1.QueryAgentPayCertificateResponse

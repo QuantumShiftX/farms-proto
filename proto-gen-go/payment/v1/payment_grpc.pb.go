@@ -35,9 +35,9 @@ type AgentPayInnerServiceClient interface {
 	// 查询代付订单
 	QueryAgentPayOrder(ctx context.Context, in *QueryAgentPayOrderRequest, opts ...grpc.CallOption) (*QueryAgentPayOrderResponse, error)
 	// 查询代付凭证
-	HandleAgentPayNotify(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*PaymentReply, error)
+	HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error)
 	// 查询余额
-	QueryAgentPayBalance(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error)
+	QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error)
 	// 验证回调通知
 	QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error)
 }
@@ -68,8 +68,8 @@ func (c *agentPayInnerServiceClient) QueryAgentPayOrder(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *agentPayInnerServiceClient) HandleAgentPayNotify(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*PaymentReply, error) {
-	out := new(PaymentReply)
+func (c *agentPayInnerServiceClient) HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error) {
+	out := new(AgentPayNotifyResponse)
 	err := c.cc.Invoke(ctx, AgentPayInnerService_HandleAgentPayNotify_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (c *agentPayInnerServiceClient) HandleAgentPayNotify(ctx context.Context, i
 	return out, nil
 }
 
-func (c *agentPayInnerServiceClient) QueryAgentPayBalance(ctx context.Context, in *PaymentReq, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
+func (c *agentPayInnerServiceClient) QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
 	out := new(QueryAgentPayBalanceResponse)
 	err := c.cc.Invoke(ctx, AgentPayInnerService_QueryAgentPayBalance_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -104,9 +104,9 @@ type AgentPayInnerServiceServer interface {
 	// 查询代付订单
 	QueryAgentPayOrder(context.Context, *QueryAgentPayOrderRequest) (*QueryAgentPayOrderResponse, error)
 	// 查询代付凭证
-	HandleAgentPayNotify(context.Context, *PaymentReq) (*PaymentReply, error)
+	HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error)
 	// 查询余额
-	QueryAgentPayBalance(context.Context, *PaymentReq) (*QueryAgentPayBalanceResponse, error)
+	QueryAgentPayBalance(context.Context, *QueryAgentPayBalanceRequest) (*QueryAgentPayBalanceResponse, error)
 	// 验证回调通知
 	QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error)
 	mustEmbedUnimplementedAgentPayInnerServiceServer()
@@ -122,10 +122,10 @@ func (UnimplementedAgentPayInnerServiceServer) ApplyAgentPay(context.Context, *A
 func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayOrder(context.Context, *QueryAgentPayOrderRequest) (*QueryAgentPayOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayOrder not implemented")
 }
-func (UnimplementedAgentPayInnerServiceServer) HandleAgentPayNotify(context.Context, *PaymentReq) (*PaymentReply, error) {
+func (UnimplementedAgentPayInnerServiceServer) HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HandleAgentPayNotify not implemented")
 }
-func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayBalance(context.Context, *PaymentReq) (*QueryAgentPayBalanceResponse, error) {
+func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayBalance(context.Context, *QueryAgentPayBalanceRequest) (*QueryAgentPayBalanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayBalance not implemented")
 }
 func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error) {
@@ -181,7 +181,7 @@ func _AgentPayInnerService_QueryAgentPayOrder_Handler(srv interface{}, ctx conte
 }
 
 func _AgentPayInnerService_HandleAgentPayNotify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PaymentReq)
+	in := new(AgentPayNotifyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -193,13 +193,13 @@ func _AgentPayInnerService_HandleAgentPayNotify_Handler(srv interface{}, ctx con
 		FullMethod: AgentPayInnerService_HandleAgentPayNotify_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).HandleAgentPayNotify(ctx, req.(*PaymentReq))
+		return srv.(AgentPayInnerServiceServer).HandleAgentPayNotify(ctx, req.(*AgentPayNotifyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AgentPayInnerService_QueryAgentPayBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PaymentReq)
+	in := new(QueryAgentPayBalanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func _AgentPayInnerService_QueryAgentPayBalance_Handler(srv interface{}, ctx con
 		FullMethod: AgentPayInnerService_QueryAgentPayBalance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayBalance(ctx, req.(*PaymentReq))
+		return srv.(AgentPayInnerServiceServer).QueryAgentPayBalance(ctx, req.(*QueryAgentPayBalanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

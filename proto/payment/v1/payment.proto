@@ -67,6 +67,14 @@ message QueryAgentPayOrderResponse {
   string sign = 9;            // 签名
 }
 
+// 查询余额请求
+message QueryAgentPayBalanceRequest {
+  int64 mch_id = 1;           // 商户ID
+  string req_time = 2;        // 请求时间(格式:yyyyMMddHHmmss)
+  string sign = 3;            // 签名
+}
+
+
 // 查询代付账户余额响应
 message QueryAgentPayBalanceResponse {
   string ret_code = 1;                  // 返回状态码
@@ -98,6 +106,25 @@ message QueryAgentPayCertificateResponse {
   string sign = 10;           // 签名
 }
 
+// 代付通知请求
+message AgentPayNotifyRequest {
+  string agent_pay_order_id = 1; // 代付单号
+  string mch_order_no = 2;    // 商户代付单号
+  int32 status = 3;           // 状态
+  int64 amount = 4;           // 代付金额
+  int64 fee = 5;              // 手续费
+  string trans_msg = 6;       // 转账提示
+  string extra = 7;           // 扩展域
+  string sign = 8;            // 签名
+}
+
+// 代付通知响应
+message AgentPayNotifyResponse {
+  string message = 1;         // 响应信息，返回 "success" 表示成功接收
+}
+
+
+
 // 代付服务定义
 service AgentPayInnerService {
   // 申请代付
@@ -107,10 +134,10 @@ service AgentPayInnerService {
   rpc QueryAgentPayOrder(QueryAgentPayOrderRequest) returns (QueryAgentPayOrderResponse) {}
 
   // 查询代付凭证
-  rpc HandleAgentPayNotify(PaymentReq) returns (PaymentReply) {}
+  rpc HandleAgentPayNotify(AgentPayNotifyRequest) returns (AgentPayNotifyResponse) {}
 
   // 查询余额
-  rpc QueryAgentPayBalance(PaymentReq) returns (QueryAgentPayBalanceResponse) {}
+  rpc QueryAgentPayBalance(QueryAgentPayBalanceRequest) returns (QueryAgentPayBalanceResponse) {}
 
   // 验证回调通知
   rpc QueryAgentPayCertificate(QueryAgentPayCertificateRequest) returns (QueryAgentPayCertificateResponse) {}
