@@ -81,10 +81,13 @@ enum MessageID {
 
   // 配置相关信息 (600-699)
   VIP_LEVEL_INFO_MSG = 600;
+  RECHARGE_CHANNELS_MSG = 601;
+
 
 
   // 主动推送消息messageID (800-899)
-  USER_NOTIFICATION_INFO_MSG = 800;
+  USER_NOTIFICATION_INFO_MSG = 800;  // 公告
+  USER_BALANCE_NOTICE_INFO_MSG = 801; // 用户余额相关
 
 
 
@@ -887,6 +890,26 @@ message VIPLevelInfo {
   int64 is_enabled = 10;                 // 是否启用
 }
 
+// =========================================
+// 充值提现相关消息
+// =========================================
+
+// 充值通道列表响应
+message RechargeChannelsMsgReq {
+
+}
+
+// 充值通道列表响应
+message RechargeChannelsMsgReply {
+  repeated RechargeChannel rows = 4;  // 充值通道列表
+}
+
+// 充值通道信息
+message RechargeChannel {
+  string currency_code = 7;                 // 币种
+  string recharge_channel_code = 8;         // 充值通道编码
+}
+
 
 
 // =========================================
@@ -946,3 +969,9 @@ enum NotificationSubType {
   NOTIFICATION_SUB_TYPE_VIP_UPGRADE = 4003;  // VIP等级提升 | VIP level upgraded
   NOTIFICATION_SUB_TYPE_RANKING_BREAK = 4004;  // 打破排行榜记录 | Ranking record broken
 }
+
+// UserNotification 用户通知用户余额变动结构
+message UserBalanceNoticeInfoMsgReply {
+  repeated UserBalance balances = 1; // 用户的各类钱包余额列表
+}
+

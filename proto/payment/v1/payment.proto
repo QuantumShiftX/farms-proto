@@ -153,6 +153,8 @@ service AgentPayInnerService {
 
 // 统一下单请求
 message CreateOrderRequest {
+  string mch_id = 1; // 商户号
+  string product_id = 2; // 渠道号
   string mch_order_no = 3; // 商户订单号
   string currency = 4;     // 币种
   int64 amount = 5;       // 支付金额(分)
@@ -173,11 +175,8 @@ message CreateOrderRequest {
 
 // 统一下单响应
 message CreateOrderResponse {
-  string ret_code = 1;     // 返回状态码
-  string ret_msg = 2;      // 返回信息
+  string pay_url = 2;      // 支付URL
   string pay_order_id = 3; // 支付订单号
-  PayParams pay_params = 4; // 支付参数
-  string sign = 5;         // 签名
 }
 
 // 支付参数
@@ -189,9 +188,11 @@ message PayParams {
 
 // 查询订单请求
 message QueryOrderRequest {
-  string pay_order_id = 2;   // 支付订单号
-  string mch_order_no = 3;   // 商户订单号
-  bool execute_notify = 4;   // 是否执行回调
+  string mch_id = 1; // 商户号
+  string product_id = 2; // 渠道号
+  string pay_order_id = 3;   // 支付订单号
+  string mch_order_no = 4;   // 商户订单号
+  bool execute_notify = 5;   // 是否执行回调
 }
 
 // 查询订单响应
@@ -224,11 +225,10 @@ message QueryOrderByUTRRequest {
 message CreateCashierRequest {
   string mch_order_no = 3; // 商户订单号
   int64 amount = 4;       // 支付金额
-  string return_url = 5;   // 支付结果前端跳转URL
-  string notify_url = 6;   // 支付结果后台回调URL
   string subject = 7;     // 商品主题
   string order_desc = 8;        // 商品描述信息
   string uid = 9;         // 用户唯一标识
+  string extra = 10;         // 用户唯一标识
 }
 
 // 创建收银台响应
@@ -282,21 +282,13 @@ service PaymentInnerService {
 message UserRechargeMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 amount = 2;           // 充值金额(分)
-  int64 channel_id = 4;  // 通道
-  string client_ip = 5;       // 客户端IP
-  string device = 6;          // 设备信息
-  string subject = 7;         // 充值主题
-  string order_desc = 8;      // 充值描述信息
+  string channel_code = 4;  // 通道
   string extra = 9;           // 扩展域
 
 }
 
 message UserRechargeMsgReply {
-  string ret_code = 1;        // 返回状态码
-  string ret_msg = 2;         // 返回信息
-  string recharge_order_id = 3; // 充值订单号
   string pay_url = 4;         // 支付URL
-  string sign = 5;            // 签名
 }
 
 message UserWithdrawMsgReq {
@@ -315,6 +307,41 @@ message UserWithdrawMsgReply {
   string sign = 5;            // 签名
 }
 
+// 支付通知消息请求
+message PaymentNotificationReq {
+  string pay_order_id = 1; // 交易中心生成的订单号
+  string mch_id = 2; // 交易中心分配的商户号
+  int64 product_id = 3;  // 支付产品ID也叫渠道编码
+  string mch_order_no = 4; // 商户生成的订单号
+  int64 amount = 5;  // 支付金额,单位分
+  int64 status = 6; // 支付状态,-1-创建失败,0-订单生成,1-支付中,2-支付成功,3-业务处理完成
+  string channel_order_no = 7;   // 三方支付渠道订单号
+  string channel_attach = 8;  // 支付渠道数据包
+  string param1 = 9;  // 扩展参数1
+  string param2 = 10;  // 扩展参数2
+  int64 pay_succ_time = 11;  // 支付成功时间
+  int64 back_type = 12;  // 通知类型, 1-前台通知, 2-后台通知
+  string sign = 13; // 签名值
+}
+
+
+// 充值通道列表响应
+message RechargeChannelsMsgReq {
+
+}
+
+// 充值通道列表响应
+message RechargeChannelsMsgReply {
+  repeated RechargeChannel rows = 4;  // 充值通道列表
+}
+
+// 充值通道信息
+message RechargeChannel {
+  string currency_code = 7;                 // 币种
+  string recharge_channel_code = 8;         // 充值通道编码
+}
+
+
 // 支付服务
 service UserPaymentInnerService {
   // 用户充值
@@ -322,4 +349,10 @@ service UserPaymentInnerService {
 
   // 用户提现
   rpc UserWithdraw(UserWithdrawMsgReq) returns (UserWithdrawMsgReply) {}
+
+  // 接收支付通知
+  rpc ReceivePaymentNotice(PaymentNotificationReq) returns (PaymentReply) {}
+
+  // 充值通道列表响应
+  rpc UserRechargeChannel(RechargeChannelsMsgReq) returns (RechargeChannelsMsgReply) {}
 }

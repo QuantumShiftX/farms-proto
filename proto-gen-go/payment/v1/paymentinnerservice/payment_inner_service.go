@@ -26,6 +26,7 @@ type (
 	PayNotifyData                    = v1.PayNotifyData
 	PayNotifyResponse                = v1.PayNotifyResponse
 	PayParams                        = v1.PayParams
+	PaymentNotificationReq           = v1.PaymentNotificationReq
 	PaymentReply                     = v1.PaymentReply
 	PaymentReq                       = v1.PaymentReq
 	QueryAgentPayBalanceRequest      = v1.QueryAgentPayBalanceRequest
@@ -37,6 +38,9 @@ type (
 	QueryOrderByUTRRequest           = v1.QueryOrderByUTRRequest
 	QueryOrderRequest                = v1.QueryOrderRequest
 	QueryOrderResponse               = v1.QueryOrderResponse
+	RechargeChannel                  = v1.RechargeChannel
+	RechargeChannelsMsgReply         = v1.RechargeChannelsMsgReply
+	RechargeChannelsMsgReq           = v1.RechargeChannelsMsgReq
 	UserRechargeMsgReply             = v1.UserRechargeMsgReply
 	UserRechargeMsgReq               = v1.UserRechargeMsgReq
 	UserWithdrawMsgReply             = v1.UserWithdrawMsgReply
