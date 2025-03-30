@@ -21,8 +21,6 @@ message CommonRequest {
 
 // 代付申请请求
 message ApplyAgentPayRequest {
-  int64 mch_id = 1;           // 商户ID
-  int32 product_id = 2;       // 代付产品ID
   string mch_order_no = 3;    // 商户代付单号
   int64 amount = 4;           // 代付金额(分)
   string currency = 5;        // 币种
@@ -41,7 +39,6 @@ message ApplyAgentPayRequest {
   string notify_url = 18;     // 回调URL(可选)
   string remark = 19;         // 备注
   string extra = 20;          // 扩展域(可选)
-  string req_time = 21;       // 请求时间(格式:yyyyMMddHHmmss)
   string sign = 22;           // 签名
 }
 
@@ -58,10 +55,8 @@ message ApplyAgentPayResponse {
 
 // 查询代付订单请求
 message QueryAgentPayOrderRequest {
-  int64 mch_id = 1;           // 商户ID
   string mch_order_no = 2;    // 商户代付单号(与代付单号二选一)
   string agent_pay_order_id = 3; // 代付单号(与商户代付单号二选一)
-  string req_time = 4;        // 请求时间(格式:yyyyMMddHHmmss)
   string sign = 5;            // 签名
 }
 
@@ -80,8 +75,6 @@ message QueryAgentPayOrderResponse {
 
 // 查询余额请求
 message QueryAgentPayBalanceRequest {
-  int64 mch_id = 1;           // 商户ID
-  string req_time = 2;        // 请求时间(格式:yyyyMMddHHmmss)
   string sign = 3;            // 签名
 }
 
@@ -97,10 +90,8 @@ message QueryAgentPayBalanceResponse {
 
 // 查询代付凭证请求
 message QueryAgentPayCertificateRequest {
-  int64 mch_id = 1;           // 商户ID
   string mch_order_no = 2;    // 商户代付单号(与代付单号二选一)
   string agent_pay_order_id = 3; // 代付单号(与商户代付单号二选一)
-  string req_time = 4;        // 请求时间(格式:yyyyMMddHHmmss)
   string sign = 5;            // 签名
 }
 
@@ -136,7 +127,7 @@ message AgentPayNotifyResponse {
 }
 
 // 代付服务定义
-service AgentPayService {
+service AgentPayInnerService {
   // 申请代付
   rpc ApplyAgentPay(ApplyAgentPayRequest) returns (ApplyAgentPayResponse) {}
 
@@ -159,34 +150,16 @@ service AgentPayService {
 
 
 
-// 支付服务
-service PaymentInnerService {
-  // 统一下单接口
-  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {}
-
-  // 查询订单接口
-  rpc QueryOrder(QueryOrderRequest) returns (QueryOrderResponse) {}
-
-  // 通过UTR查询订单接口
-  rpc QueryOrderByUTR(QueryOrderByUTRRequest) returns (QueryOrderResponse) {}
-
-  // 创建收银台接口
-  rpc CreateCashier(CreateCashierRequest) returns (CreateCashierResponse) {}
-}
 
 // 统一下单请求
 message CreateOrderRequest {
-  int64 mch_id = 1;       // 商户ID
-  int64 product_id = 2;   // 支付产品ID
   string mch_order_no = 3; // 商户订单号
   string currency = 4;     // 币种
   int64 amount = 5;       // 支付金额(分)
   string client_ip = 6;    // 客户端IP
   string device = 7;       // 设备
-  string return_url = 8;   // 支付结果前端跳转URL
-  string notify_url = 9;   // 支付结果后台回调URL
   string subject = 10;     // 商品主题
-  string body = 11;        // 商品描述信息
+  string order_desc = 11;        // 商品描述信息
   string uid = 12;         // 用户唯一标识
   string user_name = 13;   // 用户姓名
   string user_mobile = 14; // 用户电话
@@ -216,7 +189,6 @@ message PayParams {
 
 // 查询订单请求
 message QueryOrderRequest {
-  int64 mch_id = 1;         // 商户ID
   string pay_order_id = 2;   // 支付订单号
   string mch_order_no = 3;   // 商户订单号
   bool execute_notify = 4;   // 是否执行回调
@@ -242,7 +214,6 @@ message QueryOrderResponse {
 
 // 通过UTR查询订单请求
 message QueryOrderByUTRRequest {
-  int64 mch_id = 1;         // 商户ID
   string pay_order_id = 2;   // 支付订单号
   string mch_order_no = 3;   // 商户订单号
   string utr = 4;            // 支付UTR
@@ -251,14 +222,12 @@ message QueryOrderByUTRRequest {
 
 // 创建收银台请求
 message CreateCashierRequest {
-  int64 mch_id = 1;       // 商户ID
-  int64 product_id = 2;   // 支付产品ID
   string mch_order_no = 3; // 商户订单号
   int64 amount = 4;       // 支付金额
   string return_url = 5;   // 支付结果前端跳转URL
   string notify_url = 6;   // 支付结果后台回调URL
   string subject = 7;     // 商品主题
-  string body = 8;        // 商品描述信息
+  string order_desc = 8;        // 商品描述信息
   string uid = 9;         // 用户唯一标识
 }
 
@@ -273,8 +242,6 @@ message CreateCashierResponse {
 // 支付通知数据
 message PayNotifyData {
   string pay_order_id = 1;    // 支付订单号
-  int64 mch_id = 2;           // 商户ID
-  int64 product_id = 3;       // 支付产品ID
   string mch_order_no = 4;    // 商户订单号
   int64 amount = 5;           // 支付金额
   int64 status = 6;           // 状态
@@ -291,4 +258,68 @@ message PayNotifyData {
 message PayNotifyResponse {
   bool success = 1;            // 处理结果
   string message = 2;          // 处理消息
+}
+
+
+
+// 支付服务
+service PaymentInnerService {
+  // 统一下单接口
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {}
+
+  // 查询订单接口
+  rpc QueryOrder(QueryOrderRequest) returns (QueryOrderResponse) {}
+
+  // 通过UTR查询订单接口
+  rpc QueryOrderByUTR(QueryOrderByUTRRequest) returns (QueryOrderResponse) {}
+
+  // 创建收银台接口
+  rpc CreateCashier(CreateCashierRequest) returns (CreateCashierResponse) {}
+}
+
+
+
+message UserRechargeMsgReq {
+  int64 user_id = 1;          // 用户ID
+  int64 amount = 2;           // 充值金额(分)
+  int64 channel_id = 4;  // 通道
+  string client_ip = 5;       // 客户端IP
+  string device = 6;          // 设备信息
+  string subject = 7;         // 充值主题
+  string order_desc = 8;      // 充值描述信息
+  string extra = 9;           // 扩展域
+
+}
+
+message UserRechargeMsgReply {
+  string ret_code = 1;        // 返回状态码
+  string ret_msg = 2;         // 返回信息
+  string recharge_order_id = 3; // 充值订单号
+  string pay_url = 4;         // 支付URL
+  string sign = 5;            // 签名
+}
+
+message UserWithdrawMsgReq {
+  int64 user_id = 1;          // 用户ID
+  int64 amount = 2;           // 提现金额(分)
+  string client_ip = 5;       // 客户端IP
+  string device = 6;          // 设备信息
+  string extra = 11;          // 扩展域
+}
+
+message UserWithdrawMsgReply {
+  string ret_code = 1;        // 返回状态码
+  string ret_msg = 2;         // 返回信息
+  string withdraw_order_id = 3; // 提现订单号
+  int64 fee = 4;              // 手续费
+  string sign = 5;            // 签名
+}
+
+// 支付服务
+service UserPaymentInnerService {
+  // 用户充值
+  rpc UserRecharge(UserRechargeMsgReq) returns (UserRechargeMsgReply) {}
+
+  // 用户提现
+  rpc UserWithdraw(UserWithdrawMsgReq) returns (UserWithdrawMsgReply) {}
 }

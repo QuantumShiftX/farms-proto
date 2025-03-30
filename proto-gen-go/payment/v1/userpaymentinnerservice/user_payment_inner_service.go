@@ -2,7 +2,7 @@
 // goctl 1.7.6
 // Source: payment.proto
 
-package paymentinnerservice
+package userpaymentinnerservice
 
 import (
 	"context"
@@ -42,48 +42,32 @@ type (
 	UserWithdrawMsgReply             = v1.UserWithdrawMsgReply
 	UserWithdrawMsgReq               = v1.UserWithdrawMsgReq
 
-	PaymentInnerService interface {
-		// 统一下单接口
-		CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error)
-		// 查询订单接口
-		QueryOrder(ctx context.Context, in *QueryOrderRequest, opts ...grpc.CallOption) (*QueryOrderResponse, error)
-		// 通过UTR查询订单接口
-		QueryOrderByUTR(ctx context.Context, in *QueryOrderByUTRRequest, opts ...grpc.CallOption) (*QueryOrderResponse, error)
-		// 创建收银台接口
-		CreateCashier(ctx context.Context, in *CreateCashierRequest, opts ...grpc.CallOption) (*CreateCashierResponse, error)
+	UserPaymentInnerService interface {
+		// 用户充值
+		UserRecharge(ctx context.Context, in *UserRechargeMsgReq, opts ...grpc.CallOption) (*UserRechargeMsgReply, error)
+		// 用户提现
+		UserWithdraw(ctx context.Context, in *UserWithdrawMsgReq, opts ...grpc.CallOption) (*UserWithdrawMsgReply, error)
 	}
 
-	defaultPaymentInnerService struct {
+	defaultUserPaymentInnerService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewPaymentInnerService(cli zrpc.Client) PaymentInnerService {
-	return &defaultPaymentInnerService{
+func NewUserPaymentInnerService(cli zrpc.Client) UserPaymentInnerService {
+	return &defaultUserPaymentInnerService{
 		cli: cli,
 	}
 }
 
-// 统一下单接口
-func (m *defaultPaymentInnerService) CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error) {
-	client := v1.NewPaymentInnerServiceClient(m.cli.Conn())
-	return client.CreateOrder(ctx, in, opts...)
+// 用户充值
+func (m *defaultUserPaymentInnerService) UserRecharge(ctx context.Context, in *UserRechargeMsgReq, opts ...grpc.CallOption) (*UserRechargeMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.UserRecharge(ctx, in, opts...)
 }
 
-// 查询订单接口
-func (m *defaultPaymentInnerService) QueryOrder(ctx context.Context, in *QueryOrderRequest, opts ...grpc.CallOption) (*QueryOrderResponse, error) {
-	client := v1.NewPaymentInnerServiceClient(m.cli.Conn())
-	return client.QueryOrder(ctx, in, opts...)
-}
-
-// 通过UTR查询订单接口
-func (m *defaultPaymentInnerService) QueryOrderByUTR(ctx context.Context, in *QueryOrderByUTRRequest, opts ...grpc.CallOption) (*QueryOrderResponse, error) {
-	client := v1.NewPaymentInnerServiceClient(m.cli.Conn())
-	return client.QueryOrderByUTR(ctx, in, opts...)
-}
-
-// 创建收银台接口
-func (m *defaultPaymentInnerService) CreateCashier(ctx context.Context, in *CreateCashierRequest, opts ...grpc.CallOption) (*CreateCashierResponse, error) {
-	client := v1.NewPaymentInnerServiceClient(m.cli.Conn())
-	return client.CreateCashier(ctx, in, opts...)
+// 用户提现
+func (m *defaultUserPaymentInnerService) UserWithdraw(ctx context.Context, in *UserWithdrawMsgReq, opts ...grpc.CallOption) (*UserWithdrawMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.UserWithdraw(ctx, in, opts...)
 }
