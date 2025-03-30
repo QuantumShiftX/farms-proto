@@ -18,6 +18,7 @@ type (
 	AgentPayNotifyResponse           = v1.AgentPayNotifyResponse
 	ApplyAgentPayRequest             = v1.ApplyAgentPayRequest
 	ApplyAgentPayResponse            = v1.ApplyAgentPayResponse
+	CommonRequest                    = v1.CommonRequest
 	CreateCashierRequest             = v1.CreateCashierRequest
 	CreateCashierResponse            = v1.CreateCashierResponse
 	CreateOrderRequest               = v1.CreateOrderRequest

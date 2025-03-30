@@ -12,10 +12,17 @@ message PaymentReply {
 }
 
 
+// 通用请求时间和签名字段
+message CommonRequest {
+  int64 mch_id = 1;            // 商户ID
+  string req_time = 2;         // 请求时间(格式:yyyyMMddHHmmss)
+  string sign = 3;             // 签名
+}
+
 // 代付申请请求
 message ApplyAgentPayRequest {
   int64 mch_id = 1;           // 商户ID
-  int64 product_id = 2;       // 代付产品ID
+  int32 product_id = 2;       // 代付产品ID
   string mch_order_no = 3;    // 商户代付单号
   int64 amount = 4;           // 代付金额(分)
   string currency = 5;        // 币种
@@ -23,17 +30,19 @@ message ApplyAgentPayRequest {
   string bank_name = 7;       // 银行名称或账户类型
   string account_name = 8;    // 收款人账户名
   string account_no = 9;      // 收款人账户号
-  string province = 10;       // 开户所在地域
-  string city = 11;           // 开户所在地区
-  int64 account_attr = 12;    // 账户属性(0-对私,1-对公)
+  string province = 10;       // 开户所在地域(可选)
+  string city = 11;           // 开户所在地区(可选)
+  int32 account_attr = 12;    // 账户属性(0-对私,1-对公)
   string bank_number = 13;    // 联行号或CPF号码
-  string uid = 14;            // 用户唯一标识
-  string user_name = 15;      // 用户姓名
-  string user_mobile = 16;    // 用户电话
-  string user_email = 17;     // 用户邮箱
-  string notify_url = 18;     // 回调URL
+  string uid = 14;            // 用户唯一标识(可选)
+  string user_name = 15;      // 用户姓名(可选)
+  string user_mobile = 16;    // 用户电话(可选)
+  string user_email = 17;     // 用户邮箱(可选)
+  string notify_url = 18;     // 回调URL(可选)
   string remark = 19;         // 备注
-  string extra = 20;          // 扩展域
+  string extra = 20;          // 扩展域(可选)
+  string req_time = 21;       // 请求时间(格式:yyyyMMddHHmmss)
+  string sign = 22;           // 签名
 }
 
 // 代付申请响应
@@ -43,15 +52,17 @@ message ApplyAgentPayResponse {
   string agent_pay_order_id = 3; // 代付单号
   int64 fee = 4;              // 手续费
   string extra = 5;           // 扩展域
-  int64 status = 6;           // 状态
+  int32 status = 6;           // 状态
   string sign = 7;            // 签名
 }
 
 // 查询代付订单请求
 message QueryAgentPayOrderRequest {
   int64 mch_id = 1;           // 商户ID
-  string mch_order_no = 2;    // 商户代付单号
-  string agent_pay_order_id = 3; // 代付单号
+  string mch_order_no = 2;    // 商户代付单号(与代付单号二选一)
+  string agent_pay_order_id = 3; // 代付单号(与商户代付单号二选一)
+  string req_time = 4;        // 请求时间(格式:yyyyMMddHHmmss)
+  string sign = 5;            // 签名
 }
 
 // 查询代付订单响应
@@ -74,7 +85,6 @@ message QueryAgentPayBalanceRequest {
   string sign = 3;            // 签名
 }
 
-
 // 查询代付账户余额响应
 message QueryAgentPayBalanceResponse {
   string ret_code = 1;                  // 返回状态码
@@ -88,8 +98,10 @@ message QueryAgentPayBalanceResponse {
 // 查询代付凭证请求
 message QueryAgentPayCertificateRequest {
   int64 mch_id = 1;           // 商户ID
-  string mch_order_no = 2;    // 商户代付单号
-  string agent_pay_order_id = 3; // 代付单号
+  string mch_order_no = 2;    // 商户代付单号(与代付单号二选一)
+  string agent_pay_order_id = 3; // 代付单号(与商户代付单号二选一)
+  string req_time = 4;        // 请求时间(格式:yyyyMMddHHmmss)
+  string sign = 5;            // 签名
 }
 
 // 查询代付凭证响应
@@ -123,10 +135,8 @@ message AgentPayNotifyResponse {
   string message = 1;         // 响应信息，返回 "success" 表示成功接收
 }
 
-
-
 // 代付服务定义
-service AgentPayInnerService {
+service AgentPayService {
   // 申请代付
   rpc ApplyAgentPay(ApplyAgentPayRequest) returns (ApplyAgentPayResponse) {}
 
@@ -134,13 +144,13 @@ service AgentPayInnerService {
   rpc QueryAgentPayOrder(QueryAgentPayOrderRequest) returns (QueryAgentPayOrderResponse) {}
 
   // 查询代付凭证
-  rpc HandleAgentPayNotify(AgentPayNotifyRequest) returns (AgentPayNotifyResponse) {}
+  rpc QueryAgentPayCertificate(QueryAgentPayCertificateRequest) returns (QueryAgentPayCertificateResponse) {}
 
   // 查询余额
   rpc QueryAgentPayBalance(QueryAgentPayBalanceRequest) returns (QueryAgentPayBalanceResponse) {}
 
-  // 验证回调通知
-  rpc QueryAgentPayCertificate(QueryAgentPayCertificateRequest) returns (QueryAgentPayCertificateResponse) {}
+  // 验证回调通知(内部使用)
+  rpc HandleAgentPayNotify(AgentPayNotifyRequest) returns (AgentPayNotifyResponse) {}
 }
 
 

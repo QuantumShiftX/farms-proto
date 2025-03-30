@@ -19,247 +19,247 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AgentPayInnerService_ApplyAgentPay_FullMethodName            = "/payment.v1.AgentPayInnerService/ApplyAgentPay"
-	AgentPayInnerService_QueryAgentPayOrder_FullMethodName       = "/payment.v1.AgentPayInnerService/QueryAgentPayOrder"
-	AgentPayInnerService_HandleAgentPayNotify_FullMethodName     = "/payment.v1.AgentPayInnerService/HandleAgentPayNotify"
-	AgentPayInnerService_QueryAgentPayBalance_FullMethodName     = "/payment.v1.AgentPayInnerService/QueryAgentPayBalance"
-	AgentPayInnerService_QueryAgentPayCertificate_FullMethodName = "/payment.v1.AgentPayInnerService/QueryAgentPayCertificate"
+	AgentPayService_ApplyAgentPay_FullMethodName            = "/payment.v1.AgentPayService/ApplyAgentPay"
+	AgentPayService_QueryAgentPayOrder_FullMethodName       = "/payment.v1.AgentPayService/QueryAgentPayOrder"
+	AgentPayService_QueryAgentPayCertificate_FullMethodName = "/payment.v1.AgentPayService/QueryAgentPayCertificate"
+	AgentPayService_QueryAgentPayBalance_FullMethodName     = "/payment.v1.AgentPayService/QueryAgentPayBalance"
+	AgentPayService_HandleAgentPayNotify_FullMethodName     = "/payment.v1.AgentPayService/HandleAgentPayNotify"
 )
 
-// AgentPayInnerServiceClient is the client API for AgentPayInnerService service.
+// AgentPayServiceClient is the client API for AgentPayService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AgentPayInnerServiceClient interface {
+type AgentPayServiceClient interface {
 	// 申请代付
 	ApplyAgentPay(ctx context.Context, in *ApplyAgentPayRequest, opts ...grpc.CallOption) (*ApplyAgentPayResponse, error)
 	// 查询代付订单
 	QueryAgentPayOrder(ctx context.Context, in *QueryAgentPayOrderRequest, opts ...grpc.CallOption) (*QueryAgentPayOrderResponse, error)
 	// 查询代付凭证
-	HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error)
+	QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error)
 	// 查询余额
 	QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error)
-	// 验证回调通知
-	QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error)
+	// 验证回调通知(内部使用)
+	HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error)
 }
 
-type agentPayInnerServiceClient struct {
+type agentPayServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAgentPayInnerServiceClient(cc grpc.ClientConnInterface) AgentPayInnerServiceClient {
-	return &agentPayInnerServiceClient{cc}
+func NewAgentPayServiceClient(cc grpc.ClientConnInterface) AgentPayServiceClient {
+	return &agentPayServiceClient{cc}
 }
 
-func (c *agentPayInnerServiceClient) ApplyAgentPay(ctx context.Context, in *ApplyAgentPayRequest, opts ...grpc.CallOption) (*ApplyAgentPayResponse, error) {
+func (c *agentPayServiceClient) ApplyAgentPay(ctx context.Context, in *ApplyAgentPayRequest, opts ...grpc.CallOption) (*ApplyAgentPayResponse, error) {
 	out := new(ApplyAgentPayResponse)
-	err := c.cc.Invoke(ctx, AgentPayInnerService_ApplyAgentPay_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, AgentPayService_ApplyAgentPay_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *agentPayInnerServiceClient) QueryAgentPayOrder(ctx context.Context, in *QueryAgentPayOrderRequest, opts ...grpc.CallOption) (*QueryAgentPayOrderResponse, error) {
+func (c *agentPayServiceClient) QueryAgentPayOrder(ctx context.Context, in *QueryAgentPayOrderRequest, opts ...grpc.CallOption) (*QueryAgentPayOrderResponse, error) {
 	out := new(QueryAgentPayOrderResponse)
-	err := c.cc.Invoke(ctx, AgentPayInnerService_QueryAgentPayOrder_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, AgentPayService_QueryAgentPayOrder_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *agentPayInnerServiceClient) HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error) {
-	out := new(AgentPayNotifyResponse)
-	err := c.cc.Invoke(ctx, AgentPayInnerService_HandleAgentPayNotify_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *agentPayInnerServiceClient) QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
-	out := new(QueryAgentPayBalanceResponse)
-	err := c.cc.Invoke(ctx, AgentPayInnerService_QueryAgentPayBalance_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *agentPayInnerServiceClient) QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error) {
+func (c *agentPayServiceClient) QueryAgentPayCertificate(ctx context.Context, in *QueryAgentPayCertificateRequest, opts ...grpc.CallOption) (*QueryAgentPayCertificateResponse, error) {
 	out := new(QueryAgentPayCertificateResponse)
-	err := c.cc.Invoke(ctx, AgentPayInnerService_QueryAgentPayCertificate_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, AgentPayService_QueryAgentPayCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AgentPayInnerServiceServer is the server API for AgentPayInnerService service.
-// All implementations must embed UnimplementedAgentPayInnerServiceServer
+func (c *agentPayServiceClient) QueryAgentPayBalance(ctx context.Context, in *QueryAgentPayBalanceRequest, opts ...grpc.CallOption) (*QueryAgentPayBalanceResponse, error) {
+	out := new(QueryAgentPayBalanceResponse)
+	err := c.cc.Invoke(ctx, AgentPayService_QueryAgentPayBalance_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentPayServiceClient) HandleAgentPayNotify(ctx context.Context, in *AgentPayNotifyRequest, opts ...grpc.CallOption) (*AgentPayNotifyResponse, error) {
+	out := new(AgentPayNotifyResponse)
+	err := c.cc.Invoke(ctx, AgentPayService_HandleAgentPayNotify_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AgentPayServiceServer is the server API for AgentPayService service.
+// All implementations must embed UnimplementedAgentPayServiceServer
 // for forward compatibility
-type AgentPayInnerServiceServer interface {
+type AgentPayServiceServer interface {
 	// 申请代付
 	ApplyAgentPay(context.Context, *ApplyAgentPayRequest) (*ApplyAgentPayResponse, error)
 	// 查询代付订单
 	QueryAgentPayOrder(context.Context, *QueryAgentPayOrderRequest) (*QueryAgentPayOrderResponse, error)
 	// 查询代付凭证
-	HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error)
+	QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error)
 	// 查询余额
 	QueryAgentPayBalance(context.Context, *QueryAgentPayBalanceRequest) (*QueryAgentPayBalanceResponse, error)
-	// 验证回调通知
-	QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error)
-	mustEmbedUnimplementedAgentPayInnerServiceServer()
+	// 验证回调通知(内部使用)
+	HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error)
+	mustEmbedUnimplementedAgentPayServiceServer()
 }
 
-// UnimplementedAgentPayInnerServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedAgentPayInnerServiceServer struct {
+// UnimplementedAgentPayServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedAgentPayServiceServer struct {
 }
 
-func (UnimplementedAgentPayInnerServiceServer) ApplyAgentPay(context.Context, *ApplyAgentPayRequest) (*ApplyAgentPayResponse, error) {
+func (UnimplementedAgentPayServiceServer) ApplyAgentPay(context.Context, *ApplyAgentPayRequest) (*ApplyAgentPayResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyAgentPay not implemented")
 }
-func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayOrder(context.Context, *QueryAgentPayOrderRequest) (*QueryAgentPayOrderResponse, error) {
+func (UnimplementedAgentPayServiceServer) QueryAgentPayOrder(context.Context, *QueryAgentPayOrderRequest) (*QueryAgentPayOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayOrder not implemented")
 }
-func (UnimplementedAgentPayInnerServiceServer) HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method HandleAgentPayNotify not implemented")
-}
-func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayBalance(context.Context, *QueryAgentPayBalanceRequest) (*QueryAgentPayBalanceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayBalance not implemented")
-}
-func (UnimplementedAgentPayInnerServiceServer) QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error) {
+func (UnimplementedAgentPayServiceServer) QueryAgentPayCertificate(context.Context, *QueryAgentPayCertificateRequest) (*QueryAgentPayCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayCertificate not implemented")
 }
-func (UnimplementedAgentPayInnerServiceServer) mustEmbedUnimplementedAgentPayInnerServiceServer() {}
+func (UnimplementedAgentPayServiceServer) QueryAgentPayBalance(context.Context, *QueryAgentPayBalanceRequest) (*QueryAgentPayBalanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryAgentPayBalance not implemented")
+}
+func (UnimplementedAgentPayServiceServer) HandleAgentPayNotify(context.Context, *AgentPayNotifyRequest) (*AgentPayNotifyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HandleAgentPayNotify not implemented")
+}
+func (UnimplementedAgentPayServiceServer) mustEmbedUnimplementedAgentPayServiceServer() {}
 
-// UnsafeAgentPayInnerServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to AgentPayInnerServiceServer will
+// UnsafeAgentPayServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AgentPayServiceServer will
 // result in compilation errors.
-type UnsafeAgentPayInnerServiceServer interface {
-	mustEmbedUnimplementedAgentPayInnerServiceServer()
+type UnsafeAgentPayServiceServer interface {
+	mustEmbedUnimplementedAgentPayServiceServer()
 }
 
-func RegisterAgentPayInnerServiceServer(s grpc.ServiceRegistrar, srv AgentPayInnerServiceServer) {
-	s.RegisterService(&AgentPayInnerService_ServiceDesc, srv)
+func RegisterAgentPayServiceServer(s grpc.ServiceRegistrar, srv AgentPayServiceServer) {
+	s.RegisterService(&AgentPayService_ServiceDesc, srv)
 }
 
-func _AgentPayInnerService_ApplyAgentPay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AgentPayService_ApplyAgentPay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ApplyAgentPayRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AgentPayInnerServiceServer).ApplyAgentPay(ctx, in)
+		return srv.(AgentPayServiceServer).ApplyAgentPay(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AgentPayInnerService_ApplyAgentPay_FullMethodName,
+		FullMethod: AgentPayService_ApplyAgentPay_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).ApplyAgentPay(ctx, req.(*ApplyAgentPayRequest))
+		return srv.(AgentPayServiceServer).ApplyAgentPay(ctx, req.(*ApplyAgentPayRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AgentPayInnerService_QueryAgentPayOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AgentPayService_QueryAgentPayOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryAgentPayOrderRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayOrder(ctx, in)
+		return srv.(AgentPayServiceServer).QueryAgentPayOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AgentPayInnerService_QueryAgentPayOrder_FullMethodName,
+		FullMethod: AgentPayService_QueryAgentPayOrder_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayOrder(ctx, req.(*QueryAgentPayOrderRequest))
+		return srv.(AgentPayServiceServer).QueryAgentPayOrder(ctx, req.(*QueryAgentPayOrderRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AgentPayInnerService_HandleAgentPayNotify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AgentPayNotifyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AgentPayInnerServiceServer).HandleAgentPayNotify(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AgentPayInnerService_HandleAgentPayNotify_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).HandleAgentPayNotify(ctx, req.(*AgentPayNotifyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AgentPayInnerService_QueryAgentPayBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAgentPayBalanceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayBalance(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AgentPayInnerService_QueryAgentPayBalance_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayBalance(ctx, req.(*QueryAgentPayBalanceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AgentPayInnerService_QueryAgentPayCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AgentPayService_QueryAgentPayCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryAgentPayCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayCertificate(ctx, in)
+		return srv.(AgentPayServiceServer).QueryAgentPayCertificate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AgentPayInnerService_QueryAgentPayCertificate_FullMethodName,
+		FullMethod: AgentPayService_QueryAgentPayCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentPayInnerServiceServer).QueryAgentPayCertificate(ctx, req.(*QueryAgentPayCertificateRequest))
+		return srv.(AgentPayServiceServer).QueryAgentPayCertificate(ctx, req.(*QueryAgentPayCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// AgentPayInnerService_ServiceDesc is the grpc.ServiceDesc for AgentPayInnerService service.
+func _AgentPayService_QueryAgentPayBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAgentPayBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentPayServiceServer).QueryAgentPayBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AgentPayService_QueryAgentPayBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentPayServiceServer).QueryAgentPayBalance(ctx, req.(*QueryAgentPayBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentPayService_HandleAgentPayNotify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AgentPayNotifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentPayServiceServer).HandleAgentPayNotify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AgentPayService_HandleAgentPayNotify_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentPayServiceServer).HandleAgentPayNotify(ctx, req.(*AgentPayNotifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// AgentPayService_ServiceDesc is the grpc.ServiceDesc for AgentPayService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var AgentPayInnerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "payment.v1.AgentPayInnerService",
-	HandlerType: (*AgentPayInnerServiceServer)(nil),
+var AgentPayService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "payment.v1.AgentPayService",
+	HandlerType: (*AgentPayServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ApplyAgentPay",
-			Handler:    _AgentPayInnerService_ApplyAgentPay_Handler,
+			Handler:    _AgentPayService_ApplyAgentPay_Handler,
 		},
 		{
 			MethodName: "QueryAgentPayOrder",
-			Handler:    _AgentPayInnerService_QueryAgentPayOrder_Handler,
-		},
-		{
-			MethodName: "HandleAgentPayNotify",
-			Handler:    _AgentPayInnerService_HandleAgentPayNotify_Handler,
-		},
-		{
-			MethodName: "QueryAgentPayBalance",
-			Handler:    _AgentPayInnerService_QueryAgentPayBalance_Handler,
+			Handler:    _AgentPayService_QueryAgentPayOrder_Handler,
 		},
 		{
 			MethodName: "QueryAgentPayCertificate",
-			Handler:    _AgentPayInnerService_QueryAgentPayCertificate_Handler,
+			Handler:    _AgentPayService_QueryAgentPayCertificate_Handler,
+		},
+		{
+			MethodName: "QueryAgentPayBalance",
+			Handler:    _AgentPayService_QueryAgentPayBalance_Handler,
+		},
+		{
+			MethodName: "HandleAgentPayNotify",
+			Handler:    _AgentPayService_HandleAgentPayNotify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
