@@ -1038,3 +1038,12 @@ message UserBalanceNoticeInfoMsgReply {
   repeated UserBalance balances = 1; // 用户的各类钱包余额列表
 }
 
+
+
+
+// SendMessage 代表消息结构
+message SendMessage {
+  int64 message_id = 1;      // 消息ID
+  repeated int64 user_ids = 2;  // 目标用户ID列表
+  bytes body = 3;            // Proto序列化后的数据
+}
