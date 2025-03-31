@@ -43,8 +43,11 @@ type (
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
+	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
+	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
 	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
+	WithdrawChannel                  = v1.WithdrawChannel
 
 	PaymentInnerService interface {
 		// 统一下单接口

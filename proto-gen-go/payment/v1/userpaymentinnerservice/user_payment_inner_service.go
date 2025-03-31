@@ -43,8 +43,11 @@ type (
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
+	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
+	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
 	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
+	WithdrawChannel                  = v1.WithdrawChannel
 
 	UserPaymentInnerService interface {
 		// 用户充值
@@ -55,6 +58,8 @@ type (
 		ReceivePaymentNotice(ctx context.Context, in *PaymentNotificationReq, opts ...grpc.CallOption) (*PaymentReply, error)
 		// 充值通道列表响应
 		UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error)
+		// 用户提现通道列表响应
+		UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
 	}
 
 	defaultUserPaymentInnerService struct {
@@ -90,4 +95,10 @@ func (m *defaultUserPaymentInnerService) ReceivePaymentNotice(ctx context.Contex
 func (m *defaultUserPaymentInnerService) UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error) {
 	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
 	return client.UserRechargeChannel(ctx, in, opts...)
+}
+
+// 用户提现通道列表响应
+func (m *defaultUserPaymentInnerService) UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.UserWithdrawChannel(ctx, in, opts...)
 }

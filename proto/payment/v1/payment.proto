@@ -294,17 +294,13 @@ message UserRechargeInfoMsgReply {
 message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 amount = 2;           // 提现金额(分)
-  string client_ip = 5;       // 客户端IP
-  string device = 6;          // 设备信息
+  int64 withdraw_account_id = 5;       //提现账号
   string extra = 11;          // 扩展域
 }
 
 message UserWithdrawInfoMsgReply {
-  string ret_code = 1;        // 返回状态码
-  string ret_msg = 2;         // 返回信息
-  string withdraw_order_id = 3; // 提现订单号
-  int64 fee = 4;              // 手续费
-  string sign = 5;            // 签名
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
 }
 
 // 支付通知消息请求
@@ -342,6 +338,25 @@ message RechargeChannel {
 }
 
 
+message UserWithdrawChannelInfoMsgReq {
+  int64 user_id = 1;          // 用户ID
+}
+
+message UserWithdrawChannelInfoMsgReply {
+  repeated WithdrawChannel rows = 4;  // 提现通道列表
+}
+
+// 提现通道信息
+message WithdrawChannel {
+  int64 withdraw_account_id = 1;       //提现账号
+  int64 user_id = 2;       //用户ID
+  string currency_code = 3;                 // 币种
+  string account = 4;                 //  提现账号/地址
+  int64 account_type = 5;                 // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
+  int64 verify_status = 6;                 //  验证状态 1:已验证 2:验证失败 3:未验证
+  int64 is_default = 7;                 //  是否默认账户 1:是 2:否
+}
+
 // 支付服务
 service UserPaymentInnerService {
   // 用户充值
@@ -355,4 +370,7 @@ service UserPaymentInnerService {
 
   // 充值通道列表响应
   rpc UserRechargeChannel(RechargeChannelsInfoMsgReq) returns (RechargeChannelsInfoMsgReply) {}
+
+  // 用户提现通道列表响应
+  rpc UserWithdrawChannel(UserWithdrawChannelInfoMsgReq) returns (UserWithdrawChannelInfoMsgReply) {}
 }

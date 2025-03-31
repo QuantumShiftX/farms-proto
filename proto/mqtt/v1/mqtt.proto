@@ -83,6 +83,9 @@ enum MessageID {
   VIP_LEVEL_INFO_MSG = 600;
   RECHARGE_CHANNELS_INFO_MSG = 601;
   USER_RECHARGE_INFO_MSG = 602;
+  USER_WITHDRAW_INFO_MSG = 603;
+  USER_WITHDRAW_CHANNEL_INFO_MSG = 604;
+
 
 
 
@@ -922,6 +925,40 @@ message UserRechargeInfoMsgReq {
 message UserRechargeInfoMsgReply {
   string pay_url = 4;         // 支付URL
 }
+
+
+message UserWithdrawInfoMsgReq {
+  int64 user_id = 1;          // 用户ID
+  int64 amount = 2;           // 提现金额(分)
+  int64 withdraw_account_id = 5;       //提现账号
+  string extra = 11;          // 扩展域
+}
+
+message UserWithdrawInfoMsgReply {
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
+
+message UserWithdrawChannelInfoMsgReq {
+  int64 user_id = 1;          // 用户ID
+}
+
+message UserWithdrawChannelInfoMsgReply {
+  repeated WithdrawChannel rows = 4;  // 提现通道列表
+}
+
+// 提现通道信息
+message WithdrawChannel {
+  int64 withdraw_account_id = 1;       //提现账号
+  int64 user_id = 2;       //用户ID
+  string currency_code = 3;                 // 币种
+  string account = 4;                 //  提现账号/地址
+  int64 account_type = 5;                 // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
+  int64 verify_status = 6;                 //  验证状态 1:已验证 2:验证失败 3:未验证
+  int64 is_default = 7;                 //  是否默认账户 1:是 2:否
+}
+
 
 // =========================================
 // 通知相关消息
