@@ -14,77 +14,79 @@ import (
 )
 
 type (
-	AdjustHarvestTimeRequest      = v1.AdjustHarvestTimeRequest
-	AdjustHarvestTimeResponse     = v1.AdjustHarvestTimeResponse
-	AllUserRankingInfoMsgReply    = v1.AllUserRankingInfoMsgReply
-	AllUserRankingInfoMsgReq      = v1.AllUserRankingInfoMsgReq
-	CheckCropsNeedsRequest        = v1.CheckCropsNeedsRequest
-	CheckCropsNeedsResponse       = v1.CheckCropsNeedsResponse
-	ForgotPasswordReq             = v1.ForgotPasswordReq
-	FriendRankingInfo             = v1.FriendRankingInfo
-	GetOnlineUserListReply        = v1.GetOnlineUserListReply
-	GetOnlineUserListReq          = v1.GetOnlineUserListReq
-	GrowthProgressRequest         = v1.GrowthProgressRequest
-	GrowthProgressResponse        = v1.GrowthProgressResponse
-	LookUserFarmsInfoMsgReply     = v1.LookUserFarmsInfoMsgReply
-	LookUserFarmsInfoMsgReq       = v1.LookUserFarmsInfoMsgReq
-	MaintenanceNeeds              = v1.MaintenanceNeeds
-	MaintenanceNeedsRequest       = v1.MaintenanceNeedsRequest
-	MaintenanceNeedsResponse      = v1.MaintenanceNeedsResponse
-	MsgData                       = v1.MsgData
-	MsgReply                      = v1.MsgReply
-	MsgReq                        = v1.MsgReq
-	MyRankingInfo                 = v1.MyRankingInfo
-	PlantInfo                     = v1.PlantInfo
-	PlantStateInfo                = v1.PlantStateInfo
-	PlantStateRequest             = v1.PlantStateRequest
-	PlantStateResponse            = v1.PlantStateResponse
-	PlantStatusRequest            = v1.PlantStatusRequest
-	PlantStatusResponse           = v1.PlantStatusResponse
-	RequestClientInfo             = v1.RequestClientInfo
-	StageTime                     = v1.StageTime
-	StageTimelinesRequest         = v1.StageTimelinesRequest
-	StageTimelinesResponse        = v1.StageTimelinesResponse
-	TimeReductionRequest          = v1.TimeReductionRequest
-	TimeReductionResponse         = v1.TimeReductionResponse
-	UserAuthInfoMsgReply          = v1.UserAuthInfoMsgReply
-	UserAuthInfoMsgReq            = v1.UserAuthInfoMsgReq
-	UserAuthenticationReply       = v1.UserAuthenticationReply
-	UserAuthenticationReq         = v1.UserAuthenticationReq
-	UserBalance                   = v1.UserBalance
-	UserEditPersonalInfoMsgReply  = v1.UserEditPersonalInfoMsgReply
-	UserEditPersonalInfoMsgReq    = v1.UserEditPersonalInfoMsgReq
-	UserEditSensitiveInfoMsgReply = v1.UserEditSensitiveInfoMsgReply
-	UserEditSensitiveInfoMsgReq   = v1.UserEditSensitiveInfoMsgReq
-	UserFarmInfoMsgReply          = v1.UserFarmInfoMsgReply
-	UserFarmInfoMsgReq            = v1.UserFarmInfoMsgReq
-	UserFarmOpsMsgReply           = v1.UserFarmOpsMsgReply
-	UserFarmOpsMsgReq             = v1.UserFarmOpsMsgReq
-	UserFortuneTreeInfo           = v1.UserFortuneTreeInfo
-	UserFortuneTreeInfoMsgReply   = v1.UserFortuneTreeInfoMsgReply
-	UserFortuneTreeInfoMsgReq     = v1.UserFortuneTreeInfoMsgReq
-	UserFriendRankingInfoMsgReply = v1.UserFriendRankingInfoMsgReply
-	UserFriendRankingInfoMsgReq   = v1.UserFriendRankingInfoMsgReq
-	UserIdReq                     = v1.UserIdReq
-	UserLandDetail                = v1.UserLandDetail
-	UserLandInfoMsgReply          = v1.UserLandInfoMsgReply
-	UserLandInfoMsgReq            = v1.UserLandInfoMsgReq
-	UserLoginResp                 = v1.UserLoginResp
-	UserPersonalInfoMsgReply      = v1.UserPersonalInfoMsgReply
-	UserPersonalInfoMsgReq        = v1.UserPersonalInfoMsgReq
-	UserPlantingDetail            = v1.UserPlantingDetail
-	UserPurchaseGoodsMsgReply     = v1.UserPurchaseGoodsMsgReply
-	UserPurchaseGoodsMsgReq       = v1.UserPurchaseGoodsMsgReq
-	UserRegisterReq               = v1.UserRegisterReq
-	UserReply                     = v1.UserReply
-	UserReq                       = v1.UserReq
-	UserSignInReq                 = v1.UserSignInReq
-	UserSignOutReq                = v1.UserSignOutReq
-	UserStorageDetail             = v1.UserStorageDetail
-	UserStorageInfoMsgReply       = v1.UserStorageInfoMsgReply
-	UserStorageInfoMsgReq         = v1.UserStorageInfoMsgReq
-	UserWallet                    = v1.UserWallet
-	VerifyAccountReq              = v1.VerifyAccountReq
+	AdjustHarvestTimeRequest        = v1.AdjustHarvestTimeRequest
+	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
+	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
+	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
+	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
+	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
+	ForgotPasswordReq               = v1.ForgotPasswordReq
+	FriendRankingInfo               = v1.FriendRankingInfo
+	GetOnlineUserListReply          = v1.GetOnlineUserListReply
+	GetOnlineUserListReq            = v1.GetOnlineUserListReq
+	GrowthProgressRequest           = v1.GrowthProgressRequest
+	GrowthProgressResponse          = v1.GrowthProgressResponse
+	LookUserFarmsInfoMsgReply       = v1.LookUserFarmsInfoMsgReply
+	LookUserFarmsInfoMsgReq         = v1.LookUserFarmsInfoMsgReq
+	MaintenanceNeeds                = v1.MaintenanceNeeds
+	MaintenanceNeedsRequest         = v1.MaintenanceNeedsRequest
+	MaintenanceNeedsResponse        = v1.MaintenanceNeedsResponse
+	MsgData                         = v1.MsgData
+	MsgReply                        = v1.MsgReply
+	MsgReq                          = v1.MsgReq
+	MyRankingInfo                   = v1.MyRankingInfo
+	PlantInfo                       = v1.PlantInfo
+	PlantStateInfo                  = v1.PlantStateInfo
+	PlantStateRequest               = v1.PlantStateRequest
+	PlantStateResponse              = v1.PlantStateResponse
+	PlantStatusRequest              = v1.PlantStatusRequest
+	PlantStatusResponse             = v1.PlantStatusResponse
+	RequestClientInfo               = v1.RequestClientInfo
+	StageTime                       = v1.StageTime
+	StageTimelinesRequest           = v1.StageTimelinesRequest
+	StageTimelinesResponse          = v1.StageTimelinesResponse
+	TimeReductionRequest            = v1.TimeReductionRequest
+	TimeReductionResponse           = v1.TimeReductionResponse
+	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
+	UserAuthInfoMsgReq              = v1.UserAuthInfoMsgReq
+	UserAuthenticationReply         = v1.UserAuthenticationReply
+	UserAuthenticationReq           = v1.UserAuthenticationReq
+	UserBalance                     = v1.UserBalance
+	UserEditPersonalInfoMsgReply    = v1.UserEditPersonalInfoMsgReply
+	UserEditPersonalInfoMsgReq      = v1.UserEditPersonalInfoMsgReq
+	UserEditSensitiveInfoMsgReply   = v1.UserEditSensitiveInfoMsgReply
+	UserEditSensitiveInfoMsgReq     = v1.UserEditSensitiveInfoMsgReq
+	UserFarmInfoMsgReply            = v1.UserFarmInfoMsgReply
+	UserFarmInfoMsgReq              = v1.UserFarmInfoMsgReq
+	UserFarmOpsMsgReply             = v1.UserFarmOpsMsgReply
+	UserFarmOpsMsgReq               = v1.UserFarmOpsMsgReq
+	UserFortuneTreeInfo             = v1.UserFortuneTreeInfo
+	UserFortuneTreeInfoMsgReply     = v1.UserFortuneTreeInfoMsgReply
+	UserFortuneTreeInfoMsgReq       = v1.UserFortuneTreeInfoMsgReq
+	UserFriendRankingInfoMsgReply   = v1.UserFriendRankingInfoMsgReply
+	UserFriendRankingInfoMsgReq     = v1.UserFriendRankingInfoMsgReq
+	UserIdReq                       = v1.UserIdReq
+	UserLandDetail                  = v1.UserLandDetail
+	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
+	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
+	UserLoginResp                   = v1.UserLoginResp
+	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
+	UserPersonalInfoMsgReq          = v1.UserPersonalInfoMsgReq
+	UserPlantingDetail              = v1.UserPlantingDetail
+	UserPurchaseGoodsMsgReply       = v1.UserPurchaseGoodsMsgReply
+	UserPurchaseGoodsMsgReq         = v1.UserPurchaseGoodsMsgReq
+	UserRegisterReq                 = v1.UserRegisterReq
+	UserReply                       = v1.UserReply
+	UserReq                         = v1.UserReq
+	UserSignInReq                   = v1.UserSignInReq
+	UserSignOutReq                  = v1.UserSignOutReq
+	UserStorageDetail               = v1.UserStorageDetail
+	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
+	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
+	UserWallet                      = v1.UserWallet
+	VerifyAccountReq                = v1.VerifyAccountReq
+	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
+	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
 
 	UserInnerService interface {
 		// 用户连接
@@ -117,6 +119,8 @@ type (
 		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 		// 用户的发财树信息
 		UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
+		// 校验二级密码
+		VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -218,4 +222,10 @@ func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *Use
 func (m *defaultUserInnerService) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFortuneTreeInfo(ctx, in, opts...)
+}
+
+// 校验二级密码
+func (m *defaultUserInnerService) VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.VerifySecondaryPassword(ctx, in, opts...)
 }

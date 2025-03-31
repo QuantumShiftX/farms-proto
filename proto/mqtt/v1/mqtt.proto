@@ -57,6 +57,8 @@ enum MessageID {
   ALL_USER_RANKING_INFO_MSG = 6;
   USER_FORTUNE_TREE_INFO_MSG = 7;
   USER_EDIT_SENSITIVE_INFO_MSG = 8;
+  USER_VERIFY_SECONDARY_PASSWORD_MSG = 9;
+
 
   // 钱包相关消息 (100-199)
   USER_WALLET = 100;
@@ -322,6 +324,19 @@ message UserEditSensitiveInfoMsgReq {
 
 
 message UserEditSensitiveInfoMsgReply {
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
+
+// 校验二级密码请求
+message VerifySecondaryPasswordMsgReq {
+  int64 user_id = 1;          // 用户ID
+  string password = 2; // 用户输入的二级密码
+}
+
+// 校验二级密码请求
+message VerifySecondaryPasswordMsgReply {
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
 }

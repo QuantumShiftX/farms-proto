@@ -715,21 +715,22 @@ var UserRpcInnerService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserInnerService_UserConnected_FullMethodName         = "/user.v1.UserInnerService/UserConnected"
-	UserInnerService_UserDisconnected_FullMethodName      = "/user.v1.UserInnerService/UserDisconnected"
-	UserInnerService_UserAuthentication_FullMethodName    = "/user.v1.UserInnerService/UserAuthentication"
-	UserInnerService_UserPersonalInfo_FullMethodName      = "/user.v1.UserInnerService/UserPersonalInfo"
-	UserInnerService_UserEditPersonalInfo_FullMethodName  = "/user.v1.UserInnerService/UserEditPersonalInfo"
-	UserInnerService_UserEditSensitiveInfo_FullMethodName = "/user.v1.UserInnerService/UserEditSensitiveInfo"
-	UserInnerService_UserStorageInfo_FullMethodName       = "/user.v1.UserInnerService/UserStorageInfo"
-	UserInnerService_UserFarmInfo_FullMethodName          = "/user.v1.UserInnerService/UserFarmInfo"
-	UserInnerService_UserLandInfo_FullMethodName          = "/user.v1.UserInnerService/UserLandInfo"
-	UserInnerService_UserFarmOps_FullMethodName           = "/user.v1.UserInnerService/UserFarmOps"
-	UserInnerService_UserFriendRankingInfo_FullMethodName = "/user.v1.UserInnerService/UserFriendRankingInfo"
-	UserInnerService_AllUserRankingInfo_FullMethodName    = "/user.v1.UserInnerService/AllUserRankingInfo"
-	UserInnerService_LookUserFarmsInfo_FullMethodName     = "/user.v1.UserInnerService/LookUserFarmsInfo"
-	UserInnerService_UserPurchaseGoods_FullMethodName     = "/user.v1.UserInnerService/UserPurchaseGoods"
-	UserInnerService_UserFortuneTreeInfo_FullMethodName   = "/user.v1.UserInnerService/UserFortuneTreeInfo"
+	UserInnerService_UserConnected_FullMethodName           = "/user.v1.UserInnerService/UserConnected"
+	UserInnerService_UserDisconnected_FullMethodName        = "/user.v1.UserInnerService/UserDisconnected"
+	UserInnerService_UserAuthentication_FullMethodName      = "/user.v1.UserInnerService/UserAuthentication"
+	UserInnerService_UserPersonalInfo_FullMethodName        = "/user.v1.UserInnerService/UserPersonalInfo"
+	UserInnerService_UserEditPersonalInfo_FullMethodName    = "/user.v1.UserInnerService/UserEditPersonalInfo"
+	UserInnerService_UserEditSensitiveInfo_FullMethodName   = "/user.v1.UserInnerService/UserEditSensitiveInfo"
+	UserInnerService_UserStorageInfo_FullMethodName         = "/user.v1.UserInnerService/UserStorageInfo"
+	UserInnerService_UserFarmInfo_FullMethodName            = "/user.v1.UserInnerService/UserFarmInfo"
+	UserInnerService_UserLandInfo_FullMethodName            = "/user.v1.UserInnerService/UserLandInfo"
+	UserInnerService_UserFarmOps_FullMethodName             = "/user.v1.UserInnerService/UserFarmOps"
+	UserInnerService_UserFriendRankingInfo_FullMethodName   = "/user.v1.UserInnerService/UserFriendRankingInfo"
+	UserInnerService_AllUserRankingInfo_FullMethodName      = "/user.v1.UserInnerService/AllUserRankingInfo"
+	UserInnerService_LookUserFarmsInfo_FullMethodName       = "/user.v1.UserInnerService/LookUserFarmsInfo"
+	UserInnerService_UserPurchaseGoods_FullMethodName       = "/user.v1.UserInnerService/UserPurchaseGoods"
+	UserInnerService_UserFortuneTreeInfo_FullMethodName     = "/user.v1.UserInnerService/UserFortuneTreeInfo"
+	UserInnerService_VerifySecondaryPassword_FullMethodName = "/user.v1.UserInnerService/VerifySecondaryPassword"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -766,6 +767,8 @@ type UserInnerServiceClient interface {
 	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
 	UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
+	// 校验二级密码
+	VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -911,6 +914,15 @@ func (c *userInnerServiceClient) UserFortuneTreeInfo(ctx context.Context, in *Us
 	return out, nil
 }
 
+func (c *userInnerServiceClient) VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error) {
+	out := new(VerifySecondaryPasswordMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_VerifySecondaryPassword_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -945,6 +957,8 @@ type UserInnerServiceServer interface {
 	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
 	UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error)
+	// 校验二级密码
+	VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -996,6 +1010,9 @@ func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *U
 }
 func (UnimplementedUserInnerServiceServer) UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFortuneTreeInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifySecondaryPassword not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -1280,6 +1297,24 @@ func _UserInnerService_UserFortuneTreeInfo_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_VerifySecondaryPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifySecondaryPasswordMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).VerifySecondaryPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_VerifySecondaryPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).VerifySecondaryPassword(ctx, req.(*VerifySecondaryPasswordMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1346,6 +1381,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserFortuneTreeInfo",
 			Handler:    _UserInnerService_UserFortuneTreeInfo_Handler,
+		},
+		{
+			MethodName: "VerifySecondaryPassword",
+			Handler:    _UserInnerService_VerifySecondaryPassword_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
