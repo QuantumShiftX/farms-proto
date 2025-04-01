@@ -58,6 +58,8 @@ enum MessageID {
   USER_FORTUNE_TREE_INFO_MSG = 7;
   USER_EDIT_SENSITIVE_INFO_MSG = 8;
   VERIFY_SECONDARY_PASSWORD_MSG = 9;
+  SUBMIT_FOR_REDEMPTION_MSG = 10;
+
 
 
   // 钱包相关消息 (100-199)
@@ -89,7 +91,8 @@ enum MessageID {
   USER_RECHARGE_INFO_MSG = 602;
   USER_WITHDRAW_INFO_MSG = 603;
   USER_WITHDRAW_CHANNEL_INFO_MSG = 604;
-
+  GET_MERCHANT_LIST_MSG = 605;
+  MERCHANT_EXCHANGE_RATE_MSG = 606;
 
 
 
@@ -925,6 +928,60 @@ message VIPLevelInfo {
   string remarks = 9;                    // 备注说明
   int64 is_enabled = 10;                 // 是否启用
 }
+
+// =========================================
+// 币商转换提现相关消息
+// =========================================
+
+// 获取币商列表请求
+message GetMerchantListMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+  string merchant_name = 4; // 币商名称（可选过滤条件）
+}
+
+// 获取币商列表响应
+message GetMerchantListMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated MerchantInfo rows = 5;  // 用户排名列表
+}
+
+// 币商信息
+message MerchantInfo {
+  int64 id = 1; // 币商ID
+  string name = 2; // 币商名称
+  string logo = 3; // 币商LOGO
+  int64 exchange_rate = 4; // 汇率(代币->USDT)
+  string protocol = 5; // 币商协议
+  int64 balance = 6; // 库存余额(USDT)
+}
+
+// 币商汇率请求
+message MerchantExchangeRateMsgReq {
+  int64 merchant_id = 1; // 币商ID
+  int64 user_icon = 2; // 平台金币
+}
+
+// 币商汇率响应
+message MerchantExchangeRateMsgReply {
+  int64 user_ustd = 1; // 换成的ustd
+  int64 user_total_ustd = 2; // 总ustd
+}
+
+message SubmitForRedemptionMsgReq{
+  int64 merchant_id = 1; // 币商ID
+  int64 user_icon = 2; // 平台金币
+}
+message SubmitForRedemptionMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
+
 
 // =========================================
 // 充值提现相关消息

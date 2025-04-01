@@ -732,6 +732,9 @@ const (
 	UserInnerService_UserFortuneTreeInfo_FullMethodName     = "/user.v1.UserInnerService/UserFortuneTreeInfo"
 	UserInnerService_UserOpsFortuneTree_FullMethodName      = "/user.v1.UserInnerService/UserOpsFortuneTree"
 	UserInnerService_VerifySecondaryPassword_FullMethodName = "/user.v1.UserInnerService/VerifySecondaryPassword"
+	UserInnerService_GetMerchantList_FullMethodName         = "/user.v1.UserInnerService/GetMerchantList"
+	UserInnerService_SetMerchantExchangeRate_FullMethodName = "/user.v1.UserInnerService/SetMerchantExchangeRate"
+	UserInnerService_SubmitForRedemption_FullMethodName     = "/user.v1.UserInnerService/SubmitForRedemption"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -772,6 +775,12 @@ type UserInnerServiceClient interface {
 	UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error)
 	// 校验二级密码
 	VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
+	// 币商列表
+	GetMerchantList(ctx context.Context, in *GetMerchantListMsgReq, opts ...grpc.CallOption) (*GetMerchantListMsgReply, error)
+	// 币商金币汇率设置
+	SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
+	// 提交兑换
+	SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -935,6 +944,33 @@ func (c *userInnerServiceClient) VerifySecondaryPassword(ctx context.Context, in
 	return out, nil
 }
 
+func (c *userInnerServiceClient) GetMerchantList(ctx context.Context, in *GetMerchantListMsgReq, opts ...grpc.CallOption) (*GetMerchantListMsgReply, error) {
+	out := new(GetMerchantListMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_GetMerchantList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error) {
+	out := new(MerchantExchangeRateMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_SetMerchantExchangeRate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error) {
+	out := new(SubmitForRedemptionMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_SubmitForRedemption_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -973,6 +1009,12 @@ type UserInnerServiceServer interface {
 	UserOpsFortuneTree(context.Context, *UserOpsFortuneTreeMsgReq) (*UserOpsFortuneTreeMsgReply, error)
 	// 校验二级密码
 	VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error)
+	// 币商列表
+	GetMerchantList(context.Context, *GetMerchantListMsgReq) (*GetMerchantListMsgReply, error)
+	// 币商金币汇率设置
+	SetMerchantExchangeRate(context.Context, *MerchantExchangeRateMsgReq) (*MerchantExchangeRateMsgReply, error)
+	// 提交兑换
+	SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -1030,6 +1072,15 @@ func (UnimplementedUserInnerServiceServer) UserOpsFortuneTree(context.Context, *
 }
 func (UnimplementedUserInnerServiceServer) VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifySecondaryPassword not implemented")
+}
+func (UnimplementedUserInnerServiceServer) GetMerchantList(context.Context, *GetMerchantListMsgReq) (*GetMerchantListMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMerchantList not implemented")
+}
+func (UnimplementedUserInnerServiceServer) SetMerchantExchangeRate(context.Context, *MerchantExchangeRateMsgReq) (*MerchantExchangeRateMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetMerchantExchangeRate not implemented")
+}
+func (UnimplementedUserInnerServiceServer) SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitForRedemption not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -1350,6 +1401,60 @@ func _UserInnerService_VerifySecondaryPassword_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_GetMerchantList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMerchantListMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).GetMerchantList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_GetMerchantList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).GetMerchantList(ctx, req.(*GetMerchantListMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_SetMerchantExchangeRate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MerchantExchangeRateMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).SetMerchantExchangeRate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_SetMerchantExchangeRate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).SetMerchantExchangeRate(ctx, req.(*MerchantExchangeRateMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_SubmitForRedemption_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubmitForRedemptionMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).SubmitForRedemption(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_SubmitForRedemption_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).SubmitForRedemption(ctx, req.(*SubmitForRedemptionMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1424,6 +1529,18 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifySecondaryPassword",
 			Handler:    _UserInnerService_VerifySecondaryPassword_Handler,
+		},
+		{
+			MethodName: "GetMerchantList",
+			Handler:    _UserInnerService_GetMerchantList_Handler,
+		},
+		{
+			MethodName: "SetMerchantExchangeRate",
+			Handler:    _UserInnerService_SetMerchantExchangeRate_Handler,
+		},
+		{
+			MethodName: "SubmitForRedemption",
+			Handler:    _UserInnerService_SubmitForRedemption_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

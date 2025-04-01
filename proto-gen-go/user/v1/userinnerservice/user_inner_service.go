@@ -22,6 +22,8 @@ type (
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq               = v1.ForgotPasswordReq
 	FriendRankingInfo               = v1.FriendRankingInfo
+	GetMerchantListMsgReply         = v1.GetMerchantListMsgReply
+	GetMerchantListMsgReq           = v1.GetMerchantListMsgReq
 	GetOnlineUserListReply          = v1.GetOnlineUserListReply
 	GetOnlineUserListReq            = v1.GetOnlineUserListReq
 	GrowthProgressRequest           = v1.GrowthProgressRequest
@@ -31,6 +33,9 @@ type (
 	MaintenanceNeeds                = v1.MaintenanceNeeds
 	MaintenanceNeedsRequest         = v1.MaintenanceNeedsRequest
 	MaintenanceNeedsResponse        = v1.MaintenanceNeedsResponse
+	MerchantExchangeRateMsgReply    = v1.MerchantExchangeRateMsgReply
+	MerchantExchangeRateMsgReq      = v1.MerchantExchangeRateMsgReq
+	MerchantInfo                    = v1.MerchantInfo
 	MsgData                         = v1.MsgData
 	MsgReply                        = v1.MsgReply
 	MsgReq                          = v1.MsgReq
@@ -45,6 +50,8 @@ type (
 	StageTime                       = v1.StageTime
 	StageTimelinesRequest           = v1.StageTimelinesRequest
 	StageTimelinesResponse          = v1.StageTimelinesResponse
+	SubmitForRedemptionMsgReply     = v1.SubmitForRedemptionMsgReply
+	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
@@ -125,6 +132,12 @@ type (
 		UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error)
 		// 校验二级密码
 		VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
+		// 币商列表
+		GetMerchantList(ctx context.Context, in *GetMerchantListMsgReq, opts ...grpc.CallOption) (*GetMerchantListMsgReply, error)
+		// 币商金币汇率设置
+		SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
+		// 提交兑换
+		SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -238,4 +251,22 @@ func (m *defaultUserInnerService) UserOpsFortuneTree(ctx context.Context, in *Us
 func (m *defaultUserInnerService) VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.VerifySecondaryPassword(ctx, in, opts...)
+}
+
+// 币商列表
+func (m *defaultUserInnerService) GetMerchantList(ctx context.Context, in *GetMerchantListMsgReq, opts ...grpc.CallOption) (*GetMerchantListMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.GetMerchantList(ctx, in, opts...)
+}
+
+// 币商金币汇率设置
+func (m *defaultUserInnerService) SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.SetMerchantExchangeRate(ctx, in, opts...)
+}
+
+// 提交兑换
+func (m *defaultUserInnerService) SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.SubmitForRedemption(ctx, in, opts...)
 }

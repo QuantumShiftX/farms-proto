@@ -22,6 +22,8 @@ type (
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq               = v1.ForgotPasswordReq
 	FriendRankingInfo               = v1.FriendRankingInfo
+	GetMerchantListMsgReply         = v1.GetMerchantListMsgReply
+	GetMerchantListMsgReq           = v1.GetMerchantListMsgReq
 	GetOnlineUserListReply          = v1.GetOnlineUserListReply
 	GetOnlineUserListReq            = v1.GetOnlineUserListReq
 	GrowthProgressRequest           = v1.GrowthProgressRequest
@@ -31,6 +33,9 @@ type (
 	MaintenanceNeeds                = v1.MaintenanceNeeds
 	MaintenanceNeedsRequest         = v1.MaintenanceNeedsRequest
 	MaintenanceNeedsResponse        = v1.MaintenanceNeedsResponse
+	MerchantExchangeRateMsgReply    = v1.MerchantExchangeRateMsgReply
+	MerchantExchangeRateMsgReq      = v1.MerchantExchangeRateMsgReq
+	MerchantInfo                    = v1.MerchantInfo
 	MsgData                         = v1.MsgData
 	MsgReply                        = v1.MsgReply
 	MsgReq                          = v1.MsgReq
@@ -45,6 +50,8 @@ type (
 	StageTime                       = v1.StageTime
 	StageTimelinesRequest           = v1.StageTimelinesRequest
 	StageTimelinesResponse          = v1.StageTimelinesResponse
+	SubmitForRedemptionMsgReply     = v1.SubmitForRedemptionMsgReply
+	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply

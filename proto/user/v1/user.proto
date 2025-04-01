@@ -209,7 +209,10 @@ message PlantStateInfo {
   int64 time_to_next_stage = 6;  // 距离下一阶段的时间(秒)
   int64 time_to_harvest = 7;  // 距离收获的时间(秒)
   int64 next_stage = 8;  // 下一个生长阶段
-  UserPlantingDetail plant_info = 9; // 当前的植物信息
+  int64 land_id = 9;  // 土地ID
+  int64 land_status = 10;  // 土地状态
+  int64 land_position = 11;  // 土地坐标
+  UserPlantingDetail plant_info = 12; // 当前的植物信息
 }
 
 // 植物信息
@@ -334,7 +337,12 @@ service UserInnerService {
   rpc UserOpsFortuneTree (UserOpsFortuneTreeMsgReq) returns (UserOpsFortuneTreeMsgReply) {}
   // 校验二级密码
   rpc VerifySecondaryPassword (VerifySecondaryPasswordMsgReq) returns (VerifySecondaryPasswordMsgReply) {}
-
+  // 币商列表
+  rpc GetMerchantList (GetMerchantListMsgReq) returns (GetMerchantListMsgReply) {}
+  // 币商金币汇率设置
+  rpc SetMerchantExchangeRate (MerchantExchangeRateMsgReq) returns (MerchantExchangeRateMsgReply) {}
+  // 提交兑换
+  rpc SubmitForRedemption (SubmitForRedemptionMsgReq) returns (SubmitForRedemptionMsgReply) {}
 }
 
 
@@ -968,6 +976,53 @@ message VerifySecondaryPasswordMsgReply {
 }
 
 
+// 获取币商列表请求
+message GetMerchantListMsgReq {
+  int64 user_id = 1;          // 请求用户的ID
+  int64 page = 2;             // 页码，从1开始
+  int64 page_size = 3;        // 每页数量
+  string merchant_name = 4; // 币商名称（可选过滤条件）
+}
+
+// 获取币商列表响应
+message GetMerchantListMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated MerchantInfo rows = 5;  // 用户排名列表
+}
+
+// 币商信息
+message MerchantInfo {
+  int64 id = 1; // 币商ID
+  string name = 2; // 币商名称
+  string logo = 3; // 币商LOGO
+  int64 exchange_rate = 4; // 汇率(代币->USDT)
+  string protocol = 5; // 币商协议
+  int64 balance = 6; // 库存余额(USDT)
+}
+
+// 币商汇率请求
+message MerchantExchangeRateMsgReq {
+  int64 merchant_id = 1; // 币商ID
+  int64 user_icon = 2; // 平台金币
+}
+
+// 币商汇率响应
+message MerchantExchangeRateMsgReply {
+  int64 user_ustd = 1; // 换成的ustd
+  int64 user_total_ustd = 2; // 总ustd
+}
+
+message SubmitForRedemptionMsgReq{
+  int64 merchant_id = 1; // 币商ID
+  int64 user_icon = 2; // 平台金币
+}
+message SubmitForRedemptionMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
 
 
 
