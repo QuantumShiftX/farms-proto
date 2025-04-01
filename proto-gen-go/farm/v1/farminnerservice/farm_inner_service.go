@@ -14,23 +14,25 @@ import (
 )
 
 type (
-	CropsInfoListMsgReply    = v1.CropsInfoListMsgReply
-	CropsInfoListMsgReq      = v1.CropsInfoListMsgReq
-	CropsProductInfo         = v1.CropsProductInfo
-	CropsProductInfoMsgReply = v1.CropsProductInfoMsgReply
-	CropsProductInfoMsgReq   = v1.CropsProductInfoMsgReq
-	FarmReply                = v1.FarmReply
-	FarmReq                  = v1.FarmReq
-	FarmsStoreInfoMsgReply   = v1.FarmsStoreInfoMsgReply
-	FarmsStoreInfoMsgReq     = v1.FarmsStoreInfoMsgReq
-	MsgReply                 = v1.MsgReply
-	MsgReq                   = v1.MsgReq
-	StoreInfo                = v1.StoreInfo
-	StoreProductInfo         = v1.StoreProductInfo
-	StoreProductInfoMsgReply = v1.StoreProductInfoMsgReply
-	StoreProductInfoMsgReq   = v1.StoreProductInfoMsgReq
-	StoreProductListMsgReply = v1.StoreProductListMsgReply
-	StoreProductListMsgReq   = v1.StoreProductListMsgReq
+	CropsInfoListMsgReply     = v1.CropsInfoListMsgReply
+	CropsInfoListMsgReq       = v1.CropsInfoListMsgReq
+	CropsProductInfo          = v1.CropsProductInfo
+	CropsProductInfoMsgReply  = v1.CropsProductInfoMsgReply
+	CropsProductInfoMsgReq    = v1.CropsProductInfoMsgReq
+	FarmReply                 = v1.FarmReply
+	FarmReq                   = v1.FarmReq
+	FarmsStoreInfoMsgReply    = v1.FarmsStoreInfoMsgReply
+	FarmsStoreInfoMsgReq      = v1.FarmsStoreInfoMsgReq
+	GenerateFarmsNameMsgReply = v1.GenerateFarmsNameMsgReply
+	GenerateFarmsNameMsgReq   = v1.GenerateFarmsNameMsgReq
+	MsgReply                  = v1.MsgReply
+	MsgReq                    = v1.MsgReq
+	StoreInfo                 = v1.StoreInfo
+	StoreProductInfo          = v1.StoreProductInfo
+	StoreProductInfoMsgReply  = v1.StoreProductInfoMsgReply
+	StoreProductInfoMsgReq    = v1.StoreProductInfoMsgReq
+	StoreProductListMsgReply  = v1.StoreProductListMsgReply
+	StoreProductListMsgReq    = v1.StoreProductListMsgReq
 
 	FarmInnerService interface {
 		// 农场商店信息
@@ -45,6 +47,8 @@ type (
 		CropsProductInfo(ctx context.Context, in *CropsProductInfoMsgReq, opts ...grpc.CallOption) (*CropsProductInfoMsgReply, error)
 		// 获取种子列表
 		CropsInfoList(ctx context.Context, in *CropsInfoListMsgReq, opts ...grpc.CallOption) (*CropsInfoListMsgReply, error)
+		// 生成农场名称
+		GenerateFarmsName(ctx context.Context, in *GenerateFarmsNameMsgReq, opts ...grpc.CallOption) (*GenerateFarmsNameMsgReply, error)
 	}
 
 	defaultFarmInnerService struct {
@@ -92,4 +96,10 @@ func (m *defaultFarmInnerService) CropsProductInfo(ctx context.Context, in *Crop
 func (m *defaultFarmInnerService) CropsInfoList(ctx context.Context, in *CropsInfoListMsgReq, opts ...grpc.CallOption) (*CropsInfoListMsgReply, error) {
 	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
 	return client.CropsInfoList(ctx, in, opts...)
+}
+
+// 生成农场名称
+func (m *defaultFarmInnerService) GenerateFarmsName(ctx context.Context, in *GenerateFarmsNameMsgReq, opts ...grpc.CallOption) (*GenerateFarmsNameMsgReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.GenerateFarmsName(ctx, in, opts...)
 }

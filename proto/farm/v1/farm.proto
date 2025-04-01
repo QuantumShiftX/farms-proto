@@ -79,6 +79,8 @@ service FarmInnerService {
   rpc CropsProductInfo (CropsProductInfoMsgReq) returns (CropsProductInfoMsgReply) {}
   // 获取种子列表
   rpc CropsInfoList (CropsInfoListMsgReq) returns (CropsInfoListMsgReply) {}
+  // 生成农场名称
+  rpc GenerateFarmsName (GenerateFarmsNameMsgReq) returns (GenerateFarmsNameMsgReply) {}
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
@@ -235,6 +237,14 @@ message CropsProductInfo {
   BooleanStatus is_enabled = 18;                    // 是否启用（1 = 启用, 2 = 禁用）
 }
 
+
+message GenerateFarmsNameMsgReq {
+  int64 user_id = 1;
+}
+
+message GenerateFarmsNameMsgReply {
+  repeated string farms_name = 1;
+}
 
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //

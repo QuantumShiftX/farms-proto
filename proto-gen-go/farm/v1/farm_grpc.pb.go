@@ -115,6 +115,7 @@ const (
 	FarmInnerService_UpdateProductStock_FullMethodName = "/farm.v1.FarmInnerService/UpdateProductStock"
 	FarmInnerService_CropsProductInfo_FullMethodName   = "/farm.v1.FarmInnerService/CropsProductInfo"
 	FarmInnerService_CropsInfoList_FullMethodName      = "/farm.v1.FarmInnerService/CropsInfoList"
+	FarmInnerService_GenerateFarmsName_FullMethodName  = "/farm.v1.FarmInnerService/GenerateFarmsName"
 )
 
 // FarmInnerServiceClient is the client API for FarmInnerService service.
@@ -133,6 +134,8 @@ type FarmInnerServiceClient interface {
 	CropsProductInfo(ctx context.Context, in *CropsProductInfoMsgReq, opts ...grpc.CallOption) (*CropsProductInfoMsgReply, error)
 	// 获取种子列表
 	CropsInfoList(ctx context.Context, in *CropsInfoListMsgReq, opts ...grpc.CallOption) (*CropsInfoListMsgReply, error)
+	// 生成农场名称
+	GenerateFarmsName(ctx context.Context, in *GenerateFarmsNameMsgReq, opts ...grpc.CallOption) (*GenerateFarmsNameMsgReply, error)
 }
 
 type farmInnerServiceClient struct {
@@ -197,6 +200,15 @@ func (c *farmInnerServiceClient) CropsInfoList(ctx context.Context, in *CropsInf
 	return out, nil
 }
 
+func (c *farmInnerServiceClient) GenerateFarmsName(ctx context.Context, in *GenerateFarmsNameMsgReq, opts ...grpc.CallOption) (*GenerateFarmsNameMsgReply, error) {
+	out := new(GenerateFarmsNameMsgReply)
+	err := c.cc.Invoke(ctx, FarmInnerService_GenerateFarmsName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FarmInnerServiceServer is the server API for FarmInnerService service.
 // All implementations must embed UnimplementedFarmInnerServiceServer
 // for forward compatibility
@@ -213,6 +225,8 @@ type FarmInnerServiceServer interface {
 	CropsProductInfo(context.Context, *CropsProductInfoMsgReq) (*CropsProductInfoMsgReply, error)
 	// 获取种子列表
 	CropsInfoList(context.Context, *CropsInfoListMsgReq) (*CropsInfoListMsgReply, error)
+	// 生成农场名称
+	GenerateFarmsName(context.Context, *GenerateFarmsNameMsgReq) (*GenerateFarmsNameMsgReply, error)
 	mustEmbedUnimplementedFarmInnerServiceServer()
 }
 
@@ -237,6 +251,9 @@ func (UnimplementedFarmInnerServiceServer) CropsProductInfo(context.Context, *Cr
 }
 func (UnimplementedFarmInnerServiceServer) CropsInfoList(context.Context, *CropsInfoListMsgReq) (*CropsInfoListMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CropsInfoList not implemented")
+}
+func (UnimplementedFarmInnerServiceServer) GenerateFarmsName(context.Context, *GenerateFarmsNameMsgReq) (*GenerateFarmsNameMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateFarmsName not implemented")
 }
 func (UnimplementedFarmInnerServiceServer) mustEmbedUnimplementedFarmInnerServiceServer() {}
 
@@ -359,6 +376,24 @@ func _FarmInnerService_CropsInfoList_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FarmInnerService_GenerateFarmsName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateFarmsNameMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FarmInnerServiceServer).GenerateFarmsName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FarmInnerService_GenerateFarmsName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FarmInnerServiceServer).GenerateFarmsName(ctx, req.(*GenerateFarmsNameMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FarmInnerService_ServiceDesc is the grpc.ServiceDesc for FarmInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -389,6 +424,10 @@ var FarmInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CropsInfoList",
 			Handler:    _FarmInnerService_CropsInfoList_Handler,
+		},
+		{
+			MethodName: "GenerateFarmsName",
+			Handler:    _FarmInnerService_GenerateFarmsName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

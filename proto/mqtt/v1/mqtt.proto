@@ -699,6 +699,17 @@ message UserFarmOpsMsgReply {
   string msg = 2;                     // 响应消息    success 成功
 }
 
+// 批量生成农场名称
+message GenerateFarmsNameMsgReq {
+  int64 user_id = 1;
+}
+
+message GenerateFarmsNameMsgReply {
+  repeated string farms_name = 1;
+}
+
+
+
 /**
  * 用户产看他人农场的操作请求
  * 表示查看他人的信息
@@ -961,17 +972,19 @@ message MerchantInfo {
 message MerchantExchangeRateMsgReq {
   int64 merchant_id = 1; // 币商ID
   int64 user_icon = 2; // 平台金币
+  int64 user_id = 3; // 用户ID
 }
 
 // 币商汇率响应
 message MerchantExchangeRateMsgReply {
-  int64 user_ustd = 1; // 换成的ustd
-  int64 user_total_ustd = 2; // 总ustd
+  int64 cover_ustd = 1; // 换成的ustd
+  int64 current_ustd = 2; // 总ustd
 }
 
 message SubmitForRedemptionMsgReq{
   int64 merchant_id = 1; // 币商ID
   int64 user_icon = 2; // 平台金币
+  int64 user_id = 3; // 用户ID
 }
 message SubmitForRedemptionMsgReply{
   int64 code = 1;                     // 响应状态码  200 正常
