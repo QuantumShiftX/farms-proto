@@ -95,7 +95,7 @@ enum MessageID {
 
   // 主动推送消息messageID (800-899)
   USER_NOTIFICATION_INFO_MSG = 800;  // 公告
-  USER_BALANCE_NOTICE_INFO_MSG = 801; // 用户余额相关
+  USER_BALANCE_INFO_MSG = 801; // 用户余额相关
 
 
 
@@ -1048,7 +1048,7 @@ enum NotificationSubType {
 }
 
 // UserNotification 用户通知用户余额变动结构
-message UserBalanceNoticeInfoMsgReply {
+message UserBalanceInfoMsgReply {
   int64 id = 1;                  // 主键ID
   WalletType wallet_type = 2;    // 钱包类型
   int64 user_id = 3;             // 用户ID
