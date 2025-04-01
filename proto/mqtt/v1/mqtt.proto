@@ -96,6 +96,9 @@ enum MessageID {
   // 主动推送消息messageID (800-899)
   USER_NOTIFICATION_INFO_MSG = 800;  // 公告
   USER_BALANCE_INFO_MSG = 801; // 用户余额相关
+  USER_LAND_STATUS_INFO_MSG = 802; //用户土地变更相关
+
+
 
 
 
@@ -1054,6 +1057,19 @@ message UserBalanceInfoMsgReply {
   int64 user_id = 3;             // 用户ID
   int64 balance = 4;             // 可用余额
   int64 locked_balance = 5;      // 锁定余额（如提现中等）
+}
+
+// UserLandStatusInfoMsgReply 用户通知用户土地变动结构
+message UserLandStatusInfoMsgReply {
+  int64 user_id = 1;             // 用户ID
+  int64 land_id = 2;                  // 土地ID
+  int64 land_status = 3;             // 土地状态
+  int64 land_position = 4;             // 土地坐标
+  int64 plant_id = 5;             // 种植ID
+  HarvestStatus is_harvested = 6;  // 是否已收获
+  int64 harvested_at = 7;          // 收获时间（Unix时间戳）
+  int64 coins_earned = 8;          // 作物产生的金币数量
+  GrowthStatus status = 9;         // 生长状态
 }
 
 
