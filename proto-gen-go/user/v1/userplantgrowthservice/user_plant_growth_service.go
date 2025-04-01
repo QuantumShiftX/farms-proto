@@ -70,6 +70,8 @@ type (
 	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
 	UserLoginResp                   = v1.UserLoginResp
+	UserOpsFortuneTreeMsgReply      = v1.UserOpsFortuneTreeMsgReply
+	UserOpsFortuneTreeMsgReq        = v1.UserOpsFortuneTreeMsgReq
 	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq          = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail              = v1.UserPlantingDetail

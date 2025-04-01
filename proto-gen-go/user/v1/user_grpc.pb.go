@@ -730,6 +730,7 @@ const (
 	UserInnerService_LookUserFarmsInfo_FullMethodName       = "/user.v1.UserInnerService/LookUserFarmsInfo"
 	UserInnerService_UserPurchaseGoods_FullMethodName       = "/user.v1.UserInnerService/UserPurchaseGoods"
 	UserInnerService_UserFortuneTreeInfo_FullMethodName     = "/user.v1.UserInnerService/UserFortuneTreeInfo"
+	UserInnerService_UserOpsFortuneTree_FullMethodName      = "/user.v1.UserInnerService/UserOpsFortuneTree"
 	UserInnerService_VerifySecondaryPassword_FullMethodName = "/user.v1.UserInnerService/VerifySecondaryPassword"
 )
 
@@ -767,6 +768,8 @@ type UserInnerServiceClient interface {
 	UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
 	UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
+	// 用户收获发财树
+	UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error)
 	// 校验二级密码
 	VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
 }
@@ -914,6 +917,15 @@ func (c *userInnerServiceClient) UserFortuneTreeInfo(ctx context.Context, in *Us
 	return out, nil
 }
 
+func (c *userInnerServiceClient) UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error) {
+	out := new(UserOpsFortuneTreeMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserOpsFortuneTree_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userInnerServiceClient) VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error) {
 	out := new(VerifySecondaryPasswordMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_VerifySecondaryPassword_FullMethodName, in, out, opts...)
@@ -957,6 +969,8 @@ type UserInnerServiceServer interface {
 	UserPurchaseGoods(context.Context, *UserPurchaseGoodsMsgReq) (*UserPurchaseGoodsMsgReply, error)
 	// 用户的发财树信息
 	UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error)
+	// 用户收获发财树
+	UserOpsFortuneTree(context.Context, *UserOpsFortuneTreeMsgReq) (*UserOpsFortuneTreeMsgReply, error)
 	// 校验二级密码
 	VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
@@ -1010,6 +1024,9 @@ func (UnimplementedUserInnerServiceServer) UserPurchaseGoods(context.Context, *U
 }
 func (UnimplementedUserInnerServiceServer) UserFortuneTreeInfo(context.Context, *UserFortuneTreeInfoMsgReq) (*UserFortuneTreeInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserFortuneTreeInfo not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserOpsFortuneTree(context.Context, *UserOpsFortuneTreeMsgReq) (*UserOpsFortuneTreeMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserOpsFortuneTree not implemented")
 }
 func (UnimplementedUserInnerServiceServer) VerifySecondaryPassword(context.Context, *VerifySecondaryPasswordMsgReq) (*VerifySecondaryPasswordMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifySecondaryPassword not implemented")
@@ -1297,6 +1314,24 @@ func _UserInnerService_UserFortuneTreeInfo_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserInnerService_UserOpsFortuneTree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserOpsFortuneTreeMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserOpsFortuneTree(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserOpsFortuneTree_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserOpsFortuneTree(ctx, req.(*UserOpsFortuneTreeMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserInnerService_VerifySecondaryPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifySecondaryPasswordMsgReq)
 	if err := dec(in); err != nil {
@@ -1381,6 +1416,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserFortuneTreeInfo",
 			Handler:    _UserInnerService_UserFortuneTreeInfo_Handler,
+		},
+		{
+			MethodName: "UserOpsFortuneTree",
+			Handler:    _UserInnerService_UserOpsFortuneTree_Handler,
 		},
 		{
 			MethodName: "VerifySecondaryPassword",

@@ -70,6 +70,8 @@ type (
 	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
 	UserLoginResp                   = v1.UserLoginResp
+	UserOpsFortuneTreeMsgReply      = v1.UserOpsFortuneTreeMsgReply
+	UserOpsFortuneTreeMsgReq        = v1.UserOpsFortuneTreeMsgReq
 	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
 	UserPersonalInfoMsgReq          = v1.UserPersonalInfoMsgReq
 	UserPlantingDetail              = v1.UserPlantingDetail
@@ -119,6 +121,8 @@ type (
 		UserPurchaseGoods(ctx context.Context, in *UserPurchaseGoodsMsgReq, opts ...grpc.CallOption) (*UserPurchaseGoodsMsgReply, error)
 		// 用户的发财树信息
 		UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error)
+		// 用户收获发财树
+		UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error)
 		// 校验二级密码
 		VerifySecondaryPassword(ctx context.Context, in *VerifySecondaryPasswordMsgReq, opts ...grpc.CallOption) (*VerifySecondaryPasswordMsgReply, error)
 	}
@@ -222,6 +226,12 @@ func (m *defaultUserInnerService) UserPurchaseGoods(ctx context.Context, in *Use
 func (m *defaultUserInnerService) UserFortuneTreeInfo(ctx context.Context, in *UserFortuneTreeInfoMsgReq, opts ...grpc.CallOption) (*UserFortuneTreeInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserFortuneTreeInfo(ctx, in, opts...)
+}
+
+// 用户收获发财树
+func (m *defaultUserInnerService) UserOpsFortuneTree(ctx context.Context, in *UserOpsFortuneTreeMsgReq, opts ...grpc.CallOption) (*UserOpsFortuneTreeMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserOpsFortuneTree(ctx, in, opts...)
 }
 
 // 校验二级密码

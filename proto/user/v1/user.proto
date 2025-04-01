@@ -330,6 +330,8 @@ service UserInnerService {
   rpc UserPurchaseGoods (UserPurchaseGoodsMsgReq) returns (UserPurchaseGoodsMsgReply) {}
   // 用户的发财树信息
   rpc UserFortuneTreeInfo (UserFortuneTreeInfoMsgReq) returns (UserFortuneTreeInfoMsgReply) {}
+  // 用户收获发财树
+  rpc UserOpsFortuneTree (UserOpsFortuneTreeMsgReq) returns (UserOpsFortuneTreeMsgReply) {}
   // 校验二级密码
   rpc VerifySecondaryPassword (VerifySecondaryPasswordMsgReq) returns (VerifySecondaryPasswordMsgReply) {}
 
@@ -942,6 +944,17 @@ message UserFortuneTreeInfo {
   int64 updated_at = 11; // 发财树信息最后更新时间（时间戳，秒）
 }
 
+message UserOpsFortuneTreeMsgReq {
+  int64 id = 1; // 发财树唯一标识ID
+  int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
+}
+
+message UserOpsFortuneTreeMsgReply {
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
+
 // 校验二级密码请求
 message VerifySecondaryPasswordMsgReq {
   int64 user_id = 1;          // 用户ID
@@ -953,6 +966,8 @@ message VerifySecondaryPasswordMsgReply {
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
 }
+
+
 
 
 

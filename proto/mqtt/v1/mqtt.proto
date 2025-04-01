@@ -80,6 +80,8 @@ enum MessageID {
   USER_PLANTING_DETAIL = 402;
   USER_FARM_OPS_MSG = 403;
   LOOK_USER_FARMS_INFO_MSG = 404;
+  USER_OPS_FORTUNE_TREE_MSG = 405;
+
 
   // 配置相关信息 (600-699)
   VIP_LEVEL_INFO_MSG = 600;
@@ -871,6 +873,18 @@ message UserFortuneTreeInfoMsgReply {
   int64 created_at = 10; // 发财树创建时间（时间戳，秒）
   int64 updated_at = 11; // 发财树信息最后更新时间（时间戳，秒）
 }
+
+
+message UserOpsFortuneTreeMsgReq {
+  int64 id = 1; // 发财树唯一标识ID
+  int64 user_id = 2; // 用户ID，唯一约束保证每个用户只有一棵树
+}
+
+message UserOpsFortuneTreeMsgReply {
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
 
 
 // =========================================
