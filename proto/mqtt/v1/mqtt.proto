@@ -1049,7 +1049,11 @@ enum NotificationSubType {
 
 // UserNotification 用户通知用户余额变动结构
 message UserBalanceNoticeInfoMsgReply {
-  repeated UserBalance balances = 1; // 用户的各类钱包余额列表
+  int64 id = 1;                  // 主键ID
+  WalletType wallet_type = 2;    // 钱包类型
+  int64 user_id = 3;             // 用户ID
+  int64 balance = 4;             // 可用余额
+  int64 locked_balance = 5;      // 锁定余额（如提现中等）
 }
 
 
