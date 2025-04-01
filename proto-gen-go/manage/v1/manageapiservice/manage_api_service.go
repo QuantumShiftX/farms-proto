@@ -17,8 +17,10 @@ type (
 	CollectionRewards         = v1.CollectionRewards
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
+	DesignatedVipInfoReply    = v1.DesignatedVipInfoReply
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
 	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq

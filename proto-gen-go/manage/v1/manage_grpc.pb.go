@@ -184,6 +184,7 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	ManageInnerService_GetDefaultVipInfo_FullMethodName    = "/manage.v1.ManageInnerService/GetDefaultVipInfo"
+	ManageInnerService_GetDesignatedVipInfo_FullMethodName = "/manage.v1.ManageInnerService/GetDesignatedVipInfo"
 	ManageInnerService_GetSettingBaseInfo_FullMethodName   = "/manage.v1.ManageInnerService/GetSettingBaseInfo"
 	ManageInnerService_VipLevelInfo_FullMethodName         = "/manage.v1.ManageInnerService/VipLevelInfo"
 	ManageInnerService_GetNotificationsList_FullMethodName = "/manage.v1.ManageInnerService/GetNotificationsList"
@@ -196,6 +197,8 @@ const (
 type ManageInnerServiceClient interface {
 	// 获取默认VIP等级信息
 	GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+	// 获取指定VIP等级信息
+	GetDesignatedVipInfo(ctx context.Context, in *GetDesignatedVipInfoReq, opts ...grpc.CallOption) (*DesignatedVipInfoReply, error)
 	// 获取设置基础信息
 	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 	// 获取vip等级信息
@@ -217,6 +220,15 @@ func NewManageInnerServiceClient(cc grpc.ClientConnInterface) ManageInnerService
 func (c *manageInnerServiceClient) GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error) {
 	out := new(DefaultVipInfoReply)
 	err := c.cc.Invoke(ctx, ManageInnerService_GetDefaultVipInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *manageInnerServiceClient) GetDesignatedVipInfo(ctx context.Context, in *GetDesignatedVipInfoReq, opts ...grpc.CallOption) (*DesignatedVipInfoReply, error) {
+	out := new(DesignatedVipInfoReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetDesignatedVipInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -265,6 +277,8 @@ func (c *manageInnerServiceClient) GetDownloadAddress(ctx context.Context, in *M
 type ManageInnerServiceServer interface {
 	// 获取默认VIP等级信息
 	GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error)
+	// 获取指定VIP等级信息
+	GetDesignatedVipInfo(context.Context, *GetDesignatedVipInfoReq) (*DesignatedVipInfoReply, error)
 	// 获取设置基础信息
 	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
 	// 获取vip等级信息
@@ -282,6 +296,9 @@ type UnimplementedManageInnerServiceServer struct {
 
 func (UnimplementedManageInnerServiceServer) GetDefaultVipInfo(context.Context, *ManageReq) (*DefaultVipInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDefaultVipInfo not implemented")
+}
+func (UnimplementedManageInnerServiceServer) GetDesignatedVipInfo(context.Context, *GetDesignatedVipInfoReq) (*DesignatedVipInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDesignatedVipInfo not implemented")
 }
 func (UnimplementedManageInnerServiceServer) GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSettingBaseInfo not implemented")
@@ -322,6 +339,24 @@ func _ManageInnerService_GetDefaultVipInfo_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManageInnerServiceServer).GetDefaultVipInfo(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManageInnerService_GetDesignatedVipInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDesignatedVipInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).GetDesignatedVipInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_GetDesignatedVipInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).GetDesignatedVipInfo(ctx, req.(*GetDesignatedVipInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -408,6 +443,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDefaultVipInfo",
 			Handler:    _ManageInnerService_GetDefaultVipInfo_Handler,
+		},
+		{
+			MethodName: "GetDesignatedVipInfo",
+			Handler:    _ManageInnerService_GetDesignatedVipInfo_Handler,
 		},
 		{
 			MethodName: "GetSettingBaseInfo",

@@ -17,8 +17,10 @@ type (
 	CollectionRewards         = v1.CollectionRewards
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
+	DesignatedVipInfoReply    = v1.DesignatedVipInfoReply
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
 	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
 	GetNotificationsListReq   = v1.GetNotificationsListReq
@@ -37,6 +39,8 @@ type (
 	ManageInnerService interface {
 		// 获取默认VIP等级信息
 		GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error)
+		// 获取指定VIP等级信息
+		GetDesignatedVipInfo(ctx context.Context, in *GetDesignatedVipInfoReq, opts ...grpc.CallOption) (*DesignatedVipInfoReply, error)
 		// 获取设置基础信息
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 		// 获取vip等级信息
@@ -62,6 +66,12 @@ func NewManageInnerService(cli zrpc.Client) ManageInnerService {
 func (m *defaultManageInnerService) GetDefaultVipInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*DefaultVipInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetDefaultVipInfo(ctx, in, opts...)
+}
+
+// 获取指定VIP等级信息
+func (m *defaultManageInnerService) GetDesignatedVipInfo(ctx context.Context, in *GetDesignatedVipInfoReq, opts ...grpc.CallOption) (*DesignatedVipInfoReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetDesignatedVipInfo(ctx, in, opts...)
 }
 
 // 获取设置基础信息

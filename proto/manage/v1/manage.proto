@@ -128,9 +128,20 @@ message GetDownloadAddrReply {
 
 }
 
+message GetDesignatedVipInfoReq {
+  int64 vip_level_id = 1;
+}
+
+message DesignatedVipInfoReply{
+  VipLevelDetail vip_info = 1;
+}
+
+
 service ManageInnerService {
   // 获取默认VIP等级信息
   rpc GetDefaultVipInfo (ManageReq) returns (DefaultVipInfoReply);
+  // 获取指定VIP等级信息
+  rpc GetDesignatedVipInfo (GetDesignatedVipInfoReq) returns (DesignatedVipInfoReply);
   // 获取设置基础信息
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
   // 获取vip等级信息
