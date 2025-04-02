@@ -15,16 +15,17 @@ enum ErrorCode {
   SUCCESS_CODE = 200;      // 成功 | success no error
   // 基础错误码 (400-699)
   // Basic error codes (400-699)
-  PARAM_ERROR = 400;               // 参数错误 | Parameter error
-  UNAUTHORIZED_ERROR = 401;        // 无权限 | Unauthorized
-  SERVER_ERROR = 500;              // 服务拥堵，请稍后再试 | Service congestion, please try again later
-  SERVER_INTERNAL_ERROR = 501;     // 服务器内部错误 | Internal server error
-  DB_ERROR = 600;                  // 数据库错误 | Database error
+  PARAM_ERROR = 400;               // 参数错误 | Invalid parameters. Please try again with correct input.
+  UNAUTHORIZED_ERROR = 401;        // 无权限 | Unauthorized. Please log in again.
+  SERVER_ERROR = 500;              // 服务拥堵，请稍后再试 | Network service is congested. Please try again later.
+  SERVER_INTERNAL_ERROR = 501;     // 服务器内部错误 | Server error. We're working to resolve this issue.
+  DB_ERROR = 600;                  // 数据库错误 | Database error. Please contact support if this persists.
 
   // 验证码相关错误 (700-799)
   // Verification code related errors (700-799)
-  CAPTCHA_ERROR = 700;             // 验证码错误 | Captcha error
-  GOOGLE_AUTH_CODE_REQUIRED = 701; // 需要Google验证码 | Google authentication code required
+  CAPTCHA_ERROR = 700;             // 验证码错误 | CAPTCHA verification failed. Please try again.
+  GOOGLE_AUTH_CODE_REQUIRED = 701; // 需要Google验证码 | Google authentication code required.
+
 
   // 用户相关错误码 (10000-19999)
   // User related error codes (10000-19999)
