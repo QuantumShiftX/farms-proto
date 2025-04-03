@@ -101,6 +101,10 @@ enum MessageID {
   USER_NOTIFICATION_INFO_MSG = 800;  // 公告
   USER_BALANCE_INFO_MSG = 801; // 用户余额相关
   USER_LAND_STATUS_INFO_MSG = 802; //用户土地变更相关
+  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
+
+
+
 
 
 
@@ -1138,13 +1142,21 @@ message UserLandStatusInfoMsgReply {
   int64 harvested_at = 7;          // 收获时间（Unix时间戳）
   int64 coins_earned = 8;          // 作物产生的金币数量
   GrowthStatus status = 9;         // 生长状态
+
+}
+
+// UserLandCropCanOpsInfoMsgReply 用户通知用户土地可操作消息
+message UserLandCropCanOpsInfoMsgReply {
+  int64 user_id = 1;             // 用户ID
+  int64 land_id = 2;                  // 土地ID
+  int64 land_status = 3;             // 土地状态
+  int64 land_position = 4;             // 土地坐标
+  int64 plant_id = 5;             // 种植ID
   string crop_can_harvest = 10; // 农作物待收获 (为空就是不展示)
   string seed_wait_plant = 11; // 种子待种植 (为空就是不展示)
   string crop_need_fertilize = 12; // 农作物待施肥 (为空就是不展示)
   string crop_need_water = 13; // 农作物待浇水 (为空就是不展示)
-
 }
-
 
 
 // SendMessage 代表消息结构
