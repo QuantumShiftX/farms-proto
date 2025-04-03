@@ -32,15 +32,15 @@ const (
 	ErrorCode_SUCCESS_CODE ErrorCode = 200 // 成功 | success no error
 	// 基础错误码 (400-699)
 	// Basic error codes (400-699)
-	ErrorCode_PARAM_ERROR           ErrorCode = 400 // 参数错误 | Parameter error
-	ErrorCode_UNAUTHORIZED_ERROR    ErrorCode = 401 // 无权限 | Unauthorized
-	ErrorCode_SERVER_ERROR          ErrorCode = 500 // 服务拥堵，请稍后再试 | Service congestion, please try again later
-	ErrorCode_SERVER_INTERNAL_ERROR ErrorCode = 501 // 服务器内部错误 | Internal server error
-	ErrorCode_DB_ERROR              ErrorCode = 600 // 数据库错误 | Database error
+	ErrorCode_PARAM_ERROR           ErrorCode = 400 // 参数错误 | Invalid parameters. Please try again with correct input.
+	ErrorCode_UNAUTHORIZED_ERROR    ErrorCode = 401 // 无权限 | Unauthorized. Please log in again.
+	ErrorCode_SERVER_ERROR          ErrorCode = 500 // 服务拥堵，请稍后再试 | Network service is congested. Please try again later.
+	ErrorCode_SERVER_INTERNAL_ERROR ErrorCode = 501 // 服务器内部错误 | Server error. We're working to resolve this issue.
+	ErrorCode_DB_ERROR              ErrorCode = 600 // 数据库错误 | Database error. Please contact support if this persists.
 	// 验证码相关错误 (700-799)
 	// Verification code related errors (700-799)
-	ErrorCode_CAPTCHA_ERROR             ErrorCode = 700 // 验证码错误 | Captcha error
-	ErrorCode_GOOGLE_AUTH_CODE_REQUIRED ErrorCode = 701 // 需要Google验证码 | Google authentication code required
+	ErrorCode_CAPTCHA_ERROR             ErrorCode = 700 // 验证码错误 | CAPTCHA verification failed. Please try again.
+	ErrorCode_GOOGLE_AUTH_CODE_REQUIRED ErrorCode = 701 // 需要Google验证码 | Google authentication code required.
 	// 用户相关错误码 (10000-19999)
 	// User related error codes (10000-19999)
 	ErrorCode_USER_NOT_FOUND_ERROR            ErrorCode = 10000 // 用户不存在 | User not found

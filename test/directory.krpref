@@ -1,0 +1,14 @@
+{
+  "settings": [
+    {
+      "options": {
+        "websocket": {
+          "endpoint": "127.0.0.1:8899",
+          "disableServerCertificateValidation": true,
+          "disableCookies": true,
+          "version": "http20"
+        }
+      }
+    }
+  ]
+}

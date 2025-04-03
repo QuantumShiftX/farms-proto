@@ -1138,8 +1138,12 @@ message UserLandStatusInfoMsgReply {
   int64 harvested_at = 7;          // 收获时间（Unix时间戳）
   int64 coins_earned = 8;          // 作物产生的金币数量
   GrowthStatus status = 9;         // 生长状态
-}
+  string crop_can_harvest = 10; // 农作物待收获 (为空就是不展示)
+  string seed_wait_plant = 11; // 种子待种植 (为空就是不展示)
+  string crop_need_fertilize = 12; // 农作物待施肥 (为空就是不展示)
+  string crop_need_water = 13; // 农作物待浇水 (为空就是不展示)
 
+}
 
 
 

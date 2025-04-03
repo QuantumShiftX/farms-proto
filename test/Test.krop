@@ -1,0 +1,14 @@
+{
+  "details": {
+    "endpoint": "ws://127.0.0.1:8899",
+    "path": ""
+  },
+  "requests": [
+    {
+      "location": "Test-request-0.txt",
+      "type": "binaryBase64"
+    }
+  ],
+  "operationType": "duplexStreaming",
+  "invokerName": "websocket"
+}
