@@ -1019,7 +1019,8 @@ message MerchantExchangeRateMsgReply {
 message SubmitForRedemptionMsgReq{
   int64 merchant_id = 1; // 币商ID
   int64 user_icon = 2; // 平台金币
-  int64 user_id = 3; // 用户ID
+  int64 cover_ustd = 3; // 兑换成的ustd
+  int64 user_id = 4; // 用户ID
 }
 message SubmitForRedemptionMsgReply{
   int64 code = 1;                     // 响应状态码  200 正常
