@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ManageApiService_SendCaptcha_FullMethodName   = "/manage.v1.ManageApiService/SendCaptcha"
-	ManageApiService_GetAgreement_FullMethodName  = "/manage.v1.ManageApiService/GetAgreement"
-	ManageApiService_GetApkAddress_FullMethodName = "/manage.v1.ManageApiService/GetApkAddress"
+	ManageApiService_SendCaptcha_FullMethodName        = "/manage.v1.ManageApiService/SendCaptcha"
+	ManageApiService_GetAgreement_FullMethodName       = "/manage.v1.ManageApiService/GetAgreement"
+	ManageApiService_GetApkAddress_FullMethodName      = "/manage.v1.ManageApiService/GetApkAddress"
+	ManageApiService_GetCustomerService_FullMethodName = "/manage.v1.ManageApiService/GetCustomerService"
 )
 
 // ManageApiServiceClient is the client API for ManageApiService service.
@@ -31,6 +32,7 @@ type ManageApiServiceClient interface {
 	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
+	GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
 }
 
 type manageApiServiceClient struct {
@@ -68,6 +70,15 @@ func (c *manageApiServiceClient) GetApkAddress(ctx context.Context, in *ManageRe
 	return out, nil
 }
 
+func (c *manageApiServiceClient) GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
+	out := new(GetCustomerServiceReply)
+	err := c.cc.Invoke(ctx, ManageApiService_GetCustomerService_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageApiServiceServer is the server API for ManageApiService service.
 // All implementations must embed UnimplementedManageApiServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type ManageApiServiceServer interface {
 	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
 	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
 	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
+	GetCustomerService(context.Context, *ManageReq) (*GetCustomerServiceReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedManageApiServiceServer) GetAgreement(context.Context, *Manage
 }
 func (UnimplementedManageApiServiceServer) GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApkAddress not implemented")
+}
+func (UnimplementedManageApiServiceServer) GetCustomerService(context.Context, *ManageReq) (*GetCustomerServiceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomerService not implemented")
 }
 func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
 
@@ -158,6 +173,24 @@ func _ManageApiService_GetApkAddress_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageApiService_GetCustomerService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ManageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageApiServiceServer).GetCustomerService(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageApiService_GetCustomerService_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageApiServiceServer).GetCustomerService(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageApiService_ServiceDesc is the grpc.ServiceDesc for ManageApiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetApkAddress",
 			Handler:    _ManageApiService_GetApkAddress_Handler,
+		},
+		{
+			MethodName: "GetCustomerService",
+			Handler:    _ManageApiService_GetCustomerService_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

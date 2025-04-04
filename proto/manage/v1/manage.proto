@@ -31,11 +31,41 @@ message GetApkAddressReply {
 }
 
 
+message GetCustomerServiceReply {
+  repeated FaqCategoryItem faqs = 1;
+  repeated CustomerService services = 2;
+}
+
+// FAQ分类
+message FaqCategoryItem {
+  int64 id = 1;
+  string category_name = 2;
+  int64 sort = 3;  // 排序序号
+  repeated  FaqItem faq_item = 4;
+}
+
+// FAQ问答项目
+message FaqItem {
+  int64 id = 1;
+  int64 category_id = 2;
+  string question = 3;
+  string answer = 4;
+}
+
+// 客户服务
+message CustomerService {
+  int64 id = 1;
+  int32 service_type = 2;
+  string service_link = 3;
+  string service_logo = 4;
+}
+
 
 service ManageApiService {
   rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
   rpc GetAgreement (ManageReq) returns (GetAgreementReply) {}
   rpc GetApkAddress (ManageReq) returns (GetApkAddressReply) {}
+  rpc GetCustomerService (ManageReq) returns (GetCustomerServiceReply) {}
 }
 
 // VipLevel 代表 VIP 等级配置

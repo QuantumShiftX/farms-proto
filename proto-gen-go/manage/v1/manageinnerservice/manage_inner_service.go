@@ -15,11 +15,15 @@ import (
 
 type (
 	CollectionRewards         = v1.CollectionRewards
+	CustomerService           = v1.CustomerService
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
 	DesignatedVipInfoReply    = v1.DesignatedVipInfoReply
+	FaqCategoryItem           = v1.FaqCategoryItem
+	FaqItem                   = v1.FaqItem
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetCustomerServiceReply   = v1.GetCustomerServiceReply
 	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
 	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply

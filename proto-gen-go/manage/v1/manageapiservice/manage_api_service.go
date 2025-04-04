@@ -15,11 +15,15 @@ import (
 
 type (
 	CollectionRewards         = v1.CollectionRewards
+	CustomerService           = v1.CustomerService
 	DefaultVipInfoReply       = v1.DefaultVipInfoReply
 	DepositRewards            = v1.DepositRewards
 	DesignatedVipInfoReply    = v1.DesignatedVipInfoReply
+	FaqCategoryItem           = v1.FaqCategoryItem
+	FaqItem                   = v1.FaqItem
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
+	GetCustomerServiceReply   = v1.GetCustomerServiceReply
 	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
 	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply
@@ -40,6 +44,7 @@ type (
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
+		GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
 	}
 
 	defaultManageApiService struct {
@@ -66,4 +71,9 @@ func (m *defaultManageApiService) GetAgreement(ctx context.Context, in *ManageRe
 func (m *defaultManageApiService) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
 	return client.GetApkAddress(ctx, in, opts...)
+}
+
+func (m *defaultManageApiService) GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
+	client := v1.NewManageApiServiceClient(m.cli.Conn())
+	return client.GetCustomerService(ctx, in, opts...)
 }
