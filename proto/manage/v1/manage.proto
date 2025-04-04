@@ -21,6 +21,7 @@ message GetAgreementReply {
   string  user_agreement = 1; // 用户协议
   string  privacy_notice = 2 ; // 隐私声明
   string  about_us = 3 ; // 关于我们
+  string  customer_service = 4 ; // 客服&faq
 }
 
 message GetApkAddressReply {

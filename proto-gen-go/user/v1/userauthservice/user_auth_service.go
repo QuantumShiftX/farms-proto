@@ -18,6 +18,7 @@ type (
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
+	AnnouncementsInfo               = v1.AnnouncementsInfo
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq               = v1.ForgotPasswordReq
@@ -54,6 +55,8 @@ type (
 	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
+	UserAnnouncementsInfoMsgReply   = v1.UserAnnouncementsInfoMsgReply
+	UserAnnouncementsInfoMsgReq     = v1.UserAnnouncementsInfoMsgReq
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq              = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply         = v1.UserAuthenticationReply

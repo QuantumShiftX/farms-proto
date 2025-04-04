@@ -59,6 +59,7 @@ enum MessageID {
   USER_EDIT_SENSITIVE_INFO_MSG = 8;
   VERIFY_SECONDARY_PASSWORD_MSG = 9;
   SUBMIT_FOR_REDEMPTION_MSG = 10;
+  USER_ANNOUNCEMENTS_INFO_MSG = 11;
 
 
 
@@ -1165,4 +1166,25 @@ message SendMessage {
   int64 message_id = 1;      // 消息ID
   repeated int64 user_ids = 2;  // 目标用户ID列表
   bytes body = 3;            // Proto序列化后的数据
+}
+
+
+message UserAnnouncementsInfoMsgReq{
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 user_id = 3; // 用户ID
+}
+
+// 公告列表响应
+message UserAnnouncementsInfoMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated AnnouncementsInfo rows = 5;
+}
+
+message AnnouncementsInfo {
+  string title = 1;
+  string content = 2;
 }
