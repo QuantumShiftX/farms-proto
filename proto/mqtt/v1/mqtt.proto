@@ -60,6 +60,7 @@ enum MessageID {
   VERIFY_SECONDARY_PASSWORD_MSG = 9;
   SUBMIT_FOR_REDEMPTION_MSG = 10;
   USER_ANNOUNCEMENTS_INFO_MSG = 11;
+  FARM_AGREEMENT_INFO_MSG = 12;
 
 
 
@@ -1174,6 +1175,18 @@ message UserAnnouncementsInfoMsgReq{
   int64 pageSize = 2;
   int64 user_id = 3; // 用户ID
 }
+
+message FarmAgreementInfoMsgReq {
+
+}
+message FarmAgreementInfoMsgReply {
+  string  user_agreement = 1; // 用户协议
+  string  privacy_notice = 2 ; // 隐私声明
+  string  about_us = 3 ; // 关于我们
+  string  customer_service = 4 ; // 客服&faq
+}
+
+
 
 // 公告列表响应
 message UserAnnouncementsInfoMsgReply {
