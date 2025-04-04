@@ -63,35 +63,11 @@ message CustomerService {
   string service_logo = 4;
 }
 
-
-message UserAnnouncementsInfoMsgReq{
-  int64 page = 1;
-  int64 pageSize = 2;
-  int64 user_id = 3; // 用户ID
-}
-
-// 公告列表响应
-message UserAnnouncementsInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated AnnouncementsInfo rows = 5;
-}
-
-message AnnouncementsInfo {
-  string title = 1;
-  string content = 2;
-}
-
-
 service ManageApiService {
   rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
   rpc GetAgreement (ManageReq) returns (GetAgreementReply) {}
   rpc GetApkAddress (ManageReq) returns (GetApkAddressReply) {}
   rpc GetCustomerService (GetCustomerServiceReq) returns (GetCustomerServiceReply) {}
-  // 获取公告
-  rpc UserAnnouncements (UserAnnouncementsInfoMsgReq) returns (UserAnnouncementsInfoMsgReply) {}
 }
 
 // VipLevel 代表 VIP 等级配置
@@ -207,6 +183,8 @@ service ManageInnerService {
   rpc GetNotificationsList (GetNotificationsListReq) returns (GetNotificationsListReply);
   // 获取下载地址----addr
   rpc GetDownloadAddress (ManageReq) returns (GetDownloadAddrReply) {}
+  // 获取公告
+  rpc UserAnnouncements (UserAnnouncementsInfoMsgReq) returns (UserAnnouncementsInfoMsgReply) {}
 }
 
 
@@ -251,6 +229,26 @@ message VIPLevelInfo {
   int64 is_enabled = 10;
 }
 
+
+message UserAnnouncementsInfoMsgReq{
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 user_id = 3; // 用户ID
+}
+
+// 公告列表响应
+message UserAnnouncementsInfoMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated AnnouncementsInfo rows = 5;
+}
+
+message AnnouncementsInfo {
+  string title = 1;
+  string content = 2;
+}
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //

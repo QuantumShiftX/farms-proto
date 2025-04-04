@@ -57,6 +57,8 @@ type (
 		GetNotificationsList(ctx context.Context, in *GetNotificationsListReq, opts ...grpc.CallOption) (*GetNotificationsListReply, error)
 		// 获取下载地址----addr
 		GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
+		// 获取公告
+		UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -104,4 +106,10 @@ func (m *defaultManageInnerService) GetNotificationsList(ctx context.Context, in
 func (m *defaultManageInnerService) GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetDownloadAddress(ctx, in, opts...)
+}
+
+// 获取公告
+func (m *defaultManageInnerService) UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.UserAnnouncements(ctx, in, opts...)
 }

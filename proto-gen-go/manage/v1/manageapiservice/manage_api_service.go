@@ -49,8 +49,6 @@ type (
 		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 		GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
-		// 获取公告
-		UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 	}
 
 	defaultManageApiService struct {
@@ -82,10 +80,4 @@ func (m *defaultManageApiService) GetApkAddress(ctx context.Context, in *ManageR
 func (m *defaultManageApiService) GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
 	return client.GetCustomerService(ctx, in, opts...)
-}
-
-// 获取公告
-func (m *defaultManageApiService) UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error) {
-	client := v1.NewManageApiServiceClient(m.cli.Conn())
-	return client.UserAnnouncements(ctx, in, opts...)
 }
