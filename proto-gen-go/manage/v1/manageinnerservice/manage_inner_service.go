@@ -24,6 +24,7 @@ type (
 	GetAgreementReply         = v1.GetAgreementReply
 	GetApkAddressReply        = v1.GetApkAddressReply
 	GetCustomerServiceReply   = v1.GetCustomerServiceReply
+	GetCustomerServiceReq     = v1.GetCustomerServiceReq
 	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
 	GetDownloadAddrReply      = v1.GetDownloadAddrReply
 	GetNotificationsListReply = v1.GetNotificationsListReply

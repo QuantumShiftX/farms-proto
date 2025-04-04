@@ -30,6 +30,9 @@ message GetApkAddressReply {
 
 }
 
+message GetCustomerServiceReq{
+  string  language_code = 1;
+}
 
 message GetCustomerServiceReply {
   repeated FaqCategoryItem faqs = 1;
@@ -65,7 +68,7 @@ service ManageApiService {
   rpc SendCaptcha (SendCaptchaReq) returns (ManageReply) {}
   rpc GetAgreement (ManageReq) returns (GetAgreementReply) {}
   rpc GetApkAddress (ManageReq) returns (GetApkAddressReply) {}
-  rpc GetCustomerService (ManageReq) returns (GetCustomerServiceReply) {}
+  rpc GetCustomerService (GetCustomerServiceReq) returns (GetCustomerServiceReply) {}
 }
 
 // VipLevel 代表 VIP 等级配置

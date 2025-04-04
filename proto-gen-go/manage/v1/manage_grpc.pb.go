@@ -32,7 +32,7 @@ type ManageApiServiceClient interface {
 	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
-	GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
+	GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
 }
 
 type manageApiServiceClient struct {
@@ -70,7 +70,7 @@ func (c *manageApiServiceClient) GetApkAddress(ctx context.Context, in *ManageRe
 	return out, nil
 }
 
-func (c *manageApiServiceClient) GetCustomerService(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
+func (c *manageApiServiceClient) GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
 	out := new(GetCustomerServiceReply)
 	err := c.cc.Invoke(ctx, ManageApiService_GetCustomerService_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -86,7 +86,7 @@ type ManageApiServiceServer interface {
 	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
 	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
 	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
-	GetCustomerService(context.Context, *ManageReq) (*GetCustomerServiceReply, error)
+	GetCustomerService(context.Context, *GetCustomerServiceReq) (*GetCustomerServiceReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
 }
 
@@ -103,7 +103,7 @@ func (UnimplementedManageApiServiceServer) GetAgreement(context.Context, *Manage
 func (UnimplementedManageApiServiceServer) GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApkAddress not implemented")
 }
-func (UnimplementedManageApiServiceServer) GetCustomerService(context.Context, *ManageReq) (*GetCustomerServiceReply, error) {
+func (UnimplementedManageApiServiceServer) GetCustomerService(context.Context, *GetCustomerServiceReq) (*GetCustomerServiceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCustomerService not implemented")
 }
 func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
@@ -174,7 +174,7 @@ func _ManageApiService_GetApkAddress_Handler(srv interface{}, ctx context.Contex
 }
 
 func _ManageApiService_GetCustomerService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ManageReq)
+	in := new(GetCustomerServiceReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -186,7 +186,7 @@ func _ManageApiService_GetCustomerService_Handler(srv interface{}, ctx context.C
 		FullMethod: ManageApiService_GetCustomerService_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageApiServiceServer).GetCustomerService(ctx, req.(*ManageReq))
+		return srv.(ManageApiServiceServer).GetCustomerService(ctx, req.(*GetCustomerServiceReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
