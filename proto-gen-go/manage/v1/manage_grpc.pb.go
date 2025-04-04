@@ -227,6 +227,7 @@ const (
 	ManageInnerService_GetNotificationsList_FullMethodName = "/manage.v1.ManageInnerService/GetNotificationsList"
 	ManageInnerService_GetDownloadAddress_FullMethodName   = "/manage.v1.ManageInnerService/GetDownloadAddress"
 	ManageInnerService_UserAnnouncements_FullMethodName    = "/manage.v1.ManageInnerService/UserAnnouncements"
+	ManageInnerService_GetFarmAgreement_FullMethodName     = "/manage.v1.ManageInnerService/GetFarmAgreement"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
@@ -247,6 +248,8 @@ type ManageInnerServiceClient interface {
 	GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 	// 获取公告
 	UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
+	// 获取协议
+	GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -320,6 +323,15 @@ func (c *manageInnerServiceClient) UserAnnouncements(ctx context.Context, in *Us
 	return out, nil
 }
 
+func (c *manageInnerServiceClient) GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error) {
+	out := new(FarmAgreementInfoMsgReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetFarmAgreement_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageInnerServiceServer is the server API for ManageInnerService service.
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility
@@ -338,6 +350,8 @@ type ManageInnerServiceServer interface {
 	GetDownloadAddress(context.Context, *ManageReq) (*GetDownloadAddrReply, error)
 	// 获取公告
 	UserAnnouncements(context.Context, *UserAnnouncementsInfoMsgReq) (*UserAnnouncementsInfoMsgReply, error)
+	// 获取协议
+	GetFarmAgreement(context.Context, *FarmAgreementInfoMsgReq) (*FarmAgreementInfoMsgReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -365,6 +379,9 @@ func (UnimplementedManageInnerServiceServer) GetDownloadAddress(context.Context,
 }
 func (UnimplementedManageInnerServiceServer) UserAnnouncements(context.Context, *UserAnnouncementsInfoMsgReq) (*UserAnnouncementsInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAnnouncements not implemented")
+}
+func (UnimplementedManageInnerServiceServer) GetFarmAgreement(context.Context, *FarmAgreementInfoMsgReq) (*FarmAgreementInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFarmAgreement not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 
@@ -505,6 +522,24 @@ func _ManageInnerService_UserAnnouncements_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageInnerService_GetFarmAgreement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FarmAgreementInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).GetFarmAgreement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_GetFarmAgreement_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).GetFarmAgreement(ctx, req.(*FarmAgreementInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageInnerService_ServiceDesc is the grpc.ServiceDesc for ManageInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -539,6 +574,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserAnnouncements",
 			Handler:    _ManageInnerService_UserAnnouncements_Handler,
+		},
+		{
+			MethodName: "GetFarmAgreement",
+			Handler:    _ManageInnerService_GetFarmAgreement_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

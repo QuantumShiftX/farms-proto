@@ -20,8 +20,6 @@ message SendCaptchaReq  {
 message GetAgreementReply {
   string  user_agreement = 1; // 用户协议
   string  privacy_notice = 2 ; // 隐私声明
-  string  about_us = 3 ; // 关于我们
-  string  customer_service = 4 ; // 客服&faq
 }
 
 message GetApkAddressReply {
@@ -185,8 +183,9 @@ service ManageInnerService {
   rpc GetDownloadAddress (ManageReq) returns (GetDownloadAddrReply) {}
   // 获取公告
   rpc UserAnnouncements (UserAnnouncementsInfoMsgReq) returns (UserAnnouncementsInfoMsgReply) {}
+  // 获取协议
+  rpc GetFarmAgreement (FarmAgreementInfoMsgReq) returns (FarmAgreementInfoMsgReply) {}
 }
-
 
 
 
@@ -200,6 +199,18 @@ service ManageInnerService {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // 基础消息定义
 // ------------------------------------
+
+
+message FarmAgreementInfoMsgReq {
+
+}
+message FarmAgreementInfoMsgReply {
+  string  user_agreement = 1; // 用户协议
+  string  privacy_notice = 2 ; // 隐私声明
+  string  about_us = 3 ; // 关于我们
+  string  customer_service = 4 ; // 客服&faq
+}
+
 
 
 message VipLevelInfoMsgReq {

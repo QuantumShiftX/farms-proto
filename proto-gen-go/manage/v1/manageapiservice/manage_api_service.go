@@ -22,6 +22,8 @@ type (
 	DesignatedVipInfoReply        = v1.DesignatedVipInfoReply
 	FaqCategoryItem               = v1.FaqCategoryItem
 	FaqItem                       = v1.FaqItem
+	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply
+	FarmAgreementInfoMsgReq       = v1.FarmAgreementInfoMsgReq
 	GetAgreementReply             = v1.GetAgreementReply
 	GetApkAddressReply            = v1.GetApkAddressReply
 	GetCustomerServiceReply       = v1.GetCustomerServiceReply

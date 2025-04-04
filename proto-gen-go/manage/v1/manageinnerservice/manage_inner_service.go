@@ -22,6 +22,8 @@ type (
 	DesignatedVipInfoReply        = v1.DesignatedVipInfoReply
 	FaqCategoryItem               = v1.FaqCategoryItem
 	FaqItem                       = v1.FaqItem
+	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply
+	FarmAgreementInfoMsgReq       = v1.FarmAgreementInfoMsgReq
 	GetAgreementReply             = v1.GetAgreementReply
 	GetApkAddressReply            = v1.GetApkAddressReply
 	GetCustomerServiceReply       = v1.GetCustomerServiceReply
@@ -59,6 +61,8 @@ type (
 		GetDownloadAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetDownloadAddrReply, error)
 		// 获取公告
 		UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
+		// 获取协议
+		GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -112,4 +116,10 @@ func (m *defaultManageInnerService) GetDownloadAddress(ctx context.Context, in *
 func (m *defaultManageInnerService) UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.UserAnnouncements(ctx, in, opts...)
+}
+
+// 获取协议
+func (m *defaultManageInnerService) GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetFarmAgreement(ctx, in, opts...)
 }
