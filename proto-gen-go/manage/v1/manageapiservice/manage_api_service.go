@@ -14,38 +14,43 @@ import (
 )
 
 type (
-	CollectionRewards         = v1.CollectionRewards
-	CustomerService           = v1.CustomerService
-	DefaultVipInfoReply       = v1.DefaultVipInfoReply
-	DepositRewards            = v1.DepositRewards
-	DesignatedVipInfoReply    = v1.DesignatedVipInfoReply
-	FaqCategoryItem           = v1.FaqCategoryItem
-	FaqItem                   = v1.FaqItem
-	GetAgreementReply         = v1.GetAgreementReply
-	GetApkAddressReply        = v1.GetApkAddressReply
-	GetCustomerServiceReply   = v1.GetCustomerServiceReply
-	GetCustomerServiceReq     = v1.GetCustomerServiceReq
-	GetDesignatedVipInfoReq   = v1.GetDesignatedVipInfoReq
-	GetDownloadAddrReply      = v1.GetDownloadAddrReply
-	GetNotificationsListReply = v1.GetNotificationsListReply
-	GetNotificationsListReq   = v1.GetNotificationsListReq
-	ManageReply               = v1.ManageReply
-	ManageReq                 = v1.ManageReq
-	NotificationInfo          = v1.NotificationInfo
-	RegistrationRewards       = v1.RegistrationRewards
-	SendCaptchaReq            = v1.SendCaptchaReq
-	SettingBaseInfoReply      = v1.SettingBaseInfoReply
-	SettlementConfig          = v1.SettlementConfig
-	VIPLevelInfo              = v1.VIPLevelInfo
-	VipLevelDetail            = v1.VipLevelDetail
-	VipLevelInfoMsgReply      = v1.VipLevelInfoMsgReply
-	VipLevelInfoMsgReq        = v1.VipLevelInfoMsgReq
+	AnnouncementsInfo             = v1.AnnouncementsInfo
+	CollectionRewards             = v1.CollectionRewards
+	CustomerService               = v1.CustomerService
+	DefaultVipInfoReply           = v1.DefaultVipInfoReply
+	DepositRewards                = v1.DepositRewards
+	DesignatedVipInfoReply        = v1.DesignatedVipInfoReply
+	FaqCategoryItem               = v1.FaqCategoryItem
+	FaqItem                       = v1.FaqItem
+	GetAgreementReply             = v1.GetAgreementReply
+	GetApkAddressReply            = v1.GetApkAddressReply
+	GetCustomerServiceReply       = v1.GetCustomerServiceReply
+	GetCustomerServiceReq         = v1.GetCustomerServiceReq
+	GetDesignatedVipInfoReq       = v1.GetDesignatedVipInfoReq
+	GetDownloadAddrReply          = v1.GetDownloadAddrReply
+	GetNotificationsListReply     = v1.GetNotificationsListReply
+	GetNotificationsListReq       = v1.GetNotificationsListReq
+	ManageReply                   = v1.ManageReply
+	ManageReq                     = v1.ManageReq
+	NotificationInfo              = v1.NotificationInfo
+	RegistrationRewards           = v1.RegistrationRewards
+	SendCaptchaReq                = v1.SendCaptchaReq
+	SettingBaseInfoReply          = v1.SettingBaseInfoReply
+	SettlementConfig              = v1.SettlementConfig
+	UserAnnouncementsInfoMsgReply = v1.UserAnnouncementsInfoMsgReply
+	UserAnnouncementsInfoMsgReq   = v1.UserAnnouncementsInfoMsgReq
+	VIPLevelInfo                  = v1.VIPLevelInfo
+	VipLevelDetail                = v1.VipLevelDetail
+	VipLevelInfoMsgReply          = v1.VipLevelInfoMsgReply
+	VipLevelInfoMsgReq            = v1.VipLevelInfoMsgReq
 
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
 		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 		GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
+		// 获取公告
+		UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 	}
 
 	defaultManageApiService struct {
@@ -77,4 +82,10 @@ func (m *defaultManageApiService) GetApkAddress(ctx context.Context, in *ManageR
 func (m *defaultManageApiService) GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
 	return client.GetCustomerService(ctx, in, opts...)
+}
+
+// 获取公告
+func (m *defaultManageApiService) UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error) {
+	client := v1.NewManageApiServiceClient(m.cli.Conn())
+	return client.UserAnnouncements(ctx, in, opts...)
 }

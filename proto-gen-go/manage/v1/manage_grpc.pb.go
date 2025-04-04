@@ -23,6 +23,7 @@ const (
 	ManageApiService_GetAgreement_FullMethodName       = "/manage.v1.ManageApiService/GetAgreement"
 	ManageApiService_GetApkAddress_FullMethodName      = "/manage.v1.ManageApiService/GetApkAddress"
 	ManageApiService_GetCustomerService_FullMethodName = "/manage.v1.ManageApiService/GetCustomerService"
+	ManageApiService_UserAnnouncements_FullMethodName  = "/manage.v1.ManageApiService/UserAnnouncements"
 )
 
 // ManageApiServiceClient is the client API for ManageApiService service.
@@ -33,6 +34,8 @@ type ManageApiServiceClient interface {
 	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
 	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 	GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
+	// 获取公告
+	UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 }
 
 type manageApiServiceClient struct {
@@ -79,6 +82,15 @@ func (c *manageApiServiceClient) GetCustomerService(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *manageApiServiceClient) UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error) {
+	out := new(UserAnnouncementsInfoMsgReply)
+	err := c.cc.Invoke(ctx, ManageApiService_UserAnnouncements_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageApiServiceServer is the server API for ManageApiService service.
 // All implementations must embed UnimplementedManageApiServiceServer
 // for forward compatibility
@@ -87,6 +99,8 @@ type ManageApiServiceServer interface {
 	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
 	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
 	GetCustomerService(context.Context, *GetCustomerServiceReq) (*GetCustomerServiceReply, error)
+	// 获取公告
+	UserAnnouncements(context.Context, *UserAnnouncementsInfoMsgReq) (*UserAnnouncementsInfoMsgReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
 }
 
@@ -105,6 +119,9 @@ func (UnimplementedManageApiServiceServer) GetApkAddress(context.Context, *Manag
 }
 func (UnimplementedManageApiServiceServer) GetCustomerService(context.Context, *GetCustomerServiceReq) (*GetCustomerServiceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCustomerService not implemented")
+}
+func (UnimplementedManageApiServiceServer) UserAnnouncements(context.Context, *UserAnnouncementsInfoMsgReq) (*UserAnnouncementsInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserAnnouncements not implemented")
 }
 func (UnimplementedManageApiServiceServer) mustEmbedUnimplementedManageApiServiceServer() {}
 
@@ -191,6 +208,24 @@ func _ManageApiService_GetCustomerService_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageApiService_UserAnnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserAnnouncementsInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageApiServiceServer).UserAnnouncements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageApiService_UserAnnouncements_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageApiServiceServer).UserAnnouncements(ctx, req.(*UserAnnouncementsInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageApiService_ServiceDesc is the grpc.ServiceDesc for ManageApiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +248,10 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCustomerService",
 			Handler:    _ManageApiService_GetCustomerService_Handler,
+		},
+		{
+			MethodName: "UserAnnouncements",
+			Handler:    _ManageApiService_UserAnnouncements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -735,7 +735,6 @@ const (
 	UserInnerService_GetMerchantList_FullMethodName         = "/user.v1.UserInnerService/GetMerchantList"
 	UserInnerService_SetMerchantExchangeRate_FullMethodName = "/user.v1.UserInnerService/SetMerchantExchangeRate"
 	UserInnerService_SubmitForRedemption_FullMethodName     = "/user.v1.UserInnerService/SubmitForRedemption"
-	UserInnerService_UserAnnouncements_FullMethodName       = "/user.v1.UserInnerService/UserAnnouncements"
 )
 
 // UserInnerServiceClient is the client API for UserInnerService service.
@@ -782,8 +781,6 @@ type UserInnerServiceClient interface {
 	SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
 	// 提交兑换
 	SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
-	// 获取公告
-	UserAnnouncements(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
 }
 
 type userInnerServiceClient struct {
@@ -974,15 +971,6 @@ func (c *userInnerServiceClient) SubmitForRedemption(ctx context.Context, in *Su
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserAnnouncements(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error) {
-	out := new(SubmitForRedemptionMsgReply)
-	err := c.cc.Invoke(ctx, UserInnerService_UserAnnouncements_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserInnerServiceServer is the server API for UserInnerService service.
 // All implementations must embed UnimplementedUserInnerServiceServer
 // for forward compatibility
@@ -1027,8 +1015,6 @@ type UserInnerServiceServer interface {
 	SetMerchantExchangeRate(context.Context, *MerchantExchangeRateMsgReq) (*MerchantExchangeRateMsgReply, error)
 	// 提交兑换
 	SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error)
-	// 获取公告
-	UserAnnouncements(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
 
@@ -1095,9 +1081,6 @@ func (UnimplementedUserInnerServiceServer) SetMerchantExchangeRate(context.Conte
 }
 func (UnimplementedUserInnerServiceServer) SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitForRedemption not implemented")
-}
-func (UnimplementedUserInnerServiceServer) UserAnnouncements(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserAnnouncements not implemented")
 }
 func (UnimplementedUserInnerServiceServer) mustEmbedUnimplementedUserInnerServiceServer() {}
 
@@ -1472,24 +1455,6 @@ func _UserInnerService_SubmitForRedemption_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserInnerService_UserAnnouncements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SubmitForRedemptionMsgReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserInnerServiceServer).UserAnnouncements(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserInnerService_UserAnnouncements_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserAnnouncements(ctx, req.(*SubmitForRedemptionMsgReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserInnerService_ServiceDesc is the grpc.ServiceDesc for UserInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1576,10 +1541,6 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SubmitForRedemption",
 			Handler:    _UserInnerService_SubmitForRedemption_Handler,
-		},
-		{
-			MethodName: "UserAnnouncements",
-			Handler:    _UserInnerService_UserAnnouncements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -343,8 +343,6 @@ service UserInnerService {
   rpc SetMerchantExchangeRate (MerchantExchangeRateMsgReq) returns (MerchantExchangeRateMsgReply) {}
   // 提交兑换
   rpc SubmitForRedemption (SubmitForRedemptionMsgReq) returns (SubmitForRedemptionMsgReply) {}
-  // 获取公告
-  rpc UserAnnouncements (SubmitForRedemptionMsgReq) returns (SubmitForRedemptionMsgReply) {}
 }
 
 
@@ -1026,26 +1024,6 @@ message SubmitForRedemptionMsgReq{
 message SubmitForRedemptionMsgReply{
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
-}
-
-message UserAnnouncementsInfoMsgReq{
-  int64 page = 1;
-  int64 pageSize = 2;
-  int64 user_id = 3; // 用户ID
-}
-
-// 公告列表响应
-message UserAnnouncementsInfoMsgReply {
-  int64 page = 1;
-  int64 page_size = 2;
-  int64 total = 3;
-  int64 total_page = 4;
-  repeated AnnouncementsInfo rows = 5;
-}
-
-message AnnouncementsInfo {
-  string title = 1;
-  string content = 2;
 }
 
 

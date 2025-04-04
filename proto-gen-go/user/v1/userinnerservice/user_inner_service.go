@@ -18,7 +18,6 @@ type (
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
-	AnnouncementsInfo               = v1.AnnouncementsInfo
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	ForgotPasswordReq               = v1.ForgotPasswordReq
@@ -55,8 +54,6 @@ type (
 	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
-	UserAnnouncementsInfoMsgReply   = v1.UserAnnouncementsInfoMsgReply
-	UserAnnouncementsInfoMsgReq     = v1.UserAnnouncementsInfoMsgReq
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq              = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply         = v1.UserAuthenticationReply
@@ -141,8 +138,6 @@ type (
 		SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
 		// 提交兑换
 		SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
-		// 获取公告
-		UserAnnouncements(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -274,10 +269,4 @@ func (m *defaultUserInnerService) SetMerchantExchangeRate(ctx context.Context, i
 func (m *defaultUserInnerService) SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.SubmitForRedemption(ctx, in, opts...)
-}
-
-// 获取公告
-func (m *defaultUserInnerService) UserAnnouncements(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error) {
-	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.UserAnnouncements(ctx, in, opts...)
 }
