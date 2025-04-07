@@ -1176,17 +1176,6 @@ message UserAnnouncementsInfoMsgReq{
   int64 user_id = 3; // 用户ID
 }
 
-message FarmAgreementInfoMsgReq {
-
-}
-message FarmAgreementInfoMsgReply {
-  string  user_agreement = 1; // 用户协议
-  string  privacy_notice = 2 ; // 隐私声明
-  string  about_us = 3 ; // 关于我们
-  string  customer_service = 4 ; // 客服&faq
-}
-
-
 
 // 公告列表响应
 message UserAnnouncementsInfoMsgReply {
@@ -1201,3 +1190,18 @@ message AnnouncementsInfo {
   string title = 1;
   string content = 2;
 }
+
+
+
+message FarmAgreementInfoMsgReq {
+
+}
+message FarmAgreementInfoMsgReply {
+  string  user_agreement = 1; // 用户协议
+  string  privacy_notice = 2 ; // 隐私声明
+  string  about_us = 3 ; // 关于我们
+  string  customer_service = 4 ; // 客服&faq
+}
+
+
+
