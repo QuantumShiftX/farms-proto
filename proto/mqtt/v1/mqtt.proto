@@ -61,6 +61,9 @@ enum MessageID {
   SUBMIT_FOR_REDEMPTION_MSG = 10;
   USER_ANNOUNCEMENTS_INFO_MSG = 11;
   FARM_AGREEMENT_INFO_MSG = 12;
+  USER_TRANSACTION_RECORD_MSG = 13;
+  USER_OPERATION_RECORD_MSG = 14;
+
 
 
 
@@ -904,6 +907,7 @@ message UserOpsFortuneTreeMsgReq {
 message UserOpsFortuneTreeMsgReply {
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
+  int64 harvested_icon = 3;                     // 收获的金币
 }
 
 
@@ -1203,5 +1207,62 @@ message FarmAgreementInfoMsgReply {
   string  customer_service = 4 ; // 客服&faq
 }
 
+
+message UserTransactionRecordMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+  int64 category = 4;
+
+}
+message UserTransactionRecordMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated TransactionRecord rows = 5;
+}
+
+message TransactionRecord {
+  int64 id = 1;                      // 主键，自动增长
+  string username = 3;               // 用户账号
+  string order_no = 4;               // 流水编号
+  string currency_code = 5;          // 币种编码
+  int32 wallet_type = 6;             // 账变钱包 1:用户钱包 2:代理钱包 3:奖励钱包 4:USTD钱包
+  int32 category = 7;                // 账变大类交易类型 (1 收款、2提款、3存款、4购买、5换汇、6返佣等)
+  int32 sub_category = 8;            // 账变小类
+  int64 balance_previous = 9;        // 变动前余额, 单位:微
+  int64 amount = 10;                 // 变动金额, 单位:微
+  int64 balance_after = 11;          // 变动后余额, 单位:微
+  int32 transaction_type = 12;       // 交易类型
+  string remark = 13;                // 备注信息
+  int64 transaction_time = 14;       // 交易时间
+  int64 related_id = 15;             // 关联ID，如游戏ID，商品ID，活动ID
+}
+
+
+message UserOperationRecordMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+  int64 category = 4;
+}
+
+message UserOperationRecordMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated OperationRecord rows = 5;
+}
+
+message OperationRecord {
+  string id = 1;                 // 记录ID
+  int64 user_id = 2;             // 用户ID
+  string username = 3;
+  int64 farm_id = 4;             // 农场ID
+  int64 operation_type = 7; // 操作类型：1-浇水 2-施肥 3-收获 4-种植
+  int64 operated_at = 9;         // 操作时间（Unix 时间戳）
+}
 
 

@@ -40,6 +40,7 @@ type (
 	MsgReply                        = v1.MsgReply
 	MsgReq                          = v1.MsgReq
 	MyRankingInfo                   = v1.MyRankingInfo
+	OperationRecord                 = v1.OperationRecord
 	PlantInfo                       = v1.PlantInfo
 	PlantStateInfo                  = v1.PlantStateInfo
 	PlantStateRequest               = v1.PlantStateRequest
@@ -54,6 +55,7 @@ type (
 	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
+	TransactionRecord               = v1.TransactionRecord
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq              = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply         = v1.UserAuthenticationReply
@@ -77,6 +79,8 @@ type (
 	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
 	UserLoginResp                   = v1.UserLoginResp
+	UserOperationRecordMsgReply     = v1.UserOperationRecordMsgReply
+	UserOperationRecordMsgReq       = v1.UserOperationRecordMsgReq
 	UserOpsFortuneTreeMsgReply      = v1.UserOpsFortuneTreeMsgReply
 	UserOpsFortuneTreeMsgReq        = v1.UserOpsFortuneTreeMsgReq
 	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
@@ -92,6 +96,8 @@ type (
 	UserStorageDetail               = v1.UserStorageDetail
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
+	UserTransactionRecordMsgReply   = v1.UserTransactionRecordMsgReply
+	UserTransactionRecordMsgReq     = v1.UserTransactionRecordMsgReq
 	UserWallet                      = v1.UserWallet
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
