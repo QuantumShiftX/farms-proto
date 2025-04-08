@@ -114,7 +114,8 @@ message TimeReductionResponse {
 
 // 生长阶段时间计算请求
 message StageTimelinesRequest {
-  int64 plant_id = 1; // 种植ID
+  int64 user_id = 1; // user ID
+  int64 plant_id = 2; // 种植ID
 }
 
 // 生长阶段时间点
