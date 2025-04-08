@@ -106,12 +106,8 @@ enum MessageID {
   USER_NOTIFICATION_INFO_MSG = 800;  // 公告
   USER_BALANCE_INFO_MSG = 801; // 用户余额相关
   USER_LAND_STATUS_INFO_MSG = 802; //用户土地变更相关
-  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
-
-
-
-
-
+  //  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
+  USER_FORTE_TREE_STATUS_MSG = 804; // 用户发财树状态变更数据推送
 
 
   // 心跳连接
@@ -1151,6 +1147,17 @@ message UserLandStatusInfoMsgReply {
   GrowthStatus status = 9;         // 生长状态
 
 }
+
+
+// UserFortuneTreeStatusMsgReply 通知用户发财树变动结构
+message UserFortuneTreeStatusMsgReply {
+  int64 user_id = 1;             // 用户ID
+  HarvestStatus is_ready_to_harvest = 6;  // 是否可收获
+  int64 cycle_harvested_icon = 7;          // 可产生的金币数量
+  int64 next_harvest_time = 8;          //  下次收获时间（Unix时间戳）
+}
+
+
 
 // UserLandCropCanOpsInfoMsgReply 用户通知用户土地可操作消息
 message UserLandCropCanOpsInfoMsgReply {
