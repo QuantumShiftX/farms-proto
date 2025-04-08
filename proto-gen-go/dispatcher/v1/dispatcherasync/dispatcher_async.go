@@ -14,11 +14,16 @@ import (
 )
 
 type (
-	DispatcherReply = v1.DispatcherReply
-	DispatcherReq   = v1.DispatcherReq
+	DispatcherReply                 = v1.DispatcherReply
+	DispatcherReq                   = v1.DispatcherReq
+	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
+	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 
 	DispatcherAsync interface {
-		TestAsync(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 发财树状态检查，推送
+		UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 农场作物状态检查,推送
+		UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherAsync struct {
@@ -32,7 +37,14 @@ func NewDispatcherAsync(cli zrpc.Client) DispatcherAsync {
 	}
 }
 
-func (m *defaultDispatcherAsync) TestAsync(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+// 发财树状态检查，推送
+func (m *defaultDispatcherAsync) UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
-	return client.TestAsync(ctx, in, opts...)
+	return client.UpdateFortuneTreeStatusCheck(ctx, in, opts...)
+}
+
+// 农场作物状态检查,推送
+func (m *defaultDispatcherAsync) UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.UpdateCropStatusCheck(ctx, in, opts...)
 }

@@ -19,14 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DispatcherAsync_TestAsync_FullMethodName = "/dispatcher.v1.DispatcherAsync/TestAsync"
+	DispatcherAsync_UpdateFortuneTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherAsync/UpdateFortuneTreeStatusCheck"
+	DispatcherAsync_UpdateCropStatusCheck_FullMethodName        = "/dispatcher.v1.DispatcherAsync/UpdateCropStatusCheck"
 )
 
 // DispatcherAsyncClient is the client API for DispatcherAsync service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DispatcherAsyncClient interface {
-	TestAsync(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 发财树状态检查，推送
+	UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 农场作物状态检查,推送
+	UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherAsyncClient struct {
@@ -37,9 +41,18 @@ func NewDispatcherAsyncClient(cc grpc.ClientConnInterface) DispatcherAsyncClient
 	return &dispatcherAsyncClient{cc}
 }
 
-func (c *dispatcherAsyncClient) TestAsync(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+func (c *dispatcherAsyncClient) UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
-	err := c.cc.Invoke(ctx, DispatcherAsync_TestAsync_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DispatcherAsync_UpdateFortuneTreeStatusCheck_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_UpdateCropStatusCheck_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +63,10 @@ func (c *dispatcherAsyncClient) TestAsync(ctx context.Context, in *DispatcherReq
 // All implementations must embed UnimplementedDispatcherAsyncServer
 // for forward compatibility
 type DispatcherAsyncServer interface {
-	TestAsync(context.Context, *DispatcherReq) (*DispatcherReply, error)
+	// 发财树状态检查，推送
+	UpdateFortuneTreeStatusCheck(context.Context, *UpdateFortuneTreeStatusCheckReq) (*DispatcherReply, error)
+	// 农场作物状态检查,推送
+	UpdateCropStatusCheck(context.Context, *UpdateCropStatusCheckReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherAsyncServer()
 }
 
@@ -58,8 +74,11 @@ type DispatcherAsyncServer interface {
 type UnimplementedDispatcherAsyncServer struct {
 }
 
-func (UnimplementedDispatcherAsyncServer) TestAsync(context.Context, *DispatcherReq) (*DispatcherReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TestAsync not implemented")
+func (UnimplementedDispatcherAsyncServer) UpdateFortuneTreeStatusCheck(context.Context, *UpdateFortuneTreeStatusCheckReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFortuneTreeStatusCheck not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) UpdateCropStatusCheck(context.Context, *UpdateCropStatusCheckReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCropStatusCheck not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) mustEmbedUnimplementedDispatcherAsyncServer() {}
 
@@ -74,20 +93,38 @@ func RegisterDispatcherAsyncServer(s grpc.ServiceRegistrar, srv DispatcherAsyncS
 	s.RegisterService(&DispatcherAsync_ServiceDesc, srv)
 }
 
-func _DispatcherAsync_TestAsync_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DispatcherReq)
+func _DispatcherAsync_UpdateFortuneTreeStatusCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFortuneTreeStatusCheckReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DispatcherAsyncServer).TestAsync(ctx, in)
+		return srv.(DispatcherAsyncServer).UpdateFortuneTreeStatusCheck(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DispatcherAsync_TestAsync_FullMethodName,
+		FullMethod: DispatcherAsync_UpdateFortuneTreeStatusCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DispatcherAsyncServer).TestAsync(ctx, req.(*DispatcherReq))
+		return srv.(DispatcherAsyncServer).UpdateFortuneTreeStatusCheck(ctx, req.(*UpdateFortuneTreeStatusCheckReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_UpdateCropStatusCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCropStatusCheckReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).UpdateCropStatusCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_UpdateCropStatusCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).UpdateCropStatusCheck(ctx, req.(*UpdateCropStatusCheckReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,8 +137,12 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DispatcherAsyncServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "TestAsync",
-			Handler:    _DispatcherAsync_TestAsync_Handler,
+			MethodName: "UpdateFortuneTreeStatusCheck",
+			Handler:    _DispatcherAsync_UpdateFortuneTreeStatusCheck_Handler,
+		},
+		{
+			MethodName: "UpdateCropStatusCheck",
+			Handler:    _DispatcherAsync_UpdateCropStatusCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

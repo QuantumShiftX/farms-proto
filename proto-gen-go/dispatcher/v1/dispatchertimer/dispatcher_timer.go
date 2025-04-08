@@ -14,8 +14,10 @@ import (
 )
 
 type (
-	DispatcherReply = v1.DispatcherReply
-	DispatcherReq   = v1.DispatcherReq
+	DispatcherReply                 = v1.DispatcherReply
+	DispatcherReq                   = v1.DispatcherReq
+	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
+	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 
 	DispatcherTimer interface {
 		// 发财树状态检查

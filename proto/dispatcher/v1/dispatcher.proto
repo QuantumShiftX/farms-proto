@@ -13,10 +13,24 @@ message DispatcherReply {}
 
 // 异步任务（需要调用客户端触发）
 service DispatcherAsync {
-  rpc TestAsync (DispatcherReq) returns (DispatcherReply) {};
+  // 发财树状态检查，推送
+  rpc UpdateFortuneTreeStatusCheck (UpdateFortuneTreeStatusCheckReq) returns (DispatcherReply) {};
+  // 农场作物状态检查,推送
+  rpc UpdateCropStatusCheck (UpdateCropStatusCheckReq) returns (DispatcherReply) {};
+}
+message UpdateFortuneTreeStatusCheckReq {
+  int64 user_id = 1;  // 用户id
+  int64 tree_id = 2;  // 发财树id
+  int64 operation_at = 3; // 下次状态检查执行的时间
+
 }
 
 
+message UpdateCropStatusCheckReq {
+  int64 user_id = 1;  // 用户id
+  int64 plant_id = 2;  // 种植id
+  int64 operation_at = 3; // 下次状态检查执行的时间
+}
 
 
 // 定时任务
