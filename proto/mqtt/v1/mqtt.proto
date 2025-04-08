@@ -286,9 +286,7 @@ message UserPersonalInfoMsgReply {
   string username = 3;                // 账号名称
   string language_code = 4;           // 语言代码
   string currency_code = 5;           // 币种代码
-  int64 vip_level_id = 6;             // 会员等级ID（关联user_vip_levels表）
-  int64 vip_level_val = 7;            // 会员等级值
-  string vip_level_name = 8;          // 会员等级名称
+  VipLevelInfo vip_info = 6;              // 会员等级信息
   string remark = 9;                  // 用户备注--
   int64 last_login_time = 10;         // 最后登录时间（Unix时间戳）
   string invitation_code = 11;        // 用户的邀请码
@@ -300,6 +298,15 @@ message UserPersonalInfoMsgReply {
   repeated UserBalance balances = 17; // 用户的各类钱包余额列表
   int64  enable_secondary_pwd = 18;  // 是否设置二级密码（1：设置，2：未设置）
 }
+
+message VipLevelInfo {
+  int64 vip_level_id = 1;              // 会员等级ID（关联user_vip_levels表）
+  int64 vip_level_val = 2;              // 会员等级值
+  string vip_level_name = 3;              // 会员等级名称
+  int64   current_xp = 4; // 当前经验值
+  int64   next_level_xp = 5; // 升级需要的经验值
+}
+
 
 /**
  * 编辑用户个人信息请求

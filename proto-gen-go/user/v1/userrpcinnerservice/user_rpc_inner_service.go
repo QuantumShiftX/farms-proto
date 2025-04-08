@@ -102,6 +102,7 @@ type (
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
+	VipLevelInfo                    = v1.VipLevelInfo
 
 	UserRpcInnerService interface {
 		// 获取在线用户ID信息
