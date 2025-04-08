@@ -1,0 +1,194 @@
+{
+  "errorCodes": {
+    "400": {
+      "en": "Invalid parameters. Please try again with correct input.",
+      "zh": "参数错误，请使用正确的输入重试。"
+    },
+    "401": {
+      "en": "Unauthorized. Please log in again.",
+      "zh": "无权限，请重新登录。"
+    },
+    "500": {
+      "en": "Network service is congested. Please try again later.",
+      "zh": "服务拥堵，请稍后再试。"
+    },
+    "501": {
+      "en": "Server error. We're working to resolve this issue.",
+      "zh": "服务器内部错误，我们正在努力解决这个问题。"
+    },
+    "600": {
+      "en": "Database error. Please contact support if this persists.",
+      "zh": "数据库错误，如果问题持续存在，请联系支持人员。"
+    },
+    "700": {
+      "en": "CAPTCHA verification failed. Please try again.",
+      "zh": "验证码错误，请重试。"
+    },
+    "701": {
+      "en": "Google authentication code required.",
+      "zh": "需要Google验证码。"
+    },
+    "10000": {
+      "en": "User not found.",
+      "zh": "用户不存在。"
+    },
+    "10001": {
+      "en": "Error creating user.",
+      "zh": "创建用户错误。"
+    },
+    "10002": {
+      "en": "User sign-in error.",
+      "zh": "用户登录错误。"
+    },
+    "10003": {
+      "en": "Password reset error.",
+      "zh": "重置密码错误。"
+    },
+    "10004": {
+      "en": "User validation error.",
+      "zh": "用户验证错误。"
+    },
+    "10005": {
+      "en": "Error retrieving user agreement.",
+      "zh": "获取用户协议错误。"
+    },
+    "10006": {
+      "en": "Error sending captcha.",
+      "zh": "发送验证码错误。"
+    },
+    "10007": {
+      "en": "Password mismatch.",
+      "zh": "密码不匹配。"
+    },
+    "10008": {
+      "en": "Account disabled.",
+      "zh": "账户已禁用。"
+    },
+    "10009": {
+      "en": "Username already exists.",
+      "zh": "用户名已存在。"
+    },
+    "10010": {
+      "en": "Invalid email format.",
+      "zh": "无效的邮箱格式。"
+    },
+    "10011": {
+      "en": "User token expired.",
+      "zh": "用户令牌过期。"
+    },
+    "10012": {
+      "en": "Invalid phone format.",
+      "zh": "无效的电话格式。"
+    },
+    "10013": {
+      "en": "Validation type error.",
+      "zh": "验证类型错误。"
+    },
+    "10014": {
+      "en": "Incorrect username or password.",
+      "zh": "用户或密码信息有误。"
+    },
+    "10015": {
+      "en": "Username already exists.",
+      "zh": "用户名字已存在。"
+    },
+    "10016": {
+      "en": "Validation match failed.",
+      "zh": "验证匹配失败。"
+    },
+    "10017": {
+      "en": "Storage space does not exist.",
+      "zh": "用户仓储空间不存在。"
+    },
+    "10018": {
+      "en": "Failed to query user information.",
+      "zh": "用户信息查询失败。"
+    },
+    "10019": {
+      "en": "Insufficient balance.",
+      "zh": "余额不足。"
+    },
+    "20000": {
+      "en": "Farm not found.",
+      "zh": "农场不存在。"
+    },
+    "20001": {
+      "en": "Failed to create farm.",
+      "zh": "创建农场失败。"
+    },
+    "20002": {
+      "en": "Failed to update farm information.",
+      "zh": "更新农场信息失败。"
+    },
+    "20003": {
+      "en": "Failed to delete farm.",
+      "zh": "删除农场失败。"
+    },
+    "20004": {
+      "en": "No permission to operate this farm.",
+      "zh": "无权操作该农场。"
+    },
+    "20005": {
+      "en": "Crop operation error.",
+      "zh": "作物操作错误。"
+    },
+    "20006": {
+      "en": "Irrigation system error.",
+      "zh": "灌溉系统错误。"
+    },
+    "20007": {
+      "en": "Inventory management error.",
+      "zh": "库存管理错误。"
+    },
+    "20008": {
+      "en": "User farm does not exist.",
+      "zh": "用户农场不存在。"
+    },
+    "20009": {
+      "en": "Insufficient stock.",
+      "zh": "该商品库存不足。"
+    },
+    "20010": {
+      "en": "Product not eligible for free claim.",
+      "zh": "该商品不能免费领取。"
+    },
+    "20011": {
+      "en": "Free product limited to 1 per order.",
+      "zh": "免费领取商品一次只能购买1个。"
+    },
+    "20012": {
+      "en": "Product information error.",
+      "zh": "商品信息错误。"
+    },
+    "90000": {
+      "en": "Configuration not found.",
+      "zh": "配置不存在。"
+    },
+    "90001": {
+      "en": "Invalid configuration.",
+      "zh": "配置无效。"
+    },
+    "90002": {
+      "en": "Failed to update configuration.",
+      "zh": "更新配置失败。"
+    },
+    "90003": {
+      "en": "No permission to modify configuration.",
+      "zh": "无权修改配置。"
+    },
+    "90004": {
+      "en": "Configuration format error.",
+      "zh": "配置格式错误。"
+    }
+  },
+  "meta": {
+    "version": "1.0.0",
+    "languages": ["en", "zh"],
+    "defaultLanguage": "en",
+    "lastUpdated": "2025-04-08",
+    "unknownError": {
+      "en": "Unknown error occurred. Please try again or contact support.",
+      "zh": "发生未知错误，请重试或联系客服。"
+    }
+  }
+}
