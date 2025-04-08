@@ -102,7 +102,7 @@ type (
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
-	VipLevelInfo                    = v1.VipLevelInfo
+	VipInfo                         = v1.VipInfo
 
 	UserAuthService interface {
 		Register(ctx context.Context, in *UserRegisterReq, opts ...grpc.CallOption) (*UserReply, error)

@@ -286,7 +286,7 @@ message UserPersonalInfoMsgReply {
   string username = 3;                // 账号名称
   string language_code = 4;           // 语言代码
   string currency_code = 5;           // 币种代码
-  VipLevelInfo vip_info = 6;              // 会员等级信息
+  VipInfo vip_info = 6;              // 会员等级信息
   string remark = 9;                  // 用户备注--
   int64 last_login_time = 10;         // 最后登录时间（Unix时间戳）
   string invitation_code = 11;        // 用户的邀请码
@@ -299,7 +299,7 @@ message UserPersonalInfoMsgReply {
   int64  enable_secondary_pwd = 18;  // 是否设置二级密码（1：设置，2：未设置）
 }
 
-message VipLevelInfo {
+message VipInfo {
   int64 vip_level_id = 1;              // 会员等级ID（关联user_vip_levels表）
   int64 vip_level_val = 2;              // 会员等级值
   string vip_level_name = 3;              // 会员等级名称

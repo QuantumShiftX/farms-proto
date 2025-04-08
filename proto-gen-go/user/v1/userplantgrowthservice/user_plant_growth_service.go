@@ -102,7 +102,7 @@ type (
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
-	VipLevelInfo                    = v1.VipLevelInfo
+	VipInfo                         = v1.VipInfo
 
 	UserPlantGrowthService interface {
 		// 计算植物当前生长阶段
