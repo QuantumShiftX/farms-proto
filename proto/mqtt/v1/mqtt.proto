@@ -1071,6 +1071,7 @@ message WithdrawChannel {
   int64 account_type = 5;                 // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
   int64 verify_status = 6;                 //  验证状态 1:已验证 2:验证失败 3:未验证
   int64 is_default = 7;                 //  是否默认账户 1:是 2:否
+  string remark = 8; // 备注
 }
 
 message UserSetWithdrawChannelMsgReq {
