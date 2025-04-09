@@ -277,7 +277,7 @@ message UpdateUserBalanceReq{
   int64 sub_category = 6; // 账变小类
   string remark = 7;// 备注
   int64 trade_time = 10; // 交易时间
-  int64 related_id = 11; // 关联的id 如游戏id等
+  string related_id = 11; // 关联的id 如游戏id等
 }
 
 // 修改用户余额返回结构
