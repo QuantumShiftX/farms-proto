@@ -361,6 +361,8 @@ message UserSetWithdrawChannelMsgReq {
   int64 user_id = 1;          // 用户ID
   string account = 2;                 //  提现账号/地址
   int64 is_default = 3;                 //  是否默认账户 1:是 2:否
+  int64 operate_type = 4;                 // 操作类型，必填 1:新增 2:删除
+  int64 withdraw_account_id = 5;  //提现账号ID
 }
 
 
