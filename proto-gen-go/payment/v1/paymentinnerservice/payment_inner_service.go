@@ -43,6 +43,8 @@ type (
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
+	UserSetWithdrawChannelMsgReply   = v1.UserSetWithdrawChannelMsgReply
+	UserSetWithdrawChannelMsgReq     = v1.UserSetWithdrawChannelMsgReq
 	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
 	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply

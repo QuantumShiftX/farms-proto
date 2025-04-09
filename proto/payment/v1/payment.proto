@@ -357,6 +357,19 @@ message WithdrawChannel {
   int64 is_default = 7;                 //  是否默认账户 1:是 2:否
 }
 
+message UserSetWithdrawChannelMsgReq {
+  int64 user_id = 1;          // 用户ID
+  string account = 2;                 //  提现账号/地址
+  int64 is_default = 3;                 //  是否默认账户 1:是 2:否
+}
+
+
+message UserSetWithdrawChannelMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
+
 // 支付服务
 service UserPaymentInnerService {
   // 用户充值
@@ -370,6 +383,9 @@ service UserPaymentInnerService {
 
   // 充值通道列表响应
   rpc UserRechargeChannel(RechargeChannelsInfoMsgReq) returns (RechargeChannelsInfoMsgReply) {}
+
+  // 用户提现通道设置
+  rpc UserSetWithdrawChannel(UserSetWithdrawChannelMsgReq) returns (UserSetWithdrawChannelMsgReply) {}
 
   // 用户提现通道列表响应
   rpc UserWithdrawChannel(UserWithdrawChannelInfoMsgReq) returns (UserWithdrawChannelInfoMsgReply) {}

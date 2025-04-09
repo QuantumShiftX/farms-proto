@@ -99,7 +99,7 @@ enum MessageID {
   USER_WITHDRAW_CHANNEL_INFO_MSG = 604;
   GET_MERCHANT_LIST_MSG = 605;
   MERCHANT_EXCHANGE_RATE_MSG = 606;
-
+  USER_SET_WITHDRAW_CHANNEL_MSG = 607;
 
 
   // 主动推送消息messageID (800-899)
@@ -1072,6 +1072,19 @@ message WithdrawChannel {
   int64 verify_status = 6;                 //  验证状态 1:已验证 2:验证失败 3:未验证
   int64 is_default = 7;                 //  是否默认账户 1:是 2:否
 }
+
+message UserSetWithdrawChannelMsgReq {
+  int64 user_id = 1;          // 用户ID
+  string account = 2;                 //  提现账号/地址
+  int64 is_default = 3;                 //  是否默认账户 1:是 2:否
+}
+
+
+message UserSetWithdrawChannelMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+}
+
 
 
 // =========================================
