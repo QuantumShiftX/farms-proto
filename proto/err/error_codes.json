@@ -28,6 +28,10 @@
       "en": "Google authentication code required.",
       "zh": "需要Google验证码。"
     },
+    "702": {
+      "en": "Data duplication, please check.",
+      "zh": "数据重复请检查。"
+    },
     "10000": {
       "en": "User not found.",
       "zh": "用户不存在。"
