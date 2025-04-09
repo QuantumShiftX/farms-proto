@@ -1250,7 +1250,7 @@ message TransactionRecord {
   int64 balance_after = 11;          // 变动后余额, 单位:微
   string remark = 13;                // 备注信息
   int64 transaction_time = 14;       // 交易时间
-  int64 related_id = 15;             // 关联ID，如游戏ID，商品ID，活动ID
+  string related_id = 15;             // 关联ID，如游戏ID，商品ID，活动ID
 }
 
 
