@@ -1086,13 +1086,12 @@ message TransactionRecord {
   string username = 3;               // 用户账号
   string order_no = 4;               // 流水编号
   string currency_code = 5;          // 币种编码
-  int32 wallet_type = 6;             // 账变钱包 1:用户钱包 2:代理钱包 3:奖励钱包 4:USTD钱包
-  int32 category = 7;                // 账变大类交易类型 (1 收款、2提款、3存款、4购买、5换汇、6返佣等)
-  int32 sub_category = 8;            // 账变小类
+  int64 wallet_type = 6;             // 账变钱包 1:用户钱包 2:代理钱包 3:奖励钱包 4:USTD钱包
+  int64 category = 7;                // 账变大类交易类型 (1 收款、2提款、3存款、4购买、5换汇、6返佣等)
+  int64 sub_category = 8;            // 账变小类
   int64 balance_previous = 9;        // 变动前余额, 单位:微
   int64 amount = 10;                 // 变动金额, 单位:微
   int64 balance_after = 11;          // 变动后余额, 单位:微
-  int32 transaction_type = 12;       // 交易类型
   string remark = 13;                // 备注信息
   int64 transaction_time = 14;       // 交易时间
   int64 related_id = 15;             // 关联ID，如游戏ID，商品ID，活动ID
