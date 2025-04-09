@@ -6967,7 +6967,7 @@ type UserSetWithdrawChannelMsgReq struct {
 	UserId            int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                                    // 用户ID
 	Account           string `protobuf:"bytes,2,opt,name=account,proto3" json:"account,omitempty"`                                                 //  提现账号/地址
 	IsDefault         int64  `protobuf:"varint,3,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`                           //  是否默认账户 1:是 2:否
-	OperateType       int64  `protobuf:"varint,4,opt,name=operate_type,json=operateType,proto3" json:"operate_type,omitempty"`                     // 操作类型，必填 1:新增 2:删除
+	OperateType       int64  `protobuf:"varint,4,opt,name=operate_type,json=operateType,proto3" json:"operate_type,omitempty"`                     // 操作类型，必填 1:新增 2:修改 3:删除
 	WithdrawAccountId int64  `protobuf:"varint,5,opt,name=withdraw_account_id,json=withdrawAccountId,proto3" json:"withdraw_account_id,omitempty"` //提现账号ID
 	Remark            string `protobuf:"bytes,6,opt,name=remark,proto3" json:"remark,omitempty"`                                                   // 备注
 }
