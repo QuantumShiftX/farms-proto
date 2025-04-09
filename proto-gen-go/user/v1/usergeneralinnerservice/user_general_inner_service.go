@@ -2,7 +2,7 @@
 // goctl 1.7.6
 // Source: user.proto
 
-package userplantgrowthservice
+package usergeneralinnerservice
 
 import (
 	"context"
@@ -106,80 +106,24 @@ type (
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
 	VipInfo                         = v1.VipInfo
 
-	UserPlantGrowthService interface {
-		// 计算植物当前生长阶段
-		CalculatePlantStatus(ctx context.Context, in *PlantStatusRequest, opts ...grpc.CallOption) (*PlantStatusResponse, error)
-		// 计算操作减少的时间
-		CalculateTimeReduction(ctx context.Context, in *TimeReductionRequest, opts ...grpc.CallOption) (*TimeReductionResponse, error)
-		// 计算所有生长阶段时间点
-		CalculateStageTimelines(ctx context.Context, in *StageTimelinesRequest, opts ...grpc.CallOption) (*StageTimelinesResponse, error)
-		// 调整收获时间
-		AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error)
-		// 检查是否需要浇水/施肥
-		CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error)
-		// 检查是否需要浇水/施肥
-		CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error)
-		// 获取植物当前生长进度
-		GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error)
-		// 获取植物当前状态的综合信息
-		GetPlantCurrentState(ctx context.Context, in *PlantStateRequest, opts ...grpc.CallOption) (*PlantStateResponse, error)
+	UserGeneralInnerService interface {
+		// 修改用户余额
+		UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 	}
 
-	defaultUserPlantGrowthService struct {
+	defaultUserGeneralInnerService struct {
 		cli zrpc.Client
 	}
 )
 
-func NewUserPlantGrowthService(cli zrpc.Client) UserPlantGrowthService {
-	return &defaultUserPlantGrowthService{
+func NewUserGeneralInnerService(cli zrpc.Client) UserGeneralInnerService {
+	return &defaultUserGeneralInnerService{
 		cli: cli,
 	}
 }
 
-// 计算植物当前生长阶段
-func (m *defaultUserPlantGrowthService) CalculatePlantStatus(ctx context.Context, in *PlantStatusRequest, opts ...grpc.CallOption) (*PlantStatusResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.CalculatePlantStatus(ctx, in, opts...)
-}
-
-// 计算操作减少的时间
-func (m *defaultUserPlantGrowthService) CalculateTimeReduction(ctx context.Context, in *TimeReductionRequest, opts ...grpc.CallOption) (*TimeReductionResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.CalculateTimeReduction(ctx, in, opts...)
-}
-
-// 计算所有生长阶段时间点
-func (m *defaultUserPlantGrowthService) CalculateStageTimelines(ctx context.Context, in *StageTimelinesRequest, opts ...grpc.CallOption) (*StageTimelinesResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.CalculateStageTimelines(ctx, in, opts...)
-}
-
-// 调整收获时间
-func (m *defaultUserPlantGrowthService) AdjustHarvestTime(ctx context.Context, in *AdjustHarvestTimeRequest, opts ...grpc.CallOption) (*AdjustHarvestTimeResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.AdjustHarvestTime(ctx, in, opts...)
-}
-
-// 检查是否需要浇水/施肥
-func (m *defaultUserPlantGrowthService) CheckMaintenanceNeeds(ctx context.Context, in *MaintenanceNeedsRequest, opts ...grpc.CallOption) (*MaintenanceNeedsResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.CheckMaintenanceNeeds(ctx, in, opts...)
-}
-
-// 检查是否需要浇水/施肥
-func (m *defaultUserPlantGrowthService) CheckMaintenanceNeedsMap(ctx context.Context, in *CheckCropsNeedsRequest, opts ...grpc.CallOption) (*CheckCropsNeedsResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.CheckMaintenanceNeedsMap(ctx, in, opts...)
-}
-
-// 获取植物当前生长进度
-func (m *defaultUserPlantGrowthService) GetGrowthProgress(ctx context.Context, in *GrowthProgressRequest, opts ...grpc.CallOption) (*GrowthProgressResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.GetGrowthProgress(ctx, in, opts...)
-}
-
-// 获取植物当前状态的综合信息
-func (m *defaultUserPlantGrowthService) GetPlantCurrentState(ctx context.Context, in *PlantStateRequest, opts ...grpc.CallOption) (*PlantStateResponse, error) {
-	client := v1.NewUserPlantGrowthServiceClient(m.cli.Conn())
-	return client.GetPlantCurrentState(ctx, in, opts...)
+// 修改用户余额
+func (m *defaultUserGeneralInnerService) UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error) {
+	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
+	return client.UpdateUserBalance(ctx, in, opts...)
 }

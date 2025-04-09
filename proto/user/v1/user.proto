@@ -267,6 +267,33 @@ service UserPlantGrowthService {
   rpc GetPlantCurrentState (PlantStateRequest) returns (PlantStateResponse);
 
 }
+// 修改用户余额请求结构
+message UpdateUserBalanceReq{
+  int64 user_id = 1; // 用户ID
+  int64 amount = 2; // 变动余额
+  string order_no = 3; // 订单号
+  int64 wallet_type = 4 ; // 钱包类型 1：用户钱包,2：代理钱包,3：奖励钱包,4：USDT
+  int64 category = 5 ; // 账变大类
+  int64 sub_category = 6; // 账变小类
+  string remark = 7;// 备注
+  int64 trade_time = 10; // 交易时间
+  int64 related_id = 11; // 关联的id 如游戏id等
+}
+
+// 修改用户余额返回结构
+message UpdateUserBalanceResp{
+  int64 balance = 1; // 修改后余额
+  int64 wallet_type = 2; // 钱包类型 1：用户钱包,2：代理钱包,3：奖励钱包,4：USDT
+  int64 status = 3; // 状态 0 失败,1 处理成功,2 余额不足
+}
+
+service UserGeneralInnerService {
+  // 修改用户余额
+  rpc UpdateUserBalance(UpdateUserBalanceReq)returns (UpdateUserBalanceResp);
+}
+
+
+
 
 message GetOnlineUserListReq{
   int64 page = 1;

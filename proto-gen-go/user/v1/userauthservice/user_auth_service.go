@@ -56,6 +56,8 @@ type (
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
 	TransactionRecord               = v1.TransactionRecord
+	UpdateUserBalanceReq            = v1.UpdateUserBalanceReq
+	UpdateUserBalanceResp           = v1.UpdateUserBalanceResp
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
 	UserAuthInfoMsgReq              = v1.UserAuthInfoMsgReq
 	UserAuthenticationReply         = v1.UserAuthenticationReply
