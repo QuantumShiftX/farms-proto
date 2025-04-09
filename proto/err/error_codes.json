@@ -108,6 +108,34 @@
       "en": "Insufficient balance.",
       "zh": "余额不足。"
     },
+    "10020": {
+      "en": "Account does not exist or Incorrect password. Please try again.",
+      "zh": "账户不存在或者密码错误，请重试。"
+    },
+    "10021": {
+      "en": "Your account is locked. Please contact support.",
+      "zh": "您的账户已锁定，请联系客服。"
+    },
+    "10022": {
+      "en": "This email is already registered. Please log in or use another email.",
+      "zh": "此邮箱已注册，请登录或使用其他邮箱。"
+    },
+    "10023": {
+      "en": "Invalid coin amount.",
+      "zh": "输入的金币数量不正确。"
+    },
+    "10024": {
+      "en": "Withdrawal initiation failed.",
+      "zh": "发起提现失败。"
+    },
+    "10025": {
+      "en": "Please do not repeat this operation. Try again later.",
+      "zh": "请勿重复操作，稍等后再试。"
+    },
+    "10026": {
+      "en": "Exchange amount error. Please try again.",
+      "zh": "兑换金额错误，请重试。"
+    },
     "20000": {
       "en": "Farm not found.",
       "zh": "农场不存在。"
@@ -185,7 +213,7 @@
     "version": "1.0.0",
     "languages": ["en", "zh"],
     "defaultLanguage": "en",
-    "lastUpdated": "2025-04-08",
+    "lastUpdated": "2025-04-09",
     "unknownError": {
       "en": "Unknown error occurred. Please try again or contact support.",
       "zh": "发生未知错误，请重试或联系客服。"
