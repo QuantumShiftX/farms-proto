@@ -373,6 +373,40 @@ message UserSetWithdrawChannelMsgReply{
   string msg = 2;                     // 响应消息    success 成功
 }
 
+message UserTransactionRecordsMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  int64 page = 2;
+  int64 page_size = 3;
+  int64 category = 4; // 交易类型 (1 充值、2 提现、3 换汇)
+
+}
+message UserTransactionRecordsMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated TransactionRecord rows = 5;
+}
+
+message TransactionRecord {
+  int64 id = 1;                      // 主键，自动增长
+  string username = 2;               // 用户账号
+  string order_no = 3;               // 订单编号
+  string currency_code = 4;          // 币种编码
+  int64 category = 5;                // 交易类型 (1 充值、2 提现、3 换汇)
+  int64 amount_icon = 6;            // 金币变动金额, 单位:微
+  int64 amount_usdt = 7;             // USDT变动金额 单位:微
+  int64 fee_amount = 8;             // 手续费金额, 单位:微
+  string address = 9;  // 钱包地址
+  string protocol = 10; // 网络协议
+  int64 merchant_id = 11;  // 币商ID
+  string merchant_name = 12;  // 币商名字
+  int64 status = 13;                 // 订单状态：1-处理中，2-成功，3-失败
+  string remark = 14;                // 备注信息
+  int64 transaction_time = 15;       // 交易时间
+  string related_id = 16;             // 关联ID，如游戏ID，商品ID，活动ID
+}
+
 
 // 支付服务
 service UserPaymentInnerService {
@@ -393,4 +427,7 @@ service UserPaymentInnerService {
 
   // 用户提现通道列表响应
   rpc UserWithdrawChannel(UserWithdrawChannelInfoMsgReq) returns (UserWithdrawChannelInfoMsgReply) {}
+
+  // 用户提现充值账变记录
+  rpc UserTransactionRecords (UserTransactionRecordsMsgReq) returns (UserTransactionRecordsMsgReply) {}
 }

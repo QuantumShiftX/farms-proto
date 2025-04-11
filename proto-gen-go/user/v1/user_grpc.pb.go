@@ -828,7 +828,6 @@ const (
 	UserInnerService_GetMerchantList_FullMethodName         = "/user.v1.UserInnerService/GetMerchantList"
 	UserInnerService_SetMerchantExchangeRate_FullMethodName = "/user.v1.UserInnerService/SetMerchantExchangeRate"
 	UserInnerService_SubmitForRedemption_FullMethodName     = "/user.v1.UserInnerService/SubmitForRedemption"
-	UserInnerService_UserTransactionRecords_FullMethodName  = "/user.v1.UserInnerService/UserTransactionRecords"
 	UserInnerService_FarmTransactionRecords_FullMethodName  = "/user.v1.UserInnerService/FarmTransactionRecords"
 )
 
@@ -876,9 +875,7 @@ type UserInnerServiceClient interface {
 	SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
 	// 提交兑换
 	SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
-	// 用户提现充值账变记录
-	UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
-	// 用户操作记录
+	// 用户农场交易操作记录
 	FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error)
 }
 
@@ -1070,15 +1067,6 @@ func (c *userInnerServiceClient) SubmitForRedemption(ctx context.Context, in *Su
 	return out, nil
 }
 
-func (c *userInnerServiceClient) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
-	out := new(UserTransactionRecordsMsgReply)
-	err := c.cc.Invoke(ctx, UserInnerService_UserTransactionRecords_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userInnerServiceClient) FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error) {
 	out := new(FarmTransactionRecordsMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_FarmTransactionRecords_FullMethodName, in, out, opts...)
@@ -1132,9 +1120,7 @@ type UserInnerServiceServer interface {
 	SetMerchantExchangeRate(context.Context, *MerchantExchangeRateMsgReq) (*MerchantExchangeRateMsgReply, error)
 	// 提交兑换
 	SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error)
-	// 用户提现充值账变记录
-	UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error)
-	// 用户操作记录
+	// 用户农场交易操作记录
 	FarmTransactionRecords(context.Context, *FarmTransactionRecordsMsgReq) (*FarmTransactionRecordsMsgReply, error)
 	mustEmbedUnimplementedUserInnerServiceServer()
 }
@@ -1202,9 +1188,6 @@ func (UnimplementedUserInnerServiceServer) SetMerchantExchangeRate(context.Conte
 }
 func (UnimplementedUserInnerServiceServer) SubmitForRedemption(context.Context, *SubmitForRedemptionMsgReq) (*SubmitForRedemptionMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SubmitForRedemption not implemented")
-}
-func (UnimplementedUserInnerServiceServer) UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserTransactionRecords not implemented")
 }
 func (UnimplementedUserInnerServiceServer) FarmTransactionRecords(context.Context, *FarmTransactionRecordsMsgReq) (*FarmTransactionRecordsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FarmTransactionRecords not implemented")
@@ -1582,24 +1565,6 @@ func _UserInnerService_SubmitForRedemption_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserInnerService_UserTransactionRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserTransactionRecordsMsgReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserInnerServiceServer).UserTransactionRecords(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserInnerService_UserTransactionRecords_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserInnerServiceServer).UserTransactionRecords(ctx, req.(*UserTransactionRecordsMsgReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserInnerService_FarmTransactionRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FarmTransactionRecordsMsgReq)
 	if err := dec(in); err != nil {
@@ -1704,10 +1669,6 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SubmitForRedemption",
 			Handler:    _UserInnerService_SubmitForRedemption_Handler,
-		},
-		{
-			MethodName: "UserTransactionRecords",
-			Handler:    _UserInnerService_UserTransactionRecords_Handler,
 		},
 		{
 			MethodName: "FarmTransactionRecords",

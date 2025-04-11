@@ -41,10 +41,13 @@ type (
 	RechargeChannel                  = v1.RechargeChannel
 	RechargeChannelsInfoMsgReply     = v1.RechargeChannelsInfoMsgReply
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
+	TransactionRecord                = v1.TransactionRecord
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
 	UserSetWithdrawChannelMsgReply   = v1.UserSetWithdrawChannelMsgReply
 	UserSetWithdrawChannelMsgReq     = v1.UserSetWithdrawChannelMsgReq
+	UserTransactionRecordsMsgReply   = v1.UserTransactionRecordsMsgReply
+	UserTransactionRecordsMsgReq     = v1.UserTransactionRecordsMsgReq
 	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
 	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply

@@ -482,6 +482,7 @@ const (
 	UserPaymentInnerService_UserRechargeChannel_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserRechargeChannel"
 	UserPaymentInnerService_UserSetWithdrawChannel_FullMethodName = "/payment.v1.UserPaymentInnerService/UserSetWithdrawChannel"
 	UserPaymentInnerService_UserWithdrawChannel_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserWithdrawChannel"
+	UserPaymentInnerService_UserTransactionRecords_FullMethodName = "/payment.v1.UserPaymentInnerService/UserTransactionRecords"
 )
 
 // UserPaymentInnerServiceClient is the client API for UserPaymentInnerService service.
@@ -500,6 +501,8 @@ type UserPaymentInnerServiceClient interface {
 	UserSetWithdrawChannel(ctx context.Context, in *UserSetWithdrawChannelMsgReq, opts ...grpc.CallOption) (*UserSetWithdrawChannelMsgReply, error)
 	// 用户提现通道列表响应
 	UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
+	// 用户提现充值账变记录
+	UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
 }
 
 type userPaymentInnerServiceClient struct {
@@ -564,6 +567,15 @@ func (c *userPaymentInnerServiceClient) UserWithdrawChannel(ctx context.Context,
 	return out, nil
 }
 
+func (c *userPaymentInnerServiceClient) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
+	out := new(UserTransactionRecordsMsgReply)
+	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserTransactionRecords_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserPaymentInnerServiceServer is the server API for UserPaymentInnerService service.
 // All implementations must embed UnimplementedUserPaymentInnerServiceServer
 // for forward compatibility
@@ -580,6 +592,8 @@ type UserPaymentInnerServiceServer interface {
 	UserSetWithdrawChannel(context.Context, *UserSetWithdrawChannelMsgReq) (*UserSetWithdrawChannelMsgReply, error)
 	// 用户提现通道列表响应
 	UserWithdrawChannel(context.Context, *UserWithdrawChannelInfoMsgReq) (*UserWithdrawChannelInfoMsgReply, error)
+	// 用户提现充值账变记录
+	UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error)
 	mustEmbedUnimplementedUserPaymentInnerServiceServer()
 }
 
@@ -604,6 +618,9 @@ func (UnimplementedUserPaymentInnerServiceServer) UserSetWithdrawChannel(context
 }
 func (UnimplementedUserPaymentInnerServiceServer) UserWithdrawChannel(context.Context, *UserWithdrawChannelInfoMsgReq) (*UserWithdrawChannelInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserWithdrawChannel not implemented")
+}
+func (UnimplementedUserPaymentInnerServiceServer) UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserTransactionRecords not implemented")
 }
 func (UnimplementedUserPaymentInnerServiceServer) mustEmbedUnimplementedUserPaymentInnerServiceServer() {
 }
@@ -727,6 +744,24 @@ func _UserPaymentInnerService_UserWithdrawChannel_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserPaymentInnerService_UserTransactionRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserTransactionRecordsMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPaymentInnerServiceServer).UserTransactionRecords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPaymentInnerService_UserTransactionRecords_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPaymentInnerServiceServer).UserTransactionRecords(ctx, req.(*UserTransactionRecordsMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserPaymentInnerService_ServiceDesc is the grpc.ServiceDesc for UserPaymentInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -757,6 +792,10 @@ var UserPaymentInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserWithdrawChannel",
 			Handler:    _UserPaymentInnerService_UserWithdrawChannel_Handler,
+		},
+		{
+			MethodName: "UserTransactionRecords",
+			Handler:    _UserPaymentInnerService_UserTransactionRecords_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

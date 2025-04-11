@@ -57,7 +57,6 @@ type (
 	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
-	TransactionRecord               = v1.TransactionRecord
 	UpdateUserBalanceReq            = v1.UpdateUserBalanceReq
 	UpdateUserBalanceResp           = v1.UpdateUserBalanceResp
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
@@ -98,8 +97,6 @@ type (
 	UserStorageDetail               = v1.UserStorageDetail
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
-	UserTransactionRecordsMsgReply  = v1.UserTransactionRecordsMsgReply
-	UserTransactionRecordsMsgReq    = v1.UserTransactionRecordsMsgReq
 	UserWallet                      = v1.UserWallet
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
@@ -147,9 +144,7 @@ type (
 		SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
 		// 提交兑换
 		SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
-		// 用户提现充值账变记录
-		UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
-		// 用户操作记录
+		// 用户农场交易操作记录
 		FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error)
 	}
 
@@ -284,13 +279,7 @@ func (m *defaultUserInnerService) SubmitForRedemption(ctx context.Context, in *S
 	return client.SubmitForRedemption(ctx, in, opts...)
 }
 
-// 用户提现充值账变记录
-func (m *defaultUserInnerService) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
-	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.UserTransactionRecords(ctx, in, opts...)
-}
-
-// 用户操作记录
+// 用户农场交易操作记录
 func (m *defaultUserInnerService) FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.FarmTransactionRecords(ctx, in, opts...)

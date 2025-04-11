@@ -57,7 +57,6 @@ type (
 	SubmitForRedemptionMsgReq       = v1.SubmitForRedemptionMsgReq
 	TimeReductionRequest            = v1.TimeReductionRequest
 	TimeReductionResponse           = v1.TimeReductionResponse
-	TransactionRecord               = v1.TransactionRecord
 	UpdateUserBalanceReq            = v1.UpdateUserBalanceReq
 	UpdateUserBalanceResp           = v1.UpdateUserBalanceResp
 	UserAuthInfoMsgReply            = v1.UserAuthInfoMsgReply
@@ -98,8 +97,6 @@ type (
 	UserStorageDetail               = v1.UserStorageDetail
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
-	UserTransactionRecordsMsgReply  = v1.UserTransactionRecordsMsgReply
-	UserTransactionRecordsMsgReq    = v1.UserTransactionRecordsMsgReq
 	UserWallet                      = v1.UserWallet
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply

@@ -41,10 +41,13 @@ type (
 	RechargeChannel                  = v1.RechargeChannel
 	RechargeChannelsInfoMsgReply     = v1.RechargeChannelsInfoMsgReply
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
+	TransactionRecord                = v1.TransactionRecord
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
 	UserSetWithdrawChannelMsgReply   = v1.UserSetWithdrawChannelMsgReply
 	UserSetWithdrawChannelMsgReq     = v1.UserSetWithdrawChannelMsgReq
+	UserTransactionRecordsMsgReply   = v1.UserTransactionRecordsMsgReply
+	UserTransactionRecordsMsgReq     = v1.UserTransactionRecordsMsgReq
 	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
 	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
@@ -64,6 +67,8 @@ type (
 		UserSetWithdrawChannel(ctx context.Context, in *UserSetWithdrawChannelMsgReq, opts ...grpc.CallOption) (*UserSetWithdrawChannelMsgReply, error)
 		// 用户提现通道列表响应
 		UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
+		// 用户提现充值账变记录
+		UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
 	}
 
 	defaultUserPaymentInnerService struct {
@@ -111,4 +116,10 @@ func (m *defaultUserPaymentInnerService) UserSetWithdrawChannel(ctx context.Cont
 func (m *defaultUserPaymentInnerService) UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error) {
 	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
 	return client.UserWithdrawChannel(ctx, in, opts...)
+}
+
+// 用户提现充值账变记录
+func (m *defaultUserPaymentInnerService) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.UserTransactionRecords(ctx, in, opts...)
 }
