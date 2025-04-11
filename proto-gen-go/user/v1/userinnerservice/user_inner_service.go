@@ -20,6 +20,9 @@ type (
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
+	FarmTransactionRecord           = v1.FarmTransactionRecord
+	FarmTransactionRecordsMsgReply  = v1.FarmTransactionRecordsMsgReply
+	FarmTransactionRecordsMsgReq    = v1.FarmTransactionRecordsMsgReq
 	ForgotPasswordReq               = v1.ForgotPasswordReq
 	FriendRankingInfo               = v1.FriendRankingInfo
 	GetMerchantListMsgReply         = v1.GetMerchantListMsgReply
@@ -40,7 +43,6 @@ type (
 	MsgReply                        = v1.MsgReply
 	MsgReq                          = v1.MsgReq
 	MyRankingInfo                   = v1.MyRankingInfo
-	OperationRecord                 = v1.OperationRecord
 	PlantInfo                       = v1.PlantInfo
 	PlantStateInfo                  = v1.PlantStateInfo
 	PlantStateRequest               = v1.PlantStateRequest
@@ -81,8 +83,6 @@ type (
 	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
 	UserLoginResp                   = v1.UserLoginResp
-	UserOperationRecordMsgReply     = v1.UserOperationRecordMsgReply
-	UserOperationRecordMsgReq       = v1.UserOperationRecordMsgReq
 	UserOpsFortuneTreeMsgReply      = v1.UserOpsFortuneTreeMsgReply
 	UserOpsFortuneTreeMsgReq        = v1.UserOpsFortuneTreeMsgReq
 	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
@@ -98,8 +98,8 @@ type (
 	UserStorageDetail               = v1.UserStorageDetail
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
-	UserTransactionRecordMsgReply   = v1.UserTransactionRecordMsgReply
-	UserTransactionRecordMsgReq     = v1.UserTransactionRecordMsgReq
+	UserTransactionRecordsMsgReply  = v1.UserTransactionRecordsMsgReply
+	UserTransactionRecordsMsgReq    = v1.UserTransactionRecordsMsgReq
 	UserWallet                      = v1.UserWallet
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
@@ -147,10 +147,10 @@ type (
 		SetMerchantExchangeRate(ctx context.Context, in *MerchantExchangeRateMsgReq, opts ...grpc.CallOption) (*MerchantExchangeRateMsgReply, error)
 		// 提交兑换
 		SubmitForRedemption(ctx context.Context, in *SubmitForRedemptionMsgReq, opts ...grpc.CallOption) (*SubmitForRedemptionMsgReply, error)
-		// 用户账变记录
-		UserTransactionRecord(ctx context.Context, in *UserTransactionRecordMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordMsgReply, error)
+		// 用户提现充值账变记录
+		UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
 		// 用户操作记录
-		UserOperationRecord(ctx context.Context, in *UserOperationRecordMsgReq, opts ...grpc.CallOption) (*UserOperationRecordMsgReply, error)
+		FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error)
 	}
 
 	defaultUserInnerService struct {
@@ -284,14 +284,14 @@ func (m *defaultUserInnerService) SubmitForRedemption(ctx context.Context, in *S
 	return client.SubmitForRedemption(ctx, in, opts...)
 }
 
-// 用户账变记录
-func (m *defaultUserInnerService) UserTransactionRecord(ctx context.Context, in *UserTransactionRecordMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordMsgReply, error) {
+// 用户提现充值账变记录
+func (m *defaultUserInnerService) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.UserTransactionRecord(ctx, in, opts...)
+	return client.UserTransactionRecords(ctx, in, opts...)
 }
 
 // 用户操作记录
-func (m *defaultUserInnerService) UserOperationRecord(ctx context.Context, in *UserOperationRecordMsgReq, opts ...grpc.CallOption) (*UserOperationRecordMsgReply, error) {
+func (m *defaultUserInnerService) FarmTransactionRecords(ctx context.Context, in *FarmTransactionRecordsMsgReq, opts ...grpc.CallOption) (*FarmTransactionRecordsMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
-	return client.UserOperationRecord(ctx, in, opts...)
+	return client.FarmTransactionRecords(ctx, in, opts...)
 }

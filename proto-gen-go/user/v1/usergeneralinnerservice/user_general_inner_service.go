@@ -20,6 +20,9 @@ type (
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
+	FarmTransactionRecord           = v1.FarmTransactionRecord
+	FarmTransactionRecordsMsgReply  = v1.FarmTransactionRecordsMsgReply
+	FarmTransactionRecordsMsgReq    = v1.FarmTransactionRecordsMsgReq
 	ForgotPasswordReq               = v1.ForgotPasswordReq
 	FriendRankingInfo               = v1.FriendRankingInfo
 	GetMerchantListMsgReply         = v1.GetMerchantListMsgReply
@@ -40,7 +43,6 @@ type (
 	MsgReply                        = v1.MsgReply
 	MsgReq                          = v1.MsgReq
 	MyRankingInfo                   = v1.MyRankingInfo
-	OperationRecord                 = v1.OperationRecord
 	PlantInfo                       = v1.PlantInfo
 	PlantStateInfo                  = v1.PlantStateInfo
 	PlantStateRequest               = v1.PlantStateRequest
@@ -81,8 +83,6 @@ type (
 	UserLandInfoMsgReply            = v1.UserLandInfoMsgReply
 	UserLandInfoMsgReq              = v1.UserLandInfoMsgReq
 	UserLoginResp                   = v1.UserLoginResp
-	UserOperationRecordMsgReply     = v1.UserOperationRecordMsgReply
-	UserOperationRecordMsgReq       = v1.UserOperationRecordMsgReq
 	UserOpsFortuneTreeMsgReply      = v1.UserOpsFortuneTreeMsgReply
 	UserOpsFortuneTreeMsgReq        = v1.UserOpsFortuneTreeMsgReq
 	UserPersonalInfoMsgReply        = v1.UserPersonalInfoMsgReply
@@ -98,8 +98,8 @@ type (
 	UserStorageDetail               = v1.UserStorageDetail
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
-	UserTransactionRecordMsgReply   = v1.UserTransactionRecordMsgReply
-	UserTransactionRecordMsgReq     = v1.UserTransactionRecordMsgReq
+	UserTransactionRecordsMsgReply  = v1.UserTransactionRecordsMsgReply
+	UserTransactionRecordsMsgReq    = v1.UserTransactionRecordsMsgReq
 	UserWallet                      = v1.UserWallet
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
