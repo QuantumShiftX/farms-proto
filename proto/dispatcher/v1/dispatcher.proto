@@ -39,7 +39,7 @@ message UpdateOnlineRewardTaskReq {
 message UserOnlineDuration {
   int64 user_id = 1;  // 用户id
   int64 duration = 2;  // 在线时间长度秒
-  int64 stat_date = 3; // 统计的日期年月日
+  string stat_date = 3; // 统计的日期年月日
 }
 
 
