@@ -18,6 +18,8 @@ type (
 	DispatcherReq                   = v1.DispatcherReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
+	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
+	UserOnlineDuration              = v1.UserOnlineDuration
 
 	DispatcherTimer interface {
 		// 发财树状态检查

@@ -17,6 +17,8 @@ service DispatcherAsync {
   rpc UpdateFortuneTreeStatusCheck (UpdateFortuneTreeStatusCheckReq) returns (DispatcherReply) {};
   // 农场作物状态检查,推送
   rpc UpdateCropStatusCheck (UpdateCropStatusCheckReq) returns (DispatcherReply) {};
+  // 用户在线时长奖励监测
+  rpc UpdateOnlineRewardTask(UpdateOnlineRewardTaskReq) returns (DispatcherReply) {};
 }
 message UpdateFortuneTreeStatusCheckReq {
   int64 user_id = 1;  // 用户id
@@ -25,11 +27,19 @@ message UpdateFortuneTreeStatusCheckReq {
 
 }
 
-
 message UpdateCropStatusCheckReq {
   int64 user_id = 1;  // 用户id
   int64 plant_id = 2;  // 种植id
   int64 operation_at = 3; // 下次状态检查执行的时间
+}
+
+message UpdateOnlineRewardTaskReq {
+  repeated UserOnlineDuration user_online_duration = 1;
+}
+message UserOnlineDuration {
+  int64 user_id = 1;  // 用户id
+  int64 duration = 2;  // 在线时间长度秒
+  int64 stat_date = 3; // 统计的日期年月日
 }
 
 

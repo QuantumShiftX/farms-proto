@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	DispatcherAsync_UpdateFortuneTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherAsync/UpdateFortuneTreeStatusCheck"
 	DispatcherAsync_UpdateCropStatusCheck_FullMethodName        = "/dispatcher.v1.DispatcherAsync/UpdateCropStatusCheck"
+	DispatcherAsync_UpdateOnlineRewardTask_FullMethodName       = "/dispatcher.v1.DispatcherAsync/UpdateOnlineRewardTask"
 )
 
 // DispatcherAsyncClient is the client API for DispatcherAsync service.
@@ -31,6 +32,8 @@ type DispatcherAsyncClient interface {
 	UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 农场作物状态检查,推送
 	UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户在线时长奖励监测
+	UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherAsyncClient struct {
@@ -59,6 +62,15 @@ func (c *dispatcherAsyncClient) UpdateCropStatusCheck(ctx context.Context, in *U
 	return out, nil
 }
 
+func (c *dispatcherAsyncClient) UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_UpdateOnlineRewardTask_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DispatcherAsyncServer is the server API for DispatcherAsync service.
 // All implementations must embed UnimplementedDispatcherAsyncServer
 // for forward compatibility
@@ -67,6 +79,8 @@ type DispatcherAsyncServer interface {
 	UpdateFortuneTreeStatusCheck(context.Context, *UpdateFortuneTreeStatusCheckReq) (*DispatcherReply, error)
 	// 农场作物状态检查,推送
 	UpdateCropStatusCheck(context.Context, *UpdateCropStatusCheckReq) (*DispatcherReply, error)
+	// 用户在线时长奖励监测
+	UpdateOnlineRewardTask(context.Context, *UpdateOnlineRewardTaskReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherAsyncServer()
 }
 
@@ -79,6 +93,9 @@ func (UnimplementedDispatcherAsyncServer) UpdateFortuneTreeStatusCheck(context.C
 }
 func (UnimplementedDispatcherAsyncServer) UpdateCropStatusCheck(context.Context, *UpdateCropStatusCheckReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCropStatusCheck not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) UpdateOnlineRewardTask(context.Context, *UpdateOnlineRewardTaskReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOnlineRewardTask not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) mustEmbedUnimplementedDispatcherAsyncServer() {}
 
@@ -129,6 +146,24 @@ func _DispatcherAsync_UpdateCropStatusCheck_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherAsync_UpdateOnlineRewardTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOnlineRewardTaskReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).UpdateOnlineRewardTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_UpdateOnlineRewardTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).UpdateOnlineRewardTask(ctx, req.(*UpdateOnlineRewardTaskReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DispatcherAsync_ServiceDesc is the grpc.ServiceDesc for DispatcherAsync service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +178,10 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateCropStatusCheck",
 			Handler:    _DispatcherAsync_UpdateCropStatusCheck_Handler,
+		},
+		{
+			MethodName: "UpdateOnlineRewardTask",
+			Handler:    _DispatcherAsync_UpdateOnlineRewardTask_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

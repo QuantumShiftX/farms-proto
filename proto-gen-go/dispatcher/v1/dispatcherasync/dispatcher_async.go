@@ -18,12 +18,16 @@ type (
 	DispatcherReq                   = v1.DispatcherReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
+	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
+	UserOnlineDuration              = v1.UserOnlineDuration
 
 	DispatcherAsync interface {
 		// 发财树状态检查，推送
 		UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 农场作物状态检查,推送
 		UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户在线时长奖励监测
+		UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherAsync struct {
@@ -47,4 +51,10 @@ func (m *defaultDispatcherAsync) UpdateFortuneTreeStatusCheck(ctx context.Contex
 func (m *defaultDispatcherAsync) UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
 	return client.UpdateCropStatusCheck(ctx, in, opts...)
+}
+
+// 用户在线时长奖励监测
+func (m *defaultDispatcherAsync) UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.UpdateOnlineRewardTask(ctx, in, opts...)
 }
