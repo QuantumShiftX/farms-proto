@@ -291,7 +291,9 @@ message UpdateUserBalanceResp{
 message AddGrowthRequest {
   int64 user_id = 1;
   int64 action_type = 2;
+  int64 action_value = 3;
 }
+
 
 
 message GetUserGrowthInfoRequest {
