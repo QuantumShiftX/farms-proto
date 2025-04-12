@@ -53,6 +53,4 @@ service DispatcherTimer {
   rpc CycleCropStageUpdate(DispatcherReq) returns (DispatcherReply) {};
   // 公告消息检查
   rpc CycleBulletinMsgCheck(DispatcherReq) returns (DispatcherReply) {};
-  // 用户在线时长奖励监测
-  rpc CycleOnlineRewardTask(DispatcherReq) returns (DispatcherReply) {};
 }
