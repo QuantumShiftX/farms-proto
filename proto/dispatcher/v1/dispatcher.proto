@@ -44,5 +44,5 @@ service DispatcherTimer {
   // 公告消息检查
   rpc CycleBulletinMsgCheck(DispatcherReq) returns (DispatcherReply) {};
   // 用户在线时长奖励监测
-  rpc InitOnlineRewardTask(DispatcherReq) returns (DispatcherReply) {};
+  rpc CycleOnlineRewardTask(DispatcherReq) returns (DispatcherReply) {};
 }
