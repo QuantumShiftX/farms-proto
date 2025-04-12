@@ -290,15 +290,9 @@ message UpdateUserBalanceResp{
 // 请求和响应消息定义
 message AddGrowthRequest {
   int64 user_id = 1;
-  int32 action_type = 2;
-  int64 action_value = 3;
+  int64 action_type = 2;
 }
 
-message AddGrowthResponse {
-  int64 added_growth = 1;
-  int32 new_vip_level = 2;
-  bool is_vip_upgraded = 3;
-}
 
 message GetUserGrowthInfoRequest {
   int64 user_id = 1;
@@ -357,7 +351,7 @@ service UserGeneralInnerService {
   // 修改用户余额
   rpc UpdateUserBalance(UpdateUserBalanceReq)returns (UpdateUserBalanceResp);
   // 增加用户成长值
-  rpc AddGrowth(AddGrowthRequest) returns (AddGrowthResponse) {}
+  rpc AddGrowth(AddGrowthRequest) returns (UserReply) {}
 
   // 获取用户成长值信息
   rpc GetUserGrowthInfo(GetUserGrowthInfoRequest) returns (GetUserGrowthInfoResponse) {}

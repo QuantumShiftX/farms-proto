@@ -15,7 +15,6 @@ import (
 
 type (
 	AddGrowthRequest                = v1.AddGrowthRequest
-	AddGrowthResponse               = v1.AddGrowthResponse
 	AdjustHarvestTimeRequest        = v1.AdjustHarvestTimeRequest
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
@@ -117,7 +116,7 @@ type (
 		// 修改用户余额
 		UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 		// 增加用户成长值
-		AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*AddGrowthResponse, error)
+		AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
 		// 获取用户成长值信息
 		GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error)
 		// 获取用户成长值记录
@@ -144,7 +143,7 @@ func (m *defaultUserGeneralInnerService) UpdateUserBalance(ctx context.Context, 
 }
 
 // 增加用户成长值
-func (m *defaultUserGeneralInnerService) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*AddGrowthResponse, error) {
+func (m *defaultUserGeneralInnerService) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
 	return client.AddGrowth(ctx, in, opts...)
 }

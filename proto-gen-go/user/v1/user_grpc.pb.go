@@ -637,7 +637,7 @@ type UserGeneralInnerServiceClient interface {
 	// 修改用户余额
 	UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
-	AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*AddGrowthResponse, error)
+	AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
 	// 获取用户成长值信息
 	GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error)
 	// 获取用户成长值记录
@@ -663,8 +663,8 @@ func (c *userGeneralInnerServiceClient) UpdateUserBalance(ctx context.Context, i
 	return out, nil
 }
 
-func (c *userGeneralInnerServiceClient) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*AddGrowthResponse, error) {
-	out := new(AddGrowthResponse)
+func (c *userGeneralInnerServiceClient) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error) {
+	out := new(UserReply)
 	err := c.cc.Invoke(ctx, UserGeneralInnerService_AddGrowth_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -706,7 +706,7 @@ type UserGeneralInnerServiceServer interface {
 	// 修改用户余额
 	UpdateUserBalance(context.Context, *UpdateUserBalanceReq) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
-	AddGrowth(context.Context, *AddGrowthRequest) (*AddGrowthResponse, error)
+	AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error)
 	// 获取用户成长值信息
 	GetUserGrowthInfo(context.Context, *GetUserGrowthInfoRequest) (*GetUserGrowthInfoResponse, error)
 	// 获取用户成长值记录
@@ -723,7 +723,7 @@ type UnimplementedUserGeneralInnerServiceServer struct {
 func (UnimplementedUserGeneralInnerServiceServer) UpdateUserBalance(context.Context, *UpdateUserBalanceReq) (*UpdateUserBalanceResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserBalance not implemented")
 }
-func (UnimplementedUserGeneralInnerServiceServer) AddGrowth(context.Context, *AddGrowthRequest) (*AddGrowthResponse, error) {
+func (UnimplementedUserGeneralInnerServiceServer) AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddGrowth not implemented")
 }
 func (UnimplementedUserGeneralInnerServiceServer) GetUserGrowthInfo(context.Context, *GetUserGrowthInfoRequest) (*GetUserGrowthInfoResponse, error) {

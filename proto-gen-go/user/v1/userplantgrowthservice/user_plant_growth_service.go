@@ -15,7 +15,6 @@ import (
 
 type (
 	AddGrowthRequest                = v1.AddGrowthRequest
-	AddGrowthResponse               = v1.AddGrowthResponse
 	AdjustHarvestTimeRequest        = v1.AdjustHarvestTimeRequest
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
