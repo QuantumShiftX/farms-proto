@@ -287,9 +287,86 @@ message UpdateUserBalanceResp{
   int64 status = 3; // 状态 0 失败,1 处理成功,2 余额不足
 }
 
+// 请求和响应消息定义
+message AddGrowthRequest {
+  int64 user_id = 1;
+  int32 action_type = 2;
+  int64 action_value = 3;
+}
+
+message AddGrowthResponse {
+  int64 added_growth = 1;
+  int32 new_vip_level = 2;
+  bool is_vip_upgraded = 3;
+}
+
+message GetUserGrowthInfoRequest {
+  int64 user_id = 1;
+}
+
+message GetUserGrowthInfoResponse {
+  int64 user_id = 1;
+  int64 total_growth = 2;
+  int32 current_vip = 3;
+  int64 next_level_required_growth = 4;
+  int64 current_level_growth = 5;
+}
+
+message GetUserGrowthRecordsRequest {
+  int64 user_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message GrowthRecord {
+  int64 id = 1;
+  int64 user_id = 2;
+  int32 action_type = 3;
+  int64 growth_change = 4;
+  string action_desc = 5;
+  int64 created_at = 6;
+}
+
+message GetUserGrowthRecordsResponse {
+  repeated GrowthRecord records = 1;
+  int64 total = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message CheckAndUpdateVIPLevelRequest {
+  int64 user_id = 1;
+}
+
+message CheckAndUpdateVIPLevelResponse {
+  int32 old_level = 1;
+  int32 new_level = 2;
+  bool changed = 3;
+  VIPLevelInfo level_info = 4;
+}
+
+message VIPLevelInfo {
+  int32 level = 1;
+  string name = 2;
+  int64 min_growth = 3;
+  int64 max_growth = 4;
+  string benefits = 5;
+}
+
 service UserGeneralInnerService {
   // 修改用户余额
   rpc UpdateUserBalance(UpdateUserBalanceReq)returns (UpdateUserBalanceResp);
+  // 增加用户成长值
+  rpc AddGrowth(AddGrowthRequest) returns (AddGrowthResponse) {}
+
+  // 获取用户成长值信息
+  rpc GetUserGrowthInfo(GetUserGrowthInfoRequest) returns (GetUserGrowthInfoResponse) {}
+
+  // 获取用户成长值记录
+  rpc GetUserGrowthRecords(GetUserGrowthRecordsRequest) returns (GetUserGrowthRecordsResponse) {}
+
+  // 检查并更新用户VIP等级
+  rpc CheckAndUpdateVIPLevel(CheckAndUpdateVIPLevelRequest) returns (CheckAndUpdateVIPLevelResponse) {}
 }
 
 
