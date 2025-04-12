@@ -28,6 +28,8 @@ type (
 		CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 公告消息检查
 		CycleBulletinMsgCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户在线时长奖励监测
+		InitOnlineRewardTask(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherTimer struct {
@@ -63,4 +65,10 @@ func (m *defaultDispatcherTimer) CycleCropStageUpdate(ctx context.Context, in *D
 func (m *defaultDispatcherTimer) CycleBulletinMsgCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherTimerClient(m.cli.Conn())
 	return client.CycleBulletinMsgCheck(ctx, in, opts...)
+}
+
+// 用户在线时长奖励监测
+func (m *defaultDispatcherTimer) InitOnlineRewardTask(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherTimerClient(m.cli.Conn())
+	return client.InitOnlineRewardTask(ctx, in, opts...)
 }
