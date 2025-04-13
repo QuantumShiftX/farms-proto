@@ -84,6 +84,7 @@ message UserRechargeEventReq {
   string order_no = 3;                       // 订单号
   int64 order_status = 4;   // 1 - 处理中 2 - 处理成功 3 - 处理失败
   int64 recharge_order_status = 5; // 充值订单状态 1-待支付 2-支付成功 3-支付超时 4-支付失败 5-补单审核中 6-二次审核中 7-待审核 8-已取消
+  string extend = 6;      // 扩展字段
 }
 
 message UserWithdrawEventReq {
