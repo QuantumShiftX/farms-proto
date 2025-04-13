@@ -623,11 +623,8 @@ var UserPlantGrowthService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserGeneralInnerService_UpdateUserBalance_FullMethodName      = "/user.v1.UserGeneralInnerService/UpdateUserBalance"
-	UserGeneralInnerService_AddGrowth_FullMethodName              = "/user.v1.UserGeneralInnerService/AddGrowth"
-	UserGeneralInnerService_GetUserGrowthInfo_FullMethodName      = "/user.v1.UserGeneralInnerService/GetUserGrowthInfo"
-	UserGeneralInnerService_GetUserGrowthRecords_FullMethodName   = "/user.v1.UserGeneralInnerService/GetUserGrowthRecords"
-	UserGeneralInnerService_CheckAndUpdateVIPLevel_FullMethodName = "/user.v1.UserGeneralInnerService/CheckAndUpdateVIPLevel"
+	UserGeneralInnerService_UpdateUserBalance_FullMethodName = "/user.v1.UserGeneralInnerService/UpdateUserBalance"
+	UserGeneralInnerService_AddGrowth_FullMethodName         = "/user.v1.UserGeneralInnerService/AddGrowth"
 )
 
 // UserGeneralInnerServiceClient is the client API for UserGeneralInnerService service.
@@ -638,12 +635,6 @@ type UserGeneralInnerServiceClient interface {
 	UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
 	AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
-	// 获取用户成长值信息
-	GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error)
-	// 获取用户成长值记录
-	GetUserGrowthRecords(ctx context.Context, in *GetUserGrowthRecordsRequest, opts ...grpc.CallOption) (*GetUserGrowthRecordsResponse, error)
-	// 检查并更新用户VIP等级
-	CheckAndUpdateVIPLevel(ctx context.Context, in *CheckAndUpdateVIPLevelRequest, opts ...grpc.CallOption) (*CheckAndUpdateVIPLevelResponse, error)
 }
 
 type userGeneralInnerServiceClient struct {
@@ -672,33 +663,6 @@ func (c *userGeneralInnerServiceClient) AddGrowth(ctx context.Context, in *AddGr
 	return out, nil
 }
 
-func (c *userGeneralInnerServiceClient) GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error) {
-	out := new(GetUserGrowthInfoResponse)
-	err := c.cc.Invoke(ctx, UserGeneralInnerService_GetUserGrowthInfo_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userGeneralInnerServiceClient) GetUserGrowthRecords(ctx context.Context, in *GetUserGrowthRecordsRequest, opts ...grpc.CallOption) (*GetUserGrowthRecordsResponse, error) {
-	out := new(GetUserGrowthRecordsResponse)
-	err := c.cc.Invoke(ctx, UserGeneralInnerService_GetUserGrowthRecords_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userGeneralInnerServiceClient) CheckAndUpdateVIPLevel(ctx context.Context, in *CheckAndUpdateVIPLevelRequest, opts ...grpc.CallOption) (*CheckAndUpdateVIPLevelResponse, error) {
-	out := new(CheckAndUpdateVIPLevelResponse)
-	err := c.cc.Invoke(ctx, UserGeneralInnerService_CheckAndUpdateVIPLevel_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserGeneralInnerServiceServer is the server API for UserGeneralInnerService service.
 // All implementations must embed UnimplementedUserGeneralInnerServiceServer
 // for forward compatibility
@@ -707,12 +671,6 @@ type UserGeneralInnerServiceServer interface {
 	UpdateUserBalance(context.Context, *UpdateUserBalanceReq) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
 	AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error)
-	// 获取用户成长值信息
-	GetUserGrowthInfo(context.Context, *GetUserGrowthInfoRequest) (*GetUserGrowthInfoResponse, error)
-	// 获取用户成长值记录
-	GetUserGrowthRecords(context.Context, *GetUserGrowthRecordsRequest) (*GetUserGrowthRecordsResponse, error)
-	// 检查并更新用户VIP等级
-	CheckAndUpdateVIPLevel(context.Context, *CheckAndUpdateVIPLevelRequest) (*CheckAndUpdateVIPLevelResponse, error)
 	mustEmbedUnimplementedUserGeneralInnerServiceServer()
 }
 
@@ -725,15 +683,6 @@ func (UnimplementedUserGeneralInnerServiceServer) UpdateUserBalance(context.Cont
 }
 func (UnimplementedUserGeneralInnerServiceServer) AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddGrowth not implemented")
-}
-func (UnimplementedUserGeneralInnerServiceServer) GetUserGrowthInfo(context.Context, *GetUserGrowthInfoRequest) (*GetUserGrowthInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserGrowthInfo not implemented")
-}
-func (UnimplementedUserGeneralInnerServiceServer) GetUserGrowthRecords(context.Context, *GetUserGrowthRecordsRequest) (*GetUserGrowthRecordsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserGrowthRecords not implemented")
-}
-func (UnimplementedUserGeneralInnerServiceServer) CheckAndUpdateVIPLevel(context.Context, *CheckAndUpdateVIPLevelRequest) (*CheckAndUpdateVIPLevelResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckAndUpdateVIPLevel not implemented")
 }
 func (UnimplementedUserGeneralInnerServiceServer) mustEmbedUnimplementedUserGeneralInnerServiceServer() {
 }
@@ -785,60 +734,6 @@ func _UserGeneralInnerService_AddGrowth_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserGeneralInnerService_GetUserGrowthInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserGrowthInfoRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserGeneralInnerServiceServer).GetUserGrowthInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserGeneralInnerService_GetUserGrowthInfo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserGeneralInnerServiceServer).GetUserGrowthInfo(ctx, req.(*GetUserGrowthInfoRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserGeneralInnerService_GetUserGrowthRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserGrowthRecordsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserGeneralInnerServiceServer).GetUserGrowthRecords(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserGeneralInnerService_GetUserGrowthRecords_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserGeneralInnerServiceServer).GetUserGrowthRecords(ctx, req.(*GetUserGrowthRecordsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserGeneralInnerService_CheckAndUpdateVIPLevel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckAndUpdateVIPLevelRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserGeneralInnerServiceServer).CheckAndUpdateVIPLevel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserGeneralInnerService_CheckAndUpdateVIPLevel_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserGeneralInnerServiceServer).CheckAndUpdateVIPLevel(ctx, req.(*CheckAndUpdateVIPLevelRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserGeneralInnerService_ServiceDesc is the grpc.ServiceDesc for UserGeneralInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -853,18 +748,6 @@ var UserGeneralInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddGrowth",
 			Handler:    _UserGeneralInnerService_AddGrowth_Handler,
-		},
-		{
-			MethodName: "GetUserGrowthInfo",
-			Handler:    _UserGeneralInnerService_GetUserGrowthInfo_Handler,
-		},
-		{
-			MethodName: "GetUserGrowthRecords",
-			Handler:    _UserGeneralInnerService_GetUserGrowthRecords_Handler,
-		},
-		{
-			MethodName: "CheckAndUpdateVIPLevel",
-			Handler:    _UserGeneralInnerService_CheckAndUpdateVIPLevel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

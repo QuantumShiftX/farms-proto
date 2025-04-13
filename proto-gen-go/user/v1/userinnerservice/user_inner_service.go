@@ -19,8 +19,6 @@ type (
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
-	CheckAndUpdateVIPLevelRequest   = v1.CheckAndUpdateVIPLevelRequest
-	CheckAndUpdateVIPLevelResponse  = v1.CheckAndUpdateVIPLevelResponse
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	FarmTransactionRecord           = v1.FarmTransactionRecord
@@ -32,13 +30,8 @@ type (
 	GetMerchantListMsgReq           = v1.GetMerchantListMsgReq
 	GetOnlineUserListReply          = v1.GetOnlineUserListReply
 	GetOnlineUserListReq            = v1.GetOnlineUserListReq
-	GetUserGrowthInfoRequest        = v1.GetUserGrowthInfoRequest
-	GetUserGrowthInfoResponse       = v1.GetUserGrowthInfoResponse
-	GetUserGrowthRecordsRequest     = v1.GetUserGrowthRecordsRequest
-	GetUserGrowthRecordsResponse    = v1.GetUserGrowthRecordsResponse
 	GrowthProgressRequest           = v1.GrowthProgressRequest
 	GrowthProgressResponse          = v1.GrowthProgressResponse
-	GrowthRecord                    = v1.GrowthRecord
 	LookUserFarmsInfoMsgReply       = v1.LookUserFarmsInfoMsgReply
 	LookUserFarmsInfoMsgReq         = v1.LookUserFarmsInfoMsgReq
 	MaintenanceNeeds                = v1.MaintenanceNeeds
@@ -106,7 +99,6 @@ type (
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
 	UserWallet                      = v1.UserWallet
-	VIPLevelInfo                    = v1.VIPLevelInfo
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq

@@ -19,8 +19,6 @@ type (
 	AdjustHarvestTimeResponse       = v1.AdjustHarvestTimeResponse
 	AllUserRankingInfoMsgReply      = v1.AllUserRankingInfoMsgReply
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
-	CheckAndUpdateVIPLevelRequest   = v1.CheckAndUpdateVIPLevelRequest
-	CheckAndUpdateVIPLevelResponse  = v1.CheckAndUpdateVIPLevelResponse
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
 	FarmTransactionRecord           = v1.FarmTransactionRecord
@@ -32,13 +30,8 @@ type (
 	GetMerchantListMsgReq           = v1.GetMerchantListMsgReq
 	GetOnlineUserListReply          = v1.GetOnlineUserListReply
 	GetOnlineUserListReq            = v1.GetOnlineUserListReq
-	GetUserGrowthInfoRequest        = v1.GetUserGrowthInfoRequest
-	GetUserGrowthInfoResponse       = v1.GetUserGrowthInfoResponse
-	GetUserGrowthRecordsRequest     = v1.GetUserGrowthRecordsRequest
-	GetUserGrowthRecordsResponse    = v1.GetUserGrowthRecordsResponse
 	GrowthProgressRequest           = v1.GrowthProgressRequest
 	GrowthProgressResponse          = v1.GrowthProgressResponse
-	GrowthRecord                    = v1.GrowthRecord
 	LookUserFarmsInfoMsgReply       = v1.LookUserFarmsInfoMsgReply
 	LookUserFarmsInfoMsgReq         = v1.LookUserFarmsInfoMsgReq
 	MaintenanceNeeds                = v1.MaintenanceNeeds
@@ -106,7 +99,6 @@ type (
 	UserStorageInfoMsgReply         = v1.UserStorageInfoMsgReply
 	UserStorageInfoMsgReq           = v1.UserStorageInfoMsgReq
 	UserWallet                      = v1.UserWallet
-	VIPLevelInfo                    = v1.VIPLevelInfo
 	VerifyAccountReq                = v1.VerifyAccountReq
 	VerifySecondaryPasswordMsgReply = v1.VerifySecondaryPasswordMsgReply
 	VerifySecondaryPasswordMsgReq   = v1.VerifySecondaryPasswordMsgReq
@@ -117,12 +109,6 @@ type (
 		UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 		// 增加用户成长值
 		AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
-		// 获取用户成长值信息
-		GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error)
-		// 获取用户成长值记录
-		GetUserGrowthRecords(ctx context.Context, in *GetUserGrowthRecordsRequest, opts ...grpc.CallOption) (*GetUserGrowthRecordsResponse, error)
-		// 检查并更新用户VIP等级
-		CheckAndUpdateVIPLevel(ctx context.Context, in *CheckAndUpdateVIPLevelRequest, opts ...grpc.CallOption) (*CheckAndUpdateVIPLevelResponse, error)
 	}
 
 	defaultUserGeneralInnerService struct {
@@ -146,22 +132,4 @@ func (m *defaultUserGeneralInnerService) UpdateUserBalance(ctx context.Context, 
 func (m *defaultUserGeneralInnerService) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
 	return client.AddGrowth(ctx, in, opts...)
-}
-
-// 获取用户成长值信息
-func (m *defaultUserGeneralInnerService) GetUserGrowthInfo(ctx context.Context, in *GetUserGrowthInfoRequest, opts ...grpc.CallOption) (*GetUserGrowthInfoResponse, error) {
-	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
-	return client.GetUserGrowthInfo(ctx, in, opts...)
-}
-
-// 获取用户成长值记录
-func (m *defaultUserGeneralInnerService) GetUserGrowthRecords(ctx context.Context, in *GetUserGrowthRecordsRequest, opts ...grpc.CallOption) (*GetUserGrowthRecordsResponse, error) {
-	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
-	return client.GetUserGrowthRecords(ctx, in, opts...)
-}
-
-// 检查并更新用户VIP等级
-func (m *defaultUserGeneralInnerService) CheckAndUpdateVIPLevel(ctx context.Context, in *CheckAndUpdateVIPLevelRequest, opts ...grpc.CallOption) (*CheckAndUpdateVIPLevelResponse, error) {
-	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
-	return client.CheckAndUpdateVIPLevel(ctx, in, opts...)
 }
