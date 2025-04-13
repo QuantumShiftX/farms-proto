@@ -72,6 +72,7 @@ message UserLoginEventReq {
   int64 user_id = 1;
   int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
   int64 last_login_time = 3;                       // 上次登录的时间
+  int64 is_first_login = 4;    // 是否是今天第一次登录 1 ：是 2： 不是
 }
 
 message UserRechargeEventReq {
