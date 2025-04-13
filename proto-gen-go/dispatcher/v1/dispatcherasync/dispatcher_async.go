@@ -21,6 +21,7 @@ type (
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
 	UserFriendActionEventReq        = v1.UserFriendActionEventReq
+	UserLoginEventReq               = v1.UserLoginEventReq
 	UserOnlineDuration              = v1.UserOnlineDuration
 	UserRechargeEventReq            = v1.UserRechargeEventReq
 	UserRegistrationEventReq        = v1.UserRegistrationEventReq
@@ -35,6 +36,8 @@ type (
 		UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户注册事件触发
 		TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户登录事件触发
+		TriggerUserLoginEvent(ctx context.Context, in *UserLoginEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户充值事件触发
 		TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户提现事件触发
@@ -78,6 +81,12 @@ func (m *defaultDispatcherAsync) UpdateOnlineRewardTask(ctx context.Context, in 
 func (m *defaultDispatcherAsync) TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
 	return client.TriggerUserRegistrationEvent(ctx, in, opts...)
+}
+
+// 用户登录事件触发
+func (m *defaultDispatcherAsync) TriggerUserLoginEvent(ctx context.Context, in *UserLoginEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserLoginEvent(ctx, in, opts...)
 }
 
 // 用户充值事件触发

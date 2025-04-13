@@ -21,6 +21,7 @@ type (
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
 	UserFriendActionEventReq        = v1.UserFriendActionEventReq
+	UserLoginEventReq               = v1.UserLoginEventReq
 	UserOnlineDuration              = v1.UserOnlineDuration
 	UserRechargeEventReq            = v1.UserRechargeEventReq
 	UserRegistrationEventReq        = v1.UserRegistrationEventReq

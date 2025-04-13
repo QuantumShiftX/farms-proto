@@ -23,6 +23,7 @@ const (
 	DispatcherAsync_UpdateCropStatusCheck_FullMethodName        = "/dispatcher.v1.DispatcherAsync/UpdateCropStatusCheck"
 	DispatcherAsync_UpdateOnlineRewardTask_FullMethodName       = "/dispatcher.v1.DispatcherAsync/UpdateOnlineRewardTask"
 	DispatcherAsync_TriggerUserRegistrationEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserRegistrationEvent"
+	DispatcherAsync_TriggerUserLoginEvent_FullMethodName        = "/dispatcher.v1.DispatcherAsync/TriggerUserLoginEvent"
 	DispatcherAsync_TriggerUserRechargeEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserRechargeEvent"
 	DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserWithdrawEvent"
 	DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserFriendActionEvent"
@@ -41,6 +42,8 @@ type DispatcherAsyncClient interface {
 	UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 用户注册事件触发
 	TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户登录事件触发
+	TriggerUserLoginEvent(ctx context.Context, in *UserLoginEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 用户充值事件触发
 	TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 用户提现事件触发
@@ -95,6 +98,15 @@ func (c *dispatcherAsyncClient) TriggerUserRegistrationEvent(ctx context.Context
 	return out, nil
 }
 
+func (c *dispatcherAsyncClient) TriggerUserLoginEvent(ctx context.Context, in *UserLoginEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserLoginEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dispatcherAsyncClient) TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
 	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserRechargeEvent_FullMethodName, in, out, opts...)
@@ -143,6 +155,8 @@ type DispatcherAsyncServer interface {
 	UpdateOnlineRewardTask(context.Context, *UpdateOnlineRewardTaskReq) (*DispatcherReply, error)
 	// 用户注册事件触发
 	TriggerUserRegistrationEvent(context.Context, *UserRegistrationEventReq) (*DispatcherReply, error)
+	// 用户登录事件触发
+	TriggerUserLoginEvent(context.Context, *UserLoginEventReq) (*DispatcherReply, error)
 	// 用户充值事件触发
 	TriggerUserRechargeEvent(context.Context, *UserRechargeEventReq) (*DispatcherReply, error)
 	// 用户提现事件触发
@@ -169,6 +183,9 @@ func (UnimplementedDispatcherAsyncServer) UpdateOnlineRewardTask(context.Context
 }
 func (UnimplementedDispatcherAsyncServer) TriggerUserRegistrationEvent(context.Context, *UserRegistrationEventReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserRegistrationEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserLoginEvent(context.Context, *UserLoginEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserLoginEvent not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) TriggerUserRechargeEvent(context.Context, *UserRechargeEventReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserRechargeEvent not implemented")
@@ -267,6 +284,24 @@ func _DispatcherAsync_TriggerUserRegistrationEvent_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherAsync_TriggerUserLoginEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserLoginEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserLoginEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserLoginEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserLoginEvent(ctx, req.(*UserLoginEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DispatcherAsync_TriggerUserRechargeEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UserRechargeEventReq)
 	if err := dec(in); err != nil {
@@ -361,6 +396,10 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TriggerUserRegistrationEvent",
 			Handler:    _DispatcherAsync_TriggerUserRegistrationEvent_Handler,
+		},
+		{
+			MethodName: "TriggerUserLoginEvent",
+			Handler:    _DispatcherAsync_TriggerUserLoginEvent_Handler,
 		},
 		{
 			MethodName: "TriggerUserRechargeEvent",

@@ -25,6 +25,9 @@ service DispatcherAsync {
   // 用户注册事件触发
   rpc TriggerUserRegistrationEvent (UserRegistrationEventReq) returns (DispatcherReply);
 
+  // 用户登录事件触发
+  rpc TriggerUserLoginEvent (UserLoginEventReq) returns (DispatcherReply);
+
   // 用户充值事件触发
   rpc TriggerUserRechargeEvent (UserRechargeEventReq) returns (DispatcherReply);
 
@@ -61,6 +64,11 @@ message UserOnlineDuration {
 }
 
 message UserRegistrationEventReq{
+  int64 user_id = 1;
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+}
+
+message UserLoginEventReq {
   int64 user_id = 1;
   int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
 }
