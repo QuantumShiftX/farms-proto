@@ -1095,6 +1095,10 @@ message UserSetWithdrawChannelMsgReply{
 // UserNotification 用户通知结构---公告信息body
 // UserNotification represents user notification structure USER_NOTIFICATION_INFO_MSG
 message UserNotificationInfoMsgReply {
+  repeated UserNotificationInfo rows = 1;
+}
+
+message UserNotificationInfo {
   int64 user_id = 1;  // 用户ID | User ID
   NotificationType type = 2;  // 通知类型 | Notification type
   NotificationSubType sub_type = 3;  // 通知子类型 | Notification subtype
@@ -1103,6 +1107,7 @@ message UserNotificationInfoMsgReply {
   map<string, string> params = 6;  // 通知参数 | Notification parameters
   int64 created_at = 7;  // 创建时间 | Creation timestamp
 }
+
 
 // NotificationType 定义通知类型枚举
 // NotificationType defines notification type enum
