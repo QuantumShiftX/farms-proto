@@ -22,6 +22,11 @@ const (
 	DispatcherAsync_UpdateFortuneTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherAsync/UpdateFortuneTreeStatusCheck"
 	DispatcherAsync_UpdateCropStatusCheck_FullMethodName        = "/dispatcher.v1.DispatcherAsync/UpdateCropStatusCheck"
 	DispatcherAsync_UpdateOnlineRewardTask_FullMethodName       = "/dispatcher.v1.DispatcherAsync/UpdateOnlineRewardTask"
+	DispatcherAsync_TriggerUserRegistrationEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserRegistrationEvent"
+	DispatcherAsync_TriggerUserRechargeEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserRechargeEvent"
+	DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserWithdrawEvent"
+	DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserFriendActionEvent"
+	DispatcherAsync_TriggerHeartbeatEvent_FullMethodName        = "/dispatcher.v1.DispatcherAsync/TriggerHeartbeatEvent"
 )
 
 // DispatcherAsyncClient is the client API for DispatcherAsync service.
@@ -34,6 +39,16 @@ type DispatcherAsyncClient interface {
 	UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 用户在线时长奖励监测
 	UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户注册事件触发
+	TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户充值事件触发
+	TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户提现事件触发
+	TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 用户好友操作事件触发
+	TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 心跳检测事件触发
+	TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherAsyncClient struct {
@@ -71,6 +86,51 @@ func (c *dispatcherAsyncClient) UpdateOnlineRewardTask(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *dispatcherAsyncClient) TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserRegistrationEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserRechargeEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerHeartbeatEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DispatcherAsyncServer is the server API for DispatcherAsync service.
 // All implementations must embed UnimplementedDispatcherAsyncServer
 // for forward compatibility
@@ -81,6 +141,16 @@ type DispatcherAsyncServer interface {
 	UpdateCropStatusCheck(context.Context, *UpdateCropStatusCheckReq) (*DispatcherReply, error)
 	// 用户在线时长奖励监测
 	UpdateOnlineRewardTask(context.Context, *UpdateOnlineRewardTaskReq) (*DispatcherReply, error)
+	// 用户注册事件触发
+	TriggerUserRegistrationEvent(context.Context, *UserRegistrationEventReq) (*DispatcherReply, error)
+	// 用户充值事件触发
+	TriggerUserRechargeEvent(context.Context, *UserRechargeEventReq) (*DispatcherReply, error)
+	// 用户提现事件触发
+	TriggerUserWithdrawEvent(context.Context, *UserWithdrawEventReq) (*DispatcherReply, error)
+	// 用户好友操作事件触发
+	TriggerUserFriendActionEvent(context.Context, *UserFriendActionEventReq) (*DispatcherReply, error)
+	// 心跳检测事件触发
+	TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherAsyncServer()
 }
 
@@ -96,6 +166,21 @@ func (UnimplementedDispatcherAsyncServer) UpdateCropStatusCheck(context.Context,
 }
 func (UnimplementedDispatcherAsyncServer) UpdateOnlineRewardTask(context.Context, *UpdateOnlineRewardTaskReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOnlineRewardTask not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserRegistrationEvent(context.Context, *UserRegistrationEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserRegistrationEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserRechargeEvent(context.Context, *UserRechargeEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserRechargeEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserWithdrawEvent(context.Context, *UserWithdrawEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserWithdrawEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserFriendActionEvent(context.Context, *UserFriendActionEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserFriendActionEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerHeartbeatEvent not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) mustEmbedUnimplementedDispatcherAsyncServer() {}
 
@@ -164,6 +249,96 @@ func _DispatcherAsync_UpdateOnlineRewardTask_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherAsync_TriggerUserRegistrationEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserRegistrationEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserRegistrationEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserRegistrationEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserRegistrationEvent(ctx, req.(*UserRegistrationEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_TriggerUserRechargeEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserRechargeEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserRechargeEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserRechargeEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserRechargeEvent(ctx, req.(*UserRechargeEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_TriggerUserWithdrawEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserWithdrawEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserWithdrawEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserWithdrawEvent(ctx, req.(*UserWithdrawEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_TriggerUserFriendActionEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserFriendActionEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserFriendActionEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserFriendActionEvent(ctx, req.(*UserFriendActionEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_TriggerHeartbeatEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HeartbeatEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerHeartbeatEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEvent(ctx, req.(*HeartbeatEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DispatcherAsync_ServiceDesc is the grpc.ServiceDesc for DispatcherAsync service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +357,26 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOnlineRewardTask",
 			Handler:    _DispatcherAsync_UpdateOnlineRewardTask_Handler,
+		},
+		{
+			MethodName: "TriggerUserRegistrationEvent",
+			Handler:    _DispatcherAsync_TriggerUserRegistrationEvent_Handler,
+		},
+		{
+			MethodName: "TriggerUserRechargeEvent",
+			Handler:    _DispatcherAsync_TriggerUserRechargeEvent_Handler,
+		},
+		{
+			MethodName: "TriggerUserWithdrawEvent",
+			Handler:    _DispatcherAsync_TriggerUserWithdrawEvent_Handler,
+		},
+		{
+			MethodName: "TriggerUserFriendActionEvent",
+			Handler:    _DispatcherAsync_TriggerUserFriendActionEvent_Handler,
+		},
+		{
+			MethodName: "TriggerHeartbeatEvent",
+			Handler:    _DispatcherAsync_TriggerHeartbeatEvent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

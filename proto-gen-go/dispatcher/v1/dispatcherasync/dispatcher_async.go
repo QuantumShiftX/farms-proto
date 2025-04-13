@@ -16,10 +16,15 @@ import (
 type (
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
+	HeartbeatEventReq               = v1.HeartbeatEventReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
+	UserFriendActionEventReq        = v1.UserFriendActionEventReq
 	UserOnlineDuration              = v1.UserOnlineDuration
+	UserRechargeEventReq            = v1.UserRechargeEventReq
+	UserRegistrationEventReq        = v1.UserRegistrationEventReq
+	UserWithdrawEventReq            = v1.UserWithdrawEventReq
 
 	DispatcherAsync interface {
 		// 发财树状态检查，推送
@@ -28,6 +33,16 @@ type (
 		UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户在线时长奖励监测
 		UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户注册事件触发
+		TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户充值事件触发
+		TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户提现事件触发
+		TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 用户好友操作事件触发
+		TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 心跳检测事件触发
+		TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherAsync struct {
@@ -57,4 +72,34 @@ func (m *defaultDispatcherAsync) UpdateCropStatusCheck(ctx context.Context, in *
 func (m *defaultDispatcherAsync) UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
 	return client.UpdateOnlineRewardTask(ctx, in, opts...)
+}
+
+// 用户注册事件触发
+func (m *defaultDispatcherAsync) TriggerUserRegistrationEvent(ctx context.Context, in *UserRegistrationEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserRegistrationEvent(ctx, in, opts...)
+}
+
+// 用户充值事件触发
+func (m *defaultDispatcherAsync) TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserRechargeEvent(ctx, in, opts...)
+}
+
+// 用户提现事件触发
+func (m *defaultDispatcherAsync) TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserWithdrawEvent(ctx, in, opts...)
+}
+
+// 用户好友操作事件触发
+func (m *defaultDispatcherAsync) TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserFriendActionEvent(ctx, in, opts...)
+}
+
+// 心跳检测事件触发
+func (m *defaultDispatcherAsync) TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerHeartbeatEvent(ctx, in, opts...)
 }

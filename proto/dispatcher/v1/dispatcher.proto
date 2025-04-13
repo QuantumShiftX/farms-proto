@@ -15,11 +15,29 @@ message DispatcherReply {}
 service DispatcherAsync {
   // 发财树状态检查，推送
   rpc UpdateFortuneTreeStatusCheck (UpdateFortuneTreeStatusCheckReq) returns (DispatcherReply) {};
+
   // 农场作物状态检查,推送
   rpc UpdateCropStatusCheck (UpdateCropStatusCheckReq) returns (DispatcherReply) {};
+
   // 用户在线时长奖励监测
   rpc UpdateOnlineRewardTask(UpdateOnlineRewardTaskReq) returns (DispatcherReply) {};
+
+  // 用户注册事件触发
+  rpc TriggerUserRegistrationEvent (UserRegistrationEventReq) returns (DispatcherReply);
+
+  // 用户充值事件触发
+  rpc TriggerUserRechargeEvent (UserRechargeEventReq) returns (DispatcherReply);
+
+  // 用户提现事件触发
+  rpc TriggerUserWithdrawEvent (UserWithdrawEventReq) returns (DispatcherReply);
+
+  // 用户好友操作事件触发
+  rpc TriggerUserFriendActionEvent (UserFriendActionEventReq) returns (DispatcherReply);
+
+  // 心跳检测事件触发
+  rpc TriggerHeartbeatEvent (HeartbeatEventReq) returns (DispatcherReply);
 }
+
 message UpdateFortuneTreeStatusCheckReq {
   int64 user_id = 1;  // 用户id
   int64 tree_id = 2;  // 发财树id
@@ -42,6 +60,30 @@ message UserOnlineDuration {
   string stat_date = 3; // 统计的日期年月日
 }
 
+message UserRegistrationEventReq{
+  int64 user_id = 1;
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+}
+
+message UserRechargeEventReq {
+  int64 user_id = 1;
+  int64 amount = 2;                       // 充值金额
+}
+
+message UserWithdrawEventReq {
+  int64 user_id = 1;
+  int64 amount = 2;                       // 提现金额
+}
+
+message UserFriendActionEventReq{
+  int64 user_id = 1;
+  int64 type_code = 2;
+  int64 sub_type = 3;
+}
+
+message HeartbeatEventReq {
+  int64 user_id = 1;
+}
 
 // 定时任务
 service DispatcherTimer {

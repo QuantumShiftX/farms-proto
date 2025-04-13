@@ -16,10 +16,15 @@ import (
 type (
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
+	HeartbeatEventReq               = v1.HeartbeatEventReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
+	UserFriendActionEventReq        = v1.UserFriendActionEventReq
 	UserOnlineDuration              = v1.UserOnlineDuration
+	UserRechargeEventReq            = v1.UserRechargeEventReq
+	UserRegistrationEventReq        = v1.UserRegistrationEventReq
+	UserWithdrawEventReq            = v1.UserWithdrawEventReq
 
 	DispatcherTimer interface {
 		// 发财树状态检查
