@@ -27,6 +27,7 @@ const (
 	DispatcherAsync_TriggerUserRechargeEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserRechargeEvent"
 	DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserWithdrawEvent"
 	DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserFriendActionEvent"
+	DispatcherAsync_TriggerUserEvent_FullMethodName             = "/dispatcher.v1.DispatcherAsync/TriggerUserEvent"
 	DispatcherAsync_TriggerHeartbeatEvent_FullMethodName        = "/dispatcher.v1.DispatcherAsync/TriggerHeartbeatEvent"
 )
 
@@ -48,8 +49,10 @@ type DispatcherAsyncClient interface {
 	TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 用户提现事件触发
 	TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-	// 用户好友操作事件触发
+	// 用户触发事件给好友发送
 	TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 指定用户发送
+	TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 心跳检测事件触发
 	TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
@@ -134,6 +137,15 @@ func (c *dispatcherAsyncClient) TriggerUserFriendActionEvent(ctx context.Context
 	return out, nil
 }
 
+func (c *dispatcherAsyncClient) TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerUserEvent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dispatcherAsyncClient) TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
 	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerHeartbeatEvent_FullMethodName, in, out, opts...)
@@ -161,8 +173,10 @@ type DispatcherAsyncServer interface {
 	TriggerUserRechargeEvent(context.Context, *UserRechargeEventReq) (*DispatcherReply, error)
 	// 用户提现事件触发
 	TriggerUserWithdrawEvent(context.Context, *UserWithdrawEventReq) (*DispatcherReply, error)
-	// 用户好友操作事件触发
+	// 用户触发事件给好友发送
 	TriggerUserFriendActionEvent(context.Context, *UserFriendActionEventReq) (*DispatcherReply, error)
+	// 指定用户发送
+	TriggerUserEvent(context.Context, *TriggerUserEventReq) (*DispatcherReply, error)
 	// 心跳检测事件触发
 	TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherAsyncServer()
@@ -195,6 +209,9 @@ func (UnimplementedDispatcherAsyncServer) TriggerUserWithdrawEvent(context.Conte
 }
 func (UnimplementedDispatcherAsyncServer) TriggerUserFriendActionEvent(context.Context, *UserFriendActionEventReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserFriendActionEvent not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerUserEvent(context.Context, *TriggerUserEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserEvent not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerHeartbeatEvent not implemented")
@@ -356,6 +373,24 @@ func _DispatcherAsync_TriggerUserFriendActionEvent_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherAsync_TriggerUserEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TriggerUserEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerUserEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerUserEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerUserEvent(ctx, req.(*TriggerUserEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DispatcherAsync_TriggerHeartbeatEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HeartbeatEventReq)
 	if err := dec(in); err != nil {
@@ -412,6 +447,10 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TriggerUserFriendActionEvent",
 			Handler:    _DispatcherAsync_TriggerUserFriendActionEvent_Handler,
+		},
+		{
+			MethodName: "TriggerUserEvent",
+			Handler:    _DispatcherAsync_TriggerUserEvent_Handler,
 		},
 		{
 			MethodName: "TriggerHeartbeatEvent",

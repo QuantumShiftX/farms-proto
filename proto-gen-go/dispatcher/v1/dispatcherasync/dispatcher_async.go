@@ -17,6 +17,7 @@ type (
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
 	HeartbeatEventReq               = v1.HeartbeatEventReq
+	TriggerUserEventReq             = v1.TriggerUserEventReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq
 	UpdateOnlineRewardTaskReq       = v1.UpdateOnlineRewardTaskReq
@@ -42,8 +43,10 @@ type (
 		TriggerUserRechargeEvent(ctx context.Context, in *UserRechargeEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户提现事件触发
 		TriggerUserWithdrawEvent(ctx context.Context, in *UserWithdrawEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-		// 用户好友操作事件触发
+		// 用户触发事件给好友发送
 		TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 指定用户发送
+		TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 心跳检测事件触发
 		TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
@@ -101,10 +104,16 @@ func (m *defaultDispatcherAsync) TriggerUserWithdrawEvent(ctx context.Context, i
 	return client.TriggerUserWithdrawEvent(ctx, in, opts...)
 }
 
-// 用户好友操作事件触发
+// 用户触发事件给好友发送
 func (m *defaultDispatcherAsync) TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
 	return client.TriggerUserFriendActionEvent(ctx, in, opts...)
+}
+
+// 指定用户发送
+func (m *defaultDispatcherAsync) TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerUserEvent(ctx, in, opts...)
 }
 
 // 心跳检测事件触发

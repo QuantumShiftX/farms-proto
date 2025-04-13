@@ -34,8 +34,11 @@ service DispatcherAsync {
   // 用户提现事件触发
   rpc TriggerUserWithdrawEvent (UserWithdrawEventReq) returns (DispatcherReply);
 
-  // 用户好友操作事件触发
+  // 用户触发事件给好友发送
   rpc TriggerUserFriendActionEvent (UserFriendActionEventReq) returns (DispatcherReply);
+
+  // 指定用户发送
+  rpc TriggerUserEvent (TriggerUserEventReq) returns (DispatcherReply);
 
   // 心跳检测事件触发
   rpc TriggerHeartbeatEvent (HeartbeatEventReq) returns (DispatcherReply);
@@ -90,6 +93,13 @@ message UserFriendActionEventReq{
   int64 type_code = 2;
   int64 sub_type = 3;
 }
+
+message TriggerUserEventReq {
+  int64 user_id = 1;
+  int64 type_code = 2;
+  int64 sub_type = 3;
+}
+
 
 message HeartbeatEventReq {
   int64 user_id = 1;
