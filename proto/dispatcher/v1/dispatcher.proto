@@ -82,14 +82,14 @@ message UserRechargeEventReq {
   int64 user_id = 1;
   int64 amount = 2;                       // 充值金额
   string order_no = 3;                       // 订单号
-  int64 is_success = 4;   //  1 成功 2 失败
+  int64 order_status = 4;   // 1 - 处理中 2 - 处理成功 3 - 处理失败
 }
 
 message UserWithdrawEventReq {
   int64 user_id = 1;
   int64 amount = 2;                       // 提现金额
   string order_no = 3;                       // 订单号
-  int64 is_success = 4;   //  1 成功 2 失败
+  int64 order_status = 4;  // 1 - 处理中 2 - 处理成功 3 - 处理失败
 }
 
 message UserFriendActionEventReq{
