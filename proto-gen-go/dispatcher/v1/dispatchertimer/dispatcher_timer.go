@@ -16,7 +16,8 @@ import (
 type (
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
-	HeartbeatEventReq               = v1.HeartbeatEventReq
+	HeartbeatEventFastReq           = v1.HeartbeatEventFastReq
+	HeartbeatEventSlowReq           = v1.HeartbeatEventSlowReq
 	TriggerUserEventReq             = v1.TriggerUserEventReq
 	UpdateCropStatusCheckReq        = v1.UpdateCropStatusCheckReq
 	UpdateFortuneTreeStatusCheckReq = v1.UpdateFortuneTreeStatusCheckReq

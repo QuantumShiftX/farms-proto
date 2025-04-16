@@ -41,10 +41,10 @@ service DispatcherAsync {
   rpc TriggerUserEvent (TriggerUserEventReq) returns (DispatcherReply);
 
   // 心跳检测事件触发 <每9秒触发一次>
-  rpc TriggerHeartbeatEventFast (HeartbeatEventReq) returns (DispatcherReply);
+  rpc TriggerHeartbeatEventFast (HeartbeatEventFastReq) returns (DispatcherReply);
 
   // 心跳检测事件触发 <每10分钟触发一次>
-  rpc TriggerHeartbeatEventSlow (HeartbeatEventReq) returns (DispatcherReply);
+  rpc TriggerHeartbeatEventSlow (HeartbeatEventSlowReq) returns (DispatcherReply);
 }
 
 message UpdateFortuneTreeStatusCheckReq {
@@ -110,8 +110,12 @@ message TriggerUserEventReq {
   int64 sub_type = 3;
 }
 
+message HeartbeatEventFastReq {
+  int64 user_id = 1;
+}
 
-message HeartbeatEventReq {
+
+message HeartbeatEventSlowReq {
   int64 user_id = 1;
 }
 
