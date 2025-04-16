@@ -295,12 +295,30 @@ message AddGrowthRequest {
 }
 
 
+// 用户事件触发信息请求
+message UserEventInfoMsgReq {
+  string token = 1;  // 用户身份验证令牌，必填
+}
+
+// 用户事件触发信息响应
+message UserEventInfoMsgReply {
+  int64 user_id = 1;                   // 用户ID
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+  string language_code = 3;            // 语言代码
+  string currency_code = 4;            // 币种代码
+  int64 current_time = 5;               // 当前服务器时间戳
+}
+
+
 service UserGeneralInnerService {
   // 修改用户余额
   rpc UpdateUserBalance(UpdateUserBalanceReq)returns (UpdateUserBalanceResp);
 
   // 增加用户成长值
   rpc AddGrowth(AddGrowthRequest) returns (UserReply) {}
+
+  // 用户各种事件触发
+  rpc UserEventInfoMsg (UserEventInfoMsgReq) returns (UserEventInfoMsgReply);
 
 }
 

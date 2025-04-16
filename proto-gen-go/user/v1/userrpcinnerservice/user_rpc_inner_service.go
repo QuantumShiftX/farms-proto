@@ -69,6 +69,8 @@ type (
 	UserEditPersonalInfoMsgReq      = v1.UserEditPersonalInfoMsgReq
 	UserEditSensitiveInfoMsgReply   = v1.UserEditSensitiveInfoMsgReply
 	UserEditSensitiveInfoMsgReq     = v1.UserEditSensitiveInfoMsgReq
+	UserEventInfoMsgReply           = v1.UserEventInfoMsgReply
+	UserEventInfoMsgReq             = v1.UserEventInfoMsgReq
 	UserFarmInfoMsgReply            = v1.UserFarmInfoMsgReply
 	UserFarmInfoMsgReq              = v1.UserFarmInfoMsgReq
 	UserFarmOpsMsgReply             = v1.UserFarmOpsMsgReply
