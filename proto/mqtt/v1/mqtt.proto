@@ -110,6 +110,7 @@ enum MessageID {
 
   // 心跳连接
   USER_HEART_BEAT_MSG = 8888;
+  USER_EVENT_INFO_MSG = 9999; // 事件推送
 
   // 错误消息 (500500+)
   ERR_COMMON = 500500;        // 通用错误
@@ -261,6 +262,27 @@ message UserHeartBeatMsgReply {
   string currency_code = 3;           // 币种代码
   int64 current_time = 4;             // 当前服务器时间戳
 }
+
+
+/**
+ * 获取用户请求是否合法心跳事件触发
+ * 用token校验用户身份心跳事件触发
+ */
+message UserEventInfoMsgReq {
+  string token = 1;  // 用户身份验证令牌，必填
+}
+
+/**
+ * 心跳响应事件触发
+ * 用token校验用户身份事件触发
+ */
+message UserEventInfoMsgReply {
+  int64 user_id = 1;                  // 用户ID
+  string language_code = 2;           // 语言代码
+  string currency_code = 3;           // 币种代码
+  int64 current_time = 4;             // 当前服务器时间戳
+}
+
 
 // =========================================
 // 用户相关消息

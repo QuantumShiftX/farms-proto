@@ -28,7 +28,8 @@ const (
 	DispatcherAsync_TriggerUserWithdrawEvent_FullMethodName     = "/dispatcher.v1.DispatcherAsync/TriggerUserWithdrawEvent"
 	DispatcherAsync_TriggerUserFriendActionEvent_FullMethodName = "/dispatcher.v1.DispatcherAsync/TriggerUserFriendActionEvent"
 	DispatcherAsync_TriggerUserEvent_FullMethodName             = "/dispatcher.v1.DispatcherAsync/TriggerUserEvent"
-	DispatcherAsync_TriggerHeartbeatEvent_FullMethodName        = "/dispatcher.v1.DispatcherAsync/TriggerHeartbeatEvent"
+	DispatcherAsync_TriggerHeartbeatEventFast_FullMethodName    = "/dispatcher.v1.DispatcherAsync/TriggerHeartbeatEventFast"
+	DispatcherAsync_TriggerHeartbeatEventSlow_FullMethodName    = "/dispatcher.v1.DispatcherAsync/TriggerHeartbeatEventSlow"
 )
 
 // DispatcherAsyncClient is the client API for DispatcherAsync service.
@@ -53,8 +54,10 @@ type DispatcherAsyncClient interface {
 	TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 指定用户发送
 	TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-	// 心跳检测事件触发
-	TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 心跳检测事件触发 <每9秒触发一次>
+	TriggerHeartbeatEventFast(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 心跳检测事件触发 <每10分钟触发一次>
+	TriggerHeartbeatEventSlow(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherAsyncClient struct {
@@ -146,9 +149,18 @@ func (c *dispatcherAsyncClient) TriggerUserEvent(ctx context.Context, in *Trigge
 	return out, nil
 }
 
-func (c *dispatcherAsyncClient) TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+func (c *dispatcherAsyncClient) TriggerHeartbeatEventFast(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
-	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerHeartbeatEvent_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerHeartbeatEventFast_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherAsyncClient) TriggerHeartbeatEventSlow(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherAsync_TriggerHeartbeatEventSlow_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -177,8 +189,10 @@ type DispatcherAsyncServer interface {
 	TriggerUserFriendActionEvent(context.Context, *UserFriendActionEventReq) (*DispatcherReply, error)
 	// 指定用户发送
 	TriggerUserEvent(context.Context, *TriggerUserEventReq) (*DispatcherReply, error)
-	// 心跳检测事件触发
-	TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error)
+	// 心跳检测事件触发 <每9秒触发一次>
+	TriggerHeartbeatEventFast(context.Context, *HeartbeatEventReq) (*DispatcherReply, error)
+	// 心跳检测事件触发 <每10分钟触发一次>
+	TriggerHeartbeatEventSlow(context.Context, *HeartbeatEventReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherAsyncServer()
 }
 
@@ -213,8 +227,11 @@ func (UnimplementedDispatcherAsyncServer) TriggerUserFriendActionEvent(context.C
 func (UnimplementedDispatcherAsyncServer) TriggerUserEvent(context.Context, *TriggerUserEventReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TriggerUserEvent not implemented")
 }
-func (UnimplementedDispatcherAsyncServer) TriggerHeartbeatEvent(context.Context, *HeartbeatEventReq) (*DispatcherReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TriggerHeartbeatEvent not implemented")
+func (UnimplementedDispatcherAsyncServer) TriggerHeartbeatEventFast(context.Context, *HeartbeatEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerHeartbeatEventFast not implemented")
+}
+func (UnimplementedDispatcherAsyncServer) TriggerHeartbeatEventSlow(context.Context, *HeartbeatEventReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TriggerHeartbeatEventSlow not implemented")
 }
 func (UnimplementedDispatcherAsyncServer) mustEmbedUnimplementedDispatcherAsyncServer() {}
 
@@ -391,20 +408,38 @@ func _DispatcherAsync_TriggerUserEvent_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DispatcherAsync_TriggerHeartbeatEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DispatcherAsync_TriggerHeartbeatEventFast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HeartbeatEventReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DispatcherAsyncServer).TriggerHeartbeatEvent(ctx, in)
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEventFast(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DispatcherAsync_TriggerHeartbeatEvent_FullMethodName,
+		FullMethod: DispatcherAsync_TriggerHeartbeatEventFast_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DispatcherAsyncServer).TriggerHeartbeatEvent(ctx, req.(*HeartbeatEventReq))
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEventFast(ctx, req.(*HeartbeatEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherAsync_TriggerHeartbeatEventSlow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HeartbeatEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEventSlow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherAsync_TriggerHeartbeatEventSlow_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherAsyncServer).TriggerHeartbeatEventSlow(ctx, req.(*HeartbeatEventReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -453,8 +488,12 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DispatcherAsync_TriggerUserEvent_Handler,
 		},
 		{
-			MethodName: "TriggerHeartbeatEvent",
-			Handler:    _DispatcherAsync_TriggerHeartbeatEvent_Handler,
+			MethodName: "TriggerHeartbeatEventFast",
+			Handler:    _DispatcherAsync_TriggerHeartbeatEventFast_Handler,
+		},
+		{
+			MethodName: "TriggerHeartbeatEventSlow",
+			Handler:    _DispatcherAsync_TriggerHeartbeatEventSlow_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

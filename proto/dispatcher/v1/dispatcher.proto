@@ -40,8 +40,11 @@ service DispatcherAsync {
   // 指定用户发送
   rpc TriggerUserEvent (TriggerUserEventReq) returns (DispatcherReply);
 
-  // 心跳检测事件触发
-  rpc TriggerHeartbeatEvent (HeartbeatEventReq) returns (DispatcherReply);
+  // 心跳检测事件触发 <每9秒触发一次>
+  rpc TriggerHeartbeatEventFast (HeartbeatEventReq) returns (DispatcherReply);
+
+  // 心跳检测事件触发 <每10分钟触发一次>
+  rpc TriggerHeartbeatEventSlow (HeartbeatEventReq) returns (DispatcherReply);
 }
 
 message UpdateFortuneTreeStatusCheckReq {

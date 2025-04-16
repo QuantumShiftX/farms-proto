@@ -47,8 +47,10 @@ type (
 		TriggerUserFriendActionEvent(ctx context.Context, in *UserFriendActionEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 指定用户发送
 		TriggerUserEvent(ctx context.Context, in *TriggerUserEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-		// 心跳检测事件触发
-		TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 心跳检测事件触发 <每9秒触发一次>
+		TriggerHeartbeatEventFast(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 心跳检测事件触发 <每10分钟触发一次>
+		TriggerHeartbeatEventSlow(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherAsync struct {
@@ -116,8 +118,14 @@ func (m *defaultDispatcherAsync) TriggerUserEvent(ctx context.Context, in *Trigg
 	return client.TriggerUserEvent(ctx, in, opts...)
 }
 
-// 心跳检测事件触发
-func (m *defaultDispatcherAsync) TriggerHeartbeatEvent(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+// 心跳检测事件触发 <每9秒触发一次>
+func (m *defaultDispatcherAsync) TriggerHeartbeatEventFast(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
-	return client.TriggerHeartbeatEvent(ctx, in, opts...)
+	return client.TriggerHeartbeatEventFast(ctx, in, opts...)
+}
+
+// 心跳检测事件触发 <每10分钟触发一次>
+func (m *defaultDispatcherAsync) TriggerHeartbeatEventSlow(ctx context.Context, in *HeartbeatEventReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.TriggerHeartbeatEventSlow(ctx, in, opts...)
 }
