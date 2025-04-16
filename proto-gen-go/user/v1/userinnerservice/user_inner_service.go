@@ -113,6 +113,8 @@ type (
 		UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 		// 用户认证
 		UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
+		// 用户各种事件触发
+		UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error)
 		// 用户个人信息
 		UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 		// 修改个人信息
@@ -178,6 +180,12 @@ func (m *defaultUserInnerService) UserDisconnected(ctx context.Context, in *User
 func (m *defaultUserInnerService) UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error) {
 	client := v1.NewUserInnerServiceClient(m.cli.Conn())
 	return client.UserAuthentication(ctx, in, opts...)
+}
+
+// 用户各种事件触发
+func (m *defaultUserInnerService) UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error) {
+	client := v1.NewUserInnerServiceClient(m.cli.Conn())
+	return client.UserEventInfoMsg(ctx, in, opts...)
 }
 
 // 用户个人信息

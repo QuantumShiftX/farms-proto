@@ -111,8 +111,6 @@ type (
 		UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 		// 增加用户成长值
 		AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
-		// 用户各种事件触发
-		UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error)
 	}
 
 	defaultUserGeneralInnerService struct {
@@ -136,10 +134,4 @@ func (m *defaultUserGeneralInnerService) UpdateUserBalance(ctx context.Context, 
 func (m *defaultUserGeneralInnerService) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
 	return client.AddGrowth(ctx, in, opts...)
-}
-
-// 用户各种事件触发
-func (m *defaultUserGeneralInnerService) UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error) {
-	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
-	return client.UserEventInfoMsg(ctx, in, opts...)
 }

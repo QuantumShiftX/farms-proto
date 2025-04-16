@@ -625,7 +625,6 @@ var UserPlantGrowthService_ServiceDesc = grpc.ServiceDesc{
 const (
 	UserGeneralInnerService_UpdateUserBalance_FullMethodName = "/user.v1.UserGeneralInnerService/UpdateUserBalance"
 	UserGeneralInnerService_AddGrowth_FullMethodName         = "/user.v1.UserGeneralInnerService/AddGrowth"
-	UserGeneralInnerService_UserEventInfoMsg_FullMethodName  = "/user.v1.UserGeneralInnerService/UserEventInfoMsg"
 )
 
 // UserGeneralInnerServiceClient is the client API for UserGeneralInnerService service.
@@ -636,8 +635,6 @@ type UserGeneralInnerServiceClient interface {
 	UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
 	AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
-	// 用户各种事件触发
-	UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error)
 }
 
 type userGeneralInnerServiceClient struct {
@@ -666,15 +663,6 @@ func (c *userGeneralInnerServiceClient) AddGrowth(ctx context.Context, in *AddGr
 	return out, nil
 }
 
-func (c *userGeneralInnerServiceClient) UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error) {
-	out := new(UserEventInfoMsgReply)
-	err := c.cc.Invoke(ctx, UserGeneralInnerService_UserEventInfoMsg_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserGeneralInnerServiceServer is the server API for UserGeneralInnerService service.
 // All implementations must embed UnimplementedUserGeneralInnerServiceServer
 // for forward compatibility
@@ -683,8 +671,6 @@ type UserGeneralInnerServiceServer interface {
 	UpdateUserBalance(context.Context, *UpdateUserBalanceReq) (*UpdateUserBalanceResp, error)
 	// 增加用户成长值
 	AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error)
-	// 用户各种事件触发
-	UserEventInfoMsg(context.Context, *UserEventInfoMsgReq) (*UserEventInfoMsgReply, error)
 	mustEmbedUnimplementedUserGeneralInnerServiceServer()
 }
 
@@ -697,9 +683,6 @@ func (UnimplementedUserGeneralInnerServiceServer) UpdateUserBalance(context.Cont
 }
 func (UnimplementedUserGeneralInnerServiceServer) AddGrowth(context.Context, *AddGrowthRequest) (*UserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddGrowth not implemented")
-}
-func (UnimplementedUserGeneralInnerServiceServer) UserEventInfoMsg(context.Context, *UserEventInfoMsgReq) (*UserEventInfoMsgReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserEventInfoMsg not implemented")
 }
 func (UnimplementedUserGeneralInnerServiceServer) mustEmbedUnimplementedUserGeneralInnerServiceServer() {
 }
@@ -751,24 +734,6 @@ func _UserGeneralInnerService_AddGrowth_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserGeneralInnerService_UserEventInfoMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserEventInfoMsgReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserGeneralInnerServiceServer).UserEventInfoMsg(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserGeneralInnerService_UserEventInfoMsg_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserGeneralInnerServiceServer).UserEventInfoMsg(ctx, req.(*UserEventInfoMsgReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserGeneralInnerService_ServiceDesc is the grpc.ServiceDesc for UserGeneralInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -783,10 +748,6 @@ var UserGeneralInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddGrowth",
 			Handler:    _UserGeneralInnerService_AddGrowth_Handler,
-		},
-		{
-			MethodName: "UserEventInfoMsg",
-			Handler:    _UserGeneralInnerService_UserEventInfoMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -889,6 +850,7 @@ const (
 	UserInnerService_UserConnected_FullMethodName           = "/user.v1.UserInnerService/UserConnected"
 	UserInnerService_UserDisconnected_FullMethodName        = "/user.v1.UserInnerService/UserDisconnected"
 	UserInnerService_UserAuthentication_FullMethodName      = "/user.v1.UserInnerService/UserAuthentication"
+	UserInnerService_UserEventInfoMsg_FullMethodName        = "/user.v1.UserInnerService/UserEventInfoMsg"
 	UserInnerService_UserPersonalInfo_FullMethodName        = "/user.v1.UserInnerService/UserPersonalInfo"
 	UserInnerService_UserEditPersonalInfo_FullMethodName    = "/user.v1.UserInnerService/UserEditPersonalInfo"
 	UserInnerService_UserEditSensitiveInfo_FullMethodName   = "/user.v1.UserInnerService/UserEditSensitiveInfo"
@@ -919,6 +881,8 @@ type UserInnerServiceClient interface {
 	UserDisconnected(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*MsgReply, error)
 	// 用户认证
 	UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error)
+	// 用户各种事件触发
+	UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error)
 	// 用户个人信息
 	UserPersonalInfo(ctx context.Context, in *UserPersonalInfoMsgReq, opts ...grpc.CallOption) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
@@ -986,6 +950,15 @@ func (c *userInnerServiceClient) UserDisconnected(ctx context.Context, in *UserP
 func (c *userInnerServiceClient) UserAuthentication(ctx context.Context, in *UserAuthInfoMsgReq, opts ...grpc.CallOption) (*UserAuthInfoMsgReply, error) {
 	out := new(UserAuthInfoMsgReply)
 	err := c.cc.Invoke(ctx, UserInnerService_UserAuthentication_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userInnerServiceClient) UserEventInfoMsg(ctx context.Context, in *UserEventInfoMsgReq, opts ...grpc.CallOption) (*UserEventInfoMsgReply, error) {
+	out := new(UserEventInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserInnerService_UserEventInfoMsg_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1164,6 +1137,8 @@ type UserInnerServiceServer interface {
 	UserDisconnected(context.Context, *UserPersonalInfoMsgReq) (*MsgReply, error)
 	// 用户认证
 	UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error)
+	// 用户各种事件触发
+	UserEventInfoMsg(context.Context, *UserEventInfoMsgReq) (*UserEventInfoMsgReply, error)
 	// 用户个人信息
 	UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error)
 	// 修改个人信息
@@ -1215,6 +1190,9 @@ func (UnimplementedUserInnerServiceServer) UserDisconnected(context.Context, *Us
 }
 func (UnimplementedUserInnerServiceServer) UserAuthentication(context.Context, *UserAuthInfoMsgReq) (*UserAuthInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserAuthentication not implemented")
+}
+func (UnimplementedUserInnerServiceServer) UserEventInfoMsg(context.Context, *UserEventInfoMsgReq) (*UserEventInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserEventInfoMsg not implemented")
 }
 func (UnimplementedUserInnerServiceServer) UserPersonalInfo(context.Context, *UserPersonalInfoMsgReq) (*UserPersonalInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserPersonalInfo not implemented")
@@ -1333,6 +1311,24 @@ func _UserInnerService_UserAuthentication_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserInnerServiceServer).UserAuthentication(ctx, req.(*UserAuthInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserInnerService_UserEventInfoMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserEventInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserInnerServiceServer).UserEventInfoMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserInnerService_UserEventInfoMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserInnerServiceServer).UserEventInfoMsg(ctx, req.(*UserEventInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1679,6 +1675,10 @@ var UserInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserAuthentication",
 			Handler:    _UserInnerService_UserAuthentication_Handler,
+		},
+		{
+			MethodName: "UserEventInfoMsg",
+			Handler:    _UserInnerService_UserEventInfoMsg_Handler,
 		},
 		{
 			MethodName: "UserPersonalInfo",
