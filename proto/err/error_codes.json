@@ -8,6 +8,10 @@
       "en": "Unauthorized. Please log in again.",
       "zh": "无权限，请重新登录。"
     },
+    "404": {
+      "en": "Information not found.",
+      "zh": "查询的信息不存在。"
+    },
     "500": {
       "en": "Network service is congested. Please try again later.",
       "zh": "服务拥堵，请稍后再试。"
@@ -192,6 +196,22 @@
       "en": "Product information error.",
       "zh": "商品信息错误。"
     },
+    "20013": {
+      "en": "Free product can only be claimed once.",
+      "zh": "免费领取商品只能领取1次。"
+    },
+    "20014": {
+      "en": "Money tree not ready for harvest.",
+      "zh": "发财树未到收获时间。"
+    },
+    "20015": {
+      "en": "Error processing farm land.",
+      "zh": "处理土地失败。"
+    },
+    "20016": {
+      "en": "Farm or land does not exist.",
+      "zh": "农场或者土地不存在。"
+    },
     "90000": {
       "en": "Configuration not found.",
       "zh": "配置不存在。"
@@ -215,7 +235,10 @@
   },
   "meta": {
     "version": "1.0.0",
-    "languages": ["en", "zh"],
+    "languages": [
+      "en",
+      "zh"
+    ],
     "defaultLanguage": "en",
     "lastUpdated": "2025-04-09",
     "unknownError": {
