@@ -16,6 +16,9 @@ import (
 type (
 	AnnouncementsInfo             = v1.AnnouncementsInfo
 	CollectionRewards             = v1.CollectionRewards
+	CurrencyInfo                  = v1.CurrencyInfo
+	CurrencyInfoMsgReq            = v1.CurrencyInfoMsgReq
+	CurrencyInfoMsgReqReply       = v1.CurrencyInfoMsgReqReply
 	CustomerService               = v1.CustomerService
 	DefaultVipInfoReply           = v1.DefaultVipInfoReply
 	DepositRewards                = v1.DepositRewards

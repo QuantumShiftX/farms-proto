@@ -228,6 +228,7 @@ const (
 	ManageInnerService_GetDownloadAddress_FullMethodName   = "/manage.v1.ManageInnerService/GetDownloadAddress"
 	ManageInnerService_UserAnnouncements_FullMethodName    = "/manage.v1.ManageInnerService/UserAnnouncements"
 	ManageInnerService_GetFarmAgreement_FullMethodName     = "/manage.v1.ManageInnerService/GetFarmAgreement"
+	ManageInnerService_GetCurrencyInfoMsg_FullMethodName   = "/manage.v1.ManageInnerService/GetCurrencyInfoMsg"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
@@ -250,6 +251,8 @@ type ManageInnerServiceClient interface {
 	UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 	// 获取协议
 	GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
+	// 获取货币列表
+	GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -332,6 +335,15 @@ func (c *manageInnerServiceClient) GetFarmAgreement(ctx context.Context, in *Far
 	return out, nil
 }
 
+func (c *manageInnerServiceClient) GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error) {
+	out := new(CurrencyInfoMsgReqReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetCurrencyInfoMsg_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageInnerServiceServer is the server API for ManageInnerService service.
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility
@@ -352,6 +364,8 @@ type ManageInnerServiceServer interface {
 	UserAnnouncements(context.Context, *UserAnnouncementsInfoMsgReq) (*UserAnnouncementsInfoMsgReply, error)
 	// 获取协议
 	GetFarmAgreement(context.Context, *FarmAgreementInfoMsgReq) (*FarmAgreementInfoMsgReply, error)
+	// 获取货币列表
+	GetCurrencyInfoMsg(context.Context, *CurrencyInfoMsgReq) (*CurrencyInfoMsgReqReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -382,6 +396,9 @@ func (UnimplementedManageInnerServiceServer) UserAnnouncements(context.Context, 
 }
 func (UnimplementedManageInnerServiceServer) GetFarmAgreement(context.Context, *FarmAgreementInfoMsgReq) (*FarmAgreementInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFarmAgreement not implemented")
+}
+func (UnimplementedManageInnerServiceServer) GetCurrencyInfoMsg(context.Context, *CurrencyInfoMsgReq) (*CurrencyInfoMsgReqReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyInfoMsg not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 
@@ -540,6 +557,24 @@ func _ManageInnerService_GetFarmAgreement_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageInnerService_GetCurrencyInfoMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CurrencyInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).GetCurrencyInfoMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_GetCurrencyInfoMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).GetCurrencyInfoMsg(ctx, req.(*CurrencyInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageInnerService_ServiceDesc is the grpc.ServiceDesc for ManageInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -578,6 +613,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFarmAgreement",
 			Handler:    _ManageInnerService_GetFarmAgreement_Handler,
+		},
+		{
+			MethodName: "GetCurrencyInfoMsg",
+			Handler:    _ManageInnerService_GetCurrencyInfoMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

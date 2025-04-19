@@ -98,6 +98,7 @@ enum MessageID {
   GET_MERCHANT_LIST_MSG = 605;
   MERCHANT_EXCHANGE_RATE_MSG = 606;
   USER_SET_WITHDRAW_CHANNEL_MSG = 607;
+  CURRENCY_INFO_MSG = 608;   // 货币列表
 
 
   // 主动推送消息messageID (800-899)
@@ -339,6 +340,7 @@ message UserEditPersonalInfoMsgReq {
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
   string language_code = 6;  // 编辑语言
+  string  currency_code = 7; // 编辑币种
 }
 
 message UserEditPersonalInfoMsgReply {
@@ -1326,4 +1328,19 @@ message  FarmTransactionRecord {
   int64 amount = 10;                 // 变动金额, 单位:微
 }
 
+
+
+message CurrencyInfoMsgReq{
+  int64 user_id = 1; // 用户ID
+}
+
+// 货币列表响应
+message CurrencyInfoMsgReqReply {
+  repeated CurrencyInfo rows = 5;
+}
+
+message CurrencyInfo {
+  string currency_code = 1;
+  string currency_flag_url = 2;
+}
 

@@ -599,6 +599,7 @@ message UserEditPersonalInfoMsgReq {
   BooleanStatus has_completed_tutorial = 4;  // 新手教程状态（YES:已完成, NO:未完成）
   BooleanStatus has_received_free_gift = 5;  // 是否领取免费种子（YES:已完成, NO:未完成）
   string language_code = 6;  // 编辑语言
+  string  currency_code = 7; // 编辑币种
 }
 
 

@@ -185,6 +185,8 @@ service ManageInnerService {
   rpc UserAnnouncements (UserAnnouncementsInfoMsgReq) returns (UserAnnouncementsInfoMsgReply) {}
   // 获取协议
   rpc GetFarmAgreement (FarmAgreementInfoMsgReq) returns (FarmAgreementInfoMsgReply) {}
+  // 获取货币列表
+  rpc GetCurrencyInfoMsg (CurrencyInfoMsgReq) returns (CurrencyInfoMsgReqReply) {}
 }
 
 
@@ -260,6 +262,22 @@ message AnnouncementsInfo {
   string title = 1;
   string content = 2;
 }
+
+
+message CurrencyInfoMsgReq{
+  int64 user_id = 1; // 用户ID
+}
+
+// 货币列表响应
+message CurrencyInfoMsgReqReply {
+  repeated CurrencyInfo rows = 5;
+}
+
+message CurrencyInfo {
+  string currency_code = 1;
+  string currency_flag_url = 2;
+}
+
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //

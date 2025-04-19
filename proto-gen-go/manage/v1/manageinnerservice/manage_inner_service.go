@@ -16,6 +16,9 @@ import (
 type (
 	AnnouncementsInfo             = v1.AnnouncementsInfo
 	CollectionRewards             = v1.CollectionRewards
+	CurrencyInfo                  = v1.CurrencyInfo
+	CurrencyInfoMsgReq            = v1.CurrencyInfoMsgReq
+	CurrencyInfoMsgReqReply       = v1.CurrencyInfoMsgReqReply
 	CustomerService               = v1.CustomerService
 	DefaultVipInfoReply           = v1.DefaultVipInfoReply
 	DepositRewards                = v1.DepositRewards
@@ -63,6 +66,8 @@ type (
 		UserAnnouncements(ctx context.Context, in *UserAnnouncementsInfoMsgReq, opts ...grpc.CallOption) (*UserAnnouncementsInfoMsgReply, error)
 		// 获取协议
 		GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
+		// 获取货币列表
+		GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -122,4 +127,10 @@ func (m *defaultManageInnerService) UserAnnouncements(ctx context.Context, in *U
 func (m *defaultManageInnerService) GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetFarmAgreement(ctx, in, opts...)
+}
+
+// 获取货币列表
+func (m *defaultManageInnerService) GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetCurrencyInfoMsg(ctx, in, opts...)
 }
