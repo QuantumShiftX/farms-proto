@@ -346,6 +346,7 @@ message RechargeChannel {
   int64  usdt_exchange_rate = 6; // USDT兑换比例（1u=>多少指定货币）
   int64 min_limit_amount = 7; // 单笔充值最小限额
   int64 max_limit_amount = 8; // 单笔充值最大限额
+  string recharge_channel_name = 9; // 充值通道名称
 }
 
 
