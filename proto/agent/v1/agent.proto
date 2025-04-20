@@ -13,10 +13,94 @@ message AgentReply{
 }
 
 
-service AgentService {
-  rpc Test (AgentReq) returns (AgentReply) {}
+service AgentInnerService {
+  // 获取代理收入概览
+  rpc GetAgentIncomeOverview(GetAgentIncomeOverviewReq) returns (GetAgentIncomeOverviewResp) {}
+  // 获取代理下线统计
+  rpc GetAgentDownlineStats(GetAgentDownlineStatsReq) returns (GetAgentDownlineStatsResp) {}
+  // 获取代理下线列表
+  rpc GetAgentDownlineList(GetAgentDownlineListReq) returns (GetAgentDownlineListResp) {}
+  // 获取代理收入明细
+  rpc GetAgentIncomeDetails(GetAgentIncomeDetailsReq) returns (GetAgentIncomeDetailsResp) {}
 }
 
-service AgentInnerService {
-  rpc Test (AgentReq) returns (AgentReply) {}
+
+// AgentOverviewService相关消息
+message GetAgentIncomeOverviewReq {
+  int64 agent_id = 1;    // 代理ID
+}
+
+message GetAgentIncomeOverviewResp {
+  int64 today_income = 1;    // 今日收入
+  int64 total_income = 2;    // 总收入
+  int64 agent_level = 3;     // 代理等级
+  string avatar = 4;         // 代理头像URL
+}
+
+// AgentDownlineStatService相关消息
+message GetAgentDownlineStatsReq {
+  int64 agent_id = 1;    // 代理ID
+}
+
+message GetAgentDownlineStatsResp {
+  int64 tier1_total = 1;      // 一级下线总数
+  int64 tier1_today = 2;      // 今日新增一级下线
+  int64 tier2_total = 3;      // 二级下线总数
+  int64 tier2_today = 4;      // 今日新增二级下线
+}
+
+// AgentDownlineListService相关消息
+message GetAgentDownlineListReq {
+  int64 agent_id = 1;         // 代理ID
+  int64 filter_type = 2;     // 筛选类型，例如0="ALL" 1="TIER1" 2="TIER2"
+  int64 page = 3;             // 页码
+  int64 page_size = 4;        // 每页大小
+  string sort_field = 5;      // 排序字段 1=存款贡献，2=收获贡献，3=总贡献
+  string sort_order = 6;      // 排序顺序 1=ASC，2=DESC
+}
+
+message GetAgentDownlineListResp {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated DownlineMember rows = 5;  // 下线成员列表
+}
+
+message DownlineMember {
+  int64 user_id = 1;                 // 用户ID
+  string username = 2;               // 用户名
+  int64 deposit_contribution = 3;    // 存款贡献
+  int64 harvest_contribution = 4;    // 收获贡献
+  int64 total_contribution = 5;      // 总贡献
+  int64 tier = 6;                    // 层级：1=一级下线，2=二级下线
+  int64 register_time = 7;           // 注册时间
+}
+
+
+// AgentIncomeDetailService相关消息
+message GetAgentIncomeDetailsReq {
+  int64 agent_id = 1;      // 代理ID
+  int64 start_time = 3;   // 开始时间戳
+  int64 end_time = 4;     // 结束时间戳
+  int64 page = 5;          // 页码
+  int64 page_size = 6;     // 每页大小
+}
+
+message GetAgentIncomeDetailsResp {
+  int64 total_income = 1;            // 总收入
+  int64 depositors_count = 2;        // 存款人数
+  int64 harvesters_count = 3;        // 收获人数
+  int64 page = 4;
+  int64 page_size = 5;
+  int64 total = 6;
+  int64 total_page = 7;
+  repeated IncomeDetail rows = 8; // 收入明细列表
+}
+
+message IncomeDetail {
+  string date = 1;           // 日期
+  int64 deposit_rebate = 2;  // 存款返利
+  int64 harvest_rebate = 3;  // 收获返利
+  int64 total_income = 4;    // 总收入
 }
