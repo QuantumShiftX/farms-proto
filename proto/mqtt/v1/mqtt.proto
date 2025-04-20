@@ -1057,6 +1057,7 @@ message RechargeChannel {
   int64 min_limit_amount = 7; // 单笔充值最小限额
   int64 max_limit_amount = 8; // 单笔充值最大限额
   string recharge_channel_name = 9; // 充值通道名称
+  string protocol = 10;  // 虚拟货币支持的协议，例如USDT支持["TRC-20","ERC-20"，"BEP-20"]
 }
 
 message UserRechargeInfoMsgReq {
