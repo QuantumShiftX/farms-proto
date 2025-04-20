@@ -1036,7 +1036,7 @@ message SubmitForRedemptionMsgReply{
 
 // 充值通道列表响应
 message RechargeChannelsInfoMsgReq {
-
+  int64 user_id = 1;          // 用户ID
 }
 
 // 充值通道列表响应
