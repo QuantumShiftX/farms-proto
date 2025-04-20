@@ -258,10 +258,11 @@ message UserHeartBeatMsgReq {
  * 用token校验用户身份
  */
 message UserHeartBeatMsgReply {
-  int64 user_id = 1;                  // 用户ID
-  string language_code = 2;           // 语言代码
-  string currency_code = 3;           // 币种代码
-  int64 current_time = 4;             // 当前服务器时间戳
+  int64 user_id = 1;                   // 用户ID
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+  string language_code = 3;            // 语言代码
+  string currency_code = 4;            // 币种代码
+  int64 current_time = 5;               // 当前服务器时间戳
 }
 
 
@@ -278,10 +279,11 @@ message UserEventInfoMsgReq {
  * 用token校验用户身份事件触发
  */
 message UserEventInfoMsgReply {
-  int64 user_id = 1;                  // 用户ID
-  string language_code = 2;           // 语言代码
-  string currency_code = 3;           // 币种代码
-  int64 current_time = 4;             // 当前服务器时间戳
+  int64 user_id = 1;                   // 用户ID
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+  string language_code = 3;            // 语言代码
+  string currency_code = 4;            // 币种代码
+  int64 current_time = 5;               // 当前服务器时间戳
 }
 
 
