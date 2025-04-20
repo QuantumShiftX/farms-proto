@@ -1047,22 +1047,31 @@ message RechargeChannelsInfoMsgReply {
 // 充值通道信息
 message RechargeChannel {
   int64 recharge_channel_type = 1; // 充值通道类型 1:USDT虚拟货币 2:银行卡 3: 快捷支付
-  string recharge_channel_id = 2;         // 充值通道id
+  int64 recharge_channel_id = 2;         // 充值通道id
   string currency_code = 3;                 // 币种
   string receive_account = 4; // 充值收款账号
   string receive_name = 5; // 收款人姓名
+  int64  usdt_exchange_rate = 6; // USDT兑换比例（1u=>多少指定货币）
+  int64 min_limit_amount = 7; // 单笔充值最小限额
+  int64 max_limit_amount = 8; // 单笔充值最大限额
 }
 
 message UserRechargeInfoMsgReq {
   int64 user_id = 1;          // 用户ID
-  int64 amount = 2;           // 充值金额(分) 100 = 1元（大于0的整数）
-  string channel_code = 4;  // 通道
-  string extra = 9;           // 扩展域
+  int64 recharge_channel_id = 2;          // 充值通道id
+  int64 amount = 3;           // 充值金额(金额*1000000)
+  string currency_code = 4;                 // 币种
+  int64  usdt_exchange_rate = 5; // USDT兑换比例（1u=>多少指定货币）
+  string payer_account = 6; // 付款人账号
+  string payer_name = 7; // 付款人姓名
+  string remark = 8; // 备注
 
 }
 
 message UserRechargeInfoMsgReply {
-  string pay_url = 4;         // 支付URL
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+  string pay_url = 3;                 // 支付URL  银行卡充值 返回的是空
 }
 
 
