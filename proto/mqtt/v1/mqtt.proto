@@ -1046,8 +1046,11 @@ message RechargeChannelsInfoMsgReply {
 
 // 充值通道信息
 message RechargeChannel {
-  string currency_code = 7;                 // 币种
-  string recharge_channel_code = 8;         // 充值通道编码
+  int64 recharge_channel_type = 1; // 充值通道类型 1:USDT虚拟货币 2:银行卡 3: 快捷支付
+  string recharge_channel_id = 2;         // 充值通道id
+  string currency_code = 3;                 // 币种
+  string receive_account = 4; // 充值收款账号
+  string receive_name = 5; // 收款人姓名
 }
 
 message UserRechargeInfoMsgReq {
@@ -1342,5 +1345,6 @@ message CurrencyInfoMsgReqReply {
 message CurrencyInfo {
   string currency_code = 1;
   string currency_flag_url = 2;
+  string exchange_rate = 3; // 货币兑换USDT率
 }
 

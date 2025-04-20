@@ -276,6 +276,7 @@ message CurrencyInfoMsgReqReply {
 message CurrencyInfo {
   string currency_code = 1;
   string currency_flag_url = 2;
+  string exchange_rate = 3; // 货币兑换USDT率
 }
 
 
