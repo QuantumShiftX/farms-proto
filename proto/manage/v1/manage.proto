@@ -187,6 +187,8 @@ service ManageInnerService {
   rpc GetFarmAgreement (FarmAgreementInfoMsgReq) returns (FarmAgreementInfoMsgReply) {}
   // 获取货币列表
   rpc GetCurrencyInfoMsg (CurrencyInfoMsgReq) returns (CurrencyInfoMsgReqReply) {}
+  // 获取代理规则信息
+  rpc GetAgentRuleInfoMsg (AgentRuleInfoMsgReq) returns (AgentRuleInfoMsgReply);
 }
 
 
@@ -279,6 +281,14 @@ message CurrencyInfo {
   string exchange_rate = 3; // 货币兑换USDT率
 }
 
+message AgentRuleInfoMsgReq{
+  int64 user_id = 1; // 用户ID
+}
+
+message AgentRuleInfoMsgReply {
+  DepositRewards deposit_rules = 1;        // 存款返佣规则
+  CollectionRewards harvest_rules = 2;     // 收获返佣规则
+}
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //

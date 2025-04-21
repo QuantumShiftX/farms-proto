@@ -229,6 +229,7 @@ const (
 	ManageInnerService_UserAnnouncements_FullMethodName    = "/manage.v1.ManageInnerService/UserAnnouncements"
 	ManageInnerService_GetFarmAgreement_FullMethodName     = "/manage.v1.ManageInnerService/GetFarmAgreement"
 	ManageInnerService_GetCurrencyInfoMsg_FullMethodName   = "/manage.v1.ManageInnerService/GetCurrencyInfoMsg"
+	ManageInnerService_GetAgentRuleInfoMsg_FullMethodName  = "/manage.v1.ManageInnerService/GetAgentRuleInfoMsg"
 )
 
 // ManageInnerServiceClient is the client API for ManageInnerService service.
@@ -253,6 +254,8 @@ type ManageInnerServiceClient interface {
 	GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
 	// 获取货币列表
 	GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error)
+	// 获取代理规则信息
+	GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error)
 }
 
 type manageInnerServiceClient struct {
@@ -344,6 +347,15 @@ func (c *manageInnerServiceClient) GetCurrencyInfoMsg(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *manageInnerServiceClient) GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error) {
+	out := new(AgentRuleInfoMsgReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_GetAgentRuleInfoMsg_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManageInnerServiceServer is the server API for ManageInnerService service.
 // All implementations must embed UnimplementedManageInnerServiceServer
 // for forward compatibility
@@ -366,6 +378,8 @@ type ManageInnerServiceServer interface {
 	GetFarmAgreement(context.Context, *FarmAgreementInfoMsgReq) (*FarmAgreementInfoMsgReply, error)
 	// 获取货币列表
 	GetCurrencyInfoMsg(context.Context, *CurrencyInfoMsgReq) (*CurrencyInfoMsgReqReply, error)
+	// 获取代理规则信息
+	GetAgentRuleInfoMsg(context.Context, *AgentRuleInfoMsgReq) (*AgentRuleInfoMsgReply, error)
 	mustEmbedUnimplementedManageInnerServiceServer()
 }
 
@@ -399,6 +413,9 @@ func (UnimplementedManageInnerServiceServer) GetFarmAgreement(context.Context, *
 }
 func (UnimplementedManageInnerServiceServer) GetCurrencyInfoMsg(context.Context, *CurrencyInfoMsgReq) (*CurrencyInfoMsgReqReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyInfoMsg not implemented")
+}
+func (UnimplementedManageInnerServiceServer) GetAgentRuleInfoMsg(context.Context, *AgentRuleInfoMsgReq) (*AgentRuleInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgentRuleInfoMsg not implemented")
 }
 func (UnimplementedManageInnerServiceServer) mustEmbedUnimplementedManageInnerServiceServer() {}
 
@@ -575,6 +592,24 @@ func _ManageInnerService_GetCurrencyInfoMsg_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManageInnerService_GetAgentRuleInfoMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AgentRuleInfoMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).GetAgentRuleInfoMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_GetAgentRuleInfoMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).GetAgentRuleInfoMsg(ctx, req.(*AgentRuleInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManageInnerService_ServiceDesc is the grpc.ServiceDesc for ManageInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -617,6 +652,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCurrencyInfoMsg",
 			Handler:    _ManageInnerService_GetCurrencyInfoMsg_Handler,
+		},
+		{
+			MethodName: "GetAgentRuleInfoMsg",
+			Handler:    _ManageInnerService_GetAgentRuleInfoMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

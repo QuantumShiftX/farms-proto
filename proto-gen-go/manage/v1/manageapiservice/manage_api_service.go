@@ -14,6 +14,8 @@ import (
 )
 
 type (
+	AgentRuleInfoMsgReply         = v1.AgentRuleInfoMsgReply
+	AgentRuleInfoMsgReq           = v1.AgentRuleInfoMsgReq
 	AnnouncementsInfo             = v1.AnnouncementsInfo
 	CollectionRewards             = v1.CollectionRewards
 	CurrencyInfo                  = v1.CurrencyInfo

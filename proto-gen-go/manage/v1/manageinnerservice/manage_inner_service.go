@@ -14,6 +14,8 @@ import (
 )
 
 type (
+	AgentRuleInfoMsgReply         = v1.AgentRuleInfoMsgReply
+	AgentRuleInfoMsgReq           = v1.AgentRuleInfoMsgReq
 	AnnouncementsInfo             = v1.AnnouncementsInfo
 	CollectionRewards             = v1.CollectionRewards
 	CurrencyInfo                  = v1.CurrencyInfo
@@ -68,6 +70,8 @@ type (
 		GetFarmAgreement(ctx context.Context, in *FarmAgreementInfoMsgReq, opts ...grpc.CallOption) (*FarmAgreementInfoMsgReply, error)
 		// 获取货币列表
 		GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error)
+		// 获取代理规则信息
+		GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -133,4 +137,10 @@ func (m *defaultManageInnerService) GetFarmAgreement(ctx context.Context, in *Fa
 func (m *defaultManageInnerService) GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetCurrencyInfoMsg(ctx, in, opts...)
+}
+
+// 获取代理规则信息
+func (m *defaultManageInnerService) GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetAgentRuleInfoMsg(ctx, in, opts...)
 }

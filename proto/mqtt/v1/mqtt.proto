@@ -105,6 +105,7 @@ enum MessageID {
   GET_AGENT_DOWNLINE_STATS_MSG = 701;// 获取代理下线统计响应
   GET_AGENT_DOWNLINE_LIST_MSG = 702;// 获取代理下线列表响应
   GET_AGENT_INCOME_DETAILS_MSG = 703; // 获取代理收入明细响应
+  AGENT_RULE_INFO_MSG = 704; // 代理规则
 
   // 主动推送消息messageID (800-899)
   USER_NOTIFICATION_INFO_MSG = 800;  // 公告
@@ -1439,4 +1440,27 @@ message IncomeDetail {
   int64 deposit_rebate = 2;  // 存款返利
   int64 harvest_rebate = 3;  // 收获返利
   int64 total_income = 4;    // 总收入
+}
+
+message AgentRuleInfoMsgReq{
+  int64 user_id = 1; // 用户ID
+}
+
+message AgentRuleInfoMsgReply {
+  DepositRewards deposit_rules = 1;        // 存款返佣规则
+  CollectionRewards harvest_rules = 2;     // 收获返佣规则
+}
+
+// DepositRewards 代表存款奖励配置
+message DepositRewards {
+  int64 enabled = 1;          // 是否启用存款奖励（1-启用，2-禁用）
+  int64 level1_percentage = 2; // 等级1存款奖励百分比
+  int64 level2_percentage = 3; // 等级2存款奖励百分比
+}
+
+// CollectionRewards 代表收集奖励配置
+message CollectionRewards {
+  int64 enabled = 1;          // 是否启用收集奖励（1-启用，2-禁用）
+  int64 level1_percentage = 2; // 等级1收集奖励百分比
+  int64 level2_percentage = 3; // 等级2收集奖励百分比
 }
