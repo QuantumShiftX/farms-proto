@@ -15,22 +15,22 @@ message AgentReply{
 
 service AgentInnerService {
   // 获取代理收入概览
-  rpc GetAgentIncomeOverview(GetAgentIncomeOverviewReq) returns (GetAgentIncomeOverviewResp) {}
+  rpc GetAgentIncomeOverview(GetAgentIncomeOverviewMsgReq) returns (GetAgentIncomeOverviewMsgReply) {}
   // 获取代理下线统计
-  rpc GetAgentDownlineStats(GetAgentDownlineStatsReq) returns (GetAgentDownlineStatsResp) {}
+  rpc GetAgentDownlineStats(GetAgentDownlineStatsMsgReq) returns (GetAgentDownlineStatsMsgReply) {}
   // 获取代理下线列表
-  rpc GetAgentDownlineList(GetAgentDownlineListReq) returns (GetAgentDownlineListResp) {}
+  rpc GetAgentDownlineList(GetAgentDownlineListMsgReq) returns (GetAgentDownlineListMsgReply) {}
   // 获取代理收入明细
-  rpc GetAgentIncomeDetails(GetAgentIncomeDetailsReq) returns (GetAgentIncomeDetailsResp) {}
+  rpc GetAgentIncomeDetails(GetAgentIncomeDetailsMsgReq) returns (GetAgentIncomeDetailsMsgReply) {}
 }
 
 
 // AgentOverviewService相关消息
-message GetAgentIncomeOverviewReq {
+message GetAgentIncomeOverviewMsgReq{
   int64 agent_id = 1;    // 代理ID
 }
 
-message GetAgentIncomeOverviewResp {
+message GetAgentIncomeOverviewMsgReply {
   int64 today_income = 1;    // 今日收入
   int64 total_income = 2;    // 总收入
   int64 agent_level = 3;     // 代理等级
@@ -38,35 +38,33 @@ message GetAgentIncomeOverviewResp {
 }
 
 // AgentDownlineStatService相关消息
-message GetAgentDownlineStatsReq {
+message GetAgentDownlineStatsMsgReq{
   int64 agent_id = 1;    // 代理ID
 }
 
-message GetAgentDownlineStatsResp {
+message GetAgentDownlineStatsMsgReply{
   int64 tier1_total = 1;      // 一级下线总数
   int64 tier1_today = 2;      // 今日新增一级下线
   int64 tier2_total = 3;      // 二级下线总数
   int64 tier2_today = 4;      // 今日新增二级下线
 }
 
-// AgentDownlineListService相关消息
-message GetAgentDownlineListReq {
+message GetAgentDownlineListMsgReq{
   int64 agent_id = 1;         // 代理ID
   int64 filter_type = 2;     // 筛选类型，例如0="ALL" 1="TIER1" 2="TIER2"
   int64 page = 3;             // 页码
   int64 page_size = 4;        // 每页大小
-  string sort_field = 5;      // 排序字段 1=存款贡献，2=收获贡献，3=总贡献
-  string sort_order = 6;      // 排序顺序 1=ASC，2=DESC
+  int64 sort_field = 5;      // 排序字段 1=存款贡献，2=收获贡献，3=总贡献
+  int64 sort_order = 6;      // 排序顺序 1=ASC，2=DESC
 }
 
-message GetAgentDownlineListResp {
+message GetAgentDownlineListMsgReply{
   int64 page = 1;
   int64 page_size = 2;
   int64 total = 3;
   int64 total_page = 4;
   repeated DownlineMember rows = 5;  // 下线成员列表
 }
-
 message DownlineMember {
   int64 user_id = 1;                 // 用户ID
   string username = 2;               // 用户名
@@ -78,8 +76,7 @@ message DownlineMember {
 }
 
 
-// AgentIncomeDetailService相关消息
-message GetAgentIncomeDetailsReq {
+message GetAgentIncomeDetailsMsgReq{
   int64 agent_id = 1;      // 代理ID
   int64 start_time = 3;   // 开始时间戳
   int64 end_time = 4;     // 结束时间戳
@@ -87,7 +84,7 @@ message GetAgentIncomeDetailsReq {
   int64 page_size = 6;     // 每页大小
 }
 
-message GetAgentIncomeDetailsResp {
+message GetAgentIncomeDetailsMsgReply {
   int64 total_income = 1;            // 总收入
   int64 depositors_count = 2;        // 存款人数
   int64 harvesters_count = 3;        // 收获人数

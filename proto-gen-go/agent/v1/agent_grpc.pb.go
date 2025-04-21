@@ -30,13 +30,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AgentInnerServiceClient interface {
 	// 获取代理收入概览
-	GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewResp, error)
+	GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewMsgReply, error)
 	// 获取代理下线统计
-	GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsResp, error)
+	GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsMsgReply, error)
 	// 获取代理下线列表
-	GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListReq, opts ...grpc.CallOption) (*GetAgentDownlineListResp, error)
+	GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineListMsgReply, error)
 	// 获取代理收入明细
-	GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsResp, error)
+	GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsMsgReply, error)
 }
 
 type agentInnerServiceClient struct {
@@ -47,8 +47,8 @@ func NewAgentInnerServiceClient(cc grpc.ClientConnInterface) AgentInnerServiceCl
 	return &agentInnerServiceClient{cc}
 }
 
-func (c *agentInnerServiceClient) GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewResp, error) {
-	out := new(GetAgentIncomeOverviewResp)
+func (c *agentInnerServiceClient) GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewMsgReply, error) {
+	out := new(GetAgentIncomeOverviewMsgReply)
 	err := c.cc.Invoke(ctx, AgentInnerService_GetAgentIncomeOverview_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -56,8 +56,8 @@ func (c *agentInnerServiceClient) GetAgentIncomeOverview(ctx context.Context, in
 	return out, nil
 }
 
-func (c *agentInnerServiceClient) GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsResp, error) {
-	out := new(GetAgentDownlineStatsResp)
+func (c *agentInnerServiceClient) GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsMsgReply, error) {
+	out := new(GetAgentDownlineStatsMsgReply)
 	err := c.cc.Invoke(ctx, AgentInnerService_GetAgentDownlineStats_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -65,8 +65,8 @@ func (c *agentInnerServiceClient) GetAgentDownlineStats(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *agentInnerServiceClient) GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListReq, opts ...grpc.CallOption) (*GetAgentDownlineListResp, error) {
-	out := new(GetAgentDownlineListResp)
+func (c *agentInnerServiceClient) GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineListMsgReply, error) {
+	out := new(GetAgentDownlineListMsgReply)
 	err := c.cc.Invoke(ctx, AgentInnerService_GetAgentDownlineList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -74,8 +74,8 @@ func (c *agentInnerServiceClient) GetAgentDownlineList(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *agentInnerServiceClient) GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsResp, error) {
-	out := new(GetAgentIncomeDetailsResp)
+func (c *agentInnerServiceClient) GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsMsgReply, error) {
+	out := new(GetAgentIncomeDetailsMsgReply)
 	err := c.cc.Invoke(ctx, AgentInnerService_GetAgentIncomeDetails_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -88,13 +88,13 @@ func (c *agentInnerServiceClient) GetAgentIncomeDetails(ctx context.Context, in 
 // for forward compatibility
 type AgentInnerServiceServer interface {
 	// 获取代理收入概览
-	GetAgentIncomeOverview(context.Context, *GetAgentIncomeOverviewReq) (*GetAgentIncomeOverviewResp, error)
+	GetAgentIncomeOverview(context.Context, *GetAgentIncomeOverviewMsgReq) (*GetAgentIncomeOverviewMsgReply, error)
 	// 获取代理下线统计
-	GetAgentDownlineStats(context.Context, *GetAgentDownlineStatsReq) (*GetAgentDownlineStatsResp, error)
+	GetAgentDownlineStats(context.Context, *GetAgentDownlineStatsMsgReq) (*GetAgentDownlineStatsMsgReply, error)
 	// 获取代理下线列表
-	GetAgentDownlineList(context.Context, *GetAgentDownlineListReq) (*GetAgentDownlineListResp, error)
+	GetAgentDownlineList(context.Context, *GetAgentDownlineListMsgReq) (*GetAgentDownlineListMsgReply, error)
 	// 获取代理收入明细
-	GetAgentIncomeDetails(context.Context, *GetAgentIncomeDetailsReq) (*GetAgentIncomeDetailsResp, error)
+	GetAgentIncomeDetails(context.Context, *GetAgentIncomeDetailsMsgReq) (*GetAgentIncomeDetailsMsgReply, error)
 	mustEmbedUnimplementedAgentInnerServiceServer()
 }
 
@@ -102,16 +102,16 @@ type AgentInnerServiceServer interface {
 type UnimplementedAgentInnerServiceServer struct {
 }
 
-func (UnimplementedAgentInnerServiceServer) GetAgentIncomeOverview(context.Context, *GetAgentIncomeOverviewReq) (*GetAgentIncomeOverviewResp, error) {
+func (UnimplementedAgentInnerServiceServer) GetAgentIncomeOverview(context.Context, *GetAgentIncomeOverviewMsgReq) (*GetAgentIncomeOverviewMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgentIncomeOverview not implemented")
 }
-func (UnimplementedAgentInnerServiceServer) GetAgentDownlineStats(context.Context, *GetAgentDownlineStatsReq) (*GetAgentDownlineStatsResp, error) {
+func (UnimplementedAgentInnerServiceServer) GetAgentDownlineStats(context.Context, *GetAgentDownlineStatsMsgReq) (*GetAgentDownlineStatsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgentDownlineStats not implemented")
 }
-func (UnimplementedAgentInnerServiceServer) GetAgentDownlineList(context.Context, *GetAgentDownlineListReq) (*GetAgentDownlineListResp, error) {
+func (UnimplementedAgentInnerServiceServer) GetAgentDownlineList(context.Context, *GetAgentDownlineListMsgReq) (*GetAgentDownlineListMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgentDownlineList not implemented")
 }
-func (UnimplementedAgentInnerServiceServer) GetAgentIncomeDetails(context.Context, *GetAgentIncomeDetailsReq) (*GetAgentIncomeDetailsResp, error) {
+func (UnimplementedAgentInnerServiceServer) GetAgentIncomeDetails(context.Context, *GetAgentIncomeDetailsMsgReq) (*GetAgentIncomeDetailsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgentIncomeDetails not implemented")
 }
 func (UnimplementedAgentInnerServiceServer) mustEmbedUnimplementedAgentInnerServiceServer() {}
@@ -128,7 +128,7 @@ func RegisterAgentInnerServiceServer(s grpc.ServiceRegistrar, srv AgentInnerServ
 }
 
 func _AgentInnerService_GetAgentIncomeOverview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAgentIncomeOverviewReq)
+	in := new(GetAgentIncomeOverviewMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -140,13 +140,13 @@ func _AgentInnerService_GetAgentIncomeOverview_Handler(srv interface{}, ctx cont
 		FullMethod: AgentInnerService_GetAgentIncomeOverview_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentInnerServiceServer).GetAgentIncomeOverview(ctx, req.(*GetAgentIncomeOverviewReq))
+		return srv.(AgentInnerServiceServer).GetAgentIncomeOverview(ctx, req.(*GetAgentIncomeOverviewMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AgentInnerService_GetAgentDownlineStats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAgentDownlineStatsReq)
+	in := new(GetAgentDownlineStatsMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -158,13 +158,13 @@ func _AgentInnerService_GetAgentDownlineStats_Handler(srv interface{}, ctx conte
 		FullMethod: AgentInnerService_GetAgentDownlineStats_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentInnerServiceServer).GetAgentDownlineStats(ctx, req.(*GetAgentDownlineStatsReq))
+		return srv.(AgentInnerServiceServer).GetAgentDownlineStats(ctx, req.(*GetAgentDownlineStatsMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AgentInnerService_GetAgentDownlineList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAgentDownlineListReq)
+	in := new(GetAgentDownlineListMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -176,13 +176,13 @@ func _AgentInnerService_GetAgentDownlineList_Handler(srv interface{}, ctx contex
 		FullMethod: AgentInnerService_GetAgentDownlineList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentInnerServiceServer).GetAgentDownlineList(ctx, req.(*GetAgentDownlineListReq))
+		return srv.(AgentInnerServiceServer).GetAgentDownlineList(ctx, req.(*GetAgentDownlineListMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _AgentInnerService_GetAgentIncomeDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAgentIncomeDetailsReq)
+	in := new(GetAgentIncomeDetailsMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -194,7 +194,7 @@ func _AgentInnerService_GetAgentIncomeDetails_Handler(srv interface{}, ctx conte
 		FullMethod: AgentInnerService_GetAgentIncomeDetails_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentInnerServiceServer).GetAgentIncomeDetails(ctx, req.(*GetAgentIncomeDetailsReq))
+		return srv.(AgentInnerServiceServer).GetAgentIncomeDetails(ctx, req.(*GetAgentIncomeDetailsMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

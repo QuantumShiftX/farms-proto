@@ -14,28 +14,28 @@ import (
 )
 
 type (
-	AgentReply                 = v1.AgentReply
-	AgentReq                   = v1.AgentReq
-	DownlineMember             = v1.DownlineMember
-	GetAgentDownlineListReq    = v1.GetAgentDownlineListReq
-	GetAgentDownlineListResp   = v1.GetAgentDownlineListResp
-	GetAgentDownlineStatsReq   = v1.GetAgentDownlineStatsReq
-	GetAgentDownlineStatsResp  = v1.GetAgentDownlineStatsResp
-	GetAgentIncomeDetailsReq   = v1.GetAgentIncomeDetailsReq
-	GetAgentIncomeDetailsResp  = v1.GetAgentIncomeDetailsResp
-	GetAgentIncomeOverviewReq  = v1.GetAgentIncomeOverviewReq
-	GetAgentIncomeOverviewResp = v1.GetAgentIncomeOverviewResp
-	IncomeDetail               = v1.IncomeDetail
+	AgentReply                     = v1.AgentReply
+	AgentReq                       = v1.AgentReq
+	DownlineMember                 = v1.DownlineMember
+	GetAgentDownlineListMsgReply   = v1.GetAgentDownlineListMsgReply
+	GetAgentDownlineListMsgReq     = v1.GetAgentDownlineListMsgReq
+	GetAgentDownlineStatsMsgReply  = v1.GetAgentDownlineStatsMsgReply
+	GetAgentDownlineStatsMsgReq    = v1.GetAgentDownlineStatsMsgReq
+	GetAgentIncomeDetailsMsgReply  = v1.GetAgentIncomeDetailsMsgReply
+	GetAgentIncomeDetailsMsgReq    = v1.GetAgentIncomeDetailsMsgReq
+	GetAgentIncomeOverviewMsgReply = v1.GetAgentIncomeOverviewMsgReply
+	GetAgentIncomeOverviewMsgReq   = v1.GetAgentIncomeOverviewMsgReq
+	IncomeDetail                   = v1.IncomeDetail
 
 	AgentInnerService interface {
 		// 获取代理收入概览
-		GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewResp, error)
+		GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewMsgReply, error)
 		// 获取代理下线统计
-		GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsResp, error)
+		GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsMsgReply, error)
 		// 获取代理下线列表
-		GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListReq, opts ...grpc.CallOption) (*GetAgentDownlineListResp, error)
+		GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineListMsgReply, error)
 		// 获取代理收入明细
-		GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsResp, error)
+		GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsMsgReply, error)
 	}
 
 	defaultAgentInnerService struct {
@@ -50,25 +50,25 @@ func NewAgentInnerService(cli zrpc.Client) AgentInnerService {
 }
 
 // 获取代理收入概览
-func (m *defaultAgentInnerService) GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewResp, error) {
+func (m *defaultAgentInnerService) GetAgentIncomeOverview(ctx context.Context, in *GetAgentIncomeOverviewMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeOverviewMsgReply, error) {
 	client := v1.NewAgentInnerServiceClient(m.cli.Conn())
 	return client.GetAgentIncomeOverview(ctx, in, opts...)
 }
 
 // 获取代理下线统计
-func (m *defaultAgentInnerService) GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsResp, error) {
+func (m *defaultAgentInnerService) GetAgentDownlineStats(ctx context.Context, in *GetAgentDownlineStatsMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineStatsMsgReply, error) {
 	client := v1.NewAgentInnerServiceClient(m.cli.Conn())
 	return client.GetAgentDownlineStats(ctx, in, opts...)
 }
 
 // 获取代理下线列表
-func (m *defaultAgentInnerService) GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListReq, opts ...grpc.CallOption) (*GetAgentDownlineListResp, error) {
+func (m *defaultAgentInnerService) GetAgentDownlineList(ctx context.Context, in *GetAgentDownlineListMsgReq, opts ...grpc.CallOption) (*GetAgentDownlineListMsgReply, error) {
 	client := v1.NewAgentInnerServiceClient(m.cli.Conn())
 	return client.GetAgentDownlineList(ctx, in, opts...)
 }
 
 // 获取代理收入明细
-func (m *defaultAgentInnerService) GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsResp, error) {
+func (m *defaultAgentInnerService) GetAgentIncomeDetails(ctx context.Context, in *GetAgentIncomeDetailsMsgReq, opts ...grpc.CallOption) (*GetAgentIncomeDetailsMsgReply, error) {
 	client := v1.NewAgentInnerServiceClient(m.cli.Conn())
 	return client.GetAgentIncomeDetails(ctx, in, opts...)
 }
