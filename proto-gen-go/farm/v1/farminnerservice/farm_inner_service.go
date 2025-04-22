@@ -39,6 +39,8 @@ type (
 		FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
 		// 单个商品信息
 		StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
+		// 获取一个肥料商品信息
+		StoreFertilizerInfo(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
 		// 商品信息列表
 		StoreProductList(ctx context.Context, in *StoreProductListMsgReq, opts ...grpc.CallOption) (*StoreProductListMsgReply, error)
 		// 更新商品库存
@@ -72,6 +74,12 @@ func (m *defaultFarmInnerService) FarmsStoreInfo(ctx context.Context, in *FarmsS
 func (m *defaultFarmInnerService) StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
 	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
 	return client.StoreProductInfo(ctx, in, opts...)
+}
+
+// 获取一个肥料商品信息
+func (m *defaultFarmInnerService) StoreFertilizerInfo(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
+	client := v1.NewFarmInnerServiceClient(m.cli.Conn())
+	return client.StoreFertilizerInfo(ctx, in, opts...)
 }
 
 // 商品信息列表

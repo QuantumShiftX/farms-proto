@@ -109,13 +109,14 @@ var FarmService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	FarmInnerService_FarmsStoreInfo_FullMethodName     = "/farm.v1.FarmInnerService/FarmsStoreInfo"
-	FarmInnerService_StoreProductInfo_FullMethodName   = "/farm.v1.FarmInnerService/StoreProductInfo"
-	FarmInnerService_StoreProductList_FullMethodName   = "/farm.v1.FarmInnerService/StoreProductList"
-	FarmInnerService_UpdateProductStock_FullMethodName = "/farm.v1.FarmInnerService/UpdateProductStock"
-	FarmInnerService_CropsProductInfo_FullMethodName   = "/farm.v1.FarmInnerService/CropsProductInfo"
-	FarmInnerService_CropsInfoList_FullMethodName      = "/farm.v1.FarmInnerService/CropsInfoList"
-	FarmInnerService_GenerateFarmsName_FullMethodName  = "/farm.v1.FarmInnerService/GenerateFarmsName"
+	FarmInnerService_FarmsStoreInfo_FullMethodName      = "/farm.v1.FarmInnerService/FarmsStoreInfo"
+	FarmInnerService_StoreProductInfo_FullMethodName    = "/farm.v1.FarmInnerService/StoreProductInfo"
+	FarmInnerService_StoreFertilizerInfo_FullMethodName = "/farm.v1.FarmInnerService/StoreFertilizerInfo"
+	FarmInnerService_StoreProductList_FullMethodName    = "/farm.v1.FarmInnerService/StoreProductList"
+	FarmInnerService_UpdateProductStock_FullMethodName  = "/farm.v1.FarmInnerService/UpdateProductStock"
+	FarmInnerService_CropsProductInfo_FullMethodName    = "/farm.v1.FarmInnerService/CropsProductInfo"
+	FarmInnerService_CropsInfoList_FullMethodName       = "/farm.v1.FarmInnerService/CropsInfoList"
+	FarmInnerService_GenerateFarmsName_FullMethodName   = "/farm.v1.FarmInnerService/GenerateFarmsName"
 )
 
 // FarmInnerServiceClient is the client API for FarmInnerService service.
@@ -126,6 +127,8 @@ type FarmInnerServiceClient interface {
 	FarmsStoreInfo(ctx context.Context, in *FarmsStoreInfoMsgReq, opts ...grpc.CallOption) (*FarmsStoreInfoMsgReply, error)
 	// 单个商品信息
 	StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
+	// 获取一个肥料商品信息
+	StoreFertilizerInfo(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error)
 	// 商品信息列表
 	StoreProductList(ctx context.Context, in *StoreProductListMsgReq, opts ...grpc.CallOption) (*StoreProductListMsgReply, error)
 	// 更新商品库存
@@ -158,6 +161,15 @@ func (c *farmInnerServiceClient) FarmsStoreInfo(ctx context.Context, in *FarmsSt
 func (c *farmInnerServiceClient) StoreProductInfo(ctx context.Context, in *StoreProductInfoMsgReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
 	out := new(StoreProductInfoMsgReply)
 	err := c.cc.Invoke(ctx, FarmInnerService_StoreProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *farmInnerServiceClient) StoreFertilizerInfo(ctx context.Context, in *FarmReq, opts ...grpc.CallOption) (*StoreProductInfoMsgReply, error) {
+	out := new(StoreProductInfoMsgReply)
+	err := c.cc.Invoke(ctx, FarmInnerService_StoreFertilizerInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -217,6 +229,8 @@ type FarmInnerServiceServer interface {
 	FarmsStoreInfo(context.Context, *FarmsStoreInfoMsgReq) (*FarmsStoreInfoMsgReply, error)
 	// 单个商品信息
 	StoreProductInfo(context.Context, *StoreProductInfoMsgReq) (*StoreProductInfoMsgReply, error)
+	// 获取一个肥料商品信息
+	StoreFertilizerInfo(context.Context, *FarmReq) (*StoreProductInfoMsgReply, error)
 	// 商品信息列表
 	StoreProductList(context.Context, *StoreProductListMsgReq) (*StoreProductListMsgReply, error)
 	// 更新商品库存
@@ -239,6 +253,9 @@ func (UnimplementedFarmInnerServiceServer) FarmsStoreInfo(context.Context, *Farm
 }
 func (UnimplementedFarmInnerServiceServer) StoreProductInfo(context.Context, *StoreProductInfoMsgReq) (*StoreProductInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StoreProductInfo not implemented")
+}
+func (UnimplementedFarmInnerServiceServer) StoreFertilizerInfo(context.Context, *FarmReq) (*StoreProductInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StoreFertilizerInfo not implemented")
 }
 func (UnimplementedFarmInnerServiceServer) StoreProductList(context.Context, *StoreProductListMsgReq) (*StoreProductListMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StoreProductList not implemented")
@@ -300,6 +317,24 @@ func _FarmInnerService_StoreProductInfo_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(FarmInnerServiceServer).StoreProductInfo(ctx, req.(*StoreProductInfoMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FarmInnerService_StoreFertilizerInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FarmReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FarmInnerServiceServer).StoreFertilizerInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FarmInnerService_StoreFertilizerInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FarmInnerServiceServer).StoreFertilizerInfo(ctx, req.(*FarmReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -408,6 +443,10 @@ var FarmInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "StoreProductInfo",
 			Handler:    _FarmInnerService_StoreProductInfo_Handler,
+		},
+		{
+			MethodName: "StoreFertilizerInfo",
+			Handler:    _FarmInnerService_StoreFertilizerInfo_Handler,
 		},
 		{
 			MethodName: "StoreProductList",
