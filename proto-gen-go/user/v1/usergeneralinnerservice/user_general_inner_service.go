@@ -51,6 +51,7 @@ type (
 	PlantStatusRequest              = v1.PlantStatusRequest
 	PlantStatusResponse             = v1.PlantStatusResponse
 	RequestClientInfo               = v1.RequestClientInfo
+	RewardFertilizerReq             = v1.RewardFertilizerReq
 	StageTime                       = v1.StageTime
 	StageTimelinesRequest           = v1.StageTimelinesRequest
 	StageTimelinesResponse          = v1.StageTimelinesResponse
@@ -111,6 +112,8 @@ type (
 		UpdateUserBalance(ctx context.Context, in *UpdateUserBalanceReq, opts ...grpc.CallOption) (*UpdateUserBalanceResp, error)
 		// 增加用户成长值
 		AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error)
+		// 奖励用户肥料
+		RewardFertilizer(ctx context.Context, in *RewardFertilizerReq, opts ...grpc.CallOption) (*UserReply, error)
 	}
 
 	defaultUserGeneralInnerService struct {
@@ -134,4 +137,10 @@ func (m *defaultUserGeneralInnerService) UpdateUserBalance(ctx context.Context, 
 func (m *defaultUserGeneralInnerService) AddGrowth(ctx context.Context, in *AddGrowthRequest, opts ...grpc.CallOption) (*UserReply, error) {
 	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
 	return client.AddGrowth(ctx, in, opts...)
+}
+
+// 奖励用户肥料
+func (m *defaultUserGeneralInnerService) RewardFertilizer(ctx context.Context, in *RewardFertilizerReq, opts ...grpc.CallOption) (*UserReply, error) {
+	client := v1.NewUserGeneralInnerServiceClient(m.cli.Conn())
+	return client.RewardFertilizer(ctx, in, opts...)
 }

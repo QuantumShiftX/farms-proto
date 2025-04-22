@@ -294,12 +294,20 @@ message AddGrowthRequest {
   int64 action_value = 3;
 }
 
+message RewardFertilizerReq {
+  int64 user_id = 1;
+}
+
 service UserGeneralInnerService {
   // 修改用户余额
   rpc UpdateUserBalance(UpdateUserBalanceReq)returns (UpdateUserBalanceResp);
 
   // 增加用户成长值
   rpc AddGrowth(AddGrowthRequest) returns (UserReply) {}
+
+  // 奖励用户肥料
+  rpc RewardFertilizer(RewardFertilizerReq) returns (UserReply) {}
+
 }
 
 

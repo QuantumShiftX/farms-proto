@@ -51,6 +51,7 @@ type (
 	PlantStatusRequest              = v1.PlantStatusRequest
 	PlantStatusResponse             = v1.PlantStatusResponse
 	RequestClientInfo               = v1.RequestClientInfo
+	RewardFertilizerReq             = v1.RewardFertilizerReq
 	StageTime                       = v1.StageTime
 	StageTimelinesRequest           = v1.StageTimelinesRequest
 	StageTimelinesResponse          = v1.StageTimelinesResponse
