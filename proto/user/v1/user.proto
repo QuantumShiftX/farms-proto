@@ -323,11 +323,20 @@ message GetOnlineUserListReply{
   repeated int64  user_id = 2;
 }
 
+message CheckOnlineStatusReq{
+  repeated int64  user_id = 1;
+}
+
+message CheckOnlineStatusReply{
+  map<int64, int64> user_online = 1;
+}
 
 
 service UserRpcInnerService {
   // 获取在线用户ID信息
   rpc GetOnlineUserList (GetOnlineUserListReq) returns (GetOnlineUserListReply) {}
+  // 批量检查用户在线状态
+  rpc BatchCheckOnlineStatus (CheckOnlineStatusReq) returns (CheckOnlineStatusReply) {}
 
 }
 

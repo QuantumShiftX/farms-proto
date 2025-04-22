@@ -794,7 +794,8 @@ var UserGeneralInnerService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserRpcInnerService_GetOnlineUserList_FullMethodName = "/user.v1.UserRpcInnerService/GetOnlineUserList"
+	UserRpcInnerService_GetOnlineUserList_FullMethodName      = "/user.v1.UserRpcInnerService/GetOnlineUserList"
+	UserRpcInnerService_BatchCheckOnlineStatus_FullMethodName = "/user.v1.UserRpcInnerService/BatchCheckOnlineStatus"
 )
 
 // UserRpcInnerServiceClient is the client API for UserRpcInnerService service.
@@ -803,6 +804,8 @@ const (
 type UserRpcInnerServiceClient interface {
 	// 获取在线用户ID信息
 	GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error)
+	// 批量检查用户在线状态
+	BatchCheckOnlineStatus(ctx context.Context, in *CheckOnlineStatusReq, opts ...grpc.CallOption) (*CheckOnlineStatusReply, error)
 }
 
 type userRpcInnerServiceClient struct {
@@ -822,12 +825,23 @@ func (c *userRpcInnerServiceClient) GetOnlineUserList(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *userRpcInnerServiceClient) BatchCheckOnlineStatus(ctx context.Context, in *CheckOnlineStatusReq, opts ...grpc.CallOption) (*CheckOnlineStatusReply, error) {
+	out := new(CheckOnlineStatusReply)
+	err := c.cc.Invoke(ctx, UserRpcInnerService_BatchCheckOnlineStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserRpcInnerServiceServer is the server API for UserRpcInnerService service.
 // All implementations must embed UnimplementedUserRpcInnerServiceServer
 // for forward compatibility
 type UserRpcInnerServiceServer interface {
 	// 获取在线用户ID信息
 	GetOnlineUserList(context.Context, *GetOnlineUserListReq) (*GetOnlineUserListReply, error)
+	// 批量检查用户在线状态
+	BatchCheckOnlineStatus(context.Context, *CheckOnlineStatusReq) (*CheckOnlineStatusReply, error)
 	mustEmbedUnimplementedUserRpcInnerServiceServer()
 }
 
@@ -837,6 +851,9 @@ type UnimplementedUserRpcInnerServiceServer struct {
 
 func (UnimplementedUserRpcInnerServiceServer) GetOnlineUserList(context.Context, *GetOnlineUserListReq) (*GetOnlineUserListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOnlineUserList not implemented")
+}
+func (UnimplementedUserRpcInnerServiceServer) BatchCheckOnlineStatus(context.Context, *CheckOnlineStatusReq) (*CheckOnlineStatusReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchCheckOnlineStatus not implemented")
 }
 func (UnimplementedUserRpcInnerServiceServer) mustEmbedUnimplementedUserRpcInnerServiceServer() {}
 
@@ -869,6 +886,24 @@ func _UserRpcInnerService_GetOnlineUserList_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserRpcInnerService_BatchCheckOnlineStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckOnlineStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserRpcInnerServiceServer).BatchCheckOnlineStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserRpcInnerService_BatchCheckOnlineStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserRpcInnerServiceServer).BatchCheckOnlineStatus(ctx, req.(*CheckOnlineStatusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserRpcInnerService_ServiceDesc is the grpc.ServiceDesc for UserRpcInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -879,6 +914,10 @@ var UserRpcInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOnlineUserList",
 			Handler:    _UserRpcInnerService_GetOnlineUserList_Handler,
+		},
+		{
+			MethodName: "BatchCheckOnlineStatus",
+			Handler:    _UserRpcInnerService_BatchCheckOnlineStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -21,6 +21,8 @@ type (
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
+	CheckOnlineStatusReply          = v1.CheckOnlineStatusReply
+	CheckOnlineStatusReq            = v1.CheckOnlineStatusReq
 	FarmTransactionRecord           = v1.FarmTransactionRecord
 	FarmTransactionRecordsMsgReply  = v1.FarmTransactionRecordsMsgReply
 	FarmTransactionRecordsMsgReq    = v1.FarmTransactionRecordsMsgReq

@@ -21,6 +21,8 @@ type (
 	AllUserRankingInfoMsgReq        = v1.AllUserRankingInfoMsgReq
 	CheckCropsNeedsRequest          = v1.CheckCropsNeedsRequest
 	CheckCropsNeedsResponse         = v1.CheckCropsNeedsResponse
+	CheckOnlineStatusReply          = v1.CheckOnlineStatusReply
+	CheckOnlineStatusReq            = v1.CheckOnlineStatusReq
 	FarmTransactionRecord           = v1.FarmTransactionRecord
 	FarmTransactionRecordsMsgReply  = v1.FarmTransactionRecordsMsgReply
 	FarmTransactionRecordsMsgReq    = v1.FarmTransactionRecordsMsgReq
@@ -110,6 +112,8 @@ type (
 	UserRpcInnerService interface {
 		// 获取在线用户ID信息
 		GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error)
+		// 批量检查用户在线状态
+		BatchCheckOnlineStatus(ctx context.Context, in *CheckOnlineStatusReq, opts ...grpc.CallOption) (*CheckOnlineStatusReply, error)
 	}
 
 	defaultUserRpcInnerService struct {
@@ -127,4 +131,10 @@ func NewUserRpcInnerService(cli zrpc.Client) UserRpcInnerService {
 func (m *defaultUserRpcInnerService) GetOnlineUserList(ctx context.Context, in *GetOnlineUserListReq, opts ...grpc.CallOption) (*GetOnlineUserListReply, error) {
 	client := v1.NewUserRpcInnerServiceClient(m.cli.Conn())
 	return client.GetOnlineUserList(ctx, in, opts...)
+}
+
+// 批量检查用户在线状态
+func (m *defaultUserRpcInnerService) BatchCheckOnlineStatus(ctx context.Context, in *CheckOnlineStatusReq, opts ...grpc.CallOption) (*CheckOnlineStatusReply, error) {
+	client := v1.NewUserRpcInnerServiceClient(m.cli.Conn())
+	return client.BatchCheckOnlineStatus(ctx, in, opts...)
 }
