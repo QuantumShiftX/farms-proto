@@ -1418,6 +1418,7 @@ message DownlineMember {
 
 message GetAgentIncomeDetailsMsgReq{
   int64 agent_id = 1;      // 代理ID
+  int64 time_search_type = 2; // 时间搜索类型：0-全部，1-今日，2-昨日，3-本周，4-上周，5-本月，6-上月，7-自定义
   int64 start_time = 3;   // 开始时间戳
   int64 end_time = 4;     // 结束时间戳
   int64 page = 5;          // 页码
