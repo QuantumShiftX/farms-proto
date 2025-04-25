@@ -1246,8 +1246,8 @@ message UserLandCropCanOpsInfoMsgReply {
 
 // UserVipInfoMsgReply 通知用户VIP消息
 message UserVipInfoMsgReply {
-  VIPLevelInfo current_vip_info = 1;             // 当前的vip信息
-  VIPLevelInfo next_vip_info = 2;                  // 升级之后的vip信息
+  VIPLevelInfo vip_before_upgrade = 1;             // 升级之前的vip信息
+  VIPLevelInfo vip_after_upgrade = 2;                  // 升级之后的vip信息
 }
 
 
