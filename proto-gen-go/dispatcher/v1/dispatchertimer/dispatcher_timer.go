@@ -14,6 +14,7 @@ import (
 )
 
 type (
+	CropReadyToHarvestReq           = v1.CropReadyToHarvestReq
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
 	HeartbeatEventFastReq           = v1.HeartbeatEventFastReq

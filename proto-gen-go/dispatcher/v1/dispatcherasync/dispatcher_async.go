@@ -14,6 +14,7 @@ import (
 )
 
 type (
+	CropReadyToHarvestReq           = v1.CropReadyToHarvestReq
 	DispatcherReply                 = v1.DispatcherReply
 	DispatcherReq                   = v1.DispatcherReq
 	HeartbeatEventFastReq           = v1.HeartbeatEventFastReq
@@ -34,6 +35,8 @@ type (
 		UpdateFortuneTreeStatusCheck(ctx context.Context, in *UpdateFortuneTreeStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 农场作物状态检查,推送
 		UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 农场作物可收获推送
+		CropReadyToHarvest(ctx context.Context, in *CropReadyToHarvestReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户在线时长奖励监测
 		UpdateOnlineRewardTask(ctx context.Context, in *UpdateOnlineRewardTaskReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 用户注册事件触发
@@ -75,6 +78,12 @@ func (m *defaultDispatcherAsync) UpdateFortuneTreeStatusCheck(ctx context.Contex
 func (m *defaultDispatcherAsync) UpdateCropStatusCheck(ctx context.Context, in *UpdateCropStatusCheckReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
 	return client.UpdateCropStatusCheck(ctx, in, opts...)
+}
+
+// 农场作物可收获推送
+func (m *defaultDispatcherAsync) CropReadyToHarvest(ctx context.Context, in *CropReadyToHarvestReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherAsyncClient(m.cli.Conn())
+	return client.CropReadyToHarvest(ctx, in, opts...)
 }
 
 // 用户在线时长奖励监测

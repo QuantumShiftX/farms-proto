@@ -19,6 +19,9 @@ service DispatcherAsync {
   // 农场作物状态检查,推送
   rpc UpdateCropStatusCheck (UpdateCropStatusCheckReq) returns (DispatcherReply) {};
 
+  // 农场作物可收获推送
+  rpc CropReadyToHarvest (CropReadyToHarvestReq) returns (DispatcherReply) {};
+
   // 用户在线时长奖励监测
   rpc UpdateOnlineRewardTask(UpdateOnlineRewardTaskReq) returns (DispatcherReply) {};
 
@@ -58,6 +61,11 @@ message UpdateCropStatusCheckReq {
   int64 user_id = 1;  // 用户id
   int64 plant_id = 2;  // 种植id
   int64 operation_at = 3; // 下次状态检查执行的时间
+}
+
+message  CropReadyToHarvestReq {
+  int64 user_id = 1;  // 用户id
+  int64 plant_id = 2;  // 种植id
 }
 
 message UpdateOnlineRewardTaskReq {
