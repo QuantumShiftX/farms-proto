@@ -113,6 +113,7 @@ enum MessageID {
   USER_LAND_STATUS_INFO_MSG = 802; //用户土地变更相关
   //  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
   USER_FORTE_TREE_STATUS_MSG = 804; // 用户发财树状态变更数据推送
+  USER_VIP_INFO_MSG = 805;  // 用户VIP信息推送
 
 
   // 心跳连接
@@ -1230,7 +1231,6 @@ message UserFortuneTreeStatusMsgReply {
 }
 
 
-
 // UserLandCropCanOpsInfoMsgReply 用户通知用户土地可操作消息
 message UserLandCropCanOpsInfoMsgReply {
   int64 user_id = 1;             // 用户ID
@@ -1242,6 +1242,12 @@ message UserLandCropCanOpsInfoMsgReply {
   string seed_wait_plant = 11; // 种子待种植 (为空就是不展示)
   string crop_need_fertilize = 12; // 农作物待施肥 (为空就是不展示)
   string crop_need_water = 13; // 农作物待浇水 (为空就是不展示)
+}
+
+// UserVipInfoMsgReply 通知用户VIP消息
+message UserVipInfoMsgReply {
+  VIPLevelInfo current_vip_info = 1;             // 当前的vip信息
+  VIPLevelInfo next_vip_info = 2;                  // 升级之后的vip信息
 }
 
 
