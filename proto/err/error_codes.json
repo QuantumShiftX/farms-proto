@@ -212,6 +212,10 @@
       "en": "Farm or land does not exist.",
       "zh": "农场或者土地不存在。"
     },
+    "20017": {
+      "en": "Crop is in maturity period and cannot be operated. Please wait for harvest.",
+      "zh": "农作物已在成熟期间，不可操作，等待收获。"
+    },
     "90000": {
       "en": "Configuration not found.",
       "zh": "配置不存在。"

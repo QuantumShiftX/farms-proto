@@ -110,6 +110,7 @@ message UserFriendActionEventReq{
   int64 user_id = 1;
   int64 type_code = 2;
   int64 sub_type = 3;
+  string extend = 4;      // 扩展字段
 }
 
 message TriggerUserEventReq {
