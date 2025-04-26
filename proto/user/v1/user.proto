@@ -953,25 +953,25 @@ message LookUserFarmsInfoMsgReq {
 }
 message LookUserFarmsInfoMsgReply {
   // 用户相关信息
-  int64 user_id = 2;                   // 用户ID
-  int64 parent_id = 3;                       // 上级ID（邀请用户的ID）
-  string username = 4;                 // 账号名称
-  string language_code = 6;            // 语言代码
-  string currency_code = 7;            // 币种代码
-  VipInfo vip_info = 8;              // 会员等级信息
-  string remark = 11;                  // 用户备注
-  int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
-  string avatar = 14;                  // 用户头像URL
+  int64 user_id = 1;                   // 用户ID
+  int64 parent_id = 2;                       // 上级ID（邀请用户的ID）
+  string username = 3;                 // 账号名称
+  string language_code = 4;            // 语言代码
+  string currency_code = 5;            // 币种代码
+  VipInfo vip_info = 6;              // 会员等级信息
+  string remark = 7;                  // 用户备注
+  int64 last_login_time = 8;          // 最后登录时间（Unix时间戳）
+  string avatar = 9;                  // 用户头像URL
   // 农场相关信息
-  int64 farm_id = 15;                    // 农场ID
-  string farm_name = 17;                 // 农场名称
-  int64 total_land_count = 18;           // 农场总土地数量
-  int64 water_limit_per_day = 19;        // 每日浇水限制次数
-  int64 fertilizer_limit_per_day = 20;   // 每日作物施肥限制次数
-  int64 total_reward_coins = 21;         // 农场总收益金币
+  int64 farm_id = 10;                    // 农场ID
+  string farm_name = 11;                 // 农场名称
+  int64 total_land_count = 12;           // 农场总土地数量
+  int64 water_limit_per_day = 13;        // 每日浇水限制次数
+  int64 fertilizer_limit_per_day = 14;   // 每日作物施肥限制次数
+  int64 total_reward_coins = 15;         // 农场总收益金币
   // 土地信息
-  repeated UserLandDetail land_detail = 5;  // 用户土地信息列表
-  UserFortuneTreeInfo fortune_tree = 22;  // 用户的发财树信息
+  repeated UserLandDetail land_detail = 16;  // 用户土地信息列表
+  UserFortuneTreeInfo fortune_tree = 17;  // 用户的发财树信息
 
 }
 
