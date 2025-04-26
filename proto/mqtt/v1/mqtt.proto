@@ -114,6 +114,7 @@ enum MessageID {
   //  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
   USER_FORTE_TREE_STATUS_MSG = 804; // 用户发财树状态变更数据推送
   USER_VIP_INFO_MSG = 805;  // 用户VIP信息推送
+  USER_SUB_REGISTER_NOTIFY_MSG = 806; // 通知上级有下级注册成
 
 
   // 心跳连接
@@ -1249,6 +1250,19 @@ message UserVipInfoMsgReply {
   VIPLevelInfo vip_before_upgrade = 1;             // 升级之前的vip信息
   VIPLevelInfo vip_after_upgrade = 2;                  // 升级之后的vip信息
 }
+
+// UserSubRegisterNotifyMsgReply 通知用户有好友(下级)注册成功消息
+message UserSubRegisterNotifyMsgReply {
+  UserSimpleInfo user_info = 1;             // 本人的信息
+  UserSimpleInfo user_sub_info = 2;         // 好友(下级)的信息
+}
+
+message UserSimpleInfo {
+  int64 user_id = 1;
+  string username = 2;
+  string farm_name = 3;
+}
+
 
 
 // SendMessage 代表消息结构
