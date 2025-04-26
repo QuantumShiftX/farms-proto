@@ -958,9 +958,7 @@ message LookUserFarmsInfoMsgReply {
   string username = 4;                 // 账号名称
   string language_code = 6;            // 语言代码
   string currency_code = 7;            // 币种代码
-  int64 vip_level_id = 8;              // 会员等级ID（关联user_vip_levels表）
-  int64 vip_level_val = 9;              // 会员等级值
-  string vip_level_name = 10;              // 会员等级名称
+  VipInfo vip_info = 8;              // 会员等级信息
   string remark = 11;                  // 用户备注
   int64 last_login_time = 12;          // 最后登录时间（Unix时间戳）
   string avatar = 14;                  // 用户头像URL
