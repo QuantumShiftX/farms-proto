@@ -237,9 +237,9 @@ message VIPLevelInfo {
   int64 level_val = 3;
   int64 is_default_level = 4;
   int64 growth_value = 5;
-  int64 upgrade_reward_fertilizer_num = 6;
-  int64 upgrade_reward_tree_maturity_period = 7;
-  int64 upgrade_reward_tree_num = 8;
+  int64 upgrade_reward_fertilizer_num = 6;  // 升级奖励肥料数量
+  int64 upgrade_reward_tree_maturity_period = 7; // 升级奖励树木成熟周期 单位小时
+  int64 upgrade_reward_tree_num = 8;  // 升级奖励树木成熟周期 产生的金币数量
   string remarks = 9;
   int64 is_enabled = 10;
 }
