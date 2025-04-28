@@ -216,6 +216,22 @@
       "en": "Crop is in maturity period and cannot be operated. Please wait for harvest.",
       "zh": "农作物已在成熟期间，不可操作，等待收获。"
     },
+    "20018": {
+      "en": "Watering or fertilizing limit exceeded.",
+      "zh": "浇水或者施肥次数超过限制。"
+    },
+    "20019": {
+      "en": "No crop planted on this land. Operation not allowed.",
+      "zh": "该土地没有种植作物，无法操作。"
+    },
+    "20020": {
+      "en": "Only unripe crops can be operated.",
+      "zh": "只有未成熟的作物才能操作。"
+    },
+    "20021": {
+      "en": "Only ripe crops can be harvested.",
+      "zh": "只有已成熟的作物才能收获。"
+    },
     "90000": {
       "en": "Configuration not found.",
       "zh": "配置不存在。"
