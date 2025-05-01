@@ -476,6 +476,7 @@ enum FarmOperationType {
   WATERING = 2;               // 浇水 - 为指定土地上的作物浇水
   FERTILIZING = 3;            // 施肥 - 为指定土地上的作物施肥
   HARVESTING = 4;             // 采摘 - 收获指定土地上成熟的作物
+  READ_MESSAGE = 5;           // 读消息 - 读取作物相关的消息或通知
 }
 
 /**
