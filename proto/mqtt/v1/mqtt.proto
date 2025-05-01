@@ -115,6 +115,8 @@ enum MessageID {
   USER_FORTE_TREE_STATUS_MSG = 804; // 用户发财树状态变更数据推送
   USER_VIP_INFO_MSG = 805;  // 用户VIP信息推送
   USER_SUB_REGISTER_NOTIFY_MSG = 806; // 通知上级有下级注册成功
+  USER_FOREIGN_LOGIN_NOTIFY_MSG = 807; // 通知用户异地登录通知（同一时间只能登录一个地方）
+
 
 
   // 心跳连接
@@ -1263,6 +1265,18 @@ message UserSimpleInfo {
   int64 user_id = 1;
   string username = 2;
   string farm_name = 3;
+}
+
+
+// 远程异地登录通知请求
+message UserForeignLoginNotifyMsgReply {
+  int64 user_id = 1;             // 用户ID
+  string previous_device_id = 2;  // 之前登录的设备ID
+  string previous_ip = 3;         // 之前登录的IP地址
+  string current_device_id = 4;   // 当前登录的设备ID
+  string current_ip = 5;          // 当前登录的IP地址
+  int64 login_time = 6;           // 登录时间戳
+  string platform = 7;            // 登录平台
 }
 
 
