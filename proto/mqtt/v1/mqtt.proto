@@ -682,6 +682,9 @@ message UserLandDetail {
   string seed_wait_plant = 11; // 种子待种植 (为空就是不展示)
   string crop_need_fertilize = 12; // 农作物待施肥 (为空就是不展示)
   string buy_seed = 13; // 购买种子 (为空就是不展示)
+  // 好友操作的描述
+  string friend_farm_name = 14; // 操作好友的农场名称
+  string watering_time_reduction = 15; // 浇水减少的时间 秒
 }
 
 /**
