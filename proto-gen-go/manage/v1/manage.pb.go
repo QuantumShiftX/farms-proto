@@ -1686,9 +1686,9 @@ type VIPLevelInfo struct {
 	LevelVal                        int64  `protobuf:"varint,3,opt,name=level_val,json=levelVal,proto3" json:"level_val,omitempty"`
 	IsDefaultLevel                  int64  `protobuf:"varint,4,opt,name=is_default_level,json=isDefaultLevel,proto3" json:"is_default_level,omitempty"`
 	GrowthValue                     int64  `protobuf:"varint,5,opt,name=growth_value,json=growthValue,proto3" json:"growth_value,omitempty"`
-	UpgradeRewardFertilizerNum      int64  `protobuf:"varint,6,opt,name=upgrade_reward_fertilizer_num,json=upgradeRewardFertilizerNum,proto3" json:"upgrade_reward_fertilizer_num,omitempty"`
-	UpgradeRewardTreeMaturityPeriod int64  `protobuf:"varint,7,opt,name=upgrade_reward_tree_maturity_period,json=upgradeRewardTreeMaturityPeriod,proto3" json:"upgrade_reward_tree_maturity_period,omitempty"`
-	UpgradeRewardTreeNum            int64  `protobuf:"varint,8,opt,name=upgrade_reward_tree_num,json=upgradeRewardTreeNum,proto3" json:"upgrade_reward_tree_num,omitempty"`
+	UpgradeRewardFertilizerNum      int64  `protobuf:"varint,6,opt,name=upgrade_reward_fertilizer_num,json=upgradeRewardFertilizerNum,proto3" json:"upgrade_reward_fertilizer_num,omitempty"`                  // 升级奖励肥料数量
+	UpgradeRewardTreeMaturityPeriod int64  `protobuf:"varint,7,opt,name=upgrade_reward_tree_maturity_period,json=upgradeRewardTreeMaturityPeriod,proto3" json:"upgrade_reward_tree_maturity_period,omitempty"` // 升级奖励树木成熟周期 单位小时
+	UpgradeRewardTreeNum            int64  `protobuf:"varint,8,opt,name=upgrade_reward_tree_num,json=upgradeRewardTreeNum,proto3" json:"upgrade_reward_tree_num,omitempty"`                                    // 升级奖励树木成熟周期 产生的金币数量
 	Remarks                         string `protobuf:"bytes,9,opt,name=remarks,proto3" json:"remarks,omitempty"`
 	IsEnabled                       int64  `protobuf:"varint,10,opt,name=is_enabled,json=isEnabled,proto3" json:"is_enabled,omitempty"`
 }

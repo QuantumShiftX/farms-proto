@@ -232,6 +232,10 @@
       "en": "Only ripe crops can be harvested.",
       "zh": "只有已成熟的作物才能收获。"
     },
+    "20022": {
+      "en": "Operation is already in progress. Please do not repeat.",
+      "zh": "操作正在进行中，请勿重复操作。"
+    },
     "90000": {
       "en": "Configuration not found.",
       "zh": "配置不存在。"

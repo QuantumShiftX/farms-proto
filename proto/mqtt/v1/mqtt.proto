@@ -114,7 +114,9 @@ enum MessageID {
   //  USER_LAND_CROP_CAN_OPS_INFO_MSG = 803; // 用户土地可收获状态
   USER_FORTE_TREE_STATUS_MSG = 804; // 用户发财树状态变更数据推送
   USER_VIP_INFO_MSG = 805;  // 用户VIP信息推送
-  USER_SUB_REGISTER_NOTIFY_MSG = 806; // 通知上级有下级注册成
+  USER_SUB_REGISTER_NOTIFY_MSG = 806; // 通知上级有下级注册成功
+  USER_FARM_OPERATION_INFO_MSG = 807;  // 用户操作好友的农场通知
+
 
 
   // 心跳连接
@@ -1261,6 +1263,18 @@ message UserSimpleInfo {
   string farm_name = 3;
 }
 
+// 定义农场操作消息结构
+message UserFarmOperationInfoMsgReply {
+  FarmOperationType operate_type = 1;      // 操作类型：浇水 =>2 或施肥 => 3
+  int64 op_to_user_id = 2;            // 被操作的用户ID，必填
+  int64 op_to_farm_id = 3;            // 被操作的农场ID，必填
+  int64 op_to_land_id = 4;            // 被操作的土地ID，必填
+  int64 op_land_position = 5;         // 被操作的土地位置编号
+  int64 op_harvest_time = 6;        // 最新的收获时间戳（Unix时间戳，单位：秒）
+  int64 operation_time = 7;      // 操作执行时间（Unix时间戳，单位：秒）
+  int64 user_id = 8;             // 操作人ID
+  string farm_name = 9;          // 操作人农场名称
+}
 
 
 // SendMessage 代表消息结构
