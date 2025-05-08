@@ -18,11 +18,14 @@ type (
 	AgentPayNotifyResponse           = v1.AgentPayNotifyResponse
 	ApplyAgentPayRequest             = v1.ApplyAgentPayRequest
 	ApplyAgentPayResponse            = v1.ApplyAgentPayResponse
+	BankConfig                       = v1.BankConfig
 	CommonRequest                    = v1.CommonRequest
 	CreateCashierRequest             = v1.CreateCashierRequest
 	CreateCashierResponse            = v1.CreateCashierResponse
 	CreateOrderRequest               = v1.CreateOrderRequest
 	CreateOrderResponse              = v1.CreateOrderResponse
+	GetBankListInfoMsgReply          = v1.GetBankListInfoMsgReply
+	GetBankListInfoMsgReq            = v1.GetBankListInfoMsgReq
 	PayNotifyData                    = v1.PayNotifyData
 	PayNotifyResponse                = v1.PayNotifyResponse
 	PayParams                        = v1.PayParams
@@ -69,6 +72,8 @@ type (
 		UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
 		// 用户提现充值账变记录
 		UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
+		// 获取银行列表
+		GetBankList(ctx context.Context, in *GetBankListInfoMsgReq, opts ...grpc.CallOption) (*GetBankListInfoMsgReply, error)
 	}
 
 	defaultUserPaymentInnerService struct {
@@ -122,4 +127,10 @@ func (m *defaultUserPaymentInnerService) UserWithdrawChannel(ctx context.Context
 func (m *defaultUserPaymentInnerService) UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error) {
 	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
 	return client.UserTransactionRecords(ctx, in, opts...)
+}
+
+// 获取银行列表
+func (m *defaultUserPaymentInnerService) GetBankList(ctx context.Context, in *GetBankListInfoMsgReq, opts ...grpc.CallOption) (*GetBankListInfoMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.GetBankList(ctx, in, opts...)
 }

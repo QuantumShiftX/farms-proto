@@ -18,11 +18,14 @@ type (
 	AgentPayNotifyResponse           = v1.AgentPayNotifyResponse
 	ApplyAgentPayRequest             = v1.ApplyAgentPayRequest
 	ApplyAgentPayResponse            = v1.ApplyAgentPayResponse
+	BankConfig                       = v1.BankConfig
 	CommonRequest                    = v1.CommonRequest
 	CreateCashierRequest             = v1.CreateCashierRequest
 	CreateCashierResponse            = v1.CreateCashierResponse
 	CreateOrderRequest               = v1.CreateOrderRequest
 	CreateOrderResponse              = v1.CreateOrderResponse
+	GetBankListInfoMsgReply          = v1.GetBankListInfoMsgReply
+	GetBankListInfoMsgReq            = v1.GetBankListInfoMsgReq
 	PayNotifyData                    = v1.PayNotifyData
 	PayNotifyResponse                = v1.PayNotifyResponse
 	PayParams                        = v1.PayParams
