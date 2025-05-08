@@ -99,6 +99,7 @@ enum MessageID {
   MERCHANT_EXCHANGE_RATE_MSG = 606;
   USER_SET_WITHDRAW_CHANNEL_MSG = 607;
   CURRENCY_INFO_MSG = 608;   // 货币列表
+  GET_BANK_LIST_INFO_MSG = 609;// 银行列表
 
   // 代理相关信息messageID (700-799)
   GET_AGENT_INCOME_OVERVIEW_MSG = 700;// 获取代理收入概览响应
@@ -1139,6 +1140,28 @@ message UserSetWithdrawChannelMsgReply{
 }
 
 
+message GetBankListInfoMsgReq{
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  string currency_code = 2;          // 币种编码
+}
+
+message GetBankListInfoMsgReply {
+  repeated BankConfig rows = 5;
+}
+
+// 银行信息
+message BankConfig {
+  int64 id = 1;                // 主键
+  string country_code = 2;     // 国家/地区代码
+  string currency_code = 3;    // 币种
+  string collection_type = 4;  // 收款类型
+  string bank_name = 5;        // 银行名称
+  string bank_show_name = 6;   // 银行显示名称
+  string bank_icon = 7;        // 银行图标
+  int64 fee = 8;               // 手续费
+  string description = 9;      // 银行描述
+  string code = 10;            // 银行编码
+}
 
 // =========================================
 // 通知相关消息
