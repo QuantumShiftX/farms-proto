@@ -1093,9 +1093,10 @@ message UserRechargeInfoMsgReply {
 
 message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID
-  int64 amount = 2;           // 提现金额(分)
-  int64 withdraw_account_id = 5;       //提现账号
-  string extra = 11;          // 扩展域
+  int64 amount = 2;           // 提现金额(金额*1000000)
+  int64 withdraw_account_id = 3;       //提现账号
+  string currency_code = 4;                 // 币种
+  string remark = 8; // 备注
 }
 
 message UserWithdrawInfoMsgReply {
