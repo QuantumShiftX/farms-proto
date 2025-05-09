@@ -100,6 +100,8 @@ enum MessageID {
   USER_SET_WITHDRAW_CHANNEL_MSG = 607;
   CURRENCY_INFO_MSG = 608;   // 货币列表
   GET_BANK_LIST_INFO_MSG = 609;// 银行列表
+  GET_PAYMENT_CONF_LIST_MSG = 610; // 支付配置列表
+
 
   // 代理相关信息messageID (700-799)
   GET_AGENT_INCOME_OVERVIEW_MSG = 700;// 获取代理收入概览响应
@@ -1052,6 +1054,7 @@ message SubmitForRedemptionMsgReply{
 // 充值通道列表响应
 message RechargeChannelsInfoMsgReq {
   int64 user_id = 1;          // 用户ID
+  int64 payment_config_id = 2; // 支付配置ID
 }
 
 // 充值通道列表响应
@@ -1061,15 +1064,26 @@ message RechargeChannelsInfoMsgReply {
 
 // 充值通道信息
 message RechargeChannel {
-  int64 recharge_channel_type = 1; // 充值通道类型 1:USDT虚拟货币 2:银行卡 3: 快捷支付
-  int64 recharge_channel_id = 2;         // 充值通道id
-  string currency_code = 3;                 // 币种
-  string receive_account = 4; // 充值收款账号
-  string receive_name = 5; // 收款人姓名
-  int64  usdt_exchange_rate = 6; // USDT兑换比例（1u=>多少指定货币）
-  int64 min_limit_amount = 7; // 单笔充值最小限额
-  int64 max_limit_amount = 8; // 单笔充值最大限额
-  string recharge_channel_name = 9; // 充值通道名称
+  int64 id = 1; // 充值通道ID
+  int64 payment_config_id = 2; // 支付配置ID
+  string currency_code = 3; // 币种
+  string recharge_channel_name = 4; // 充值通道名称
+  string recharge_channel_code = 5; // 充值通道编码
+  string recharge_channel_logo = 6; // 充值通道logo
+  int64 recharge_channel_type = 7; // 充值通道类型 1:USDT虚拟货币 2:银行卡 3: 快捷支付
+  int64 recharge_merchant_id = 8; // 充值商户ID
+  int64 bank_id = 9; // 银行ID
+  string bank_name = 10; // 银行名称
+  string bank_branch = 11; // 银行支行名称
+  string receive_account = 12; // 收款账号
+  string receive_name = 13; // 收款人姓名
+  string ifsc = 14; // IFSC
+  string crypto_address = 15; //  公链地址
+  string crypto_network = 16; // 公链名称
+  string min_limit_amount = 17; // 单笔充值最小限额
+  string max_limit_amount = 18; // 单笔充值最大限额
+  string recommend_amount_config = 19; // 推荐金额配置
+  string hint = 20; // 提示语
 }
 
 message UserRechargeInfoMsgReq {
@@ -1107,6 +1121,7 @@ message UserWithdrawInfoMsgReply {
 
 message UserWithdrawChannelInfoMsgReq {
   int64 user_id = 1;          // 用户ID
+  int64 payment_config_id = 2; // 支付配置ID
 }
 
 message UserWithdrawChannelInfoMsgReply {
@@ -1115,23 +1130,37 @@ message UserWithdrawChannelInfoMsgReply {
 
 // 提现通道信息
 message WithdrawChannel {
-  int64 withdraw_account_id = 1;       //提现账号
-  int64 user_id = 2;       //用户ID
-  string currency_code = 3;                 // 币种
-  string account = 4;                 //  提现账号/地址
-  int64 account_type = 5;                 // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
-  int64 verify_status = 6;                 //  验证状态 1:已验证 2:验证失败 3:未验证
-  int64 is_default = 7;                 //  是否默认账户 1:是 2:否
-  string remark = 8; // 备注
+  int64 id = 1; // 提现通道ID
+  int64 payment_config_id = 2; // 支付配置ID
+  string currency_code = 3; // 币种
+  string withdraw_channel_name = 4; // 提现通道名称
+  string withdraw_channel_code = 5; // 提现通道编码
+  string withdraw_channel_logo = 6; // 提现通道logo
+  int64 withdraw_channel_type = 7; // 提现通道类型 1:USDT虚拟货币 2:银行卡 3: 快捷支付
+  int64 withdraw_merchant_id = 8; // 提现商户ID
+  int64 bank_id = 9; // 银行ID
+  string bank_name = 10; // 银行名称
+  string bank_branch = 11; // 银行支行名称
+  string bank_account = 12; // 银行账号
+  string bank_account_name = 13; // 账户名
+  string crypto_address = 15; //  公链地址
+  string crypto_network = 16; // 公链名称
+  string min_limit_amount = 17; // 单笔充值最小限额
+  string max_limit_amount = 18; // 单笔充值最大限额
+  string recommend_amount_config = 19; // 推荐金额配置
+  string hint = 20; // 提示语
 }
 
 message UserSetWithdrawChannelMsgReq {
   int64 user_id = 1;          // 用户ID
-  string account = 2;                 //  提现账号/地址
-  int64 is_default = 3;                 //  是否默认账户 1:是 2:否
-  int64 operate_type = 4;                 // 操作类型，必填 1:新增 2:修改 3:删除
-  int64 withdraw_account_id = 5;  //提现账号ID
-  string remark = 6; // 备注
+  int64 account_type = 2; // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
+  int64 bank_id = 3; // 银行卡ID
+  string real_name = 4;                 //  提现账号/地址
+  string account = 5;                 //  提现账号/地址
+  int64 is_default = 6;                 //  是否默认账户 1:是 2:否
+  int64 operate_type = 7;                 // 操作类型，必填 1:新增 2:修改 3:删除
+  string remark = 8; // 备注
+  string secondary_password = 9; // 验证二级密码
 }
 
 
@@ -1163,6 +1192,27 @@ message BankConfig {
   string description = 9;      // 银行描述
   string code = 10;            // 银行编码
 }
+
+message GetPaymentConfListMsgReq {
+  int64 user_id = 1;  // 用户身份验证令牌，必填
+  string currency_code = 2;          // 币种编码
+  int64 payment_config_type = 3; // 支付配置类型 1: 充值 2: 提现
+}
+
+message GetPaymentConfListMsgReply{
+  repeated PaymentConfInfo rows = 1;
+}
+message PaymentConfInfo {
+  int64 id = 1;
+  int64 payment_config_type = 2; // 存款方式渠道类型，1:USDT虚拟货币  2:银行卡  3:快捷支付
+  string name = 3; // 名称
+  string currency_code = 4; // 币种
+  string logo_url = 5; // 图标
+  int64 exchange_rate = 6; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
+  int64 fixed_fee = 7; // 固定手续费
+  int64 percentage_fee = 8; // 百分比手续费 以1000000为单位，例如 20%=0.20=0.20×1,000,000=200,000
+}
+
 
 // =========================================
 // 通知相关消息
