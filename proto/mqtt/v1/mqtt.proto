@@ -1084,6 +1084,7 @@ message RechargeChannel {
   string max_limit_amount = 18; // 单笔充值最大限额
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
+  int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
 }
 
 message UserRechargeInfoMsgReq {
@@ -1149,6 +1150,7 @@ message WithdrawChannel {
   string max_limit_amount = 18; // 单笔充值最大限额
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
+  int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
 }
 
 message UserSetWithdrawChannelMsgReq {
