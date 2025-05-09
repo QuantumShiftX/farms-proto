@@ -463,7 +463,6 @@ message BankConfig {
   int64 id = 1;                // 主键
   string country_code = 2;     // 国家/地区代码
   string currency_code = 3;    // 币种
-  string collection_type = 4;  // 收款类型
   string bank_name = 5;        // 银行名称
   string bank_show_name = 6;   // 银行显示名称
   string bank_icon = 7;        // 银行图标
