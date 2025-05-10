@@ -357,8 +357,8 @@ message RechargeChannel {
   string ifsc = 14; // IFSC
   string crypto_address = 15; //  公链地址
   string crypto_network = 16; // 公链名称
-  string min_limit_amount = 17; // 单笔充值最小限额
-  string max_limit_amount = 18; // 单笔充值最大限额
+  int64 min_limit_amount = 17; // 单笔充值最小限额
+  int64 max_limit_amount = 18; // 单笔充值最大限额
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
   int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
@@ -391,8 +391,8 @@ message WithdrawChannel {
   string bank_account_name = 13; // 账户名
   string crypto_address = 15; //  公链地址
   string crypto_network = 16; // 公链名称
-  string min_limit_amount = 17; // 单笔充值最小限额
-  string max_limit_amount = 18; // 单笔充值最大限额
+  int64 min_limit_amount = 17; // 单笔充值最小限额
+  int64 max_limit_amount = 18; // 单笔充值最大限额
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
   int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
