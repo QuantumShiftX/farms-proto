@@ -293,7 +293,19 @@ message UserRechargeInfoMsgReply {
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
   string pay_url = 3;                 // 支付URL  银行卡充值 返回的是空
+  RechargeInfo recharge_info = 4; // 充值信息
 }
+
+message RechargeInfo  {
+  string  order_number = 1; // 订单号
+  int64 order_time = 2; // 订单时间
+  int64 payment_amount = 3 ; // 付款金额
+  int64 received_amount = 4 ;// 接收金额
+  int64 card_name = 5 ;  // 银行卡名称
+  int64 account_name = 6 ;  // 账户名称
+  int64 card_number = 7 ;  // 银行卡号
+}
+
 
 message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID
