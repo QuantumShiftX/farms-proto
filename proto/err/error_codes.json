@@ -144,6 +144,30 @@
       "en": "Exchange amount error. Please try again.",
       "zh": "兑换金额错误，请重试。"
     },
+    "10027": {
+      "en": "Withdrawal amount must be a positive integer.",
+      "zh": "提现金额必须是正整数。"
+    },
+    "10028": {
+      "en": "Deposit amount must be a positive integer.",
+      "zh": "充值金额必须是正整数。"
+    },
+    "10029": {
+      "en": "Insufficient withdrawal amount.",
+      "zh": "提现金额不足。"
+    },
+    "10030": {
+      "en": "Currency does not exist.",
+      "zh": "货币不存在。"
+    },
+    "10031": {
+      "en": "Invalid withdrawal method. Only bank cards and e-wallets are currently supported.",
+      "zh": "提现方式错误，暂时只支持银行卡和电子钱包。"
+    },
+    "10032": {
+      "en": "Incorrect withdrawal password. Please verify and try again.",
+      "zh": "提现密码有误，请确认重试。"
+    },
     "20000": {
       "en": "Farm not found.",
       "zh": "农场不存在。"
