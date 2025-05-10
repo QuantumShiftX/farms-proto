@@ -1118,14 +1118,26 @@ message RechargeInfo  {
 message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 amount = 2;           // 提现金额(金额*1000000)
-  int64 withdraw_account_id = 3;       //提现账号
+  int64 withdraw_id = 3;       //提现账号id
   string currency_code = 4;                 // 币种
+  int64 withdraw_channel_id = 5;          // 提现通道id
   string remark = 8; // 备注
 }
 
 message UserWithdrawInfoMsgReply {
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
+  WithdrawInfo withdraw_info = 4; // 提现信息
+}
+
+message WithdrawInfo  {
+  string order_number = 1; // 订单号
+  int64 order_time = 2; // 订单时间
+  int64 payment_amount = 3 ; // 提现金额
+  int64 received_amount = 4 ;// 实际金额
+  string card_name = 5 ;   // 银行卡名称
+  string account_name = 6 ;  // 账户名称
+  string card_number = 7 ;  // 银行卡号
 }
 
 
@@ -1172,6 +1184,7 @@ message UserSetWithdrawChannelMsgReq {
   int64 operate_type = 7;                 // 操作类型，必填 1:新增 2:修改 3:删除
   string remark = 8; // 备注
   string secondary_password = 9; // 验证二级密码
+  int64 withdraw_id = 10;  //提现账号ID
 }
 
 

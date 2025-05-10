@@ -60,6 +60,7 @@ type (
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
 	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
 	WithdrawChannel                  = v1.WithdrawChannel
+	WithdrawInfo                     = v1.WithdrawInfo
 
 	UserPaymentInnerService interface {
 		// 用户充值
