@@ -1092,11 +1092,9 @@ message UserRechargeInfoMsgReq {
   int64 recharge_channel_id = 2;          // 充值通道id
   int64 amount = 3;           // 充值金额(金额*1000000)
   string currency_code = 4;                 // 币种
-  int64  usdt_exchange_rate = 5; // USDT兑换比例（1u=>多少指定货币）
-  string payer_account = 6; // 付款人账号
-  string payer_name = 7; // 付款人姓名
+  int64  exchange_rate = 5; // USDT兑换比例（1u=>多少指定货币）
+  string real_name = 7; // 备注名称
   string remark = 8; // 备注
-  string protocol = 9;  // 虚拟货币支持的协议，例如USDT支持["TRC-20","ERC-20"，"BEP-20"]
 }
 
 message UserRechargeInfoMsgReply {
