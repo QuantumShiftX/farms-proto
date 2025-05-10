@@ -1109,9 +1109,9 @@ message RechargeInfo  {
   int64 order_time = 2; // 订单时间
   int64 payment_amount = 3 ; // 付款金额
   int64 received_amount = 4 ;// 接收金额
-  int64 card_name = 5 ;  // 银行卡名称
-  int64 account_name = 6 ;  // 账户名称
-  int64 card_number = 7 ;  // 银行卡号
+  string card_name = 5 ;  // 银行卡名称
+  string account_name = 6 ;  // 账户名称
+  string card_number = 7 ;  // 银行卡号
 }
 
 
