@@ -386,6 +386,8 @@ message RechargeChannel {
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
   int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
+  int64 fixed_fee = 22; // 固定手续费
+  int64 percentage_fee = 23; // 百分比手续费 以1000000为单位，例如 20%=0.20=0.20×1,000,000=200,000
 }
 
 
@@ -420,6 +422,8 @@ message WithdrawChannel {
   string recommend_amount_config = 19; // 推荐金额配置
   string hint = 20; // 提示语
   int64 exchange_rate = 21; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
+  int64 fixed_fee = 22; // 固定手续费
+  int64 percentage_fee = 23; // 百分比手续费 以1000000为单位，例如 20%=0.20=0.20×1,000,000=200,000
 }
 
 message UserSetWithdrawChannelMsgReq {
@@ -514,8 +518,8 @@ message PaymentConfInfo {
   string currency_code = 4; // 币种
   string logo_url = 5; // 图标
   int64 exchange_rate = 6; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
-  int64 fixed_fee = 7; // 固定手续费
-  int64 percentage_fee = 8; // 百分比手续费 以1000000为单位，例如 20%=0.20=0.20×1,000,000=200,000
+  repeated RechargeChannel recharge_channel = 7;  // 充值通道列表
+  repeated WithdrawChannel withdraw_channel = 8;  // 提现通道列表
 }
 
 // 支付服务
