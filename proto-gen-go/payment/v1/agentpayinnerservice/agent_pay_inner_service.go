@@ -55,10 +55,11 @@ type (
 	UserSetWithdrawChannelMsgReq     = v1.UserSetWithdrawChannelMsgReq
 	UserTransactionRecordsMsgReply   = v1.UserTransactionRecordsMsgReply
 	UserTransactionRecordsMsgReq     = v1.UserTransactionRecordsMsgReq
-	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
-	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
+	UserWithdrawAccountInfoMsgReply  = v1.UserWithdrawAccountInfoMsgReply
+	UserWithdrawAccountInfoMsgReq    = v1.UserWithdrawAccountInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
 	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
+	WithdrawAccount                  = v1.WithdrawAccount
 	WithdrawChannel                  = v1.WithdrawChannel
 	WithdrawInfo                     = v1.WithdrawInfo
 

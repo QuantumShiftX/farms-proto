@@ -391,14 +391,6 @@ message RechargeChannel {
 }
 
 
-message UserWithdrawChannelInfoMsgReq {
-  int64 user_id = 1;          // 用户ID
-  int64 payment_config_id = 2; // 支付配置ID
-}
-
-message UserWithdrawChannelInfoMsgReply {
-  repeated WithdrawChannel rows = 4;  // 提现通道列表
-}
 
 // 提现通道信息
 message WithdrawChannel {
@@ -444,6 +436,30 @@ message UserSetWithdrawChannelMsgReply{
   int64 code = 1;                     // 响应状态码  200 正常
   string msg = 2;                     // 响应消息    success 成功
 }
+
+message UserWithdrawAccountInfoMsgReq {
+  int64 user_id = 1;          // 用户ID
+}
+
+message UserWithdrawAccountInfoMsgReply {
+  repeated WithdrawAccount rows = 4;  // 提现通道列表
+}
+
+message WithdrawAccount {
+  int64 id = 1;                          // 主键
+  int64 user_id = 2;                     // 用户ID
+  string currency_code = 3;              // 币种编码
+  int64 bank_id = 4;                     // 银行ID
+  string account = 5;                    // 提现账号/地址
+  string real_name = 6;                  // 真实姓名
+  string identity = 7;                   // 身份证号/证件号
+  int64 account_type = 8;                // 账号类型：1手机号，2银行卡，3PIX，4电子钱包
+  string country_code = 9;               // 国家/地区编码
+  string ifsc = 10;                      // 开户行/IFSC
+  string branch = 11;                    // 支行名称
+  int64 is_default = 12;                 // 是否默认账户：1是，2否
+}
+
 
 message UserTransactionRecordsMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
@@ -539,8 +555,8 @@ service UserPaymentInnerService {
   // 用户提现通道设置
   rpc UserSetWithdrawChannel(UserSetWithdrawChannelMsgReq) returns (UserSetWithdrawChannelMsgReply) {}
 
-  // 用户提现通道列表响应
-  rpc UserWithdrawChannel(UserWithdrawChannelInfoMsgReq) returns (UserWithdrawChannelInfoMsgReply) {}
+  // 用户提现账号列表响应
+  rpc UserWithdrawAccount(UserWithdrawAccountInfoMsgReq) returns (UserWithdrawAccountInfoMsgReply) {}
 
   // 用户提现充值账变记录
   rpc UserTransactionRecords (UserTransactionRecordsMsgReq) returns (UserTransactionRecordsMsgReply) {}

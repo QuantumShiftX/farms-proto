@@ -55,10 +55,11 @@ type (
 	UserSetWithdrawChannelMsgReq     = v1.UserSetWithdrawChannelMsgReq
 	UserTransactionRecordsMsgReply   = v1.UserTransactionRecordsMsgReply
 	UserTransactionRecordsMsgReq     = v1.UserTransactionRecordsMsgReq
-	UserWithdrawChannelInfoMsgReply  = v1.UserWithdrawChannelInfoMsgReply
-	UserWithdrawChannelInfoMsgReq    = v1.UserWithdrawChannelInfoMsgReq
+	UserWithdrawAccountInfoMsgReply  = v1.UserWithdrawAccountInfoMsgReply
+	UserWithdrawAccountInfoMsgReq    = v1.UserWithdrawAccountInfoMsgReq
 	UserWithdrawInfoMsgReply         = v1.UserWithdrawInfoMsgReply
 	UserWithdrawInfoMsgReq           = v1.UserWithdrawInfoMsgReq
+	WithdrawAccount                  = v1.WithdrawAccount
 	WithdrawChannel                  = v1.WithdrawChannel
 	WithdrawInfo                     = v1.WithdrawInfo
 
@@ -73,8 +74,8 @@ type (
 		UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error)
 		// 用户提现通道设置
 		UserSetWithdrawChannel(ctx context.Context, in *UserSetWithdrawChannelMsgReq, opts ...grpc.CallOption) (*UserSetWithdrawChannelMsgReply, error)
-		// 用户提现通道列表响应
-		UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
+		// 用户提现账号列表响应
+		UserWithdrawAccount(ctx context.Context, in *UserWithdrawAccountInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawAccountInfoMsgReply, error)
 		// 用户提现充值账变记录
 		UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
 		// 获取银行列表
@@ -124,10 +125,10 @@ func (m *defaultUserPaymentInnerService) UserSetWithdrawChannel(ctx context.Cont
 	return client.UserSetWithdrawChannel(ctx, in, opts...)
 }
 
-// 用户提现通道列表响应
-func (m *defaultUserPaymentInnerService) UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error) {
+// 用户提现账号列表响应
+func (m *defaultUserPaymentInnerService) UserWithdrawAccount(ctx context.Context, in *UserWithdrawAccountInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawAccountInfoMsgReply, error) {
 	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
-	return client.UserWithdrawChannel(ctx, in, opts...)
+	return client.UserWithdrawAccount(ctx, in, opts...)
 }
 
 // 用户提现充值账变记录

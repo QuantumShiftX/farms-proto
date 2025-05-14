@@ -481,7 +481,7 @@ const (
 	UserPaymentInnerService_ReceivePaymentNotice_FullMethodName   = "/payment.v1.UserPaymentInnerService/ReceivePaymentNotice"
 	UserPaymentInnerService_UserRechargeChannel_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserRechargeChannel"
 	UserPaymentInnerService_UserSetWithdrawChannel_FullMethodName = "/payment.v1.UserPaymentInnerService/UserSetWithdrawChannel"
-	UserPaymentInnerService_UserWithdrawChannel_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserWithdrawChannel"
+	UserPaymentInnerService_UserWithdrawAccount_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserWithdrawAccount"
 	UserPaymentInnerService_UserTransactionRecords_FullMethodName = "/payment.v1.UserPaymentInnerService/UserTransactionRecords"
 	UserPaymentInnerService_GetBankList_FullMethodName            = "/payment.v1.UserPaymentInnerService/GetBankList"
 	UserPaymentInnerService_GetPaymentConfList_FullMethodName     = "/payment.v1.UserPaymentInnerService/GetPaymentConfList"
@@ -501,8 +501,8 @@ type UserPaymentInnerServiceClient interface {
 	UserRechargeChannel(ctx context.Context, in *RechargeChannelsInfoMsgReq, opts ...grpc.CallOption) (*RechargeChannelsInfoMsgReply, error)
 	// 用户提现通道设置
 	UserSetWithdrawChannel(ctx context.Context, in *UserSetWithdrawChannelMsgReq, opts ...grpc.CallOption) (*UserSetWithdrawChannelMsgReply, error)
-	// 用户提现通道列表响应
-	UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error)
+	// 用户提现账号列表响应
+	UserWithdrawAccount(ctx context.Context, in *UserWithdrawAccountInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawAccountInfoMsgReply, error)
 	// 用户提现充值账变记录
 	UserTransactionRecords(ctx context.Context, in *UserTransactionRecordsMsgReq, opts ...grpc.CallOption) (*UserTransactionRecordsMsgReply, error)
 	// 获取银行列表
@@ -564,9 +564,9 @@ func (c *userPaymentInnerServiceClient) UserSetWithdrawChannel(ctx context.Conte
 	return out, nil
 }
 
-func (c *userPaymentInnerServiceClient) UserWithdrawChannel(ctx context.Context, in *UserWithdrawChannelInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawChannelInfoMsgReply, error) {
-	out := new(UserWithdrawChannelInfoMsgReply)
-	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserWithdrawChannel_FullMethodName, in, out, opts...)
+func (c *userPaymentInnerServiceClient) UserWithdrawAccount(ctx context.Context, in *UserWithdrawAccountInfoMsgReq, opts ...grpc.CallOption) (*UserWithdrawAccountInfoMsgReply, error) {
+	out := new(UserWithdrawAccountInfoMsgReply)
+	err := c.cc.Invoke(ctx, UserPaymentInnerService_UserWithdrawAccount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -614,8 +614,8 @@ type UserPaymentInnerServiceServer interface {
 	UserRechargeChannel(context.Context, *RechargeChannelsInfoMsgReq) (*RechargeChannelsInfoMsgReply, error)
 	// 用户提现通道设置
 	UserSetWithdrawChannel(context.Context, *UserSetWithdrawChannelMsgReq) (*UserSetWithdrawChannelMsgReply, error)
-	// 用户提现通道列表响应
-	UserWithdrawChannel(context.Context, *UserWithdrawChannelInfoMsgReq) (*UserWithdrawChannelInfoMsgReply, error)
+	// 用户提现账号列表响应
+	UserWithdrawAccount(context.Context, *UserWithdrawAccountInfoMsgReq) (*UserWithdrawAccountInfoMsgReply, error)
 	// 用户提现充值账变记录
 	UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error)
 	// 获取银行列表
@@ -644,8 +644,8 @@ func (UnimplementedUserPaymentInnerServiceServer) UserRechargeChannel(context.Co
 func (UnimplementedUserPaymentInnerServiceServer) UserSetWithdrawChannel(context.Context, *UserSetWithdrawChannelMsgReq) (*UserSetWithdrawChannelMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserSetWithdrawChannel not implemented")
 }
-func (UnimplementedUserPaymentInnerServiceServer) UserWithdrawChannel(context.Context, *UserWithdrawChannelInfoMsgReq) (*UserWithdrawChannelInfoMsgReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserWithdrawChannel not implemented")
+func (UnimplementedUserPaymentInnerServiceServer) UserWithdrawAccount(context.Context, *UserWithdrawAccountInfoMsgReq) (*UserWithdrawAccountInfoMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserWithdrawAccount not implemented")
 }
 func (UnimplementedUserPaymentInnerServiceServer) UserTransactionRecords(context.Context, *UserTransactionRecordsMsgReq) (*UserTransactionRecordsMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserTransactionRecords not implemented")
@@ -760,20 +760,20 @@ func _UserPaymentInnerService_UserSetWithdrawChannel_Handler(srv interface{}, ct
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserPaymentInnerService_UserWithdrawChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserWithdrawChannelInfoMsgReq)
+func _UserPaymentInnerService_UserWithdrawAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserWithdrawAccountInfoMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserPaymentInnerServiceServer).UserWithdrawChannel(ctx, in)
+		return srv.(UserPaymentInnerServiceServer).UserWithdrawAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserPaymentInnerService_UserWithdrawChannel_FullMethodName,
+		FullMethod: UserPaymentInnerService_UserWithdrawAccount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserPaymentInnerServiceServer).UserWithdrawChannel(ctx, req.(*UserWithdrawChannelInfoMsgReq))
+		return srv.(UserPaymentInnerServiceServer).UserWithdrawAccount(ctx, req.(*UserWithdrawAccountInfoMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -860,8 +860,8 @@ var UserPaymentInnerService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserPaymentInnerService_UserSetWithdrawChannel_Handler,
 		},
 		{
-			MethodName: "UserWithdrawChannel",
-			Handler:    _UserPaymentInnerService_UserWithdrawChannel_Handler,
+			MethodName: "UserWithdrawAccount",
+			Handler:    _UserPaymentInnerService_UserWithdrawAccount_Handler,
 		},
 		{
 			MethodName: "UserTransactionRecords",

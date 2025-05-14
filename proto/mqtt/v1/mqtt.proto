@@ -94,7 +94,7 @@ enum MessageID {
   RECHARGE_CHANNELS_INFO_MSG = 601;
   USER_RECHARGE_INFO_MSG = 602;
   USER_WITHDRAW_INFO_MSG = 603;
-  USER_WITHDRAW_CHANNEL_INFO_MSG = 604;
+  USER_WITHDRAW_ACCOUNT_INFO_MSG = 604;
   GET_MERCHANT_LIST_MSG = 605;
   MERCHANT_EXCHANGE_RATE_MSG = 606;
   USER_SET_WITHDRAW_CHANNEL_MSG = 607;
@@ -1144,13 +1144,27 @@ message WithdrawInfo  {
 }
 
 
-message UserWithdrawChannelInfoMsgReq {
+message UserWithdrawAccountInfoMsgReq {
   int64 user_id = 1;          // 用户ID
-  int64 payment_config_id = 2; // 支付配置ID
 }
 
-message UserWithdrawChannelInfoMsgReply {
-  repeated WithdrawChannel rows = 4;  // 提现通道列表
+message UserWithdrawAccountInfoMsgReply {
+  repeated WithdrawAccount rows = 4;  // 提现通道列表
+}
+
+message WithdrawAccount {
+  int64 id = 1;                          // 主键
+  int64 user_id = 2;                     // 用户ID
+  string currency_code = 3;              // 币种编码
+  int64 bank_id = 4;                     // 银行ID
+  string account = 5;                    // 提现账号/地址
+  string real_name = 6;                  // 真实姓名
+  string identity = 7;                   // 身份证号/证件号
+  int64 account_type = 8;                // 账号类型：1手机号，2银行卡，3PIX，4电子钱包
+  string country_code = 9;               // 国家/地区编码
+  string ifsc = 10;                      // 开户行/IFSC
+  string branch = 11;                    // 支行名称
+  int64 is_default = 12;                 // 是否默认账户：1是，2否
 }
 
 // 提现通道信息
