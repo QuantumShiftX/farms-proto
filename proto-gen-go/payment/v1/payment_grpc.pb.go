@@ -476,16 +476,17 @@ var PaymentInnerService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	UserPaymentInnerService_UserRecharge_FullMethodName           = "/payment.v1.UserPaymentInnerService/UserRecharge"
-	UserPaymentInnerService_UserRechargeConfirm_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserRechargeConfirm"
-	UserPaymentInnerService_UserWithdraw_FullMethodName           = "/payment.v1.UserPaymentInnerService/UserWithdraw"
-	UserPaymentInnerService_ReceivePaymentNotice_FullMethodName   = "/payment.v1.UserPaymentInnerService/ReceivePaymentNotice"
-	UserPaymentInnerService_UserRechargeChannel_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserRechargeChannel"
-	UserPaymentInnerService_UserSetWithdrawChannel_FullMethodName = "/payment.v1.UserPaymentInnerService/UserSetWithdrawChannel"
-	UserPaymentInnerService_UserWithdrawAccount_FullMethodName    = "/payment.v1.UserPaymentInnerService/UserWithdrawAccount"
-	UserPaymentInnerService_UserTransactionRecords_FullMethodName = "/payment.v1.UserPaymentInnerService/UserTransactionRecords"
-	UserPaymentInnerService_GetBankList_FullMethodName            = "/payment.v1.UserPaymentInnerService/GetBankList"
-	UserPaymentInnerService_GetPaymentConfList_FullMethodName     = "/payment.v1.UserPaymentInnerService/GetPaymentConfList"
+	UserPaymentInnerService_UserRecharge_FullMethodName               = "/payment.v1.UserPaymentInnerService/UserRecharge"
+	UserPaymentInnerService_UserRechargeConfirm_FullMethodName        = "/payment.v1.UserPaymentInnerService/UserRechargeConfirm"
+	UserPaymentInnerService_UserWithdraw_FullMethodName               = "/payment.v1.UserPaymentInnerService/UserWithdraw"
+	UserPaymentInnerService_ReceivePaymentNotice_FullMethodName       = "/payment.v1.UserPaymentInnerService/ReceivePaymentNotice"
+	UserPaymentInnerService_UserRechargeChannel_FullMethodName        = "/payment.v1.UserPaymentInnerService/UserRechargeChannel"
+	UserPaymentInnerService_UserSetWithdrawChannel_FullMethodName     = "/payment.v1.UserPaymentInnerService/UserSetWithdrawChannel"
+	UserPaymentInnerService_UserWithdrawAccount_FullMethodName        = "/payment.v1.UserPaymentInnerService/UserWithdrawAccount"
+	UserPaymentInnerService_UserTransactionRecords_FullMethodName     = "/payment.v1.UserPaymentInnerService/UserTransactionRecords"
+	UserPaymentInnerService_GetBankList_FullMethodName                = "/payment.v1.UserPaymentInnerService/GetBankList"
+	UserPaymentInnerService_GetPaymentConfList_FullMethodName         = "/payment.v1.UserPaymentInnerService/GetPaymentConfList"
+	UserPaymentInnerService_GetPendingPaymentOrderList_FullMethodName = "/payment.v1.UserPaymentInnerService/GetPendingPaymentOrderList"
 )
 
 // UserPaymentInnerServiceClient is the client API for UserPaymentInnerService service.
@@ -512,6 +513,8 @@ type UserPaymentInnerServiceClient interface {
 	GetBankList(ctx context.Context, in *GetBankListInfoMsgReq, opts ...grpc.CallOption) (*GetBankListInfoMsgReply, error)
 	// 获取支付列表
 	GetPaymentConfList(ctx context.Context, in *GetPaymentConfListMsgReq, opts ...grpc.CallOption) (*GetPaymentConfListMsgReply, error)
+	// 获取待处理支付相关列表请求
+	GetPendingPaymentOrderList(ctx context.Context, in *GetPendingOrderMsgReq, opts ...grpc.CallOption) (*GetPendingOrderMsgReply, error)
 }
 
 type userPaymentInnerServiceClient struct {
@@ -612,6 +615,15 @@ func (c *userPaymentInnerServiceClient) GetPaymentConfList(ctx context.Context, 
 	return out, nil
 }
 
+func (c *userPaymentInnerServiceClient) GetPendingPaymentOrderList(ctx context.Context, in *GetPendingOrderMsgReq, opts ...grpc.CallOption) (*GetPendingOrderMsgReply, error) {
+	out := new(GetPendingOrderMsgReply)
+	err := c.cc.Invoke(ctx, UserPaymentInnerService_GetPendingPaymentOrderList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserPaymentInnerServiceServer is the server API for UserPaymentInnerService service.
 // All implementations must embed UnimplementedUserPaymentInnerServiceServer
 // for forward compatibility
@@ -636,6 +648,8 @@ type UserPaymentInnerServiceServer interface {
 	GetBankList(context.Context, *GetBankListInfoMsgReq) (*GetBankListInfoMsgReply, error)
 	// 获取支付列表
 	GetPaymentConfList(context.Context, *GetPaymentConfListMsgReq) (*GetPaymentConfListMsgReply, error)
+	// 获取待处理支付相关列表请求
+	GetPendingPaymentOrderList(context.Context, *GetPendingOrderMsgReq) (*GetPendingOrderMsgReply, error)
 	mustEmbedUnimplementedUserPaymentInnerServiceServer()
 }
 
@@ -672,6 +686,9 @@ func (UnimplementedUserPaymentInnerServiceServer) GetBankList(context.Context, *
 }
 func (UnimplementedUserPaymentInnerServiceServer) GetPaymentConfList(context.Context, *GetPaymentConfListMsgReq) (*GetPaymentConfListMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPaymentConfList not implemented")
+}
+func (UnimplementedUserPaymentInnerServiceServer) GetPendingPaymentOrderList(context.Context, *GetPendingOrderMsgReq) (*GetPendingOrderMsgReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPendingPaymentOrderList not implemented")
 }
 func (UnimplementedUserPaymentInnerServiceServer) mustEmbedUnimplementedUserPaymentInnerServiceServer() {
 }
@@ -867,6 +884,24 @@ func _UserPaymentInnerService_GetPaymentConfList_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserPaymentInnerService_GetPendingPaymentOrderList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPendingOrderMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserPaymentInnerServiceServer).GetPendingPaymentOrderList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserPaymentInnerService_GetPendingPaymentOrderList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserPaymentInnerServiceServer).GetPendingPaymentOrderList(ctx, req.(*GetPendingOrderMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserPaymentInnerService_ServiceDesc is the grpc.ServiceDesc for UserPaymentInnerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -913,6 +948,10 @@ var UserPaymentInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPaymentConfList",
 			Handler:    _UserPaymentInnerService_GetPaymentConfList_Handler,
+		},
+		{
+			MethodName: "GetPendingPaymentOrderList",
+			Handler:    _UserPaymentInnerService_GetPendingPaymentOrderList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

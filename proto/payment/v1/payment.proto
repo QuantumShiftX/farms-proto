@@ -552,6 +552,40 @@ message PaymentConfInfo {
   repeated WithdrawChannel withdraw_channel = 8;  // 提现通道列表
 }
 
+
+message GetPendingOrderMsgReq{
+  int64 user_id = 1;         // 用户ID
+  int64 payment_config_type = 2; // 支付配置类型 1: 充值 2: 提现
+  int64 page = 3;
+  int64 page_size = 4;
+}
+// 响应
+message GetPendingOrderMsgReply {
+  int64 page = 1;
+  int64 page_size = 2;
+  int64 total = 3;
+  int64 total_page = 4;
+  repeated OrderInfo rows = 5; // 通用订单信息
+}
+
+// 通用订单结构
+message OrderInfo {
+  string order_number = 1;
+  int64 user_id = 2;
+  string currency_code = 3;
+  int64 payment_amount = 4 ; // 付款金额
+  int64 received_amount = 5 ;// 接收金额
+  int64 order_time = 6; // 订单时间
+  int64 success_time = 7; // 成功时间
+  string payment_method = 8;    // 支付方式
+  int64 status = 9;       // 订单状态
+  string card_name = 10 ;  // 银行卡名称
+  string account_name = 11 ;  // 账户名称
+  string card_number = 12 ;  // 银行卡号
+  string transfer_voucher = 13; // 转账凭证
+  int64 payment_config_type = 14; // 支付配置类型 1: 充值 2: 提现
+}
+
 // 支付服务
 service UserPaymentInnerService {
   // 用户充值
@@ -583,4 +617,7 @@ service UserPaymentInnerService {
 
   // 获取支付列表
   rpc GetPaymentConfList (GetPaymentConfListMsgReq) returns (GetPaymentConfListMsgReply) {}
+
+  // 获取待处理支付相关列表请求
+  rpc GetPendingPaymentOrderList (GetPendingOrderMsgReq) returns (GetPendingOrderMsgReply) {}
 }

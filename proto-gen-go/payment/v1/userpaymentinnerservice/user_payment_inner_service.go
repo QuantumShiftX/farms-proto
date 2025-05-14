@@ -28,6 +28,9 @@ type (
 	GetBankListInfoMsgReq            = v1.GetBankListInfoMsgReq
 	GetPaymentConfListMsgReply       = v1.GetPaymentConfListMsgReply
 	GetPaymentConfListMsgReq         = v1.GetPaymentConfListMsgReq
+	GetPendingOrderMsgReply          = v1.GetPendingOrderMsgReply
+	GetPendingOrderMsgReq            = v1.GetPendingOrderMsgReq
+	OrderInfo                        = v1.OrderInfo
 	PayNotifyData                    = v1.PayNotifyData
 	PayNotifyResponse                = v1.PayNotifyResponse
 	PayParams                        = v1.PayParams
@@ -86,6 +89,8 @@ type (
 		GetBankList(ctx context.Context, in *GetBankListInfoMsgReq, opts ...grpc.CallOption) (*GetBankListInfoMsgReply, error)
 		// 获取支付列表
 		GetPaymentConfList(ctx context.Context, in *GetPaymentConfListMsgReq, opts ...grpc.CallOption) (*GetPaymentConfListMsgReply, error)
+		// 获取待处理支付相关列表请求
+		GetPendingPaymentOrderList(ctx context.Context, in *GetPendingOrderMsgReq, opts ...grpc.CallOption) (*GetPendingOrderMsgReply, error)
 	}
 
 	defaultUserPaymentInnerService struct {
@@ -157,4 +162,10 @@ func (m *defaultUserPaymentInnerService) GetBankList(ctx context.Context, in *Ge
 func (m *defaultUserPaymentInnerService) GetPaymentConfList(ctx context.Context, in *GetPaymentConfListMsgReq, opts ...grpc.CallOption) (*GetPaymentConfListMsgReply, error) {
 	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
 	return client.GetPaymentConfList(ctx, in, opts...)
+}
+
+// 获取待处理支付相关列表请求
+func (m *defaultUserPaymentInnerService) GetPendingPaymentOrderList(ctx context.Context, in *GetPendingOrderMsgReq, opts ...grpc.CallOption) (*GetPendingOrderMsgReply, error) {
+	client := v1.NewUserPaymentInnerServiceClient(m.cli.Conn())
+	return client.GetPendingPaymentOrderList(ctx, in, opts...)
 }

@@ -28,6 +28,9 @@ type (
 	GetBankListInfoMsgReq            = v1.GetBankListInfoMsgReq
 	GetPaymentConfListMsgReply       = v1.GetPaymentConfListMsgReply
 	GetPaymentConfListMsgReq         = v1.GetPaymentConfListMsgReq
+	GetPendingOrderMsgReply          = v1.GetPendingOrderMsgReply
+	GetPendingOrderMsgReq            = v1.GetPendingOrderMsgReq
+	OrderInfo                        = v1.OrderInfo
 	PayNotifyData                    = v1.PayNotifyData
 	PayNotifyResponse                = v1.PayNotifyResponse
 	PayParams                        = v1.PayParams
