@@ -92,15 +92,17 @@ enum MessageID {
   // 配置相关信息 (600-699)
   VIP_LEVEL_INFO_MSG = 600;
   RECHARGE_CHANNELS_INFO_MSG = 601;
-  USER_RECHARGE_INFO_MSG = 602;
-  USER_WITHDRAW_INFO_MSG = 603;
-  USER_WITHDRAW_ACCOUNT_INFO_MSG = 604;
+  USER_RECHARGE_INFO_MSG = 602; // 用户提交充值
+  USER_WITHDRAW_INFO_MSG = 603; // 用户提交提现
+  USER_WITHDRAW_ACCOUNT_INFO_MSG = 604; // 用户提现账号
   GET_MERCHANT_LIST_MSG = 605;
   MERCHANT_EXCHANGE_RATE_MSG = 606;
   USER_SET_WITHDRAW_CHANNEL_MSG = 607;
   CURRENCY_INFO_MSG = 608;   // 货币列表
   GET_BANK_LIST_INFO_MSG = 609;// 银行列表
   GET_PAYMENT_CONF_LIST_MSG = 610; // 支付配置列表
+  USER_RECHARGE_CONFIRM_MSG = 611;// 用户充值确认
+
 
 
   // 代理相关信息messageID (700-799)
@@ -1095,8 +1097,6 @@ message UserRechargeInfoMsgReq {
   int64 amount = 3;           // 充值金额(金额*1000000)
   string currency_code = 4;                 // 币种
   int64  exchange_rate = 5; // USDT兑换比例（1u=>多少指定货币）
-  string real_name = 7; // 备注名称
-  string remark = 8; // 备注
 }
 
 message UserRechargeInfoMsgReply {
@@ -1116,6 +1116,20 @@ message RechargeInfo  {
   string card_number = 7 ;  // 银行卡号
 }
 
+
+message UserRechargeConfirmMsgReq{
+  int64 user_id = 1;          // 用户ID
+  string order_number = 2; // 订单号
+  string transfer_voucher = 3; // 转账凭证（上传图片后使用半路径请求）
+  string real_name = 4; // 用户备注姓名
+  string front_remark = 5; // 用户备注
+}
+
+message UserRechargeConfirmMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+  RechargeInfo recharge_info = 4; // 充值信息
+}
 
 message UserWithdrawInfoMsgReq {
   int64 user_id = 1;          // 用户ID

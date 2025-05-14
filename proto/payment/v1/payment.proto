@@ -285,8 +285,6 @@ message UserRechargeInfoMsgReq {
   int64 amount = 3;           // 充值金额(金额*1000000)
   string currency_code = 4;                 // 币种
   int64  exchange_rate = 5; // USDT兑换比例（1u=>多少指定货币）
-  string real_name = 7; // 备注名称
-  string remark = 8; // 备注
 }
 
 message UserRechargeInfoMsgReply {
@@ -296,8 +294,9 @@ message UserRechargeInfoMsgReply {
   RechargeInfo recharge_info = 4; // 充值信息
 }
 
+
 message RechargeInfo  {
-  string  order_number = 1; // 订单号
+  string order_number = 1; // 订单号
   int64 order_time = 2; // 订单时间
   int64 payment_amount = 3 ; // 付款金额
   int64 received_amount = 4 ;// 接收金额
@@ -305,6 +304,21 @@ message RechargeInfo  {
   string account_name = 6 ;  // 账户名称
   string card_number = 7 ;  // 银行卡号
 }
+
+message UserRechargeConfirmMsgReq{
+  int64 user_id = 1;          // 用户ID
+  string order_number = 2; // 订单号
+  string transfer_voucher = 3; // 转账凭证（上传图片后使用半路径请求）
+  string real_name = 4; // 用户备注姓名
+  string front_remark = 5; // 用户备注
+}
+
+message UserRechargeConfirmMsgReply{
+  int64 code = 1;                     // 响应状态码  200 正常
+  string msg = 2;                     // 响应消息    success 成功
+  RechargeInfo recharge_info = 4; // 充值信息
+}
+
 
 
 message UserWithdrawInfoMsgReq {
@@ -542,6 +556,9 @@ message PaymentConfInfo {
 service UserPaymentInnerService {
   // 用户充值
   rpc UserRecharge(UserRechargeInfoMsgReq) returns (UserRechargeInfoMsgReply) {}
+
+  // 用户充值-确认提交
+  rpc UserRechargeConfirm(UserRechargeConfirmMsgReq) returns (UserRechargeConfirmMsgReply) {}
 
   // 用户提现
   rpc UserWithdraw(UserWithdrawInfoMsgReq) returns (UserWithdrawInfoMsgReply) {}

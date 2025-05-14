@@ -49,6 +49,8 @@ type (
 	RechargeChannelsInfoMsgReq       = v1.RechargeChannelsInfoMsgReq
 	RechargeInfo                     = v1.RechargeInfo
 	TransactionRecord                = v1.TransactionRecord
+	UserRechargeConfirmMsgReply      = v1.UserRechargeConfirmMsgReply
+	UserRechargeConfirmMsgReq        = v1.UserRechargeConfirmMsgReq
 	UserRechargeInfoMsgReply         = v1.UserRechargeInfoMsgReply
 	UserRechargeInfoMsgReq           = v1.UserRechargeInfoMsgReq
 	UserSetWithdrawChannelMsgReply   = v1.UserSetWithdrawChannelMsgReply
