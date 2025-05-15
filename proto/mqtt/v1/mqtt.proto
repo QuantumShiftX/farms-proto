@@ -1178,6 +1178,7 @@ message WithdrawAccount {
   string ifsc = 10;                      // 开户行/IFSC
   string branch = 11;                    // 支行名称
   int64 is_default = 12;                 // 是否默认账户：1是，2否
+  int64 remark = 13;                 // 备注
 }
 
 // 提现通道信息
