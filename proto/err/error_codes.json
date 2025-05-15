@@ -241,8 +241,8 @@
       "zh": "农作物已在成熟期间，不可操作，等待收获。"
     },
     "20018": {
-      "en": "Watering or fertilizing limit exceeded.",
-      "zh": "浇水或者施肥次数超过限制。"
+      "en": "Fertilizing limit exceeded for this land.",
+      "zh": "该土地施肥次数超过限制。"
     },
     "20019": {
       "en": "No crop planted on this land. Operation not allowed.",
