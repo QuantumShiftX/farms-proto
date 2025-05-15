@@ -7990,8 +7990,8 @@ type UserSetWithdrawChannelMsgReq struct {
 	UserId            int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                                 // 用户ID
 	AccountType       int64  `protobuf:"varint,2,opt,name=account_type,json=accountType,proto3" json:"account_type,omitempty"`                  // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
 	BankId            int64  `protobuf:"varint,3,opt,name=bank_id,json=bankId,proto3" json:"bank_id,omitempty"`                                 // 银行卡ID
-	RealName          string `protobuf:"bytes,4,opt,name=real_name,json=realName,proto3" json:"real_name,omitempty"`                            //  提现账号/地址
-	Account           string `protobuf:"bytes,5,opt,name=account,proto3" json:"account,omitempty"`                                              //  提现账号/地址
+	RealName          string `protobuf:"bytes,4,opt,name=real_name,json=realName,proto3" json:"real_name,omitempty"`                            //  银行账户名---公链网络
+	Account           string `protobuf:"bytes,5,opt,name=account,proto3" json:"account,omitempty"`                                              //  银行账号---公链地址
 	IsDefault         int64  `protobuf:"varint,6,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`                        //  是否默认账户 1:是 2:否
 	OperateType       int64  `protobuf:"varint,7,opt,name=operate_type,json=operateType,proto3" json:"operate_type,omitempty"`                  // 操作类型，必填 1:新增 2:修改 3:删除
 	Remark            string `protobuf:"bytes,8,opt,name=remark,proto3" json:"remark,omitempty"`                                                // 备注

@@ -1210,8 +1210,8 @@ message UserSetWithdrawChannelMsgReq {
   int64 user_id = 1;          // 用户ID
   int64 account_type = 2; // 账号类型 1:手机号 2:银行卡 3:PIX 4:电子钱包
   int64 bank_id = 3; // 银行卡ID
-  string real_name = 4;                 //  提现账号/地址
-  string account = 5;                 //  提现账号/地址
+  string real_name = 4;                 //  银行账户名---公链网络
+  string account = 5;                 //  银行账号---公链地址
   int64 is_default = 6;                 //  是否默认账户 1:是 2:否
   int64 operate_type = 7;                 // 操作类型，必填 1:新增 2:修改 3:删除
   string remark = 8; // 备注
