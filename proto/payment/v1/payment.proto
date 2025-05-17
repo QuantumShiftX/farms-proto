@@ -303,7 +303,7 @@ message RechargeInfo  {
   string card_name = 5 ;  // 银行卡名称
   string account_name = 6 ;  // 账户名称
   string card_number = 7 ;  // 银行卡号
-  int64 order_status = 8; // 订单状态
+  int64 order_status = 8; // 订单状态 订单状态 1 待支付 2 支付成功 3 支付超时 4 支付失败 5 补单审核中 6 二次审核中 7 待审核 8 已取消
 }
 
 message UserRechargeConfirmMsgReq{
