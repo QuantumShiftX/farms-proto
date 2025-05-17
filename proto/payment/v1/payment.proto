@@ -346,6 +346,7 @@ message WithdrawInfo  {
   string account_name = 6 ;  // 账户名称
   string card_number = 7 ;  // 银行卡号
   int64 fee_amount = 8; // 手续费
+  int64 order_status = 9; // 订单状态 1 - 待出款 2-待风控审核  3 - 待三方付款  4 - 付款失败 5 - 付款失败 6 - 已取消  7 - 已付款  8 - 已强制付款
 }
 
 
