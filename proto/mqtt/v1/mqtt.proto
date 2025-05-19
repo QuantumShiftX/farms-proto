@@ -1157,7 +1157,6 @@ message WithdrawInfo  {
   string card_number = 7 ;  // 银行卡号
   int64 fee_amount = 8; // 手续费
   int64 order_status = 9; // 订单状态 1 - 待出款 2-待风控审核  3 - 待三方付款  4 - 付款失败 5 - 已拒绝 6 - 已取消  7 - 已付款  8 - 已强制付款；英文版1 - Pending Disbursement 2 - Pending Risk Review 3 - Pending Third-party Payment 4 - Payment Failed 5 - Payment Rejected 6 - Cancelled 7 - Paid 8 - Force Paid
-  string transfer_voucher = 10; // 转账凭证
 }
 
 
