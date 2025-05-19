@@ -1272,8 +1272,10 @@ message PaymentConfInfo {
   int64 exchange_rate = 6; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
   int64 min_limit_amount = 7; // 单笔最小限额，下限
   int64 max_limit_amount = 8; // 单笔最大限额，上限
-  repeated RechargeChannel recharge_channel = 9;  // 充值通道列表
-  repeated WithdrawChannel withdraw_channel = 10;  // 提现通道列表
+  int64 fixed_fee = 9; // 固定手续费
+  int64 percentage_fee = 10; // 百分比手续费 以1000000为单位，例如 20%=0.20=0.20×1,000,000=200,000
+  repeated RechargeChannel recharge_channel = 11;  // 充值通道列表
+  repeated WithdrawChannel withdraw_channel = 12;  // 提现通道列表
 }
 
 
