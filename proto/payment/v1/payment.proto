@@ -551,8 +551,10 @@ message PaymentConfInfo {
   string currency_code = 4; // 币种
   string logo_url = 5; // 图标
   int64 exchange_rate = 6; // 兑换比例 1 USDT 兑换目标货币的汇率 1usdt兑换0.998美元 那么exchange_rate=0.998*1000000
-  repeated RechargeChannel recharge_channel = 7;  // 充值通道列表
-  repeated WithdrawChannel withdraw_channel = 8;  // 提现通道列表
+  int64 min_limit_amount = 7; // 单笔最小限额，下限
+  int64 max_limit_amount = 8; // 单笔最大限额，上限
+  repeated RechargeChannel recharge_channel = 9;  // 充值通道列表
+  repeated WithdrawChannel withdraw_channel = 10;  // 提现通道列表
 }
 
 
