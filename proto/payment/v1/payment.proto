@@ -327,7 +327,6 @@ message UserWithdrawInfoMsgReq {
   int64 amount = 2;           // 提现金额(金额*1000000)
   int64 withdraw_id = 3;       //提现账号id
   string currency_code = 4;                 // 币种
-  int64 withdraw_channel_id = 5;          // 提现通道id
   string remark = 8; // 备注
 }
 

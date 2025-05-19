@@ -7059,7 +7059,7 @@ type RechargeInfo struct {
 	CardName       string `protobuf:"bytes,5,opt,name=card_name,json=cardName,proto3" json:"card_name,omitempty"`                    // 银行卡名称
 	AccountName    string `protobuf:"bytes,6,opt,name=account_name,json=accountName,proto3" json:"account_name,omitempty"`           // 账户名称
 	CardNumber     string `protobuf:"bytes,7,opt,name=card_number,json=cardNumber,proto3" json:"card_number,omitempty"`              // 银行卡号
-	OrderStatus    int64  `protobuf:"varint,8,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`          // 订单状态 1 待支付 2 支付成功 3 支付超时 4 支付失败 5 补单审核中 6 二次审核中 7 待审核 8 已取消
+	OrderStatus    int64  `protobuf:"varint,8,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`          // 订单状态 1 待支付 2 支付成功 3 支付超时 4 支付失败 5 补单审核中 6 二次审核中 7 待审核 8 已取消 英文版 1 - Pending Payment 2 - Payment Successful 3 - Payment Timeout 4 - Payment Failed 5 - Supplementary Order Under Review 6 - Secondary Review in Progress 7 - Pending Review 8 - Cancelled
 }
 
 func (x *RechargeInfo) Reset() {
@@ -7297,12 +7297,11 @@ type UserWithdrawInfoMsgReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserId            int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                                    // 用户ID
-	Amount            int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`                                                  // 提现金额(金额*1000000)
-	WithdrawId        int64  `protobuf:"varint,3,opt,name=withdraw_id,json=withdrawId,proto3" json:"withdraw_id,omitempty"`                        //提现账号id
-	CurrencyCode      string `protobuf:"bytes,4,opt,name=currency_code,json=currencyCode,proto3" json:"currency_code,omitempty"`                   // 币种
-	WithdrawChannelId int64  `protobuf:"varint,5,opt,name=withdraw_channel_id,json=withdrawChannelId,proto3" json:"withdraw_channel_id,omitempty"` // 提现通道id
-	Remark            string `protobuf:"bytes,8,opt,name=remark,proto3" json:"remark,omitempty"`                                                   // 备注
+	UserId       int64  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                  // 用户ID
+	Amount       int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`                                // 提现金额(金额*1000000)
+	WithdrawId   int64  `protobuf:"varint,3,opt,name=withdraw_id,json=withdrawId,proto3" json:"withdraw_id,omitempty"`      //提现账号id
+	CurrencyCode string `protobuf:"bytes,4,opt,name=currency_code,json=currencyCode,proto3" json:"currency_code,omitempty"` // 币种
+	Remark       string `protobuf:"bytes,8,opt,name=remark,proto3" json:"remark,omitempty"`                                 // 备注
 }
 
 func (x *UserWithdrawInfoMsgReq) Reset() {
@@ -7363,13 +7362,6 @@ func (x *UserWithdrawInfoMsgReq) GetCurrencyCode() string {
 		return x.CurrencyCode
 	}
 	return ""
-}
-
-func (x *UserWithdrawInfoMsgReq) GetWithdrawChannelId() int64 {
-	if x != nil {
-		return x.WithdrawChannelId
-	}
-	return 0
 }
 
 func (x *UserWithdrawInfoMsgReq) GetRemark() string {
@@ -7455,7 +7447,7 @@ type WithdrawInfo struct {
 	AccountName    string `protobuf:"bytes,6,opt,name=account_name,json=accountName,proto3" json:"account_name,omitempty"`           // 账户名称
 	CardNumber     string `protobuf:"bytes,7,opt,name=card_number,json=cardNumber,proto3" json:"card_number,omitempty"`              // 银行卡号
 	FeeAmount      int64  `protobuf:"varint,8,opt,name=fee_amount,json=feeAmount,proto3" json:"fee_amount,omitempty"`                // 手续费
-	OrderStatus    int64  `protobuf:"varint,9,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`          // 订单状态 1 - 待出款 2-待风控审核  3 - 待三方付款  4 - 付款失败 5 - 付款失败 6 - 已取消  7 - 已付款  8 - 已强制付款
+	OrderStatus    int64  `protobuf:"varint,9,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`          // 订单状态 1 - 待出款 2-待风控审核  3 - 待三方付款  4 - 付款失败 5 - 付款失败 6 - 已取消  7 - 已付款  8 - 已强制付款；英文版1 - Pending Disbursement 2 - Pending Risk Review 3 - Pending Third-party Payment 4 - Payment Failed 5 - Payment Failed 6 - Cancelled 7 - Paid 8 - Force Paid
 }
 
 func (x *WithdrawInfo) Reset() {
@@ -12918,7 +12910,7 @@ var file_mqtt_v1_mqtt_proto_rawDesc = []byte{
 	0x69, 0x6e, 0x66, 0x6f, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x6d, 0x71, 0x74,
 	0x74, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x49, 0x6e, 0x66,
 	0x6f, 0x52, 0x0c, 0x72, 0x65, 0x63, 0x68, 0x61, 0x72, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x22,
-	0xd7, 0x01, 0x0a, 0x16, 0x55, 0x73, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77,
+	0xa7, 0x01, 0x0a, 0x16, 0x55, 0x73, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77,
 	0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73,
 	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65,
 	0x72, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20,
@@ -12927,10 +12919,7 @@ var file_mqtt_v1_mqtt_proto_rawDesc = []byte{
 	0x52, 0x0a, 0x77, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x0d,
 	0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x04, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x0c, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x43, 0x6f, 0x64,
-	0x65, 0x12, 0x2e, 0x0a, 0x13, 0x77, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x5f, 0x63, 0x68,
-	0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x11,
-	0x77, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x49,
-	0x64, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x6d, 0x61, 0x72, 0x6b, 0x18, 0x08, 0x20, 0x01, 0x28,
+	0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x6d, 0x61, 0x72, 0x6b, 0x18, 0x08, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x06, 0x72, 0x65, 0x6d, 0x61, 0x72, 0x6b, 0x22, 0x7c, 0x0a, 0x18, 0x55, 0x73, 0x65,
 	0x72, 0x57, 0x69, 0x74, 0x68, 0x64, 0x72, 0x61, 0x77, 0x49, 0x6e, 0x66, 0x6f, 0x4d, 0x73, 0x67,
 	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20,
