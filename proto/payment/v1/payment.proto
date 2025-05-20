@@ -581,19 +581,22 @@ message OrderInfo {
   string order_number = 1;
   int64 user_id = 2;
   string currency_code = 3;
-  int64 payment_amount = 4 ; // 付款金额
-  int64 received_amount = 5 ;// 接收金额
-  int64 order_time = 6; // 订单时间
-  int64 success_time = 7; // 成功时间
-  int64 payment_method = 8;    // 支付方式  1:USDT虚拟货币 2:银行卡 3: 快捷支付
-  int64 status = 9;       // 订单状态
-  string card_name = 10 ;  // 银行卡名称
-  string account_name = 11 ;  // 账户名称
-  string card_number = 12 ;  // 银行卡号
-  string transfer_voucher = 13; // 转账凭证
-  int64 payment_config_type = 14; // 支付配置类型 1: 充值 2: 提现
-  int64 channel_id = 15; // 渠道ID
-  int64 bank_id = 16; // 银行ID
+  int64 payment_amount = 4 ; // 用户提交金额
+  int64 received_amount = 5 ;// 换汇之后的金额
+  int64 actual_received_amount = 6 ;// 实际接收的金额
+  int64 fee_amount = 7 ;// 手续费
+  int64 order_time = 8; // 订单时间
+  int64 success_time = 9; // 成功时间
+  int64 payment_method = 10;    // 支付方式  1:USDT虚拟货币 2:银行卡 3: 快捷支付
+  int64 status = 11;       // 订单状态
+  string card_name = 12 ;  // 银行卡名称
+  string account_name = 13 ;  // 账户名称
+  string card_number = 14 ;  // 银行卡号
+  string transfer_voucher = 15; // 转账凭证
+  int64 payment_config_type = 16; // 支付配置类型 1: 充值 2: 提现
+  int64 payment_config_id = 17; // 支付方式ID
+  int64 channel_id = 18; // 渠道ID
+  int64 bank_id = 19; // 银行ID
 }
 
 // 支付服务
