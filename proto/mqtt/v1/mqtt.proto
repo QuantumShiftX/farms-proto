@@ -1311,7 +1311,7 @@ message OrderInfo {
   int64 order_time = 8; // 订单时间
   int64 success_time = 9; // 成功时间
   int64 payment_method = 10;    // 支付方式  1:USDT虚拟货币 2:银行卡 3: 快捷支付
-  int64 status = 11;       // 订单状态
+  int64 order_status = 11;       // 订单状态
   string card_name = 12 ;  // 银行卡名称
   string account_name = 13 ;  // 账户名称
   string card_number = 14 ;  // 银行卡号
