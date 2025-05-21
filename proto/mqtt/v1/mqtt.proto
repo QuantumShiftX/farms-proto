@@ -1124,6 +1124,7 @@ message UserRechargeConfirmMsgReq{
   string transfer_voucher = 3; // 转账凭证（上传图片后使用半路径请求）
   string real_name = 4; // 用户备注姓名
   string front_remark = 5; // 用户备注
+  string operation_type = 6; // 操作类型 1：充值确认，2：修改数据
 }
 
 message UserRechargeConfirmMsgReply{
