@@ -488,9 +488,8 @@ message UserTransactionRecordsMsgReq {
   int64 user_id = 1;  // 用户身份验证令牌，必填
   int64 page = 2;
   int64 page_size = 3;
-  int64 category = 4; // 交易类型 (1 充值、2 提现、3 换汇)
-
 }
+
 message UserTransactionRecordsMsgReply {
   int64 page = 1;
   int64 page_size = 2;
@@ -500,22 +499,20 @@ message UserTransactionRecordsMsgReply {
 }
 
 message TransactionRecord {
-  int64 id = 1;                      // 主键，自动增长
-  string username = 2;               // 用户账号
-  string order_no = 3;               // 订单编号
-  string currency_code = 4;          // 币种编码
-  int64 category = 5;                // 交易类型 (1 充值、2 提现、3 换汇)
-  int64 amount_icon = 6;            // 金币变动金额, 单位:微
-  int64 amount_usdt = 7;             // USDT变动金额 单位:微
-  int64 fee_amount = 8;             // 手续费金额, 单位:微
-  string address = 9;  // 钱包地址
-  string protocol = 10; // 网络协议
-  int64 merchant_id = 11;  // 币商ID
-  string merchant_name = 12;  // 币商名字
-  int64 status = 13;                 // 订单状态：1-处理中，2-成功，3-失败
-  string remark = 14;                // 备注信息
-  int64 transaction_time = 15;       // 交易时间
-  string related_id = 16;             // 关联ID，如游戏ID，商品ID，活动ID
+  int64 id = 1;                    // 主键，自动增长
+  int64 user_id = 2;               // 用户ID
+  string username = 3;             // 用户账号
+  string order_no = 4;             // 流水编号
+  string currency_code = 5;        // 币种编码
+  int32 wallet_type = 6;           // 账变钱包 1:用户钱包 2:代理钱包 3:奖励钱包 4:USTD钱包
+  int32 category = 7;              // 账变大类交易类型
+  int32 sub_category = 8;          // 账变小类
+  int64 balance_previous = 9;      // 变动前余额, 单位:微
+  int64 amount = 10;               // 变动金额, 单位:微
+  int64 balance_after = 11;        // 变动后余额, 单位:微
+  string remark = 12;              // 备注信息
+  int64 transaction_time = 13;     // 交易时间-毫秒
+  string related_id = 14;          // 关联ID，如游戏ID，商品ID，活动ID
 }
 
 
