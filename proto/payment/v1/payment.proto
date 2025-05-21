@@ -305,6 +305,7 @@ message RechargeInfo  {
   string card_number = 7 ;  // 银行卡号
   int64 order_status = 8; // 订单状态 订单状态 1 待支付 2 支付成功 3 支付超时 4 支付失败 5 补单审核中 6 二次审核中 7 待审核 8 已取消
   string transfer_voucher = 9; // 转账凭证
+  int64 actual_received_amount = 10 ;// 实际接收的金额
 }
 
 message UserRechargeConfirmMsgReq{
@@ -349,6 +350,7 @@ message WithdrawInfo  {
   string card_number = 7 ;  // 银行卡号
   int64 fee_amount = 8; // 手续费
   int64 order_status = 9; // 订单状态1 - 待出款 2-待风控审核  3 - 待三方付款  4 - 付款失败 5 - 已拒绝 6 - 已取消  7 - 已付款  8 - 已强制付款
+  int64 actual_received_amount = 10 ;// 实际接收的金额
 }
 
 
