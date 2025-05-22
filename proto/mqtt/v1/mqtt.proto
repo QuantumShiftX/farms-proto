@@ -1287,7 +1287,7 @@ message PaymentConfInfo {
 message GetPendingOrderMsgReq{
   int64 user_id = 1;         // 用户ID
   int64 payment_config_type = 2; // 支付配置类型 1: 充值 2: 提现
-  int64 order_status = 3; //  1 - 处理中 2 - 处理成功 3 - 处理失败
+  int64 order_status = 3; //  1 - 处理中 2 - 处理成功 3 - 处理失败 英文 1 - Processing  2 - Success 3 - Failed
   int64 page = 4;
   int64 page_size = 5;
 }
