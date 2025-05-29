@@ -1084,6 +1084,8 @@ message MerchantInfo {
   int64 exchange_rate = 4; // 汇率(代币->USDT)
   string protocol = 5; // 币商协议
   int64 balance = 6; // 库存余额(USDT)
+  int64 min_limit_amount = 7; // 单笔最小限额
+  int64 max_limit_amount = 8; // 单笔最大限额
 }
 
 // 币商汇率请求

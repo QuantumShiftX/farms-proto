@@ -4610,7 +4610,7 @@ type GetPendingOrderMsgReq struct {
 
 	UserId            int64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`                                    // 用户ID
 	PaymentConfigType int64 `protobuf:"varint,2,opt,name=payment_config_type,json=paymentConfigType,proto3" json:"payment_config_type,omitempty"` // 支付配置类型 1: 充值 2: 提现
-	OrderStatus       int64 `protobuf:"varint,3,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`                     //  1 - 处理中 2 - 处理成功 3 - 处理失败
+	OrderStatus       int64 `protobuf:"varint,3,opt,name=order_status,json=orderStatus,proto3" json:"order_status,omitempty"`                     //  1 - 处理中 2 - 处理成功 3 - 处理失败 英文 1 - Processing  2 - Success 3 - Failed
 	Page              int64 `protobuf:"varint,4,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize          int64 `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 }
