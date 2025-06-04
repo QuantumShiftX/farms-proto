@@ -180,6 +180,10 @@
       "en": "Insufficient merchant inventory, please adjust the amount.",
       "zh": "币商库存不足，请调整金额。"
     },
+    "10036": {
+      "en": "Invalid password. Requires: letters, numbers, symbols, 8+ chars.",
+      "zh": "密码格式错误，需包含英文字母、数字和特殊字符，不少于8位。"
+    },
     "20000": {
       "en": "Farm not found.",
       "zh": "农场不存在。"
