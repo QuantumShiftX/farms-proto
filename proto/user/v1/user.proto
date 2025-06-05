@@ -161,7 +161,7 @@ message MaintenanceNeedsResponse {
 // 维护需求检查请求
 message CheckCropsNeedsRequest {
   repeated int64 user_id = 1;
-  bool isSelf = 2;  // false 检查自己能否给自己维护，true 还是检查自己能否被好友维护
+  bool isFriend = 2;  // false 检查自己能否给自己维护，true 还是检查自己能否被好友维护
 }
 // 维护需求检查响应
 message CheckCropsNeedsResponse {
