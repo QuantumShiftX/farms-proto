@@ -29,7 +29,6 @@ type (
 	FaqItem                       = v1.FaqItem
 	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply
 	FarmAgreementInfoMsgReq       = v1.FarmAgreementInfoMsgReq
-	GetAgreementReply             = v1.GetAgreementReply
 	GetApkAddressReply            = v1.GetApkAddressReply
 	GetCustomerServiceReply       = v1.GetCustomerServiceReply
 	GetCustomerServiceReq         = v1.GetCustomerServiceReq
@@ -37,6 +36,7 @@ type (
 	GetDownloadAddrReply          = v1.GetDownloadAddrReply
 	GetNotificationsListReply     = v1.GetNotificationsListReply
 	GetNotificationsListReq       = v1.GetNotificationsListReq
+	GetSystemConfReply            = v1.GetSystemConfReply
 	ManageReply                   = v1.ManageReply
 	ManageReq                     = v1.ManageReq
 	NotificationInfo              = v1.NotificationInfo
@@ -53,7 +53,7 @@ type (
 
 	ManageApiService interface {
 		SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
-		GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
+		GetSystemConf(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetSystemConfReply, error)
 		GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 		GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
 	}
@@ -74,9 +74,9 @@ func (m *defaultManageApiService) SendCaptcha(ctx context.Context, in *SendCaptc
 	return client.SendCaptcha(ctx, in, opts...)
 }
 
-func (m *defaultManageApiService) GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error) {
+func (m *defaultManageApiService) GetSystemConf(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetSystemConfReply, error) {
 	client := v1.NewManageApiServiceClient(m.cli.Conn())
-	return client.GetAgreement(ctx, in, opts...)
+	return client.GetSystemConf(ctx, in, opts...)
 }
 
 func (m *defaultManageApiService) GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error) {

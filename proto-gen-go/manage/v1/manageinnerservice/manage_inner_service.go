@@ -29,7 +29,6 @@ type (
 	FaqItem                       = v1.FaqItem
 	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply
 	FarmAgreementInfoMsgReq       = v1.FarmAgreementInfoMsgReq
-	GetAgreementReply             = v1.GetAgreementReply
 	GetApkAddressReply            = v1.GetApkAddressReply
 	GetCustomerServiceReply       = v1.GetCustomerServiceReply
 	GetCustomerServiceReq         = v1.GetCustomerServiceReq
@@ -37,6 +36,7 @@ type (
 	GetDownloadAddrReply          = v1.GetDownloadAddrReply
 	GetNotificationsListReply     = v1.GetNotificationsListReply
 	GetNotificationsListReq       = v1.GetNotificationsListReq
+	GetSystemConfReply            = v1.GetSystemConfReply
 	ManageReply                   = v1.ManageReply
 	ManageReq                     = v1.ManageReq
 	NotificationInfo              = v1.NotificationInfo

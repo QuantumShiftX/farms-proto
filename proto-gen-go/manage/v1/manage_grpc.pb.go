@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	ManageApiService_SendCaptcha_FullMethodName        = "/manage.v1.ManageApiService/SendCaptcha"
-	ManageApiService_GetAgreement_FullMethodName       = "/manage.v1.ManageApiService/GetAgreement"
+	ManageApiService_GetSystemConf_FullMethodName      = "/manage.v1.ManageApiService/GetSystemConf"
 	ManageApiService_GetApkAddress_FullMethodName      = "/manage.v1.ManageApiService/GetApkAddress"
 	ManageApiService_GetCustomerService_FullMethodName = "/manage.v1.ManageApiService/GetCustomerService"
 )
@@ -30,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManageApiServiceClient interface {
 	SendCaptcha(ctx context.Context, in *SendCaptchaReq, opts ...grpc.CallOption) (*ManageReply, error)
-	GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error)
+	GetSystemConf(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetSystemConfReply, error)
 	GetApkAddress(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetApkAddressReply, error)
 	GetCustomerService(ctx context.Context, in *GetCustomerServiceReq, opts ...grpc.CallOption) (*GetCustomerServiceReply, error)
 }
@@ -52,9 +52,9 @@ func (c *manageApiServiceClient) SendCaptcha(ctx context.Context, in *SendCaptch
 	return out, nil
 }
 
-func (c *manageApiServiceClient) GetAgreement(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetAgreementReply, error) {
-	out := new(GetAgreementReply)
-	err := c.cc.Invoke(ctx, ManageApiService_GetAgreement_FullMethodName, in, out, opts...)
+func (c *manageApiServiceClient) GetSystemConf(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*GetSystemConfReply, error) {
+	out := new(GetSystemConfReply)
+	err := c.cc.Invoke(ctx, ManageApiService_GetSystemConf_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (c *manageApiServiceClient) GetCustomerService(ctx context.Context, in *Get
 // for forward compatibility
 type ManageApiServiceServer interface {
 	SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error)
-	GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error)
+	GetSystemConf(context.Context, *ManageReq) (*GetSystemConfReply, error)
 	GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error)
 	GetCustomerService(context.Context, *GetCustomerServiceReq) (*GetCustomerServiceReply, error)
 	mustEmbedUnimplementedManageApiServiceServer()
@@ -97,8 +97,8 @@ type UnimplementedManageApiServiceServer struct {
 func (UnimplementedManageApiServiceServer) SendCaptcha(context.Context, *SendCaptchaReq) (*ManageReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendCaptcha not implemented")
 }
-func (UnimplementedManageApiServiceServer) GetAgreement(context.Context, *ManageReq) (*GetAgreementReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAgreement not implemented")
+func (UnimplementedManageApiServiceServer) GetSystemConf(context.Context, *ManageReq) (*GetSystemConfReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSystemConf not implemented")
 }
 func (UnimplementedManageApiServiceServer) GetApkAddress(context.Context, *ManageReq) (*GetApkAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApkAddress not implemented")
@@ -137,20 +137,20 @@ func _ManageApiService_SendCaptcha_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ManageApiService_GetAgreement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ManageApiService_GetSystemConf_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ManageReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ManageApiServiceServer).GetAgreement(ctx, in)
+		return srv.(ManageApiServiceServer).GetSystemConf(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ManageApiService_GetAgreement_FullMethodName,
+		FullMethod: ManageApiService_GetSystemConf_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ManageApiServiceServer).GetAgreement(ctx, req.(*ManageReq))
+		return srv.(ManageApiServiceServer).GetSystemConf(ctx, req.(*ManageReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -203,8 +203,8 @@ var ManageApiService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ManageApiService_SendCaptcha_Handler,
 		},
 		{
-			MethodName: "GetAgreement",
-			Handler:    _ManageApiService_GetAgreement_Handler,
+			MethodName: "GetSystemConf",
+			Handler:    _ManageApiService_GetSystemConf_Handler,
 		},
 		{
 			MethodName: "GetApkAddress",
