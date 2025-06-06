@@ -91,19 +91,20 @@ message DefaultVipInfoReply{
 // SettingBaseInfo 代表所有设置的配置，包括基础设置和返利设置
 message SettingBaseInfoReply {
   // 基础设置
-  int64 initial_land = 1;          // 初始土地配置配置总数
+  int64 initial_land = 1;          // 初始土地配置配置总数（施肥总数）
   int64 initial_cultivated = 2;          // 初始土地配置（开垦的总数）
-  int64 friend_watering_times = 3; // 好友浇水次数
+  int64 friend_watering_times = 3; // 好友(自己)浇水次数
   string download_page_link = 4;        // 下载页面链接
   string download_apk_link = 11;        // 下载apk链接
-  int64 new_user_invitation = 5;   // 是否开启有新用户邀请
+  int64 new_user_invitation = 5;   // 是否开启有新用户邀请 1 开启 2 关闭
   string about_platform = 6;       // 关于平台的描述
+  int64 is_register_verify = 7;       // 是否开启注册验证 1 开启 2 关闭
 
   // 返利设置
-  RegistrationRewards registration_rewards = 7; // 注册奖励
-  DepositRewards deposit_rewards = 8;           // 存款奖励
-  CollectionRewards collection_rewards = 9;     // 收集奖励
-  SettlementConfig settlement_config = 10;       // 结算配置
+  RegistrationRewards registration_rewards = 8; // 注册奖励
+  DepositRewards deposit_rewards = 9;           // 存款奖励
+  CollectionRewards collection_rewards = 10;     // 收集奖励
+  SettlementConfig settlement_config = 12;       // 结算配置
 }
 
 // RegistrationRewards 代表注册奖励配置
