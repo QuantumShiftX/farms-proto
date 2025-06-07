@@ -184,6 +184,10 @@
       "en": "Invalid password. Requires: letters, numbers, 8+ chars.",
       "zh": "密码格式错误，需包含英文字母、数字和特殊字符，不少于8位。"
     },
+    "10037": {
+      "en": "File size exceeds limit. Maximum 20MB allowed.",
+      "zh": "上传文件超过限制，最大支持20MB。"
+    },
     "20000": {
       "en": "Farm not found.",
       "zh": "农场不存在。"
