@@ -542,6 +542,7 @@ var DispatcherAsync_ServiceDesc = grpc.ServiceDesc{
 const (
 	DispatcherTimer_CycleFertileTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherTimer/CycleFertileTreeStatusCheck"
 	DispatcherTimer_CycleCropStageUpdate_FullMethodName        = "/dispatcher.v1.DispatcherTimer/CycleCropStageUpdate"
+	DispatcherTimer_CycleSettleAgentReward_FullMethodName      = "/dispatcher.v1.DispatcherTimer/CycleSettleAgentReward"
 )
 
 // DispatcherTimerClient is the client API for DispatcherTimer service.
@@ -552,6 +553,8 @@ type DispatcherTimerClient interface {
 	CycleFertileTreeStatusCheck(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 农场作物状态更新
 	CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 代理奖励结算
+	CycleSettleAgentReward(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherTimerClient struct {
@@ -580,6 +583,15 @@ func (c *dispatcherTimerClient) CycleCropStageUpdate(ctx context.Context, in *Di
 	return out, nil
 }
 
+func (c *dispatcherTimerClient) CycleSettleAgentReward(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherTimer_CycleSettleAgentReward_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DispatcherTimerServer is the server API for DispatcherTimer service.
 // All implementations must embed UnimplementedDispatcherTimerServer
 // for forward compatibility
@@ -588,6 +600,8 @@ type DispatcherTimerServer interface {
 	CycleFertileTreeStatusCheck(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	// 农场作物状态更新
 	CycleCropStageUpdate(context.Context, *DispatcherReq) (*DispatcherReply, error)
+	// 代理奖励结算
+	CycleSettleAgentReward(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherTimerServer()
 }
 
@@ -600,6 +614,9 @@ func (UnimplementedDispatcherTimerServer) CycleFertileTreeStatusCheck(context.Co
 }
 func (UnimplementedDispatcherTimerServer) CycleCropStageUpdate(context.Context, *DispatcherReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CycleCropStageUpdate not implemented")
+}
+func (UnimplementedDispatcherTimerServer) CycleSettleAgentReward(context.Context, *DispatcherReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CycleSettleAgentReward not implemented")
 }
 func (UnimplementedDispatcherTimerServer) mustEmbedUnimplementedDispatcherTimerServer() {}
 
@@ -650,6 +667,24 @@ func _DispatcherTimer_CycleCropStageUpdate_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DispatcherTimer_CycleSettleAgentReward_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DispatcherReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherTimerServer).CycleSettleAgentReward(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherTimer_CycleSettleAgentReward_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherTimerServer).CycleSettleAgentReward(ctx, req.(*DispatcherReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DispatcherTimer_ServiceDesc is the grpc.ServiceDesc for DispatcherTimer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -664,6 +699,10 @@ var DispatcherTimer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CycleCropStageUpdate",
 			Handler:    _DispatcherTimer_CycleCropStageUpdate_Handler,
+		},
+		{
+			MethodName: "CycleSettleAgentReward",
+			Handler:    _DispatcherTimer_CycleSettleAgentReward_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

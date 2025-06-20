@@ -139,4 +139,7 @@ service DispatcherTimer {
   // 农场作物状态更新
   rpc CycleCropStageUpdate(DispatcherReq) returns (DispatcherReply) {};
 
+  // 代理奖励结算
+  rpc CycleSettleAgentReward(DispatcherReq) returns (DispatcherReply) {};
+
 }
