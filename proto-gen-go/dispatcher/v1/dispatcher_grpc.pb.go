@@ -543,7 +543,8 @@ const (
 	DispatcherTimer_CycleFertileTreeStatusCheck_FullMethodName = "/dispatcher.v1.DispatcherTimer/CycleFertileTreeStatusCheck"
 	DispatcherTimer_CycleCropStageUpdate_FullMethodName        = "/dispatcher.v1.DispatcherTimer/CycleCropStageUpdate"
 	DispatcherTimer_CycleSettleAgentReward_FullMethodName      = "/dispatcher.v1.DispatcherTimer/CycleSettleAgentReward"
-	DispatcherTimer_CycleUpdateExchangeRate_FullMethodName     = "/dispatcher.v1.DispatcherTimer/CycleUpdateExchangeRate"
+	DispatcherTimer_CycleUpdateBaseExchangeRate_FullMethodName = "/dispatcher.v1.DispatcherTimer/CycleUpdateBaseExchangeRate"
+	DispatcherTimer_CycleUpdateRealExchangeRate_FullMethodName = "/dispatcher.v1.DispatcherTimer/CycleUpdateRealExchangeRate"
 )
 
 // DispatcherTimerClient is the client API for DispatcherTimer service.
@@ -556,8 +557,10 @@ type DispatcherTimerClient interface {
 	CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	// 代理奖励结算
 	CycleSettleAgentReward(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-	// 周期性更新汇率数据
-	CycleUpdateExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 周期性更新基准汇率数据
+	CycleUpdateBaseExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+	// 周期性更新实时汇率数据
+	CycleUpdateRealExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 }
 
 type dispatcherTimerClient struct {
@@ -595,9 +598,18 @@ func (c *dispatcherTimerClient) CycleSettleAgentReward(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *dispatcherTimerClient) CycleUpdateExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+func (c *dispatcherTimerClient) CycleUpdateBaseExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	out := new(DispatcherReply)
-	err := c.cc.Invoke(ctx, DispatcherTimer_CycleUpdateExchangeRate_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DispatcherTimer_CycleUpdateBaseExchangeRate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dispatcherTimerClient) CycleUpdateRealExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	out := new(DispatcherReply)
+	err := c.cc.Invoke(ctx, DispatcherTimer_CycleUpdateRealExchangeRate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -614,8 +626,10 @@ type DispatcherTimerServer interface {
 	CycleCropStageUpdate(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	// 代理奖励结算
 	CycleSettleAgentReward(context.Context, *DispatcherReq) (*DispatcherReply, error)
-	// 周期性更新汇率数据
-	CycleUpdateExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error)
+	// 周期性更新基准汇率数据
+	CycleUpdateBaseExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error)
+	// 周期性更新实时汇率数据
+	CycleUpdateRealExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error)
 	mustEmbedUnimplementedDispatcherTimerServer()
 }
 
@@ -632,8 +646,11 @@ func (UnimplementedDispatcherTimerServer) CycleCropStageUpdate(context.Context, 
 func (UnimplementedDispatcherTimerServer) CycleSettleAgentReward(context.Context, *DispatcherReq) (*DispatcherReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CycleSettleAgentReward not implemented")
 }
-func (UnimplementedDispatcherTimerServer) CycleUpdateExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CycleUpdateExchangeRate not implemented")
+func (UnimplementedDispatcherTimerServer) CycleUpdateBaseExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CycleUpdateBaseExchangeRate not implemented")
+}
+func (UnimplementedDispatcherTimerServer) CycleUpdateRealExchangeRate(context.Context, *DispatcherReq) (*DispatcherReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CycleUpdateRealExchangeRate not implemented")
 }
 func (UnimplementedDispatcherTimerServer) mustEmbedUnimplementedDispatcherTimerServer() {}
 
@@ -702,20 +719,38 @@ func _DispatcherTimer_CycleSettleAgentReward_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DispatcherTimer_CycleUpdateExchangeRate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DispatcherTimer_CycleUpdateBaseExchangeRate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DispatcherReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DispatcherTimerServer).CycleUpdateExchangeRate(ctx, in)
+		return srv.(DispatcherTimerServer).CycleUpdateBaseExchangeRate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DispatcherTimer_CycleUpdateExchangeRate_FullMethodName,
+		FullMethod: DispatcherTimer_CycleUpdateBaseExchangeRate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DispatcherTimerServer).CycleUpdateExchangeRate(ctx, req.(*DispatcherReq))
+		return srv.(DispatcherTimerServer).CycleUpdateBaseExchangeRate(ctx, req.(*DispatcherReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DispatcherTimer_CycleUpdateRealExchangeRate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DispatcherReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DispatcherTimerServer).CycleUpdateRealExchangeRate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DispatcherTimer_CycleUpdateRealExchangeRate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DispatcherTimerServer).CycleUpdateRealExchangeRate(ctx, req.(*DispatcherReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -740,8 +775,12 @@ var DispatcherTimer_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DispatcherTimer_CycleSettleAgentReward_Handler,
 		},
 		{
-			MethodName: "CycleUpdateExchangeRate",
-			Handler:    _DispatcherTimer_CycleUpdateExchangeRate_Handler,
+			MethodName: "CycleUpdateBaseExchangeRate",
+			Handler:    _DispatcherTimer_CycleUpdateBaseExchangeRate_Handler,
+		},
+		{
+			MethodName: "CycleUpdateRealExchangeRate",
+			Handler:    _DispatcherTimer_CycleUpdateRealExchangeRate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

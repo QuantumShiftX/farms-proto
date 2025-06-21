@@ -37,8 +37,10 @@ type (
 		CycleCropStageUpdate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 		// 代理奖励结算
 		CycleSettleAgentReward(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
-		// 周期性更新汇率数据
-		CycleUpdateExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 周期性更新基准汇率数据
+		CycleUpdateBaseExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
+		// 周期性更新实时汇率数据
+		CycleUpdateRealExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error)
 	}
 
 	defaultDispatcherTimer struct {
@@ -70,8 +72,14 @@ func (m *defaultDispatcherTimer) CycleSettleAgentReward(ctx context.Context, in 
 	return client.CycleSettleAgentReward(ctx, in, opts...)
 }
 
-// 周期性更新汇率数据
-func (m *defaultDispatcherTimer) CycleUpdateExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+// 周期性更新基准汇率数据
+func (m *defaultDispatcherTimer) CycleUpdateBaseExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
 	client := v1.NewDispatcherTimerClient(m.cli.Conn())
-	return client.CycleUpdateExchangeRate(ctx, in, opts...)
+	return client.CycleUpdateBaseExchangeRate(ctx, in, opts...)
+}
+
+// 周期性更新实时汇率数据
+func (m *defaultDispatcherTimer) CycleUpdateRealExchangeRate(ctx context.Context, in *DispatcherReq, opts ...grpc.CallOption) (*DispatcherReply, error) {
+	client := v1.NewDispatcherTimerClient(m.cli.Conn())
+	return client.CycleUpdateRealExchangeRate(ctx, in, opts...)
 }
