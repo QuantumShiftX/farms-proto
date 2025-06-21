@@ -25,6 +25,7 @@ type (
 	DefaultVipInfoReply           = v1.DefaultVipInfoReply
 	DepositRewards                = v1.DepositRewards
 	DesignatedVipInfoReply        = v1.DesignatedVipInfoReply
+	ExchangeRateSettingInfoReply  = v1.ExchangeRateSettingInfoReply
 	FaqCategoryItem               = v1.FaqCategoryItem
 	FaqItem                       = v1.FaqItem
 	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply

@@ -25,6 +25,7 @@ type (
 	DefaultVipInfoReply           = v1.DefaultVipInfoReply
 	DepositRewards                = v1.DepositRewards
 	DesignatedVipInfoReply        = v1.DesignatedVipInfoReply
+	ExchangeRateSettingInfoReply  = v1.ExchangeRateSettingInfoReply
 	FaqCategoryItem               = v1.FaqCategoryItem
 	FaqItem                       = v1.FaqItem
 	FarmAgreementInfoMsgReply     = v1.FarmAgreementInfoMsgReply
@@ -60,6 +61,8 @@ type (
 		GetDesignatedVipInfo(ctx context.Context, in *GetDesignatedVipInfoReq, opts ...grpc.CallOption) (*DesignatedVipInfoReply, error)
 		// 获取设置基础信息
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
+		// 获取汇率设置
+		GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error)
 		// 获取vip等级信息
 		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 		// 获取模板信息列表
@@ -105,6 +108,12 @@ func (m *defaultManageInnerService) GetDesignatedVipInfo(ctx context.Context, in
 func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetSettingBaseInfo(ctx, in, opts...)
+}
+
+// 获取汇率设置
+func (m *defaultManageInnerService) GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetExchangeRateSettingInfo(ctx, in, opts...)
 }
 
 // 获取vip等级信息

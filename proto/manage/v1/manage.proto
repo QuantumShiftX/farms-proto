@@ -108,6 +108,16 @@ message SettingBaseInfoReply {
   SettlementConfig settlement_config = 12;       // 结算配置
 }
 
+
+message ExchangeRateSettingInfoReply{
+  int64 current_base_rate = 1;        // 当前基准汇率（实际生效的值）
+  int64 scheduled_base_rate = 2;      // 预设基准汇率（将于当天0点生效）
+  int64 upward_fluctuation = 3;       // 上浮幅度（正向波动范围）
+  int64 downward_fluctuation = 4;     // 下浮幅度（负向波动范围）
+}
+
+
+
 // RegistrationRewards 代表注册奖励配置
 message RegistrationRewards {
   int64 enabled = 1;      // 是否启用注册奖励（1-启用，2-禁用）
@@ -170,6 +180,7 @@ message DesignatedVipInfoReply{
 }
 
 
+
 service ManageInnerService {
   // 获取默认VIP等级信息
   rpc GetDefaultVipInfo (ManageReq) returns (DefaultVipInfoReply);
@@ -177,6 +188,8 @@ service ManageInnerService {
   rpc GetDesignatedVipInfo (GetDesignatedVipInfoReq) returns (DesignatedVipInfoReply);
   // 获取设置基础信息
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
+  // 获取汇率设置
+  rpc GetExchangeRateSettingInfo(ManageReq) returns (ExchangeRateSettingInfoReply) {};
   // 获取vip等级信息
   rpc VipLevelInfo (VipLevelInfoMsgReq) returns (VipLevelInfoMsgReply);
   // 获取模板信息列表
@@ -193,8 +206,8 @@ service ManageInnerService {
   rpc GetAgentRuleInfoMsg (AgentRuleInfoMsgReq) returns (AgentRuleInfoMsgReply);
   // 获取当前汇率
   rpc GetCurrentRateInfoMsg(GetRateInfoMsgReq) returns (GetRateInfoMsgReply) {};
-}
 
+}
 
 
 
