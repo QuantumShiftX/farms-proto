@@ -190,6 +190,8 @@ service ManageInnerService {
   rpc GetSettingBaseInfo (ManageReq) returns (SettingBaseInfoReply);
   // 获取汇率设置
   rpc GetExchangeRateSettingInfo(ManageReq) returns (ExchangeRateSettingInfoReply) {};
+  // 设置汇率相关的操作
+  rpc SetExchangeRateSettingInfo(ManageReq) returns (ManageReply) {};
   // 获取vip等级信息
   rpc VipLevelInfo (VipLevelInfoMsgReq) returns (VipLevelInfoMsgReply);
   // 获取模板信息列表

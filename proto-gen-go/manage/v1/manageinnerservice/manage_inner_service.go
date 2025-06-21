@@ -63,6 +63,8 @@ type (
 		GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 		// 获取汇率设置
 		GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error)
+		// 设置汇率相关的操作
+		SetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
 		// 获取vip等级信息
 		VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 		// 获取模板信息列表
@@ -114,6 +116,12 @@ func (m *defaultManageInnerService) GetSettingBaseInfo(ctx context.Context, in *
 func (m *defaultManageInnerService) GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetExchangeRateSettingInfo(ctx, in, opts...)
+}
+
+// 设置汇率相关的操作
+func (m *defaultManageInnerService) SetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.SetExchangeRateSettingInfo(ctx, in, opts...)
 }
 
 // 获取vip等级信息

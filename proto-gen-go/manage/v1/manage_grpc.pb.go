@@ -224,6 +224,7 @@ const (
 	ManageInnerService_GetDesignatedVipInfo_FullMethodName       = "/manage.v1.ManageInnerService/GetDesignatedVipInfo"
 	ManageInnerService_GetSettingBaseInfo_FullMethodName         = "/manage.v1.ManageInnerService/GetSettingBaseInfo"
 	ManageInnerService_GetExchangeRateSettingInfo_FullMethodName = "/manage.v1.ManageInnerService/GetExchangeRateSettingInfo"
+	ManageInnerService_SetExchangeRateSettingInfo_FullMethodName = "/manage.v1.ManageInnerService/SetExchangeRateSettingInfo"
 	ManageInnerService_VipLevelInfo_FullMethodName               = "/manage.v1.ManageInnerService/VipLevelInfo"
 	ManageInnerService_GetNotificationsList_FullMethodName       = "/manage.v1.ManageInnerService/GetNotificationsList"
 	ManageInnerService_GetDownloadAddress_FullMethodName         = "/manage.v1.ManageInnerService/GetDownloadAddress"
@@ -246,6 +247,8 @@ type ManageInnerServiceClient interface {
 	GetSettingBaseInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*SettingBaseInfoReply, error)
 	// 获取汇率设置
 	GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error)
+	// 设置汇率相关的操作
+	SetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error)
 	// 获取vip等级信息
 	VipLevelInfo(ctx context.Context, in *VipLevelInfoMsgReq, opts ...grpc.CallOption) (*VipLevelInfoMsgReply, error)
 	// 获取模板信息列表
@@ -302,6 +305,15 @@ func (c *manageInnerServiceClient) GetSettingBaseInfo(ctx context.Context, in *M
 func (c *manageInnerServiceClient) GetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ExchangeRateSettingInfoReply, error) {
 	out := new(ExchangeRateSettingInfoReply)
 	err := c.cc.Invoke(ctx, ManageInnerService_GetExchangeRateSettingInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *manageInnerServiceClient) SetExchangeRateSettingInfo(ctx context.Context, in *ManageReq, opts ...grpc.CallOption) (*ManageReply, error) {
+	out := new(ManageReply)
+	err := c.cc.Invoke(ctx, ManageInnerService_SetExchangeRateSettingInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -392,6 +404,8 @@ type ManageInnerServiceServer interface {
 	GetSettingBaseInfo(context.Context, *ManageReq) (*SettingBaseInfoReply, error)
 	// 获取汇率设置
 	GetExchangeRateSettingInfo(context.Context, *ManageReq) (*ExchangeRateSettingInfoReply, error)
+	// 设置汇率相关的操作
+	SetExchangeRateSettingInfo(context.Context, *ManageReq) (*ManageReply, error)
 	// 获取vip等级信息
 	VipLevelInfo(context.Context, *VipLevelInfoMsgReq) (*VipLevelInfoMsgReply, error)
 	// 获取模板信息列表
@@ -426,6 +440,9 @@ func (UnimplementedManageInnerServiceServer) GetSettingBaseInfo(context.Context,
 }
 func (UnimplementedManageInnerServiceServer) GetExchangeRateSettingInfo(context.Context, *ManageReq) (*ExchangeRateSettingInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExchangeRateSettingInfo not implemented")
+}
+func (UnimplementedManageInnerServiceServer) SetExchangeRateSettingInfo(context.Context, *ManageReq) (*ManageReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetExchangeRateSettingInfo not implemented")
 }
 func (UnimplementedManageInnerServiceServer) VipLevelInfo(context.Context, *VipLevelInfoMsgReq) (*VipLevelInfoMsgReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VipLevelInfo not implemented")
@@ -532,6 +549,24 @@ func _ManageInnerService_GetExchangeRateSettingInfo_Handler(srv interface{}, ctx
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManageInnerServiceServer).GetExchangeRateSettingInfo(ctx, req.(*ManageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManageInnerService_SetExchangeRateSettingInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ManageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManageInnerServiceServer).SetExchangeRateSettingInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ManageInnerService_SetExchangeRateSettingInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManageInnerServiceServer).SetExchangeRateSettingInfo(ctx, req.(*ManageReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -702,6 +737,10 @@ var ManageInnerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetExchangeRateSettingInfo",
 			Handler:    _ManageInnerService_GetExchangeRateSettingInfo_Handler,
+		},
+		{
+			MethodName: "SetExchangeRateSettingInfo",
+			Handler:    _ManageInnerService_SetExchangeRateSettingInfo_Handler,
 		},
 		{
 			MethodName: "VipLevelInfo",
