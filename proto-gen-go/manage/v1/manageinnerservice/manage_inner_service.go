@@ -36,6 +36,8 @@ type (
 	GetDownloadAddrReply          = v1.GetDownloadAddrReply
 	GetNotificationsListReply     = v1.GetNotificationsListReply
 	GetNotificationsListReq       = v1.GetNotificationsListReq
+	GetRateInfoMsgReply           = v1.GetRateInfoMsgReply
+	GetRateInfoMsgReq             = v1.GetRateInfoMsgReq
 	GetSystemConfReply            = v1.GetSystemConfReply
 	ManageReply                   = v1.ManageReply
 	ManageReq                     = v1.ManageReq
@@ -72,6 +74,8 @@ type (
 		GetCurrencyInfoMsg(ctx context.Context, in *CurrencyInfoMsgReq, opts ...grpc.CallOption) (*CurrencyInfoMsgReqReply, error)
 		// 获取代理规则信息
 		GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error)
+		// 获取当前汇率
+		GetCurrentRateInfoMsg(ctx context.Context, in *GetRateInfoMsgReq, opts ...grpc.CallOption) (*GetRateInfoMsgReply, error)
 	}
 
 	defaultManageInnerService struct {
@@ -143,4 +147,10 @@ func (m *defaultManageInnerService) GetCurrencyInfoMsg(ctx context.Context, in *
 func (m *defaultManageInnerService) GetAgentRuleInfoMsg(ctx context.Context, in *AgentRuleInfoMsgReq, opts ...grpc.CallOption) (*AgentRuleInfoMsgReply, error) {
 	client := v1.NewManageInnerServiceClient(m.cli.Conn())
 	return client.GetAgentRuleInfoMsg(ctx, in, opts...)
+}
+
+// 获取当前汇率
+func (m *defaultManageInnerService) GetCurrentRateInfoMsg(ctx context.Context, in *GetRateInfoMsgReq, opts ...grpc.CallOption) (*GetRateInfoMsgReply, error) {
+	client := v1.NewManageInnerServiceClient(m.cli.Conn())
+	return client.GetCurrentRateInfoMsg(ctx, in, opts...)
 }

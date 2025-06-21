@@ -142,4 +142,6 @@ service DispatcherTimer {
   // 代理奖励结算
   rpc CycleSettleAgentReward(DispatcherReq) returns (DispatcherReply) {};
 
+  // 周期性更新汇率数据
+  rpc CycleUpdateExchangeRate(DispatcherReq) returns (DispatcherReply) {};
 }

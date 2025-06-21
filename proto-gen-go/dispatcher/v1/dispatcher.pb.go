@@ -1116,7 +1116,7 @@ var file_dispatcher_v1_dispatcher_proto_rawDesc = []byte{
 	0x65, 0x61, 0x74, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x53, 0x6c, 0x6f, 0x77, 0x52, 0x65, 0x71, 0x1a,
 	0x1e, 0x2e, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
 	0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32,
-	0xa2, 0x02, 0x0a, 0x0f, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x54, 0x69,
+	0xfd, 0x02, 0x0a, 0x0f, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x54, 0x69,
 	0x6d, 0x65, 0x72, 0x12, 0x5d, 0x0a, 0x1b, 0x43, 0x79, 0x63, 0x6c, 0x65, 0x46, 0x65, 0x72, 0x74,
 	0x69, 0x6c, 0x65, 0x54, 0x72, 0x65, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x68, 0x65,
 	0x63, 0x6b, 0x12, 0x1c, 0x2e, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x2e,
@@ -1134,8 +1134,14 @@ var file_dispatcher_v1_dispatcher_proto_rawDesc = []byte{
 	0x72, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x52,
 	0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x2e,
 	0x76, 0x31, 0x2e, 0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76, 0x31, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6c, 0x79, 0x22, 0x00, 0x12, 0x59, 0x0a, 0x17, 0x43, 0x79, 0x63, 0x6c, 0x65, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x45, 0x78, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x52, 0x61, 0x74, 0x65, 0x12,
+	0x1c, 0x2e, 0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x44, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e,
+	0x64, 0x69, 0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x69,
+	0x73, 0x70, 0x61, 0x74, 0x63, 0x68, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42,
+	0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -1185,23 +1191,25 @@ var file_dispatcher_v1_dispatcher_proto_depIdxs = []int32{
 	0,  // 13: dispatcher.v1.DispatcherTimer.CycleFertileTreeStatusCheck:input_type -> dispatcher.v1.DispatcherReq
 	0,  // 14: dispatcher.v1.DispatcherTimer.CycleCropStageUpdate:input_type -> dispatcher.v1.DispatcherReq
 	0,  // 15: dispatcher.v1.DispatcherTimer.CycleSettleAgentReward:input_type -> dispatcher.v1.DispatcherReq
-	1,  // 16: dispatcher.v1.DispatcherAsync.UpdateFortuneTreeStatusCheck:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 17: dispatcher.v1.DispatcherAsync.UpdateCropStatusCheck:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 18: dispatcher.v1.DispatcherAsync.CropReadyToHarvest:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 19: dispatcher.v1.DispatcherAsync.UpdateOnlineRewardTask:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 20: dispatcher.v1.DispatcherAsync.TriggerUserRegistrationEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 21: dispatcher.v1.DispatcherAsync.TriggerUserLoginEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 22: dispatcher.v1.DispatcherAsync.TriggerUserRechargeEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 23: dispatcher.v1.DispatcherAsync.TriggerUserWithdrawEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 24: dispatcher.v1.DispatcherAsync.TriggerUserFriendActionEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 25: dispatcher.v1.DispatcherAsync.TriggerUserEvent:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 26: dispatcher.v1.DispatcherAsync.TriggerHeartbeatEventFast:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 27: dispatcher.v1.DispatcherAsync.TriggerHeartbeatEventSlow:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 28: dispatcher.v1.DispatcherTimer.CycleFertileTreeStatusCheck:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 29: dispatcher.v1.DispatcherTimer.CycleCropStageUpdate:output_type -> dispatcher.v1.DispatcherReply
-	1,  // 30: dispatcher.v1.DispatcherTimer.CycleSettleAgentReward:output_type -> dispatcher.v1.DispatcherReply
-	16, // [16:31] is the sub-list for method output_type
-	1,  // [1:16] is the sub-list for method input_type
+	0,  // 16: dispatcher.v1.DispatcherTimer.CycleUpdateExchangeRate:input_type -> dispatcher.v1.DispatcherReq
+	1,  // 17: dispatcher.v1.DispatcherAsync.UpdateFortuneTreeStatusCheck:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 18: dispatcher.v1.DispatcherAsync.UpdateCropStatusCheck:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 19: dispatcher.v1.DispatcherAsync.CropReadyToHarvest:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 20: dispatcher.v1.DispatcherAsync.UpdateOnlineRewardTask:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 21: dispatcher.v1.DispatcherAsync.TriggerUserRegistrationEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 22: dispatcher.v1.DispatcherAsync.TriggerUserLoginEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 23: dispatcher.v1.DispatcherAsync.TriggerUserRechargeEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 24: dispatcher.v1.DispatcherAsync.TriggerUserWithdrawEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 25: dispatcher.v1.DispatcherAsync.TriggerUserFriendActionEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 26: dispatcher.v1.DispatcherAsync.TriggerUserEvent:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 27: dispatcher.v1.DispatcherAsync.TriggerHeartbeatEventFast:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 28: dispatcher.v1.DispatcherAsync.TriggerHeartbeatEventSlow:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 29: dispatcher.v1.DispatcherTimer.CycleFertileTreeStatusCheck:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 30: dispatcher.v1.DispatcherTimer.CycleCropStageUpdate:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 31: dispatcher.v1.DispatcherTimer.CycleSettleAgentReward:output_type -> dispatcher.v1.DispatcherReply
+	1,  // 32: dispatcher.v1.DispatcherTimer.CycleUpdateExchangeRate:output_type -> dispatcher.v1.DispatcherReply
+	17, // [17:33] is the sub-list for method output_type
+	1,  // [1:17] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name

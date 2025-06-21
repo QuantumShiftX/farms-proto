@@ -36,6 +36,8 @@ type (
 	GetDownloadAddrReply          = v1.GetDownloadAddrReply
 	GetNotificationsListReply     = v1.GetNotificationsListReply
 	GetNotificationsListReq       = v1.GetNotificationsListReq
+	GetRateInfoMsgReply           = v1.GetRateInfoMsgReply
+	GetRateInfoMsgReq             = v1.GetRateInfoMsgReq
 	GetSystemConfReply            = v1.GetSystemConfReply
 	ManageReply                   = v1.ManageReply
 	ManageReq                     = v1.ManageReq

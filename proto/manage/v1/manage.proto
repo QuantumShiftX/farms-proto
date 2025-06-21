@@ -191,6 +191,8 @@ service ManageInnerService {
   rpc GetCurrencyInfoMsg (CurrencyInfoMsgReq) returns (CurrencyInfoMsgReqReply) {}
   // 获取代理规则信息
   rpc GetAgentRuleInfoMsg (AgentRuleInfoMsgReq) returns (AgentRuleInfoMsgReply);
+  // 获取当前汇率
+  rpc GetCurrentRateInfoMsg(GetRateInfoMsgReq) returns (GetRateInfoMsgReply) {};
 }
 
 
@@ -290,6 +292,18 @@ message AgentRuleInfoMsgReq{
 message AgentRuleInfoMsgReply {
   DepositRewards deposit_rules = 1;        // 存款返佣规则
   CollectionRewards harvest_rules = 2;     // 收获返佣规则
+}
+
+
+// 获取汇率请求
+message GetRateInfoMsgReq {
+  int64 user_id = 1; // 用户ID
+}
+
+// 获取汇率响应
+message GetRateInfoMsgReply {
+  int64 rate = 1;                // 汇率
+  int64 timestamp = 2;            // 时间戳
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ //
